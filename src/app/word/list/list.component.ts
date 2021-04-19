@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'ngd-list',
+  selector: 'ow-list',
   templateUrl: './list.component.html',
   styleUrls: ['./list.component.scss']
 })

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'ngd-view',
+  selector: 'ow-view',
   templateUrl: './view.component.html',
   styleUrls: ['./view.component.scss']
 })

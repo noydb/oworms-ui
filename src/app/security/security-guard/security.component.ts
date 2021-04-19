@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'ngd-security-guard',
+  selector: 'ow-security-guard',
   templateUrl: './security.component.html',
   styleUrls: ['./security.component.scss']
 })
