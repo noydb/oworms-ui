@@ -1,11 +1,6 @@
-# ng-dictionary
-#### **Command**: `ng new ng-dictionary --package-manager=yarn --routing --style=scss --strict --prefix=ngd`
+<img src=""></img>
 
+---
 
-TODO
-- read through properly structring modules (CommonModule, etc. ) look in notes
-- setup guard to check master password
-- add all badges etc like for ts-utils
-- eslint
-- switch to jest
-- go through tsconfig in detail
+command I used to generate this project:\
+`ng new oworms-ui --package-manager=yarn --routing --style=scss --strict --prefix=ow`  
