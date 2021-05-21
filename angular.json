@@ -18,7 +18,7 @@
       },
       "root": "",
       "sourceRoot": "src",
-      "prefix": "ngd",
+      "prefix": "ow",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
@@ -71,7 +71,8 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "ng-dictionary:build"
+            "browserTarget": "ng-dictionary:build",
+            "proxyConfig": "./proxy.conf.json"
           },
           "configurations": {
             "production": {

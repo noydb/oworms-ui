@@ -1,17 +1,25 @@
-import {NgModule} from '@angular/core';
-import {RouterModule, Routes} from '@angular/router';
-import {ViewComponent} from './word/view/view.component';
+import { NgModule } from '@angular/core';
+import { RouterModule, Routes } from '@angular/router';
+
+import { CanActivateGuard } from './guard/can-activate.guard';
+
+import { ListComponent } from './page/list/list.component';
 
 const routes: Routes = [
-  {
-    path: '/',
-    component: ViewComponent
-  }
+	{
+		path: '',
+		component: ListComponent,
+		canActivate: [CanActivateGuard]
+	},
+	{
+		path: 'list',
+		component: ListComponent
+	}
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+	imports: [RouterModule.forRoot(routes)],
+	exports: [RouterModule]
 })
 export class AppRoutingModule {
 }
