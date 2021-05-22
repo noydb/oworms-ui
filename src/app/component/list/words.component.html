@@ -1,0 +1,14 @@
+<div class="worms">
+    <div *ngIf="words$ | async as words" class="words">
+        <div *ngFor="let word of words | chunkPipe: numberOfElements"
+             class="card">
+            <h3 class="word">{{ word.theWord }}</h3>
+            <p class="definition">{{ word.definition }}</p>
+            <p class="pos">{{ word.partOfSpeech }}</p>
+        </div>
+        <div (click)="showMore()" class="card more">
+            <h3>Click to show more</h3>
+            <p>{{ words.length - numberOfElements }} more words to show</p>
+        </div>
+    </div>
+</div>

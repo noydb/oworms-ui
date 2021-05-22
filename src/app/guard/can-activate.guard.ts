@@ -5,26 +5,21 @@ import { Observable } from 'rxjs';
 import { WordService } from '../service/word.service';
 
 @Injectable({
-	providedIn: 'root'
+    providedIn: 'root'
 })
 export class CanActivateGuard implements CanActivate {
 
-	constructor(private readonly router: Router, private readonly wordService: WordService) {
-	}
+    constructor(private readonly router: Router, private readonly wordService: WordService) {
+    }
 
-	canActivate(next: ActivatedRouteSnapshot, state: RouterStateSnapshot):
-		Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
+    canActivate(next: ActivatedRouteSnapshot, state: RouterStateSnapshot):
+        Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
 
-		const u: string = state.root.queryParams.u;
+        const u: string = state.root.queryParams.u;
 
-		this.wordService.setUsername(u);
+        this.wordService.setUsername(u);
 
-		this.router.navigate(
-			['/list'],
-			{ queryParamsHandling: 'preserve' }
-		);
-
-		return false;
-	}
+        return true;
+    }
 
 }

@@ -1,0 +1,57 @@
+@import "../../style/font";
+
+.breadcrumb {
+    padding: 2rem;
+    border-top: 1px solid #dedddd;
+    border-bottom: 1px solid #dedddd;
+    color: #8e8181;
+}
+
+.worms {
+
+    hr {
+        color: #dedddd;
+    }
+
+    .words {
+        display: flex;
+        margin-top: 3rem;
+        margin-bottom: 1rem;
+        flex-wrap: wrap;
+        width: 70%;
+
+        .card {
+            width: 20%;
+            padding: 1rem;
+            border: 1px solid #dedddd;
+            cursor: pointer;
+            box-shadow: 0 2px 4px -5px #101010;
+            transition: all .1s ease-in-out;
+            margin: .5rem;
+
+            .word {
+                font-weight: bold;
+            }
+
+            .definition {
+                font-family: 'ssp-italic';
+            }
+
+            &:hover {
+                background-color: #f6f6f6;
+            }
+        }
+    }
+
+    .word-detail {
+        width: 100%;
+        background-color: #fff;
+        top: 0;
+        border: 1px solid #dedddd;
+        cursor: pointer;
+        box-shadow: 0 2px 4px -5px #101010;
+        position: sticky;
+        position: -webkit-sticky;
+
+    }
+}
