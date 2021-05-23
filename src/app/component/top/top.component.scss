@@ -1,0 +1,42 @@
+.top {
+    padding-bottom: .5rem;
+    border-bottom: 1px solid #dedddd;
+
+    .subtitle {
+        padding-left: .5rem;
+    }
+}
+
+.menu {
+    h4 {
+        padding-top: .5rem;
+        padding-bottom: .5rem;
+    }
+
+    border-bottom: 1px solid #dedddd;
+    padding-bottom: 1rem;
+
+    .items {
+        padding-top: 1rem;
+        display: flex;
+
+        .item {
+            padding: 1rem;
+            border: 1px solid #dedddd;
+            transition: background-color .1s ease-in-out;
+            cursor: pointer;
+
+            &:not(last-of-type) {
+                margin-right: .5rem;
+            }
+
+            &:hover {
+                background-color: #f6f6f6;
+            }
+        }
+    }
+
+    .active {
+        background-color: #f6f6f6;
+    }
+}

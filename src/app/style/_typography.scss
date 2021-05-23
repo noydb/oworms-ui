@@ -1,0 +1,15 @@
+@import './_font';
+
+h1, h2, h3, h4, h5, h6, label, p {
+    margin: 0;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'ssp-regular', $default-font;
+    font-weight: bold;
+}
+
+label, p {
+    font-family: 'ssp-light', $default-font;
+    cursor: pointer;
+}
