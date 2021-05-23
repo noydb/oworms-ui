@@ -6,7 +6,7 @@
   },
   "newProjectRoot": "projects",
   "projects": {
-    "ng-dictionary": {
+    "oworms": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -23,7 +23,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/ng-dictionary",
+            "outputPath": "dist/oworms",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -71,19 +71,19 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "ng-dictionary:build",
+            "browserTarget": "oworms:build",
             "proxyConfig": "./proxy.conf.json"
           },
           "configurations": {
             "production": {
-              "browserTarget": "ng-dictionary:build:production"
+              "browserTarget": "oworms:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "ng-dictionary:build"
+            "browserTarget": "oworms:build"
           }
         },
         "lint": {
@@ -100,5 +100,5 @@
       }
     }
   },
-  "defaultProject": "ng-dictionary"
+  "defaultProject": "oworms"
 }

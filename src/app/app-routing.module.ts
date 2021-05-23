@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-import { CanActivateGuard } from './guard/can-activate.guard';
+import { QueryParamInterceptorGuard } from './guard/query-param-interceptor-guard.service';
 
 import { WordAddComponent } from './component/add/word-add.component';
 import { WordsComponent } from './component/list/words.component';
@@ -11,7 +11,7 @@ const routes: Routes = [
     {
         path: 'worms',
         component: WordsComponent,
-        canActivate: [CanActivateGuard]
+        canActivate: [QueryParamInterceptorGuard]
     },
     {
         path: 'worms/add',

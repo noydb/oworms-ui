@@ -3,6 +3,6 @@ export enum PartOfSpeech {
     ADVERB = 'Adverb',
     NOUN = 'Noun',
     PRONOUN = 'Pronoun',
-    VERB = 'Verb',
-    NA = 'N/A'
+    OTHER = 'Other',
+    VERB = 'Verb'
 }

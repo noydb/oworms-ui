@@ -3,8 +3,9 @@ import { Observable, of } from 'rxjs';
 import { tap } from 'rxjs/operators';
 
 import { WordHttpService } from './word.http.service';
-import { Word } from '../model/word.interface';
+
 import { Statistics } from '../model/statistics.interface';
+import { Word } from '../model/word.interface';
 
 @Injectable()
 export class WordService {

@@ -7,7 +7,7 @@ import { WordService } from '../service/word.service';
 @Injectable({
     providedIn: 'root'
 })
-export class CanActivateGuard implements CanActivate {
+export class QueryParamInterceptorGuard implements CanActivate {
 
     constructor(private readonly router: Router, private readonly wordService: WordService) {
     }

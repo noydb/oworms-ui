@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { Config } from '../../util/config';
+import { MenuItem } from '../../model/menu-item.interface';
 
 @Component({
     selector: 'ow-top',
@@ -10,10 +11,9 @@ import { Config } from '../../util/config';
 })
 export class TopComponent {
 
-    readonly menuItems: any[] = Config.MENU_ITEMS;
+    readonly menuItems: MenuItem[] = Config.MENU_ITEMS;
 
-    constructor(private readonly router: Router,
-                private readonly aRoute: ActivatedRoute) {
+    constructor(private readonly router: Router) {
     }
 
     navigate(path: string): void {

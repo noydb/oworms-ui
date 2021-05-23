@@ -2,9 +2,7 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'ow-root',
-    templateUrl: './app.component.html',
-    styleUrls: ['./app.component.scss']
+    templateUrl: './app.component.html'
 })
 export class AppComponent {
-    title = 'ng-dictionary';
 }

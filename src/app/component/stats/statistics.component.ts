@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { WordService } from '../../service/word.service';
 import { Observable, of } from 'rxjs';
+
+import { WordService } from '../../service/word.service';
+
 import { Statistics } from '../../model/statistics.interface';
 
 @Component({
