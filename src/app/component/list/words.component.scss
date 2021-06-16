@@ -1,13 +1,13 @@
 @import "../../style/font";
 
-.breadcrumb {
-    padding: 2rem;
-    border-top: 1px solid #dedddd;
-    border-bottom: 1px solid #dedddd;
-    color: #8e8181;
+.sticky {
+    position: sticky;
+    top: -1px;
+    background-color: #ffffff;
 }
 
 .worms {
+    border-top: 1px solid #dedddd;
 
     hr {
         color: #dedddd;

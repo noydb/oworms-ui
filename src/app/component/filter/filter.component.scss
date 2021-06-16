@@ -1,0 +1,45 @@
+.filter {
+    width: 100%;
+    padding: .5rem;
+    background-color: #ffffff;
+    height: 30px;
+
+    &-props {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    h5 {
+        padding-top: .5rem;
+    }
+
+    .props {
+        padding-top: 1rem;
+        display: flex;
+
+        .prop {
+            background-color: #f6f6f6;
+            padding: 1rem;
+            border: 1px solid #dedddd;
+            box-shadow: 0 2px 4px -5px #101010;
+            transition: all .1s ease-in-out;
+
+             &-input {
+                display: flex;
+            }
+        }
+    }
+
+    .dropdown-control {
+
+    }
+
+    .dropdown {
+        .item {
+            border-top: 1px solid #dedddd;
+            border-bottom: 1px solid #dedddd;
+            padding-top: .5rem;
+            padding-bottom: .5rem;
+        }
+    }
+}

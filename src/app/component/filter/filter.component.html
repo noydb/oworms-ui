@@ -1,0 +1,17 @@
+<div class="filter">
+    <div class="filter-props">
+        <div class="_" *ngFor="let prop of properties">
+            <div class="prop-input">
+                <ow-input [name]="prop.key + '-input'"
+                          [type]="'input'"
+                          [value]="prop.value"
+                          [placeholder]="prop.key"
+                          (onValueChange)="updateValue($event, prop)"></ow-input>
+                <ow-button type="button" (onButtonClick)="addFilter(prop)">Apply</ow-button>
+                <ow-button type="button" (onButtonClick)="removeFilter(prop)">X</ow-button>
+            </div>
+        </div>
+    </div>
+    <ow-dropdown [items]="posFilters" (onValueChange)="selectPartOfSpeech($event)"></ow-dropdown>
+    <h5>Filtering</h5>
+</div>

@@ -1,0 +1,19 @@
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+
+@Component({
+    selector: 'ow-button',
+    templateUrl: 'button.component.html',
+    styleUrls: ['./button.component.scss']
+})
+export class ButtonComponent {
+
+    @Input()
+    type: string = 'text';
+
+    @Output()
+    onButtonClick: EventEmitter<any> = new EventEmitter<any>();
+
+    onClick(): void {
+        this.onButtonClick.emit();
+    }
+}
