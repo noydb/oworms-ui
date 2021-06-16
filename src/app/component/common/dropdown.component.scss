@@ -1,0 +1,31 @@
+.dropdown {
+    position: relative;
+    width: 100%;
+
+    .closed {
+        height: 0;
+    }
+
+    .dropdown-title {
+        cursor: pointer;
+    }
+
+    .dropdown-list {
+        position: absolute;
+        background-color: #dedddd;
+        z-index: 5000;
+        width: 100%;
+        max-height: 100px;
+        overflow-y: scroll;
+
+        .dropdown-item {
+            display: flex;
+            justify-content: space-between;
+            cursor: pointer;
+
+            &:hover {
+                opacity: .8;
+            }
+        }
+    }
+}
