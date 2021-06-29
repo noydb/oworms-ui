@@ -14,8 +14,8 @@ const routes: Routes = [
         canActivate: [QueryParamInterceptorGuard]
     },
     {
-        path: 'worms/add',
-        component: WordAddComponent,
+        path: 'worm/new',
+        component: WordAddComponent
     },
     {
         path: 'stats',

@@ -8,15 +8,11 @@
 }
 
 .menu {
-    h5 {
-        padding-top: .5rem;
-    }
-
     border-bottom: 1px solid #dedddd;
     padding-bottom: 1rem;
+    padding-top: 1rem;
 
     .items {
-        padding-top: .5rem;
         display: flex;
 
         .item {

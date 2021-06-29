@@ -1,2 +1,12 @@
 @import "./src/app/style/font";
 @import "./src/app/style/typography";
+
+* {
+    box-sizing: border-box;
+}
+
+.sticky {
+    position: sticky;
+    top: -1px;
+    background-color: #ffffff;
+}

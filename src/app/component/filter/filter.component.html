@@ -1,17 +1,21 @@
 <div class="filter">
-    <div class="filter-props">
-        <div class="_" *ngFor="let prop of properties">
+    <h3>Filtering</h3>
+    <div class="props">
+        <div class="prop" *ngFor="let filterProp of properties">
             <div class="prop-input">
-                <ow-input [name]="prop.key + '-input'"
+                <ow-input [name]="filterProp.key + '-input'"
                           [type]="'input'"
-                          [value]="prop.value"
-                          [placeholder]="prop.key"
-                          (onValueChange)="updateValue($event, prop)"></ow-input>
-                <ow-button type="button" (onButtonClick)="addFilter(prop)">Apply</ow-button>
-                <ow-button type="button" (onButtonClick)="removeFilter(prop)">X</ow-button>
+                          [value]="filterProp.value"
+                          [placeholder]="filterProp.pHolder"
+                          (onValueChange)="updateValue($event, filterProp)"></ow-input>
+                <ow-button type="button" (onButtonClick)="addFilter(filterProp)">Apply</ow-button>
+                <ow-button type="button" (onButtonClick)="removeFilter(filterProp)">X</ow-button>
             </div>
         </div>
+        <ow-dropdown [items]="partsOfSpeechDropdownItems"
+                     [selectedValues]="partsOfSpeechToFilterBy"
+                     (valueChange)="selectPartOfSpeech($event)"
+                     [closeAfterEachSelection]="false"></ow-dropdown>
+        <ow-button (onButtonClick)="clearFilters()">Clear Filters</ow-button>
     </div>
-    <ow-dropdown [items]="posFilters" (onValueChange)="selectPartOfSpeech($event)"></ow-dropdown>
-    <h5>Filtering</h5>
 </div>

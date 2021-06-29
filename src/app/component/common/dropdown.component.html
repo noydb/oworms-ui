@@ -1,11 +1,13 @@
 <div class="dropdown">
     <div class="dropdown-title" (click)="this.closed = !this.closed;">
-        <label>{{ selectedValue ? selectedValue : 'Select' }}</label>
+        <label>{{ getTitle() }}</label>
+        <ow-button (onButtonClick)="clearSelection($event)">X</ow-button>
     </div>
     <div class="dropdown-list" [class.closed]="closed">
-        <div *ngFor="let item of items;" (click)="selectItem(item)">
+        <div class="dropdown-item" *ngFor="let item of items"
+             [class.selected]="isSelected(item.value)"
+             (click)="selectItem(item)">
             <label>{{ item.value }}</label>
-            <span>{{ item.value === selectedValue ? 'X' : '' }}</span>
         </div>
     </div>
 </div>

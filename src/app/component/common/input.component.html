@@ -1,5 +1,6 @@
 <input class="input"
        [name]="name"
        [type]="type"
+       [(ngModel)]="value"
        (change)="updateValue($event)"
        [placeholder]="placeholder" />

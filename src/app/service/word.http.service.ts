@@ -36,14 +36,16 @@ export class WordHttpService {
             return undefined;
         }
 
-        const { theWord, definition, partOfSpeech, createdBy, haveLearnt } = wordFilter;
+        const { theWord, definition, partsOfSpeech, createdBy, haveLearnt } = wordFilter;
 
         let params: HttpParams = new HttpParams();
         params = this.setParam(params, 'w', theWord);
         params = this.setParam(params, 'def', definition);
-        params = this.setParam(params, 'pos', partOfSpeech);
         params = this.setParam(params, 'creator', createdBy);
         params = this.setParam(params, 'learnt', haveLearnt);
+        partsOfSpeech?.forEach((pos) => {
+            params = params.append('pos', pos as string);
+        });
 
         return params;
     }

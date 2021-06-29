@@ -1,13 +1,7 @@
 @import "../../style/font";
 
-.sticky {
-    position: sticky;
-    top: -1px;
-    background-color: #ffffff;
-}
-
 .worms {
-    border-top: 1px solid #dedddd;
+    display: flex;
 
     hr {
         color: #dedddd;
@@ -15,8 +9,8 @@
 
     .words {
         display: flex;
-        margin-top: 3rem;
-        margin-bottom: 1rem;
+        max-height: 500px;
+        overflow-y: scroll;
         flex-wrap: wrap;
         width: 70%;
 
@@ -34,7 +28,7 @@
             }
 
             .definition {
-                font-family: 'ssp-italic';
+                font-family: 'ssp-italic' sans-serif;
             }
 
             &:hover {
@@ -42,4 +36,11 @@
             }
         }
     }
+}
+
+.no-worms {
+    padding: 3rem;
+    width: 100%;
+    display: flex;
+    justify-content: center;
 }

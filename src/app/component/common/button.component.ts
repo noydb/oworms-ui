@@ -11,9 +11,9 @@ export class ButtonComponent {
     type: string = 'text';
 
     @Output()
-    onButtonClick: EventEmitter<any> = new EventEmitter<any>();
+    onButtonClick: EventEmitter<Event> = new EventEmitter<Event>();
 
-    onClick(): void {
-        this.onButtonClick.emit();
+    onClick($event: Event): void {
+        this.onButtonClick.emit($event);
     }
 }

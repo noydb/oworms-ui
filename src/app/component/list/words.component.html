@@ -1,8 +1,7 @@
 <div class="sticky">
     <ow-top></ow-top>
-    <ow-filter (onFilterChange)="updateQueryParams($event)"></ow-filter>
 </div>
-<div class="worms">
+<div class="worms" *ngIf="words && words.length !== 0; else empty;">
     <div class="words">
         <div *ngFor="let word of words | chunkPipe: numberOfElements"
              class="card">
@@ -15,4 +14,11 @@
             <p>{{ words.length - numberOfElements }} more words to show</p>
         </div>
     </div>
+    <ow-filter (filterChange)="updateQueryParams($event)" [existingFilter]="existingFilter"></ow-filter>
 </div>
+
+<ng-template #empty>
+    <div class="no-worms">
+        <h2>We couldn't find any words. Maybe try again?</h2>
+    </div>
+</ng-template>
