@@ -1,6 +1,6 @@
 {
     "/o/worms": {
-        "target": "http://localhost:8080",
+        "target": "https://oworms-api.herokuapp.com",
         "secure": false,
         "logLevel": "debug"
     }
