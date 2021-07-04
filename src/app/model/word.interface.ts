@@ -5,9 +5,11 @@ export interface Word {
     theWord?: string;
     definition?: string;
     partOfSpeech?: PartOfSpeech;
-    createdBy?: string;
-    timesViewed?: string;
     pronunciation?: string;
     origin?: string;
+    exampleUsage?: string;
+    creationDate?: Date;
     haveLearnt?: boolean;
+    createdBy?: string;
+    timesViewed?: string;
 }

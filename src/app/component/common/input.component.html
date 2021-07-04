@@ -1,6 +1,19 @@
-<input class="input"
-       [name]="name"
-       [type]="type"
-       [(ngModel)]="value"
-       (change)="updateValue($event)"
-       [placeholder]="placeholder" />
+<div class="ow-input-outer">
+    <input class="ow-input" *ngIf="!withNgModel; else withNgModelInput"
+           [name]="name"
+           [type]="type"
+           (change)="updateValue($event)"
+           [placeholder]="placeholder"
+           [formControlName]="name" />
+</div>
+<label class="ow-input-label" *ngIf="required">required</label>
+
+<ng-template #withNgModelInput>
+    <input class="ow-input"
+           [name]="name"
+           [type]="type"
+           [(ngModel)]="value"
+           (change)="updateValue($event)"
+           [placeholder]="placeholder"
+           [formControlName]="name" />
+</ng-template>

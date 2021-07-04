@@ -10,6 +10,9 @@ export class ButtonComponent {
     @Input()
     type: string = 'text';
 
+    @Input()
+    disabled: boolean = false;
+
     @Output()
     onButtonClick: EventEmitter<Event> = new EventEmitter<Event>();
 

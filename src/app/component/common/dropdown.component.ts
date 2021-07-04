@@ -24,6 +24,9 @@ export class DropdownComponent<T> {
     @Input()
     closeAfterEachSelection: boolean = true;
 
+    @Input()
+    disabled: boolean = false;
+
     closed: boolean = true;
 
     @Output()
@@ -31,6 +34,14 @@ export class DropdownComponent<T> {
 
     selectItem(item: DropdownItem<T>): void {
         this.closed = this.closeAfterEachSelection;
+
+        if (!this.multiSelections) {
+            this.selectedValues = [item.value];
+
+            this.valueChange.emit(this.selectedValues);
+
+            return;
+        }
 
         const existingVal: T | undefined = this.selectedValues.find((sVal) => sVal === item.value);
         if (existingVal) {
@@ -59,5 +70,13 @@ export class DropdownComponent<T> {
 
     getTitle(): string {
         return this.selectedValues.length === 0 ? 'Select' : this.selectedValues.join(', ');
+    }
+
+    invertClosed(): void {
+        if (this.disabled) {
+            return;
+        }
+
+        this.closed = !this.closed;
     }
 }

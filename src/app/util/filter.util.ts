@@ -14,9 +14,9 @@ export class FilterUtil {
 
     static getFreshProps(): FilterProp[] {
         return [
-            { key: 'w', pHolder: 'word', value: undefined, filterBy: false },
-            { key: 'def', pHolder: 'definition', value: undefined, filterBy: false },
-            { key: 'creator', pHolder: 'created by', value: undefined, filterBy: false }
+            { key: 'theWord', pHolder: 'word', value: undefined, filterBy: false },
+            { key: 'definition', pHolder: 'definition', value: undefined, filterBy: false },
+            { key: 'createdBy', pHolder: 'created by', value: undefined, filterBy: false }
             // make learnt a checkbox.
             // { key: 'learnt', pHolder: 'learnt', value: undefined, filterBy: false }
         ];

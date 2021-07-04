@@ -5,10 +5,13 @@
     padding: .5rem;
     text-transform: uppercase;
     transition: all .1s ease-in;
-    cursor: pointer;
     width: 100%;
 
     &:hover {
-        background-color: #dedddd;
+        background-color: #faf8f8;
+    }
+
+    &:not(.disabled) {
+        cursor: pointer;
     }
 }

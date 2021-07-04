@@ -4,6 +4,7 @@
     "scripts": {
         "ng": "ng",
         "start": "ng serve",
+        "start-local": "ng serve --proxy-config=local.proxy.conf.json",
         "build": "ng build",
         "heroku-postbuild": "ng build --configuration production",
         "lint": "ng lint"

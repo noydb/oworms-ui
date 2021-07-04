@@ -5,22 +5,24 @@
 
     h3 {
         padding-top: .5rem;
-        padding-bottom: 1rem;
+        padding-bottom: .5rem;
     }
 
     .props {
-        padding-top: 1rem;
-
         .prop {
-            background-color: #f6f6f6;
             padding: 1rem;
+            margin-bottom: 1rem;
             border: 1px solid #dedddd;
             box-shadow: 0 2px 4px -5px #101010;
             transition: all .1s ease-in-out;
 
-             &-input {
+            &-input {
                 display: flex;
             }
+        }
+
+        .button-row {
+            margin-top: 1rem;
         }
     }
 }

@@ -1,4 +1,4 @@
-@import "../../style/font";
+@import "../../../style/font";
 
 .worms {
     display: flex;
@@ -12,7 +12,7 @@
         max-height: 500px;
         overflow-y: scroll;
         flex-wrap: wrap;
-        width: 70%;
+        width: 80%;
 
         .card {
             width: 20%;
@@ -28,7 +28,13 @@
             }
 
             .definition {
-                font-family: 'ssp-italic' sans-serif;
+                font-size: 12px;
+                padding-top: .5rem;
+                padding-bottom: 1rem;
+            }
+
+            .part-of-speech {
+                font-size: 13px;
             }
 
             &:hover {
@@ -39,8 +45,12 @@
 }
 
 .no-worms {
-    padding: 3rem;
     width: 100%;
-    display: flex;
-    justify-content: center;
+    padding: 3rem;
+
+    .message {
+        display: flex;
+        justify-content: center;
+        margin-bottom: 2rem;
+    }
 }

@@ -1,0 +1,12 @@
+<div class="word-detail" *ngIf="word; else noWord;">
+    <ow-word-form [word]="word"
+                  [title]="'Details for ' + word.theWord"
+                  buttonText="Update Word"
+                  (btnEvent)="update($event)"></ow-word-form>
+</div>
+
+<ng-template #noWord>
+    <div class="no-worm">
+        <h3>That word does not exist.</h3>
+    </div>
+</ng-template>

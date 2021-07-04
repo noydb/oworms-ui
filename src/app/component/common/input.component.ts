@@ -1,9 +1,14 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { ControlContainer, FormGroup, FormGroupDirective } from '@angular/forms';
 
 @Component({
     selector: 'ow-input',
     templateUrl: 'input.component.html',
-    styleUrls: ['./input.component.scss']
+    styleUrls: ['./input.component.scss'],
+    viewProviders: [{
+        provide: ControlContainer,
+        useExisting: FormGroupDirective
+    }]
 })
 export class InputComponent {
 
@@ -11,7 +16,10 @@ export class InputComponent {
     name: string = '';
 
     @Input()
-    type: string = '';
+    required: boolean = false;
+
+    @Input()
+    type: string = 'text';
 
     @Input()
     value: any = undefined;
@@ -19,8 +27,17 @@ export class InputComponent {
     @Input()
     placeholder: string = '';
 
+    @Input()
+    withNgModel: boolean = false;
+
     @Output()
     onValueChange: EventEmitter<any> = new EventEmitter<any>();
+
+    parentForm: FormGroup;
+
+    constructor(private fgDirective: FormGroupDirective) {
+        this.parentForm = fgDirective.form;
+    }
 
     updateValue($event: Event): void {
         // @ts-ignore

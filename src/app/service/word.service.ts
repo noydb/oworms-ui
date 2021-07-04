@@ -18,12 +18,20 @@ export class WordService {
         return this.wordHttpService.retrieveAll(wordFilter);
     }
 
+    retrieve(theWord: string): Observable<Word> {
+        return this.wordHttpService.retrieve(theWord);
+    }
+
     create(word: Word): Observable<void> {
-        return this.wordHttpService.create(word);
+        return this.wordHttpService.create(word, this.username);
+    }
+
+    update(theWord: string, word: Word): Observable<Word> {
+        return this.wordHttpService.update(theWord, word, this.username);
     }
 
     getStatistics(): Observable<Statistics> {
-        return this.wordHttpService.getStatistics(this.username);
+        return this.wordHttpService.getStatistics();
     }
 
     setUsername(username: string): void {

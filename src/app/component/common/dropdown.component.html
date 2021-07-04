@@ -1,7 +1,7 @@
 <div class="dropdown">
-    <div class="dropdown-title" (click)="this.closed = !this.closed;">
+    <div class="dropdown-title" (click)="invertClosed()">
         <label>{{ getTitle() }}</label>
-        <ow-button (onButtonClick)="clearSelection($event)">X</ow-button>
+        <ow-button (onButtonClick)="clearSelection($event)" [disabled]="disabled">X</ow-button>
     </div>
     <div class="dropdown-list" [class.closed]="closed">
         <div class="dropdown-item" *ngFor="let item of items"

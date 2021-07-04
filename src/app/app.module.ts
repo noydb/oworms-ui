@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
-import { FormsModule } from '@angular/forms';
+import { FormGroupDirective, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -11,22 +11,24 @@ import { WordHttpService } from './service/word.http.service';
 import { WordService } from './service/word.service';
 
 import { AppComponent } from './app.component';
-import { WordAddComponent } from './component/add/word-add.component';
+import { WordAddComponent } from './component/word/word-add.component';
+import { WordFormComponent } from './component/word/form/word-form.component';
 import { ButtonComponent } from './component/common/button.component';
 import { DropdownComponent } from './component/common/dropdown.component';
 import { InputComponent } from './component/common/input.component';
 import { FilterComponent } from './component/filter/filter.component';
 import { StatisticsComponent } from './component/stats/statistics.component';
 import { TopComponent } from './component/top/top.component';
-import { WordsComponent } from './component/list/words.component';
+import { WordsComponent } from './component/word/list/words.component';
+import { WordDetailComponent } from './component/word/detail/word-detail.component';
 
 @NgModule({
     imports: [
-        BrowserModule,
-        HttpClientModule,
-
         AppRoutingModule,
-        FormsModule
+        BrowserModule,
+        FormsModule,
+        HttpClientModule,
+        ReactiveFormsModule
     ],
     declarations: [
         AppComponent,
@@ -34,13 +36,18 @@ import { WordsComponent } from './component/list/words.component';
         DropdownComponent,
         FilterComponent,
         InputComponent,
+        WordFormComponent,
         WordAddComponent,
+        WordDetailComponent,
         WordsComponent,
         StatisticsComponent,
         TopComponent,
-        ChunkPipe,
+
+        ChunkPipe
     ],
     providers: [
+        FormGroupDirective,
+
         WordHttpService,
         WordService
     ],
