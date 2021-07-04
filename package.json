@@ -1,6 +1,6 @@
 {
     "name": "oworms",
-    "version": "1.0.2",
+    "version": "1.0.3",
     "scripts": {
         "ng": "ng",
         "start": "node server.js",
@@ -24,6 +24,7 @@
         "@angular/router": "~12.1.1",
         "enhanced-resolve": "^5.8.2",
         "express": "^4.17.1",
+        "http-proxy-middleware": "^2.0.1",
         "path": "^0.12.7",
         "rxjs": "^6.6.3",
         "tslib": "^2.0.0",
