@@ -51,7 +51,7 @@ export class WordDetailComponent implements OnInit, OnDestroy {
             .subscribe(() => {
                 alert('word updated');
 
-                this.router.navigate(['/worms/all'], {
+                this.router.navigate(['/ui/worms/all'], {
                     queryParamsHandling: 'preserve'
                 });
             }, (e) => {

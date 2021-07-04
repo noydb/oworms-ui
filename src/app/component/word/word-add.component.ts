@@ -30,7 +30,7 @@ export class WordAddComponent implements OnDestroy {
             .subscribe(() => {
                 alert('word created');
 
-                this.router.navigate(['/worms/all'], {
+                this.router.navigate(['/ui/worms/all'], {
                     queryParamsHandling: 'preserve'
                 });
             }, (e) => {

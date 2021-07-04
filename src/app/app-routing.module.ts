@@ -8,29 +8,31 @@ import { WordAddComponent } from './component/word/word-add.component';
 import { WordDetailComponent } from './component/word/detail/word-detail.component';
 import { WordsComponent } from './component/word/list/words.component';
 
+// had to add 'ui/' so requests can be redirected in server.js on prod
 const routes: Routes = [
     {
-        path: 'worms/all',
+        // can't use '/' else route is always active
+        path: 'ui/worms/all',
         component: WordsComponent,
         canActivate: [QueryParamInterceptorGuard]
     },
     {
-        path: 'worms/new',
+        path: 'ui/worms/new',
         component: WordAddComponent,
         canActivate: [QueryParamInterceptorGuard]
     },
     {
-        path: 'worms/:theWord',
+        path: 'ui/worms/:theWord',
         component: WordDetailComponent,
         canActivate: [QueryParamInterceptorGuard]
     },
     // {
-    //     path: 'worms/random',
+    //     path: 'ui/worms/random',
     //     component: WordRandomComponent,
     //     canActivate: [QueryParamInterceptorGuard]
     // },
     {
-        path: 'stats',
+        path: 'ui/statistics',
         component: StatisticsComponent
     }
 ];
