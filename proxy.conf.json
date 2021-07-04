@@ -2,6 +2,7 @@
     "/o": {
         "target": "https://oworms-api.herokuapp.com",
         "secure": false,
-        "logLevel": "debug"
+        "logLevel": "debug",
+        "changeOrigin": true
     }
 }
