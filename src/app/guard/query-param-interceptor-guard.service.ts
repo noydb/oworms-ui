@@ -17,6 +17,10 @@ export class QueryParamInterceptorGuard implements CanActivate {
 
         const u: string = state.root.queryParams.u;
 
+        if (!u) {
+            return false;
+        }
+
         this.wordService.setUsername(u);
 
         return true;
