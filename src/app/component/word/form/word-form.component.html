@@ -1,0 +1,30 @@
+<div class="form" [formGroup]="form">
+    <h3 class="form-title">{{ title }}</h3>
+    <div class="form-row">
+        <ow-input name="word" placeholder="the word" [required]="!viewOnly"></ow-input>
+    </div>
+    <div class="form-row">
+        <ow-input name="definition" placeholder="definition" [required]="!viewOnly"></ow-input>
+    </div>
+    <div class="form-row">
+        <ow-input name="origin" placeholder="origin"></ow-input>
+    </div>
+    <div class="form-row">
+        <ow-input name="exampleUsage" placeholder="example usage of word"></ow-input>
+    </div>
+    <div class="form-row">
+        <ow-input name="pronunciation" placeholder="pronunciation"></ow-input>
+    </div>
+    <div class="form-row">
+        <ow-dropdown [items]="partsOfSpeechDropdownItems"
+                     [selectedValues]="[partOfSpeech]"
+                     (valueChange)="selectPartOfSpeech($event)"
+                     [multiSelections]="false"
+                     [disabled]="viewOnly"></ow-dropdown>
+    </div>
+    <div class="form-row" *ngIf="!viewOnly">
+        <ow-button type="button" (onButtonClick)="onButtonClicked()" [disabled]="disabled">
+            {{ buttonText }}
+        </ow-button>
+    </div>
+</div>

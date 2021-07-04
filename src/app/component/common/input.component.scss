@@ -1,17 +1,27 @@
-.input {
-    padding-top: .5rem;
-    padding-bottom: .5rem;
-    border: 1px solid #dedddd;
-    transition: all .1s ease-out;
-    background-color: #f6f6f6;
+.ow-input-outer {
 
-    &:focus-visible {
+    .ow-input {
+        width: 100%;
+        padding-top: .5rem;
+        padding-bottom: .5rem;
         border: 1px solid #dedddd;
-        box-shadow: none;
-        outline: none;
-    }
+        transition: all .1s ease-out;
+        background-color: #ffffff;
 
-    &:hover {
-        background-color: #e7e6e6;
+        &:focus-visible {
+            border: 1px solid #dedddd;
+            box-shadow: none;
+            outline: none;
+        }
+
+        &:hover {
+            background-color: #faf8f8;
+        }
     }
+}
+
+.ow-input-label {
+    padding-left: .3rem;
+    color: #4b4242;
+    font-size: 11px;
 }

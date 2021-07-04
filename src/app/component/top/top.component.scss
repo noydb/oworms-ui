@@ -21,17 +21,21 @@
             transition: background-color .1s ease-in-out;
             cursor: pointer;
 
+            &:hover {
+                background-color: #f6f6f6;
+            }
+
             &:not(last-of-type) {
                 margin-right: .5rem;
             }
 
-            &:hover {
-                background-color: #f6f6f6;
+            label {
+                cursor: pointer;
             }
         }
     }
 
     .active {
-        background-color: #f6f6f6;
+        background-color: #faf8f8;
     }
 }

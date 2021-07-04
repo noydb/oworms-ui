@@ -3,12 +3,12 @@ import { ActivatedRoute, ParamMap, Params, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { map, switchMap, tap } from 'rxjs/operators';
 
-import { WordService } from '../../service/word.service';
+import { WordService } from '../../../service/word.service';
 
-import { SubscriptionUtil } from '../../util/subscription.util';
+import { SubscriptionUtil } from '../../../util/subscription.util';
 
-import { Word } from '../../model/word.interface';
-import { WordFilter } from '../../model/word-filter.interface';
+import { Word } from '../../../model/word.interface';
+import { WordFilter } from '../../../model/word-filter.interface';
 
 @Component({
     selector: 'ow-words',
@@ -29,7 +29,7 @@ export class WordsComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit(): void {
-        this.subs.push(this.loadWords());
+        this.subs.push(this.loadWords(true));
     }
 
     ngOnDestroy(): void {
@@ -50,7 +50,16 @@ export class WordsComponent implements OnInit, OnDestroy {
         this.numberOfElements += 25;
     }
 
-    selectWord(word: Word): void {
+    viewWordDetails(word: Word): void {
+        this.router.navigate(
+            [`/worms/${word.theWord}`],
+            {
+                queryParams: {
+                    u: this.wordService.getUsername()
+                }
+            }
+        );
+
         this.selectedWord = word;
     }
 
@@ -68,26 +77,30 @@ export class WordsComponent implements OnInit, OnDestroy {
         );
     }
 
-    private loadWords(): Subscription {
+    private loadWords(initLoad: boolean = false): Subscription {
         return this.route.queryParamMap
         .pipe(
             map((qParamsMap: ParamMap) => {
                 return {
-                    theWord: qParamsMap.get('w'),
-                    definition: qParamsMap.get('def'),
-                    partsOfSpeech: qParamsMap.getAll('pos'),
-                    createdBy: qParamsMap.get('creator'),
-                    haveLearnt: qParamsMap.get('learnt')
+                    theWord: qParamsMap.get('theWord'),
+                    definition: qParamsMap.get('definition'),
+                    partsOfSpeech: qParamsMap.getAll('partOfSpeech'),
+                    createdBy: qParamsMap.get('createdBy')
                 };
             }),
             tap((wordFilter: WordFilter) => {
-                this.existingFilter = wordFilter;
+                if (initLoad) {
+                    this.existingFilter = wordFilter;
+                }
             }),
             switchMap((wordFilter: WordFilter) => this.wordService.retrieveAll(wordFilter))
         ).subscribe((words: Word[]) => {
             this.words = words;
-
             this.numberOfElements = this.words.length < 25 ? this.words.length : 25;
         });
+    }
+
+    reloadWords(): void {
+        this.subs.push(this.loadWords());
     }
 }

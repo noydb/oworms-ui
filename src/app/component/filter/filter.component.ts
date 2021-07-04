@@ -1,9 +1,11 @@
 import { Component, EventEmitter, Input, OnChanges, Output } from '@angular/core';
+import { FormControl, FormGroup } from '@angular/forms';
 import { Params } from '@angular/router';
+
+import { FilterUtil } from '../../util/filter.util';
 
 import { DropdownItem } from '../../model/dropdown-item.interface';
 import { FilterProp } from '../../model/filter-prop.interface';
-import { FilterUtil } from '../../util/filter.util';
 import { PartOfSpeech } from '../../model/part-of-speech.enum';
 import { WordFilter } from '../../model/word-filter.interface';
 
@@ -24,6 +26,11 @@ export class FilterComponent implements OnChanges {
 
     @Output()
     readonly filterChange: EventEmitter<Params> = new EventEmitter<Params>();
+    readonly form: FormGroup = new FormGroup({
+        theWord: new FormControl(),
+        definition: new FormControl(),
+        createdBy: new FormControl()
+    });
 
     ngOnChanges(): void {
         if (!this.existingFilter) {
@@ -43,17 +50,14 @@ export class FilterComponent implements OnChanges {
 
             // why is optional chaining needed here? existingFilter cannot be undefined (see if check in on changes)
             switch (property.key) {
-                case 'w':
+                case 'theWord':
                     property.value = this.existingFilter?.theWord;
                     break;
-                case 'def':
+                case 'definition':
                     property.value = this.existingFilter?.definition;
                     break;
-                case 'creator':
+                case 'createdBy':
                     property.value = this.existingFilter?.createdBy;
-                    break;
-                case 'learnt':
-                    property.value = this.existingFilter?.haveLearnt;
                     break;
             }
 
@@ -92,7 +96,7 @@ export class FilterComponent implements OnChanges {
         this.partsOfSpeechToFilterBy = $event;
 
         const partOfSpeechFilterProp: FilterProp = {
-            key: 'pos',
+            key: 'partOfSpeech',
             pHolder: 'part of speech',
             value: this.partsOfSpeechToFilterBy,
             filterBy: false
@@ -111,7 +115,7 @@ export class FilterComponent implements OnChanges {
 
         this.partsOfSpeechToFilterBy = [];
         this.removeFilter({
-            key: 'pos',
+            key: 'partOfSpeech',
             value: undefined,
             filterBy: false,
             pHolder: ''
