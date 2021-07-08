@@ -9,25 +9,27 @@ import { filterType, WordFilter } from '../model/word-filter.interface';
 @Injectable()
 export class WordHttpService {
 
+    private readonly baseURL: string = '/api/o';
+
     constructor(private readonly http: HttpClient) {
     }
 
     retrieveAll(wordFilter: WordFilter | undefined): Observable<Word[]> {
         return this.http.get<Word[]>(
-            'o/worms',
+            `${this.baseURL}/worms`,
             {
                 params: this.getHttpParams(wordFilter)
             }
         );
     }
 
-    retrieve(theWord: string): Observable<Word> {
-        return this.http.get<Word>(`o/worms/${theWord}`);
+    retrieve(wordId: number): Observable<Word> {
+        return this.http.get<Word>(`${this.baseURL}/worms/${wordId}`);
     }
 
     create(word: Word, username: string): Observable<void> {
         return this.http.post<void>(
-            `/o/worms`,
+            `${this.baseURL}/worms`,
             word,
             {
                 params: { u: username }
@@ -37,7 +39,7 @@ export class WordHttpService {
 
     update(theWord: string, updatedWord: Word, username: string): Observable<Word> {
         return this.http.put<Word>(
-            `/o/worms/${theWord}`,
+            `${this.baseURL}/worms/${theWord}`,
             updatedWord,
             {
                 params: { u: username }
@@ -46,7 +48,7 @@ export class WordHttpService {
     }
 
     getStatistics(): Observable<Statistics> {
-        return this.http.get<Statistics>('/o/settings');
+        return this.http.get<Statistics>('/api/o/settings');
     }
 
     private getHttpParams(wordFilter: WordFilter | undefined): HttpParams | undefined {

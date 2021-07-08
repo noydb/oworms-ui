@@ -18,8 +18,8 @@ export class WordService {
         return this.wordHttpService.retrieveAll(wordFilter);
     }
 
-    retrieve(theWord: string): Observable<Word> {
-        return this.wordHttpService.retrieve(theWord);
+    retrieve(wordId: number): Observable<Word> {
+        return this.wordHttpService.retrieve(wordId);
     }
 
     create(word: Word): Observable<void> {

@@ -15,11 +15,7 @@ export class QueryParamInterceptorGuard implements CanActivate {
     canActivate(next: ActivatedRouteSnapshot, state: RouterStateSnapshot):
         Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
 
-        const u: string = state.root.queryParams.u;
-
-        if (!u) {
-            return false;
-        }
+        const u: string = state.root.queryParams.u ?? '';
 
         this.wordService.setUsername(u);
 

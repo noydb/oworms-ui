@@ -52,7 +52,7 @@ export class WordsComponent implements OnInit, OnDestroy {
 
     viewWordDetails(word: Word): void {
         this.router.navigate(
-            [`/ui/worms/${word.theWord}`],
+            [`/ui/worms/${word.id}`],
             {
                 queryParams: {
                     u: this.wordService.getUsername()

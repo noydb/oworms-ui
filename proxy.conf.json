@@ -1,8 +1,11 @@
 {
-    "/o": {
+    "/api/*": {
         "target": "https://oworms-api.herokuapp.com",
         "secure": false,
         "logLevel": "debug",
-        "changeOrigin": true
+        "changeOrigin": true,
+        "pathRewrite": {
+            "^/api": ""
+        }
     }
 }

@@ -34,8 +34,8 @@ export class WordDetailComponent implements OnInit, OnDestroy {
     private getWord(): Subscription {
         return this.route.paramMap
         .pipe(
-            map((params: ParamMap) => params.get('theWord') ?? 'word-not-found'),
-            switchMap((theWord: string) => this.service.retrieve(theWord)),
+            map((params: ParamMap) => params.get('id') ?? '0'),
+            switchMap((id: string) => this.service.retrieve(Number(id))),
         ).subscribe((word: Word) => {
             if (word) {
                 this.word = word;

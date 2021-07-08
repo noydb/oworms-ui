@@ -11,6 +11,11 @@ import { WordsComponent } from './component/word/list/words.component';
 // had to add 'ui/' so requests can be redirected in server.js on prod
 const routes: Routes = [
     {
+        path: '',
+        redirectTo: 'ui/worms/all',
+        pathMatch: 'full'
+    },
+    {
         // can't use '/' else route is always active
         path: 'ui/worms/all',
         component: WordsComponent,
@@ -22,7 +27,7 @@ const routes: Routes = [
         canActivate: [QueryParamInterceptorGuard]
     },
     {
-        path: 'ui/worms/:theWord',
+        path: 'ui/worms/:id',
         component: WordDetailComponent,
         canActivate: [QueryParamInterceptorGuard]
     },

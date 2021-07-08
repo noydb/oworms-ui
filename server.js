@@ -11,15 +11,18 @@ const PORT = 8080;
 APP.use(express.static(__dirname + '/dist/oworms'));
 
 // send requests to dist folder and serve index.html (SPA)
-APP.get('/ui/*', function (req, res) {
+APP.get('/ui', function (req, res) {
     res.sendFile(path.join(__dirname + '/dist/oworms/index.html'));
 });
 
 // proxy conf for prod
-APP.use('/o/*', createProxyMiddleware({
+APP.use('/api', createProxyMiddleware({
     target: HOST,
     secure: false,
     changeOrigin: true,
+    pathRewrite: {
+        [`^/api`]: '',
+    },
 }));
 
 // Start the app by listening on the default Heroku port
