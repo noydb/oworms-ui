@@ -1,4 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Title } from '@angular/platform-browser';
 import { ActivatedRoute, ParamMap, Params, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { map, switchMap, tap } from 'rxjs/operators';
@@ -12,12 +13,14 @@ import { AppRoutes } from '../../../util/app.routes';
 import { Word } from '../../../model/word.interface';
 import { WordFilter } from '../../../model/word-filter.interface';
 
+import { LoadComponent } from '../../common/load.component';
+
 @Component({
     selector: 'ow-words',
     templateUrl: './words.component.html',
     styleUrls: ['./words.component.scss']
 })
-export class WordsComponent implements OnInit, OnDestroy {
+export class WordsComponent extends LoadComponent implements OnInit, OnDestroy {
 
     words: Word[] = [];
     selectedWord: Word = {};
@@ -27,7 +30,11 @@ export class WordsComponent implements OnInit, OnDestroy {
 
     constructor(private readonly wordService: WordService,
                 private readonly route: ActivatedRoute,
-                private readonly router: Router) {
+                private readonly router: Router,
+                private readonly titleService: Title) {
+        super();
+
+        this.titleService.setTitle('oworms | all');
     }
 
     ngOnInit(): void {
@@ -69,6 +76,8 @@ export class WordsComponent implements OnInit, OnDestroy {
     }
 
     private loadWords(initLoad: boolean = false): Subscription {
+        this.state = 'loading';
+
         return this.route.queryParamMap
         .pipe(
             map((qParamsMap: ParamMap) => {
@@ -88,6 +97,13 @@ export class WordsComponent implements OnInit, OnDestroy {
         ).subscribe((words: Word[]) => {
             this.words = words;
             this.numberOfElements = this.words.length < 25 ? this.words.length : 25;
+
+            this.state = 'complete';
+        }, (e) => {
+            console.error(e);
+
+            this.state = 'error';
+            this.errorMessage = e.error.message;
         });
     }
 

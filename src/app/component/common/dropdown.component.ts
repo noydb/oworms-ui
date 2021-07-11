@@ -68,7 +68,7 @@ export class DropdownComponent<T> {
         return this.selectedValues.some((sVal) => sVal === value);
     }
 
-    getTitle(): string {
+    get titleOrSelected(): string {
         return this.selectedValues.length === 0 ? 'Select' : this.selectedValues.join(', ');
     }
 

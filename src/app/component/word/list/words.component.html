@@ -1,5 +1,6 @@
-<div class="worms">
-    <div class="words" *ngIf="words && words.length !== 0; else empty">
+<div class="worms" [ngSwitch]="state">
+
+    <div class="words" *ngSwitchCase="'complete'">
         <div *ngFor="let word of words | chunkPipe: numberOfElements"
              class="card"
              (click)="viewWordDetails(word)">
@@ -12,16 +13,17 @@
             <p>{{ words.length - numberOfElements }} more words to show</p>
         </div>
     </div>
-    <ow-filter (filterChange)="updateQueryParams($event)" [existingFilter]="existingFilter"></ow-filter>
-</div>
-
-<ng-template #empty>
-    <div class="no-worms">
+    <div class="words-loading" *ngSwitchCase="'loading'">
+        <label>Loading...</label>
+    </div>
+    <div class="words-none" *ngSwitchCase="'error'">
         <div class="message">
-            <h2>We couldn't find any words. Maybe try again?</h2>
+            <label>{{ errorMessage }}</label>
         </div>
         <div class="button">
             <ow-button (onButtonClick)="reloadWords()">Reload</ow-button>
         </div>
     </div>
-</ng-template>
+
+    <ow-filter (filterChange)="updateQueryParams($event)" [existingFilter]="existingFilter"></ow-filter>
+</div>

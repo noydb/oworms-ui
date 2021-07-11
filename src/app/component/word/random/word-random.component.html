@@ -1,5 +1,12 @@
-<div class="word-detail" *ngIf="word$ | async as word">
-    <ow-word-form [word]="word"
-                  title="Random Word"
+<div class="word-random" [ngSwitch]="state">
+    <ow-word-form *ngSwitchCase="'complete'"
+                  [word]="word"
+                  [title]="'Random Word #' + word.id"
                   [viewOnly]="true"></ow-word-form>
+    <div class="word-random-loading" *ngSwitchCase="'loading'">
+        <label>Loading...</label>
+    </div>
+    <div class="button-row">
+        <ow-button (onButtonClick)="loadWord()">Load Another</ow-button>
+    </div>
 </div>

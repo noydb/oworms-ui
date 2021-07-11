@@ -1,12 +1,13 @@
-<div class="word-detail" *ngIf="word; else noWord;">
-    <ow-word-form [word]="word"
-                  [title]="'Details for ' + word.theWord"
+<div class="word-detail" [ngSwitch]="state">
+    <ow-word-form *ngSwitchCase="'complete'"
+                  [word]="word"
+                  [title]="formTitle"
                   buttonText="Update Word"
                   (btnEvent)="update($event)"></ow-word-form>
-</div>
-
-<ng-template #noWord>
-    <div class="no-worm">
-        <h3>That word does not exist.</h3>
+    <div class="word-detail-loading" *ngSwitchCase="'loading'">
+        <label>Loading...</label>
     </div>
-</ng-template>
+    <div class="word-detail-error" *ngSwitchCase="'error'">
+        <label>{{ errorMessage }}</label>
+    </div>
+</div>
