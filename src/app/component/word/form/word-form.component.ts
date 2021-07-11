@@ -40,7 +40,9 @@ export class WordFormComponent implements OnInit, OnDestroy {
 
     form: FormGroup;
     partsOfSpeechDropdownItems: DropdownItem<PartOfSpeech>[] = FilterUtil.getPartOfSpeechDropdownItems();
-    partOfSpeech: PartOfSpeech = PartOfSpeech.ADJECTIVE;
+
+    // store as array to cater for dropdown. will fix.
+    partOfSpeech: PartOfSpeech[] = [];
 
     private readonly subs: Subscription[] = [];
 
@@ -70,7 +72,7 @@ export class WordFormComponent implements OnInit, OnDestroy {
         const word: Word = {
             theWord: this.getFormVal('word'),
             definition: this.getFormVal('definition'),
-            partOfSpeech: this.partOfSpeech,
+            partOfSpeech: this.partOfSpeech[0],
             pronunciation: this.getFormVal('pronunciation'),
             origin: this.getFormVal('origin'),
             exampleUsage: this.getFormVal('exampleUsage'),
@@ -80,7 +82,7 @@ export class WordFormComponent implements OnInit, OnDestroy {
     }
 
     selectPartOfSpeech($event: PartOfSpeech[]): void {
-        this.partOfSpeech = $event && $event.length > 0 ? $event[0] : PartOfSpeech.OTHER;
+        this.partOfSpeech = $event && $event.length > 0 ? $event : [];
     }
 
     private getFormVal(path: string): string | undefined {
@@ -89,14 +91,14 @@ export class WordFormComponent implements OnInit, OnDestroy {
 
     private injectValuesIntoForm(): void {
         this.form = new FormGroup({
-            word: new FormControl(this.word.theWord, [Validators.required]),
-            definition: new FormControl(this.word.definition, [Validators.required]),
-            pronunciation: new FormControl(this.word.pronunciation),
-            origin: new FormControl(this.word.origin),
-            exampleUsage: new FormControl(this.word.exampleUsage)
+            word: new FormControl(this.word?.theWord, [Validators.required]),
+            definition: new FormControl(this.word?.definition, [Validators.required]),
+            pronunciation: new FormControl(this.word?.pronunciation),
+            origin: new FormControl(this.word?.origin),
+            exampleUsage: new FormControl(this.word?.exampleUsage)
         });
 
-        this.partOfSpeech = this.word.partOfSpeech ?? PartOfSpeech.ADJECTIVE;
+        this.partOfSpeech = this.word?.partOfSpeech ? [this.word.partOfSpeech] : [];
     }
 
     get disabled(): boolean {

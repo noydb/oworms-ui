@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Title } from '@angular/platform-browser';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Observable, of } from 'rxjs';
 
@@ -16,7 +17,9 @@ export class WordOxfordComponent {
         theWord: new FormControl()
     });
 
-    constructor(private readonly service: WordService) {
+    constructor(private readonly service: WordService,
+                private readonly titleService: Title) {
+        this.titleService.setTitle('oworms | oxford search');
     }
 
     searchClick(): void {

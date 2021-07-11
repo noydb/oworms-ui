@@ -17,7 +17,7 @@
     </div>
     <div class="form-row">
         <ow-dropdown [items]="partsOfSpeechDropdownItems"
-                     [selectedValues]="[partOfSpeech]"
+                     [selectedValues]="partOfSpeech"
                      (valueChange)="selectPartOfSpeech($event)"
                      [multiSelections]="false"
                      [disabled]="viewOnly"></ow-dropdown>

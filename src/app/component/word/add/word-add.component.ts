@@ -1,4 +1,5 @@
 import { Component, OnDestroy } from '@angular/core';
+import { Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 
@@ -18,7 +19,10 @@ export class WordAddComponent implements OnDestroy {
 
     private readonly subs: Subscription[] = [];
 
-    constructor(private readonly service: WordService, private readonly router: Router) {
+    constructor(private readonly service: WordService,
+                private readonly router: Router,
+                private readonly titleService: Title) {
+        this.titleService.setTitle('oworms | new');
     }
 
     ngOnDestroy(): void {

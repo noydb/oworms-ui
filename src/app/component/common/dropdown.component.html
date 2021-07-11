@@ -1,6 +1,6 @@
 <div class="dropdown">
     <div class="dropdown-title" (click)="invertClosed()">
-        <label>{{ getTitle() }}</label>
+        <label>{{ titleOrSelected }}</label>
         <ow-button (onButtonClick)="clearSelection($event)" [disabled]="disabled">X</ow-button>
     </div>
     <div class="dropdown-list" [class.closed]="closed">

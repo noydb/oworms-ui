@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Title } from '@angular/platform-browser';
 
 import { LocalStorageService } from '../../service/local-storage.service';
 
@@ -17,11 +18,14 @@ export class CredentialsComponent {
 
     form: FormGroup;
 
-    constructor(private readonly lsService: LocalStorageService) {
+    constructor(private readonly lsService: LocalStorageService,
+                private readonly titleSerivce: Title) {
         this.form = new FormGroup({
             u: new FormControl(lsService.get('u'), [Validators.required]),
             p: new FormControl(lsService.get('p'), [Validators.required])
         });
+
+        this.titleSerivce.setTitle('oworms | credentials');
     }
 
     submit(): void {
