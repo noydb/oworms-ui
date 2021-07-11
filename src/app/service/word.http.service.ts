@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
+import { LocalStorageService } from './local-storage.service';
+
 import { Statistics } from '../model/statistics.interface';
 import { Word } from '../model/word.interface';
 import { filterType, WordFilter } from '../model/word-filter.interface';
@@ -11,14 +13,14 @@ export class WordHttpService {
 
     private readonly baseURL: string = '/api/o';
 
-    constructor(private readonly http: HttpClient) {
+    constructor(private readonly http: HttpClient, private readonly lsService: LocalStorageService) {
     }
 
     retrieveAll(wordFilter: WordFilter | undefined): Observable<Word[]> {
         return this.http.get<Word[]>(
             `${this.baseURL}/worms`,
             {
-                params: this.getHttpParams(wordFilter)
+                params: this.getFilterHttpParams(wordFilter)
             }
         );
     }
@@ -27,23 +29,27 @@ export class WordHttpService {
         return this.http.get<Word>(`${this.baseURL}/worms/${wordId}`);
     }
 
-    create(word: Word, username: string): Observable<void> {
+    retrieveRandom(): Observable<Word> {
+        return this.http.get<Word>(`${this.baseURL}/worms/random`);
+    }
+
+    retrieveFromOxford(theWord: string): Observable<string> {
+        return this.http.get<string>(`${this.baseURL}/worms/oxford/${theWord}`);
+    }
+
+    create(word: Word): Observable<void> {
         return this.http.post<void>(
             `${this.baseURL}/worms`,
             word,
-            {
-                params: { u: username }
-            }
+            { params: this.getCredentialHttpParams() }
         );
     }
 
-    update(theWord: string, updatedWord: Word, username: string): Observable<Word> {
+    update(theWord: string, updatedWord: Word): Observable<Word> {
         return this.http.put<Word>(
             `${this.baseURL}/worms/${theWord}`,
             updatedWord,
-            {
-                params: { u: username }
-            }
+            { params: this.getCredentialHttpParams() }
         );
     }
 
@@ -51,7 +57,13 @@ export class WordHttpService {
         return this.http.get<Statistics>('/api/o/settings');
     }
 
-    private getHttpParams(wordFilter: WordFilter | undefined): HttpParams | undefined {
+    // https://roytuts.com/download-file-from-server-using-angular/
+    // try add types.
+    getCSV(): any {
+        return this.http.get('/api/o/worms/file/csv', { responseType: 'blob' });
+    }
+
+    private getFilterHttpParams(wordFilter: WordFilter | undefined): HttpParams | undefined {
         if (!wordFilter) {
             return undefined;
         }
@@ -76,5 +88,13 @@ export class WordHttpService {
         }
 
         return httpParams.set(paramKey, paramVal);
+    }
+
+    private getCredentialHttpParams(): HttpParams {
+        let params: HttpParams = new HttpParams();
+        params = params.set('u', this.lsService.get('u'));
+        params = params.set('permission_key', this.lsService.get('p'));
+
+        return params;
     }
 }

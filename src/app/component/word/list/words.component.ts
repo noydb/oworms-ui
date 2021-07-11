@@ -7,6 +7,8 @@ import { WordService } from '../../../service/word.service';
 
 import { SubscriptionUtil } from '../../../util/subscription.util';
 
+import { AppRoutes } from '../../../util/app.routes';
+
 import { Word } from '../../../model/word.interface';
 import { WordFilter } from '../../../model/word-filter.interface';
 
@@ -39,9 +41,7 @@ export class WordsComponent implements OnInit, OnDestroy {
             [],
             {
                 relativeTo: this.route,
-                queryParams: {
-                    u: this.wordService.getUsername()
-                }
+                queryParams: {}
             }
         );
     }
@@ -51,14 +51,7 @@ export class WordsComponent implements OnInit, OnDestroy {
     }
 
     viewWordDetails(word: Word): void {
-        this.router.navigate(
-            [`/ui/worms/${word.id}`],
-            {
-                queryParams: {
-                    u: this.wordService.getUsername()
-                }
-            }
-        );
+        this.router.navigate([`${AppRoutes.BASE}/${word.id}`]);
 
         this.selectedWord = word;
     }
@@ -69,10 +62,8 @@ export class WordsComponent implements OnInit, OnDestroy {
             {
                 relativeTo: this.route,
                 queryParams: {
-                    ...$event,
-                    u: this.wordService.getUsername()
-                },
-                // queryParamsHandling: 'merge', // remove to replace all query params by provided
+                    ...$event
+                }
             }
         );
     }

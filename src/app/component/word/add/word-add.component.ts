@@ -2,11 +2,13 @@ import { Component, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 
-import { WordService } from '../../service/word.service';
+import { WordService } from '../../../service/word.service';
 
-import { SubscriptionUtil } from '../../util/subscription.util';
+import { SubscriptionUtil } from '../../../util/subscription.util';
 
-import { Word } from '../../model/word.interface';
+import { AppRoutes } from '../../../util/app.routes';
+
+import { Word } from '../../../model/word.interface';
 
 @Component({
     selector: 'ow-word-add',
@@ -30,13 +32,13 @@ export class WordAddComponent implements OnDestroy {
             .subscribe(() => {
                 alert('word created');
 
-                this.router.navigate(['/ui/worms/all'], {
+                this.router.navigate([AppRoutes.LIST], {
                     queryParamsHandling: 'preserve'
                 });
             }, (e) => {
                 console.error(e);
 
-                alert(e.message);
+                alert(e.error.message);
             })
         );
     }

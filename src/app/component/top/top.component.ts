@@ -1,7 +1,14 @@
 import { Component } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
+import { take } from 'rxjs/operators';
 
-import { Config } from '../../util/config';
+import { WordService } from '../../service/word.service';
+
+import { FileUtil } from '../../util/file.util';
+
+import { AppRoutes } from '../../util/app.routes';
+
 import { MenuItem } from '../../model/menu-item.interface';
 
 @Component({
@@ -11,18 +18,35 @@ import { MenuItem } from '../../model/menu-item.interface';
 })
 export class TopComponent {
 
-    readonly menuItems: MenuItem[] = Config.MENU_ITEMS;
+    readonly menuItems: MenuItem[] = [
+        { name: 'Credentials', path: AppRoutes.CREDS },
+        { name: 'All Words', path: AppRoutes.LIST },
+        { name: 'Add Word', path: AppRoutes.ADD },
+        // { name: 'Search for Word', path: AppRoutes.SEARCH },
+        { name: 'Random Word', path: AppRoutes.RANDOM },
+        { name: 'Search Oxford API', path: AppRoutes.SEARCH_OX },
+        { name: 'Statistics', path: AppRoutes.STATS },
+    ];
 
-    constructor(private readonly router: Router) {
+    private readonly subs: Subscription[] = [];
+
+    constructor(private readonly router: Router, private readonly wordService: WordService) {
     }
 
     navigate(path: string): void {
-        this.router.navigate([path], {
-            queryParamsHandling: 'preserve'
-        });
+        this.router.navigate([path]);
     }
 
     isActive(path: string): boolean {
         return this.router.isActive(path, false);
+    }
+
+    getCSV(): void {
+        this.wordService
+        .getCSV()
+        .pipe(take(1))
+        .subscribe((response: any) => {
+            FileUtil.downloadFile(response);
+        });
     }
 }

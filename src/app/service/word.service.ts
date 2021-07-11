@@ -9,8 +9,6 @@ import { WordFilter } from '../model/word-filter.interface';
 
 @Injectable()
 export class WordService {
-    private username: string = '';
-
     constructor(private readonly wordHttpService: WordHttpService) {
     }
 
@@ -22,23 +20,27 @@ export class WordService {
         return this.wordHttpService.retrieve(wordId);
     }
 
+    retrieveRandom(): Observable<Word> {
+        return this.wordHttpService.retrieveRandom();
+    }
+
+    retrieveFromOxford(theWord: string): Observable<string> {
+        return this.wordHttpService.retrieveFromOxford(theWord);
+    }
+
     create(word: Word): Observable<void> {
-        return this.wordHttpService.create(word, this.username);
+        return this.wordHttpService.create(word);
     }
 
     update(theWord: string, word: Word): Observable<Word> {
-        return this.wordHttpService.update(theWord, word, this.username);
+        return this.wordHttpService.update(theWord, word);
     }
 
     getStatistics(): Observable<Statistics> {
         return this.wordHttpService.getStatistics();
     }
 
-    setUsername(username: string): void {
-        this.username = username;
-    }
-
-    getUsername(): string {
-        return this.username;
+    getCSV(): Observable<any> {
+        return this.wordHttpService.getCSV();
     }
 }

@@ -1,0 +1,5 @@
+<div class="word-detail" *ngIf="word$ | async as word">
+    <ow-word-form [word]="word"
+                  title="Random Word"
+                  [viewOnly]="true"></ow-word-form>
+</div>

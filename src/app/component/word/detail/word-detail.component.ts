@@ -7,6 +7,8 @@ import { WordService } from '../../../service/word.service';
 
 import { SubscriptionUtil } from '../../../util/subscription.util';
 
+import { AppRoutes } from '../../../util/app.routes';
+
 import { Word } from '../../../model/word.interface';
 
 @Component({
@@ -20,7 +22,9 @@ export class WordDetailComponent implements OnInit, OnDestroy {
     private theWord: string = '';
     private readonly subs: Subscription[] = [];
 
-    constructor(private readonly route: ActivatedRoute, private readonly service: WordService, private readonly router: Router) {
+    constructor(private readonly route: ActivatedRoute,
+                private readonly service: WordService,
+                private readonly router: Router) {
     }
 
     ngOnInit(): void {
@@ -51,13 +55,11 @@ export class WordDetailComponent implements OnInit, OnDestroy {
             .subscribe(() => {
                 alert('word updated');
 
-                this.router.navigate(['/ui/worms/all'], {
-                    queryParamsHandling: 'preserve'
-                });
+                this.router.navigate([AppRoutes.LIST]);
             }, (e) => {
                 console.error(e);
 
-                alert(e.message);
+                alert(e.error.message);
             })
         );
     }

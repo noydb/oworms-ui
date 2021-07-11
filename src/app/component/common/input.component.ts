@@ -19,7 +19,7 @@ export class InputComponent {
     required: boolean = false;
 
     @Input()
-    type: string = 'text';
+    type: 'text' | 'password' | 'number' = 'text';
 
     @Input()
     value: any = undefined;
