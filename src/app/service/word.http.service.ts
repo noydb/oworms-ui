@@ -34,7 +34,10 @@ export class WordHttpService {
     }
 
     retrieveFromOxford(theWord: string): Observable<string> {
-        return this.http.get<string>(`${this.baseURL}/worms/oxford/${theWord}`);
+        return this.http.get<string>(
+            `${this.baseURL}/worms/oxford/${theWord}`,
+            { params: this.getCredentialHttpParams() }
+        );
     }
 
     create(word: Word): Observable<void> {
