@@ -65,7 +65,7 @@ export class WordDetailComponent extends LoadComponent implements OnInit, OnDest
 	update(word: Word): void {
 		this.subs.push(
 			this.service
-			.update(this.theWord, word)
+			.update(this.word.id, word)
 			.subscribe(() => {
 				alert('word updated');
 

@@ -48,9 +48,9 @@ export class WordHttpService {
         );
     }
 
-    update(theWord: string, updatedWord: Word): Observable<Word> {
+    update(wordId: number, updatedWord: Word): Observable<Word> {
         return this.http.put<Word>(
-            `${this.baseURL}/worms/${theWord}`,
+            `${this.baseURL}/worms/${wordId}`,
             updatedWord,
             { params: this.getCredentialHttpParams() }
         );

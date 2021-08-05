@@ -9,6 +9,6 @@ export class ChunkPipe implements PipeTransform {
             return [];
         }
 
-        return value.slice(0, numberOfElements - 1);
+        return value.slice(0, numberOfElements);
     }
 }
