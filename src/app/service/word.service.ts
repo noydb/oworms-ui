@@ -32,8 +32,8 @@ export class WordService {
         return this.wordHttpService.create(word);
     }
 
-    update(theWord: string, word: Word): Observable<Word> {
-        return this.wordHttpService.update(theWord, word);
+    update(wordId: number, word: Word): Observable<Word> {
+        return this.wordHttpService.update(wordId, word);
     }
 
     getStatistics(): Observable<Statistics> {

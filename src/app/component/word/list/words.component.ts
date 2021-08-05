@@ -57,6 +57,10 @@ export class WordsComponent extends LoadComponent implements OnInit, OnDestroy {
         this.numberOfElements += 25;
     }
 
+    showAll(): void {
+        this.numberOfElements = this.words.length;
+    }
+
     viewWordDetails(word: Word): void {
         this.router.navigate([`${AppRoutes.BASE}/${word.id}`]);
 
@@ -95,7 +99,7 @@ export class WordsComponent extends LoadComponent implements OnInit, OnDestroy {
             }),
             switchMap((wordFilter: WordFilter) => this.wordService.retrieveAll(wordFilter))
         ).subscribe((words: Word[]) => {
-            this.words = words;
+            this.words = [...words];
             this.numberOfElements = this.words.length < 25 ? this.words.length : 25;
 
             this.state = 'complete';
