@@ -1,0 +1,33 @@
+<div class="worms" [ngSwitch]="state">
+
+    <div class="words" *ngSwitchCase="'complete'">
+        <div *ngFor="let word of words | chunkPipe: numberOfElements"
+             class="card"
+             (click)="viewWordDetails(word)">
+            <h3 class="word">{{ word.theWord }}</h3>
+            <p class="definition">{{ word.definition }}</p>
+            <p class="part-of-speech">{{ word.partOfSpeech }}</p>
+        </div>
+        <div (click)="showMore()" class="card more" *ngIf="words.length - numberOfElements > 0">
+            <h3>Click to show more</h3>
+            <p>{{ words.length - numberOfElements }} more words to show</p>
+        </div>
+        <div (click)="showAll()" class="card more" *ngIf="words.length - numberOfElements > 0">
+            <h3>Click to show all</h3>
+            <p>{{ words.length - numberOfElements }} more words to show</p>
+        </div>
+    </div>
+    <div class="words-loading" *ngSwitchCase="'loading'">
+        <label>Loading...</label>
+    </div>
+    <div class="words-none" *ngSwitchCase="'error'">
+        <div class="message">
+            <label>{{ errorMessage }}</label>
+        </div>
+        <div class="button">
+            <ow-button (onButtonClick)="reloadWords()">Reload</ow-button>
+        </div>
+    </div>
+
+    <ow-filter (filterChange)="updateQueryParams($event)" [existingFilter]="existingFilter"></ow-filter>
+</div>

@@ -1,0 +1,25 @@
+<div class="filter">
+    <h3>Filtering</h3>
+    <div class="props" [formGroup]="form">
+        <div class="prop" *ngFor="let filterProp of properties">
+            <div class="prop-input">
+                <ow-input [name]="filterProp.key"
+                          [withNgModel]="true"
+                          type="text"
+                          [value]="filterProp.value"
+                          [placeholder]="filterProp.pHolder"
+                          (onValueChange)="updateValue($event, filterProp)"></ow-input>
+                <ow-button type="button" (onButtonClick)="addFilter(filterProp)">Apply</ow-button>
+                <ow-button type="button" (onButtonClick)="removeFilter(filterProp)">X</ow-button>
+            </div>
+        </div>
+        <ow-dropdown [items]="partsOfSpeechDropdownItems"
+                     [selectedValues]="partsOfSpeechToFilterBy"
+                     (valueChange)="selectPartOfSpeech($event)"
+                     [closeAfterEachSelection]="false"
+                     [multiSelections]="true"></ow-dropdown>
+        <div class="button-row">
+            <ow-button (onButtonClick)="clearFilters()">Clear Filters</ow-button>
+        </div>
+    </div>
+</div>

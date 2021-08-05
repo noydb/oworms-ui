@@ -1,0 +1,28 @@
+.filter {
+    padding: 1rem;
+    background-color: #ffffff;
+    height: 30px;
+
+    h3 {
+        padding-top: .5rem;
+        padding-bottom: .5rem;
+    }
+
+    .props {
+        .prop {
+            padding: 1rem;
+            margin-bottom: 1rem;
+            border: 1px solid #dedddd;
+            box-shadow: 0 2px 4px -5px #101010;
+            transition: all .1s ease-in-out;
+
+            &-input {
+                display: flex;
+            }
+        }
+
+        .button-row {
+            margin-top: 1rem;
+        }
+    }
+}

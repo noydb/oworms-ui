@@ -1,1 +1,12 @@
-/* You can add global styles to this file, and also import other style files */
+@import "./src/app/style/font";
+@import "./src/app/style/typography";
+
+* {
+    box-sizing: border-box;
+}
+
+.sticky {
+    position: sticky;
+    top: -1px;
+    background-color: #ffffff;
+}

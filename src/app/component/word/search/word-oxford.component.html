@@ -1,0 +1,17 @@
+<div class="search-input" [formGroup]="form">
+    <ow-input name="theWord"
+              [withNgModel]="true"
+              type="text"
+              placeholder="search for a word"></ow-input>
+    <ow-button (onButtonClick)="searchClick()">Search</ow-button>
+</div>
+
+<div class="word-detail" *ngIf="wordDetailsJSON$ | async as wordDetails">
+    <pre>{{ wordDetails | json }}</pre>
+</div>
+
+<ng-template #noWord>
+    <div class="no-worm">
+        <h3>Try searching for a word</h3>
+    </div>
+</ng-template>

@@ -1,0 +1,16 @@
+<div class="top">
+    <h1>Oh Worms</h1>
+    <p class="subtitle">a collection of words</p>
+</div>
+<div class="menu">
+    <div class="items">
+        <div (click)="navigate(item.path)" *ngFor="let item of menuItems"
+             [class.active]="isActive(item.path)"
+             class="item">
+            <label>{{ item.name }}</label>
+        </div>
+        <div class="item" (click)="getCSV()">
+            <label>Export to CSV</label>
+        </div>
+    </div>
+</div>

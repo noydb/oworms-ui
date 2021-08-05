@@ -1,0 +1,13 @@
+<div class="word-detail" [ngSwitch]="state">
+    <ow-word-form *ngSwitchCase="'complete'"
+                  [word]="word"
+                  [title]="formTitle"
+                  buttonText="Update Word"
+                  (btnEvent)="update($event)"></ow-word-form>
+    <div class="word-detail-loading" *ngSwitchCase="'loading'">
+        <label>Loading...</label>
+    </div>
+    <div class="word-detail-error" *ngSwitchCase="'error'">
+        <label>{{ errorMessage }}</label>
+    </div>
+</div>
