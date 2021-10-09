@@ -25,11 +25,11 @@ production build:\
 ### Running
 
 To run this app with the proxy pointed to the heroku API:\
-`yarn start-regular` AKA `ng serve`
+`yarn start-regular` (`ng serve`)
 
 To run this app with the proxy pointed to a local API:\
-`yarn start-local` AKA `ng serve --proxy-config=local.proxy.conf.json`
+`yarn start-local` (`ng serve --proxy-config=local.proxy.conf.json`)
 
 To run this app on an express server with the proxy pointed to the Heroku API:\
-`yarn start` AKA `node server.js`\
-**Note: this command will be used when deploying this app to Heroku** (see `package.json` -> `scripts` -> `heroku-postbuild`)
+`yarn start` (`node server.js`)\
+**Note: this command will be used when deploying this app to Heroku** (`package.json` -> `scripts` -> `heroku-postbuild`)

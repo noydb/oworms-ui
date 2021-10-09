@@ -31,6 +31,8 @@ export class CredentialsComponent {
     submit(): void {
         this.lsService.set('u', this.form.get('u')?.value);
         this.lsService.set('p', this.form.get('p')?.value);
+
+        alert('saved credentials');
     }
 
     get buttonDisabled(): boolean {

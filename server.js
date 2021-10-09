@@ -20,6 +20,7 @@ APP.use('/api', createProxyMiddleware({
     },
 }));
 
+// final catch-all route to index.html defined last
 // send requests to dist folder and serve index.html (SPA)
 APP.get('/*', function (req, res) {
     res.sendFile(path.join(__dirname + '/dist/oworms/index.html'));
