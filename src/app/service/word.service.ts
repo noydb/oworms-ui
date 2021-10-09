@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { finalize } from 'rxjs/operators';
 
 import { WordHttpService } from './word.http.service';
 
@@ -9,38 +10,109 @@ import { WordFilter } from '../model/word-filter.interface';
 
 @Injectable()
 export class WordService {
+
+    private readonly busy$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+
     constructor(private readonly wordHttpService: WordHttpService) {
     }
 
     retrieveAll(wordFilter: WordFilter | undefined): Observable<Word[]> {
-        return this.wordHttpService.retrieveAll(wordFilter);
+        this.busy$.next(true);
+
+        return this.wordHttpService
+        .retrieveAll(wordFilter)
+        .pipe(
+            finalize(() => {
+                this.busy$.next(false);
+            })
+        );
     }
 
     retrieve(wordId: number): Observable<Word> {
-        return this.wordHttpService.retrieve(wordId);
+        this.busy$.next(true);
+
+        return this.wordHttpService
+        .retrieve(wordId)
+        .pipe(
+            finalize(() => {
+                this.busy$.next(false);
+            })
+        );
     }
 
     retrieveRandom(): Observable<Word> {
-        return this.wordHttpService.retrieveRandom();
+        this.busy$.next(true);
+
+        return this.wordHttpService
+        .retrieveRandom()
+        .pipe(
+            finalize(() => {
+                this.busy$.next(false);
+            })
+        );
     }
 
     retrieveFromOxford(theWord: string): Observable<string> {
-        return this.wordHttpService.retrieveFromOxford(theWord);
+        this.busy$.next(true);
+
+        return this.wordHttpService
+        .retrieveFromOxford(theWord)
+        .pipe(
+            finalize(() => {
+                this.busy$.next(false);
+            })
+        );
     }
 
     create(word: Word): Observable<void> {
-        return this.wordHttpService.create(word);
+        this.busy$.next(true);
+
+        return this.wordHttpService
+        .create(word)
+        .pipe(
+            finalize(() => {
+                this.busy$.next(false);
+            })
+        );
     }
 
     update(wordId: number, word: Word): Observable<Word> {
-        return this.wordHttpService.update(wordId, word);
+        this.busy$.next(true);
+
+        return this.wordHttpService
+        .update(wordId, word)
+        .pipe(
+            finalize(() => {
+                this.busy$.next(false);
+            })
+        );
     }
 
     getStatistics(): Observable<Statistics> {
-        return this.wordHttpService.getStatistics();
+        this.busy$.next(true);
+
+        return this.wordHttpService
+        .getStatistics()
+        .pipe(
+            finalize(() => {
+                this.busy$.next(false);
+            })
+        );
     }
 
     getCSV(): Observable<any> {
-        return this.wordHttpService.getCSV();
+        this.busy$.next(true);
+
+        return this.wordHttpService
+        .getCSV()
+        .pipe(
+            finalize(() => {
+                this.busy$.next(false);
+            })
+        );
+    }
+
+    isBusy(): BehaviorSubject<boolean> {
+        return this.busy$;
     }
 }

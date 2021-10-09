@@ -38,22 +38,21 @@ export class WordFormComponent implements OnInit, OnDestroy {
     @Output()
     btnEvent: EventEmitter<Word> = new EventEmitter<Word>();
 
-    form: FormGroup;
+    form: FormGroup = new FormGroup({
+        word: new FormControl('', [Validators.required]),
+        definition: new FormControl('', [Validators.required]),
+        pronunciation: new FormControl(),
+        origin: new FormControl(),
+        exampleUsage: new FormControl(),
+        note: new FormControl()
+    });
     partsOfSpeechDropdownItems: DropdownItem<PartOfSpeech>[] = FilterUtil.getPartOfSpeechDropdownItems();
-
-    // store as array to cater for dropdown. will fix.
-    partOfSpeech: PartOfSpeech[] = [];
+    partOfSpeech: PartOfSpeech[] = []; // store as array to cater for dropdown. will fix.
 
     private readonly subs: Subscription[] = [];
 
-    constructor() {
-        this.form = new FormGroup({
-            word: new FormControl('', [Validators.required]),
-            definition: new FormControl('', [Validators.required]),
-            pronunciation: new FormControl(),
-            origin: new FormControl(),
-            exampleUsage: new FormControl()
-        });
+    get disabled(): boolean {
+        return this.form.invalid || !this.partOfSpeech;
     }
 
     ngOnInit(): void {
@@ -69,13 +68,16 @@ export class WordFormComponent implements OnInit, OnDestroy {
     }
 
     onButtonClicked(): void {
+        const { word: theWord, definition, pronunciation, origin, exampleUsage, note }: any = this.form.value;
+
         const word: Word = {
-            theWord: this.getFormVal('word'),
-            definition: this.getFormVal('definition'),
+            theWord,
+            definition,
             partOfSpeech: this.partOfSpeech[0],
-            pronunciation: this.getFormVal('pronunciation'),
-            origin: this.getFormVal('origin'),
-            exampleUsage: this.getFormVal('exampleUsage'),
+            pronunciation,
+            origin,
+            exampleUsage,
+            note
         };
 
         this.btnEvent.emit(word);
@@ -85,23 +87,16 @@ export class WordFormComponent implements OnInit, OnDestroy {
         this.partOfSpeech = $event && $event.length > 0 ? $event : [];
     }
 
-    private getFormVal(path: string): string | undefined {
-        return this.form.get(path)?.value;
-    }
-
     private injectValuesIntoForm(): void {
         this.form = new FormGroup({
             word: new FormControl(this.word?.theWord, [Validators.required]),
             definition: new FormControl(this.word?.definition, [Validators.required]),
             pronunciation: new FormControl(this.word?.pronunciation),
             origin: new FormControl(this.word?.origin),
-            exampleUsage: new FormControl(this.word?.exampleUsage)
+            exampleUsage: new FormControl(this.word?.exampleUsage),
+            note: new FormControl(this.word?.note)
         });
 
         this.partOfSpeech = this.word?.partOfSpeech ? [this.word.partOfSpeech] : [];
-    }
-
-    get disabled(): boolean {
-        return this.form.invalid || !this.partOfSpeech;
     }
 }

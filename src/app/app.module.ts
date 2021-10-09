@@ -12,6 +12,7 @@ import { WordService } from './service/word.service';
 
 import { AppComponent } from './app.component';
 import { CredentialsComponent } from './component/credentials/credentials.component';
+import { SpinnerComponent } from './component/common/spinner.component';
 import { StatisticsComponent } from './component/stats/statistics.component';
 import { TopComponent } from './component/top/top.component';
 
@@ -26,6 +27,7 @@ import { TopComponent } from './component/top/top.component';
     declarations: [
         AppComponent,
         CredentialsComponent,
+        SpinnerComponent,
         StatisticsComponent,
         TopComponent
     ],

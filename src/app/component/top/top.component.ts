@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { Subscription } from 'rxjs';
 import { take } from 'rxjs/operators';
 
 import { WordService } from '../../service/word.service';
@@ -18,6 +17,7 @@ import { MenuItem } from '../../model/menu-item.interface';
 })
 export class TopComponent {
 
+    readonly subTitle: string = 'words';
     readonly menuItems: MenuItem[] = [
         { name: 'Credentials', path: AppRoutes.CREDS },
         { name: 'All Words', path: AppRoutes.LIST },
@@ -28,13 +28,11 @@ export class TopComponent {
         { name: 'Statistics', path: AppRoutes.STATS },
     ];
 
-    private readonly subs: Subscription[] = [];
-
     constructor(private readonly router: Router, private readonly wordService: WordService) {
     }
 
     navigate(path: string): void {
-        this.router.navigate([path]);
+        void this.router.navigate([path]);
     }
 
     isActive(path: string): boolean {
