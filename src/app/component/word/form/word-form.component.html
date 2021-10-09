@@ -22,6 +22,9 @@
                      [multiSelections]="false"
                      [disabled]="viewOnly"></ow-dropdown>
     </div>
+    <div class="form-row">
+        <ow-input name="note" placeholder="note"></ow-input>
+    </div>
     <div class="form-row" *ngIf="!viewOnly">
         <ow-button type="button" (onButtonClick)="onButtonClicked()" [disabled]="disabled">
             {{ buttonText }}

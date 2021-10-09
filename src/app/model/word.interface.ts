@@ -12,4 +12,5 @@ export interface Word {
     haveLearnt?: boolean;
     createdBy?: string;
     timesViewed?: string;
+    note?: string;
 }
