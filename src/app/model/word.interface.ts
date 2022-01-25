@@ -1,4 +1,5 @@
 import { PartOfSpeech } from './part-of-speech.enum';
+import { Tag } from './tag.interface';
 
 export interface Word {
     id?: number;
@@ -8,9 +9,12 @@ export interface Word {
     pronunciation?: string;
     origin?: string;
     exampleUsage?: string;
+    note?: string;
+    tags?: Tag[];
     creationDate?: Date;
-    haveLearnt?: boolean;
     createdBy?: string;
     timesViewed?: string;
-    note?: string;
+
+    // non-api
+    tagIds?: number[];
 }

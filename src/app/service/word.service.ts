@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { finalize } from 'rxjs/operators';
+import { finalize, tap } from 'rxjs/operators';
 
 import { WordHttpService } from './word.http.service';
 
@@ -12,16 +12,20 @@ import { WordFilter } from '../model/word-filter.interface';
 export class WordService {
 
     private readonly busy$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+    private readonly wordCount$: BehaviorSubject<number> = new BehaviorSubject<number>(undefined);
 
     constructor(private readonly wordHttpService: WordHttpService) {
     }
 
-    retrieveAll(wordFilter: WordFilter | undefined): Observable<Word[]> {
+    retrieveAll(wordFilter: WordFilter): Observable<Word[]> {
         this.busy$.next(true);
 
         return this.wordHttpService
         .retrieveAll(wordFilter)
         .pipe(
+            tap((words: Word[]) => {
+                this.wordCount$.next(words.length);
+            }),
             finalize(() => {
                 this.busy$.next(false);
             })
@@ -114,5 +118,9 @@ export class WordService {
 
     isBusy(): BehaviorSubject<boolean> {
         return this.busy$;
+    }
+
+    getCount(): BehaviorSubject<number> {
+        return this.wordCount$;
     }
 }

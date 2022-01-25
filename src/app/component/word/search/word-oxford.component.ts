@@ -6,7 +6,7 @@ import { Observable, of } from 'rxjs';
 import { WordService } from '../../../service/word.service';
 
 @Component({
-    selector: 'ow-word-detail',
+    selector: 'ow-oxford-search',
     templateUrl: 'word-oxford.component.html',
     styleUrls: ['./word-oxford.component.scss']
 })

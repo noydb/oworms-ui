@@ -1,9 +1,9 @@
-export type filterType = string | undefined | null;
-
 export interface WordFilter {
-    theWord?: filterType;
-    definition?: filterType;
+    word?: string;
     partsOfSpeech?: string[];
-    createdBy?: filterType;
-    haveLearnt?: filterType;
+    definition?: string;
+    origin?: string;
+    exampleUsage?: string;
+    tags?: string[];
+    note?: string;
 }

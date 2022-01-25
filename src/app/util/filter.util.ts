@@ -1,24 +1,24 @@
-import { DropdownItem } from '../model/dropdown-item.interface';
-import { FilterProp } from '../model/filter-prop.interface';
 import { PartOfSpeech } from '../model/part-of-speech.enum';
+import { SelectOption } from '../model/select-option.interface';
 
 export class FilterUtil {
-    static getPartOfSpeechDropdownItems(): DropdownItem<PartOfSpeech>[] {
+    static getPartOfSpeechDropdownItems(): SelectOption[] {
         const partsOfSpeech: PartOfSpeech[] = Object.values(PartOfSpeech);
 
         return partsOfSpeech.map((partOfSpeech: PartOfSpeech) => ({
             value: partOfSpeech,
-            selected: false
+            selected: false,
+            label: partOfSpeech,
+            titleLabel: partOfSpeech
         }));
     }
 
-    static getFreshProps(): FilterProp[] {
+    static getChunksForSelect(): SelectOption[] {
         return [
-            { key: 'theWord', pHolder: 'word', value: undefined, filterBy: false },
-            { key: 'definition', pHolder: 'definition', value: undefined, filterBy: false },
-            { key: 'createdBy', pHolder: 'created by', value: undefined, filterBy: false }
-            // make learnt a checkbox.
-            // { key: 'learnt', pHolder: 'learnt', value: undefined, filterBy: false }
+            { value: 0, label: 'Show all', selected: false },
+            { value: 6, label: 'Show 6', selected: false },
+            { value: 12, label: 'Show 12', selected: false },
+            { value: 24, label: 'Show 24', selected: false },
         ];
-    }
+    };
 }

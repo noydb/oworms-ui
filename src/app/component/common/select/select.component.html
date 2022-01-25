@@ -1,0 +1,21 @@
+<div #select
+     (click)="invertClosed()"
+     [class.focused]="!closed"
+     [class.fueled]="selected?.length > 0"
+     [class.transparent]="transparent"
+     class="select">
+    <div class="s-title">
+        {{ title }}
+        <img alt="chev icon" src="/assets/image/chevron-down.svg" />
+    </div>
+    <div [class.closed]="closed" class="options">
+        <div (click)="selectItem(item)"
+             *ngFor="let item of options"
+             [class.selected]="isSelected(item)"
+             class="s-option">
+            <label class="s-option-l">
+                {{ item.label ? item.label : item.value }}
+            </label>
+        </div>
+    </div>
+</div>

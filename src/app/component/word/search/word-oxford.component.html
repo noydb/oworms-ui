@@ -1,12 +1,11 @@
-<div class="search-input" [formGroup]="form">
-    <ow-input name="theWord"
-              [withNgModel]="true"
-              type="text"
-              placeholder="search for a word"></ow-input>
-    <ow-button (onButtonClick)="searchClick()">Search</ow-button>
+<div [formGroup]="form" class="search-input">
+    <input name="theWord"
+           placeholder="search for a word"
+           type="text" />
+    <button (click)="searchClick()">Search</button>
 </div>
 
-<div class="word-detail" *ngIf="wordDetailsJSON$ | async as wordDetails">
+<div *ngIf="wordDetailsJSON$ | async as wordDetails" class="word-detail">
     <pre>{{ wordDetails | json }}</pre>
 </div>
 

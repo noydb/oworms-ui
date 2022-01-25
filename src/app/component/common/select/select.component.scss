@@ -1,0 +1,73 @@
+@use '../../../style/colour' as colour;
+@use '../../../style/font' as font;
+@use '../../../style/mixin' as mxn;
+
+.select {
+    position: relative;
+    width: 100%;
+    border-radius: 6px;
+    background-color: colour.$primary;
+    color: #ffffff;
+    cursor: pointer;
+    padding: .7rem;
+    min-width: 160px;
+
+    &.transparent {
+        @include mxn.input();
+        color: rgba(255, 255, 255, 0.6);
+    }
+
+    &.fueled {
+        border: 1px solid #ffffff;
+        color: #ffffff;
+    }
+
+    .closed {
+        display: none;
+    }
+
+    .s-title {
+        padding: .3rem;
+        font-size: 1rem;
+        font-family: 'roboto-regular', font.$default-font;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .options {
+        position: absolute;
+        right: 0;
+        z-index: 5000;
+        max-height: 300px;
+        width: 300px;
+        background-color: #292929;
+        padding: .5rem;
+        margin-top: 4px;
+        border-radius: 6px;
+
+        .s-option {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            transition: background-color .2s ease-out;
+            cursor: pointer;
+            padding-top: .3rem;
+            padding-bottom: .3rem;
+
+            &:hover {
+                opacity: .8;
+            }
+
+            label {
+                cursor: pointer;
+            }
+
+            &.selected {
+                label {
+                    color: colour.$secondary;
+                }
+            }
+        }
+    }
+}

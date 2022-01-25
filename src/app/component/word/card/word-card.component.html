@@ -1,0 +1,5 @@
+<div (click)="viewWordDetails()" *ngIf="word" class="card">
+    <h5 class="mono">{{ word.theWord }}</h5>
+    <label class="part-of-speech">{{ word.partOfSpeech }}</label>
+    <p class="definition">{{ word.definition }}</p>
+</div>

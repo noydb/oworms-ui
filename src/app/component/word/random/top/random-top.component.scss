@@ -1,0 +1,31 @@
+@use '../../../../style/colour' as colour;
+
+.random-top {
+    text-align: center;
+    color: #ffffff;
+
+    h2 {
+        text-transform: uppercase;
+        font-weight: bold;
+        transition: all .15s ease-in-out;
+        cursor: pointer;
+
+        &:hover {
+            color: colour.$primary;
+        }
+    }
+
+    p {
+        font-size: .75rem;
+        padding-bottom: 1rem;
+        padding-top: .5rem;
+    }
+
+    label {
+        text-transform: uppercase;
+    }
+
+    .creator {
+        color: colour.$secondary;
+    }
+}

@@ -6,7 +6,7 @@ import { LocalStorageService } from './local-storage.service';
 
 import { Statistics } from '../model/statistics.interface';
 import { Word } from '../model/word.interface';
-import { filterType, WordFilter } from '../model/word-filter.interface';
+import { WordFilter } from '../model/word-filter.interface';
 
 @Injectable()
 export class WordHttpService {
@@ -16,7 +16,7 @@ export class WordHttpService {
     constructor(private readonly http: HttpClient, private readonly lsService: LocalStorageService) {
     }
 
-    retrieveAll(wordFilter: WordFilter | undefined): Observable<Word[]> {
+    retrieveAll(wordFilter: WordFilter): Observable<Word[]> {
         return this.http.get<Word[]>(
             `${this.baseURL}/worms`,
             {
@@ -43,7 +43,7 @@ export class WordHttpService {
     create(word: Word): Observable<void> {
         return this.http.post<void>(
             `${this.baseURL}/worms`,
-            word,
+            { word, tagIds: word.tagIds },
             { params: this.getCredentialHttpParams() }
         );
     }
@@ -51,7 +51,10 @@ export class WordHttpService {
     update(wordId: number, updatedWord: Word): Observable<Word> {
         return this.http.put<Word>(
             `${this.baseURL}/worms/${wordId}`,
-            updatedWord,
+            {
+                word: updatedWord,
+                tagIds: updatedWord.tagIds
+            },
             { params: this.getCredentialHttpParams() }
         );
     }
@@ -66,26 +69,30 @@ export class WordHttpService {
         return this.http.get('/api/o/worms/file/csv', { responseType: 'blob' });
     }
 
-    private getFilterHttpParams(wordFilter: WordFilter | undefined): HttpParams | undefined {
+    private getFilterHttpParams(wordFilter: WordFilter): HttpParams | undefined {
         if (!wordFilter) {
             return undefined;
         }
 
-        const { theWord, definition, partsOfSpeech, createdBy, haveLearnt } = wordFilter;
+        const { word, partsOfSpeech, definition, origin, exampleUsage, tags, note } = wordFilter;
 
         let params: HttpParams = new HttpParams();
-        params = this.setParam(params, 'w', theWord);
-        params = this.setParam(params, 'def', definition);
-        params = this.setParam(params, 'creator', createdBy);
-        params = this.setParam(params, 'learnt', haveLearnt);
-        partsOfSpeech?.forEach((pos) => {
+        params = this.setParam(params, 'word', word);
+        partsOfSpeech?.forEach((pos: string) => {
             params = params.append('pos', pos as string);
         });
+        params = this.setParam(params, 'def', definition);
+        params = this.setParam(params, 'ori', origin);
+        params = this.setParam(params, 'ex', exampleUsage);
+        tags?.forEach((tag: string) => {
+            params = params.append('tags', tag);
+        });
+        params = this.setParam(params, 'note', note);
 
         return params;
     }
 
-    private setParam(httpParams: HttpParams, paramKey: string, paramVal: filterType): HttpParams {
+    private setParam(httpParams: HttpParams, paramKey: string, paramVal: string): HttpParams {
         if (!paramVal) {
             return httpParams;
         }

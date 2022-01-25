@@ -1,8 +1,17 @@
-@import "./src/app/style/font";
-@import "./src/app/style/typography";
+@import "app/style/button";
+@import "app/style/colour";
+@import "app/style/font";
+@import "app/style/typography";
+@import "app/style/input";
+@import "app/style/textarea";
 
 * {
     box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    background-color: #000000;
 }
 
 .sticky {

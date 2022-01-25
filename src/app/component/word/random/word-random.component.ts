@@ -8,10 +8,10 @@ import { SubscriptionUtil } from '../../../util/subscription.util';
 
 import { Word } from '../../../model/word.interface';
 
-import { LoadComponent } from '../../common/load.component';
+import { LoadComponent } from '../../common/spinner/load.component';
 
 @Component({
-    selector: 'ow-word-detail',
+    selector: 'ow-word-random',
     templateUrl: 'word-random.component.html',
     styleUrls: ['./word-random.component.scss']
 })

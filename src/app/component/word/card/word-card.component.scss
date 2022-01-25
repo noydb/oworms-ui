@@ -1,0 +1,37 @@
+@use '../../../style/colour' as colour;
+@use '../../../style/font' as font;
+
+.card {
+    width: 285px;
+    height: 200px;
+    padding: 1rem;
+    margin: .5rem;
+    box-shadow: 0 2px 4px -5px #101010;
+    transition: all .1s ease-in-out;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    cursor: pointer;
+    color: #ffffff;
+    border-radius: 4px;
+    background-color: transparent;
+
+    h5.mono {
+        font-family: 'roboto-mono-medium', font.$default-font;
+        white-space: nowrap;
+        overflow: hidden;
+    }
+
+    .part-of-speech {
+        font-size: 13px;
+        color: colour.$secondary;
+    }
+
+    .definition {
+        font-size: 12px;
+        padding-top: .5rem;
+        padding-bottom: 1rem;
+    }
+
+    &:hover {
+        background-color: #151617;
+    }
+}
