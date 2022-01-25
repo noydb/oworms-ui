@@ -1,11 +1,9 @@
-import { Component, OnDestroy } from '@angular/core';
+import { Component } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
-import { Subscription } from 'rxjs';
+import { take } from 'rxjs/operators';
 
 import { WordService } from '../../../service/word.service';
-
-import { SubscriptionUtil } from '../../../util/subscription.util';
 
 import { AppRoutes } from '../../../util/app.routes';
 
@@ -13,11 +11,10 @@ import { Word } from '../../../model/word.interface';
 
 @Component({
     selector: 'ow-word-add',
-    templateUrl: 'word-add.component.html'
+    templateUrl: 'word-add.component.html',
+    styleUrls: ['./word-add.component.scss']
 })
-export class WordAddComponent implements OnDestroy {
-
-    private readonly subs: Subscription[] = [];
+export class WordAddComponent {
 
     constructor(private readonly service: WordService,
                 private readonly router: Router,
@@ -25,25 +22,18 @@ export class WordAddComponent implements OnDestroy {
         this.titleService.setTitle('oworms | new');
     }
 
-    ngOnDestroy(): void {
-        SubscriptionUtil.unsubscribe(this.subs);
-    }
-
     createWord(word: Word): void {
-        this.subs.push(
-            this.service
-            .create(word)
-            .subscribe(() => {
-                alert('word created');
+        this.service
+        .create(word)
+        .pipe(take(1))
+        .subscribe(() => {
+            alert('word created');
 
-                this.router.navigate([AppRoutes.LIST], {
-                    queryParamsHandling: 'preserve'
-                });
-            }, (e) => {
-                console.error(e);
+            void this.router.navigate([AppRoutes.LIST], { queryParamsHandling: 'preserve' });
+        }, (e) => {
+            console.error(e);
 
-                alert(e.error.message);
-            })
-        );
+            alert(e.error.message);
+        });
     }
 }

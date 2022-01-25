@@ -1,11 +1,77 @@
-.word-detail {
+@use '../../../style/font' as font;
 
-    .button-row {
-        width: 50%;
+.word {
+    margin-left: 25%;
+    margin-right: 25%;
+    padding: 1.5rem 1.5rem 3rem;
+
+    .detail {
+
+        .top {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 15px;
+
+            .title {
+                display: flex;
+                align-items: center;
+
+                small {
+                    padding-left: 1rem;
+                }
+            }
+
+            .actions {
+                display: flex;
+                justify-content: space-between;
+                width: 10%;
+            }
+        }
+
+        .pos {
+            padding-bottom: 15px;
+        }
+
+        .pair {
+            display: flex;
+            padding-top: 30px;
+
+            label {
+                font-family: 'roboto-medium', font.$default-font;
+            }
+        }
+
+        .tags,
+        .synonyms {
+            padding-top: 30px;
+
+            label {
+                font-family: 'roboto-medium', font.$default-font;
+            }
+        }
     }
 
+    .meta {
+        display: flex;
+        padding-top: 30px;
+
+        .column {
+            width: 48%;
+
+            .pair {
+                display: flex;
+                margin-top: 1rem;
+
+                label {
+                    font-family: 'roboto-medium', font.$default-font;
+                }
+
+                p {
+                    font-family: 'roboto-light', font.$default-font;
+                }
+            }
+        }
+    }
 }
 
-.no-worm {
-    padding: 3rem;
-}

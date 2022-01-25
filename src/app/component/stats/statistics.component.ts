@@ -8,7 +8,8 @@ import { Statistics } from '../../model/statistics.interface';
 
 @Component({
     selector: 'ow-stats',
-    templateUrl: 'statistics.component.html'
+    templateUrl: 'statistics.component.html',
+    styleUrls: ['./statistics.component.scss']
 })
 export class StatisticsComponent implements OnInit {
 

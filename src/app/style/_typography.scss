@@ -1,18 +1,61 @@
-@import './_font';
+@use './_font' as font;
 
-h1, h2, h3, h4, h5, h6, label, p {
+h1, h2, h3, h4, h5, h6, label, p, small, span, pre {
     margin: 0;
+    color: #ffffff;
 }
 
-h1, h2, h3, h4, h5, h6, button {
-    font-family: 'ssp-regular', $default-font;
-    font-weight: bold;
+h1, h2 {
+    font-family: 'roboto-mono-medium', font.$default-font;
+    letter-spacing: 3.6px;
+    font-weight: 500;
+    font-style: normal;
+}
+
+h3, h4, h5, input, textarea, label, p {
+    // subtitle 1, body 1, body 1, caption overline
+    font-family: 'roboto-regular', font.$default-font;
+}
+
+h6, button, .select {
+    // subtitle 2
+    font-family: 'roboto-medium', font.$default-font;
+}
+
+small {
+    font-family: 'roboto-light', font.$default-font;
+
+    &.mono {
+        font-family: 'roboto-mono-medium', font.$default-font;
+    }
+}
+
+h2 {
+    font-size: 3.75rem; // 60px
+}
+
+h5 {
+    font-size: 1.5rem; // 24px
+    letter-spacing: 0.18px;
+}
+
+input, textarea {
+    font-size: 1rem;
+    letter-spacing: .15px;
+}
+
+button, label, p, .select {
+    font-size: .875rem; // 14px
+}
+
+button {
+    letter-spacing: 1.25px;
 }
 
 label, p {
-    font-family: 'ssp-light', $default-font;
+    letter-spacing: .25px;
 }
 
-input {
-    font-family: 'ssp-light', $default-font;
+small {
+    font-size: .75rem; // 12px
 }

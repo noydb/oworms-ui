@@ -1,13 +1,73 @@
-<div class="word-detail" [ngSwitch]="state">
-    <ow-word-form *ngSwitchCase="'complete'"
-                  [word]="word"
-                  [title]="formTitle"
-                  buttonText="Update Word"
-                  (btnEvent)="update($event)"></ow-word-form>
-    <div class="word-detail-loading" *ngSwitchCase="'loading'">
-        <label>Loading...</label>
+<ow-hero>
+    <ow-random-top [word]="word$ | async"></ow-random-top>
+</ow-hero>
+
+<div *ngIf="word$ | async as word; else error" class="word">
+    <div class="detail">
+        <div class="top">
+            <div class="title">
+                <h5 class="mono">{{word.theWord}}</h5>
+                <small>#{{word.id}}</small>
+            </div>
+            <div class="actions">
+                <!-- TODO: insert edit and link synonym icons -->
+                <span (click)="edit(word)">E</span>
+                <span>S</span>
+            </div>
+        </div>
+        <p class="pos">{{word.partOfSpeech}}</p>
+        <p>{{word.definition}}</p>
+        <div class="pair">
+            <label>Origin:&nbsp;</label>
+            <p>{{word.origin ?? 'N/A' }}</p>
+        </div>
+        <div class="pair">
+            <label>Example:&nbsp;</label>
+            <p>{{word.exampleUsage ?? 'N/A' }}</p>
+        </div>
+        <div class="pair">
+            <label>Pronunciation:&nbsp;</label>
+            <p>{{word.pronunciation ?? 'N/A' }}</p>
+        </div>
+        <div class="tags">
+            <label>Associated Tags:</label>
+            <ow-tags [sTags]="tags"></ow-tags>
+        </div>
+        <div class="pair">
+            <label>Note:&nbsp;</label>
+            <p>{{word.note ?? 'N/A' }}</p>
+        </div>
+        <div class="synonyms">
+            <label>Synonyms</label>
+            <ow-tags [sTags]="[]"></ow-tags>
+        </div>
     </div>
-    <div class="word-detail-error" *ngSwitchCase="'error'">
-        <label>{{ errorMessage }}</label>
+
+    <div class="meta">
+        <div class="column">
+            <div class="pair">
+                <label>Created By:&nbsp;</label>
+                <p>{{ word.createdBy }}</p>
+            </div>
+            <div class="pair">
+                <label>Times Viewed:&nbsp;</label>
+                <p>{{ word.timesViewed }}</p>
+            </div>
+        </div>
+        <div class="column">
+            <div class="pair">
+                <label>Creation Date:&nbsp;</label>
+                <p>{{ word.creationDate | date:'EEEE d MMMM y' }}</p>
+            </div>
+            <div class="pair">
+                <label>Creation Time:&nbsp;</label>
+                <p>{{ word.creationDate | date:'h:mm:ss a' }}</p>
+            </div>
+        </div>
     </div>
+
 </div>
+
+<ng-template #error>
+    <ow-error>{{errorMessage}}</ow-error>
+</ng-template>

@@ -1,0 +1,20 @@
+@use './colour' as colour;
+@use './mixin' as mxn;
+
+input {
+    @include mxn.input();
+
+    &:focus-visible {
+        border: 1px solid colour.$primary;
+        box-shadow: none;
+        outline: none;
+    }
+
+    &.search {
+        border: 1px solid #909090;
+        border-radius: 18px;
+        background-color: transparent;
+    }
+
+    //     border: 1px solid #ffffff; only if field has value
+}

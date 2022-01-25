@@ -1,0 +1,29 @@
+.tabs {
+    margin-left: 10%;
+    margin-right: 10%;
+    width: 20%;
+    display: flex;
+
+    .tab + .tab {
+        margin-left: 8px;
+    }
+}
+
+.about {
+    margin-left: 10%;
+    margin-right: 10%;
+    padding-bottom: 80px;
+    text-align: center;
+
+    .info {
+        padding-top: 1rem;
+
+        h5 {
+            padding-bottom: 8px;
+        }
+
+        p + p {
+            margin-top: 16px;
+        }
+    }
+}

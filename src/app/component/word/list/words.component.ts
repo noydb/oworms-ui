@@ -1,32 +1,27 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { Title } from '@angular/platform-browser';
-import { ActivatedRoute, ParamMap, Params, Router } from '@angular/router';
-import { Subscription } from 'rxjs';
-import { map, switchMap, tap } from 'rxjs/operators';
+import { ActivatedRoute, ParamMap, Router } from '@angular/router';
+import { Observable, of } from 'rxjs';
+import { catchError, map, switchMap, tap } from 'rxjs/operators';
 
 import { WordService } from '../../../service/word.service';
-
-import { SubscriptionUtil } from '../../../util/subscription.util';
-
-import { AppRoutes } from '../../../util/app.routes';
 
 import { Word } from '../../../model/word.interface';
 import { WordFilter } from '../../../model/word-filter.interface';
 
-import { LoadComponent } from '../../common/load.component';
+import { LoadComponent } from '../../common/spinner/load.component';
 
 @Component({
     selector: 'ow-words',
     templateUrl: './words.component.html',
     styleUrls: ['./words.component.scss']
 })
-export class WordsComponent extends LoadComponent implements OnInit, OnDestroy {
+export class WordsComponent extends LoadComponent implements OnDestroy {
 
-    words: Word[] = [];
-    selectedWord: Word = {};
-    numberOfElements: number = 50;
-    private readonly subs: Subscription[] = [];
-    existingFilter: WordFilter | undefined;
+    words$: Observable<Word[]>;
+    wordsToShow: number = 25;
+    increment: number = 6;
+    wordFilter: WordFilter;
 
     constructor(private readonly wordService: WordService,
                 private readonly route: ActivatedRoute,
@@ -35,83 +30,73 @@ export class WordsComponent extends LoadComponent implements OnInit, OnDestroy {
         super();
 
         this.titleService.setTitle('oworms | all');
+        this.words$ = this.getWords();
     }
 
-    ngOnInit(): void {
-        this.subs.push(this.loadWords(true));
+    get disableShowLess(): boolean {
+        return this.increment > this.wordsToShow;
     }
 
     ngOnDestroy(): void {
-        SubscriptionUtil.unsubscribe(this.subs);
+        void this.router.navigate([], { relativeTo: this.route, queryParams: {} });
+    }
 
-        this.router.navigate(
-            [],
-            {
-                relativeTo: this.route,
-                queryParams: {}
-            }
-        );
+    chunkChanged($event: number, numberOfWords: number): void {
+        // show all was selected
+        if ($event === 0) {
+            this.wordsToShow = numberOfWords;
+
+            return;
+        }
+
+        this.increment = $event;
+    }
+
+    showAll(numberOfWords: number): void {
+        this.wordsToShow = numberOfWords;
     }
 
     showMore(): void {
-        this.numberOfElements += 25;
+        this.wordsToShow += this.increment;
     }
 
-    showAll(): void {
-        this.numberOfElements = this.words.length;
+    showLess(): void {
+        this.wordsToShow -= this.increment;
     }
 
-    viewWordDetails(word: Word): void {
-        this.router.navigate([`${AppRoutes.BASE}/${word.id}`]);
-
-        this.selectedWord = word;
+    reloadWords(): void {
+        this.words$ = this.getWords();
     }
 
-    updateQueryParams($event: Params): void {
-        this.router.navigate(
-            [],
-            {
-                relativeTo: this.route,
-                queryParams: {
-                    ...$event
-                }
-            }
-        );
-    }
-
-    private loadWords(initLoad: boolean = false): Subscription {
-        this.state = 'loading';
-
+    private getWords(): Observable<Word[]> {
         return this.route.queryParamMap
         .pipe(
             map((qParamsMap: ParamMap) => {
                 return {
-                    theWord: qParamsMap.get('theWord'),
-                    definition: qParamsMap.get('definition'),
-                    partsOfSpeech: qParamsMap.getAll('partOfSpeech'),
-                    createdBy: qParamsMap.get('createdBy')
-                };
+                    word: qParamsMap.get('word'),
+                    partsOfSpeech: qParamsMap.getAll('pos'),
+                    definition: qParamsMap.get('def'),
+                    origin: qParamsMap.get('ori'),
+                    exampleUsage: qParamsMap.get('ex'),
+                    tags: qParamsMap.getAll('tags'),
+                    note: qParamsMap.get('note')
+                } as WordFilter;
             }),
             tap((wordFilter: WordFilter) => {
-                if (initLoad) {
-                    this.existingFilter = wordFilter;
-                }
+                this.wordFilter = wordFilter;
             }),
-            switchMap((wordFilter: WordFilter) => this.wordService.retrieveAll(wordFilter))
-        ).subscribe((words: Word[]) => {
-            this.words = [...words];
-            this.numberOfElements = this.words.length < 25 ? this.words.length : 25;
+            switchMap((wordFilter: WordFilter) => this.wordService.retrieveAll(wordFilter)),
+            tap((words: Word[]) => {
+                this.wordsToShow = words.length < 25 ? words.length : 25;
+            }),
+            catchError((e: any) => {
+                console.error(e);
 
-            this.state = 'complete';
-        }, (e) => {
-            console.error(e);
+                this.state = 'error';
+                this.errorMessage = e.error.message;
 
-            this.state = 'error';
-            this.errorMessage = e.error.message;
-        });
-    }
-
-    reloadWords(): void {
-        this.subs.push(this.loadWords());
+                return of(undefined);
+            })
+        );
     }
 }

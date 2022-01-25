@@ -1,0 +1,44 @@
+//::ng-deep .da-body {
+//    overflow-y: hidden;
+//}
+
+.overlay {
+    position: fixed; // dirty. fix.
+    width: 100%;
+    padding-left: 20rem;
+    padding-right: 20rem;
+    padding-top: 10rem;
+    height: 100%;
+    background-color: #121212;
+    left: 0;
+    right: 0;
+    top: 0;
+    z-index: 90000;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.title {
+    padding-bottom: 16px;
+}
+
+.form {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+
+    .column {
+        width: 48%;
+
+        > .row {
+            width: 100%;
+            margin-top: 1.2rem;
+            margin-bottom: 1.2rem;
+        }
+    }
+}
+
+.actions {
+    width: 25%;
+    margin: 2rem auto auto;
+}
