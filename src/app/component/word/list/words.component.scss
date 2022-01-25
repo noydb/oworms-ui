@@ -1,65 +1,30 @@
-@import "../../../style/font";
-
 .worms {
-    display: flex;
+    padding-left: 10%;
+    padding-right: 10%;
+    // TODO
+    //background-image: url('/assets/image/bg-bottom.png');
 
-    hr {
-        color: #dedddd;
+    .filter {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        overflow-y: hidden;
+        padding-bottom: 47px;
     }
 
     .words {
         display: flex;
-        max-height: 500px;
-        overflow-y: scroll;
+        justify-content: center;
         flex-wrap: wrap;
-        width: 80%;
-
-        .card {
-            width: 20%;
-            padding: 1rem;
-            border: 1px solid #dedddd;
-            cursor: pointer;
-            box-shadow: 0 2px 4px -5px #101010;
-            transition: all .1s ease-in-out;
-            margin: .5rem;
-
-            .word {
-                font-weight: bold;
-            }
-
-            .definition {
-                font-size: 12px;
-                padding-top: .5rem;
-                padding-bottom: 1rem;
-            }
-
-            .part-of-speech {
-                font-size: 13px;
-            }
-
-            &:hover {
-                background-color: #f6f6f6;
-            }
-        }
-    }
-
-    .words-none {
-        padding: 2rem;
-        width: 80%;
-    }
-
-    .words-loading {
-        width: 80%;
+        overflow-y: hidden;
     }
 }
 
-.no-worms {
-    width: 100%;
-    padding: 3rem;
-
-    .message {
-        display: flex;
-        justify-content: center;
-        margin-bottom: 2rem;
-    }
+.actions {
+    display: flex;
+    justify-content: center;
+    margin-left: 10%;
+    margin-right: 10%;
+    padding-top: 2rem;
+    padding-bottom: 2rem;
 }

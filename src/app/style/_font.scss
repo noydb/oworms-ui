@@ -1,16 +1,21 @@
 $default-font: sans-serif;
 
 @font-face {
-    font-family: 'ssp-regular';
-    src: url('../../asset/font/source-sans-pro-regular.ttf');
+    font-family: 'roboto-regular';
+    src: url('../../assets/font/roboto-regular.ttf');
 }
 
 @font-face {
-    font-family: 'ssp-light';
-    src: url('../../asset/font/source-sans-pro-light.ttf');
+    font-family: 'roboto-medium';
+    src: url('../../assets/font/roboto-medium.ttf');
 }
 
 @font-face {
-    font-family: 'ssp-italic';
-    src: url('../../asset/font/source-sans-pro-italic.ttf');
+    font-family: 'roboto-light';
+    src: url('../../assets/font/roboto-light.ttf');
+}
+
+@font-face {
+    font-family: 'roboto-mono-medium';
+    src: url('../../assets/font/roboto-mono-medium.ttf');
 }

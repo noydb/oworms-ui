@@ -1,0 +1,13 @@
+@use './colour' as colour;
+@use './mixin' as mxn;
+
+textarea {
+    @include mxn.input();
+    resize: vertical;
+
+    &:focus-visible {
+        border: 1px solid colour.$primary;
+        box-shadow: none;
+        outline: none;
+    }
+}

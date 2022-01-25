@@ -1,0 +1,67 @@
+@use './colour' as colour;
+
+button {
+    border-radius: 4px;
+    background-color: colour.$primary;
+    color: #ffffff;
+    border: none;
+    padding: .5rem;
+    text-transform: uppercase;
+    transition: all .1s ease-in;
+    width: 100%;
+
+    &:not(.disabled) {
+        cursor: pointer;
+
+        &:hover {
+            opacity: .7;
+        }
+    }
+
+    &[disabled] {
+        background-color: #4c4c4c;
+        opacity: .3;
+
+        &:hover {
+            opacity: .4;
+            cursor: not-allowed;
+        }
+    }
+
+    &.transparent {
+        background-color: transparent;
+        color: colour.$primary;
+
+        &:hover {
+            opacity: 1;
+            background-color: #151617;
+        }
+    }
+
+    & + & {
+        margin-left: 1rem;
+    }
+
+    * + * {
+        #{&} {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+    }
+
+    &.below {
+        margin-left: 0;
+        margin-top: 1rem;
+    }
+
+    &.icon {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        img {
+            margin-right: .5rem;
+        }
+    }
+}

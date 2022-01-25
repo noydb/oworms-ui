@@ -4,10 +4,13 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { ChunkPipe } from '../pipe/chunk.pipe';
 
-import { ButtonComponent } from '../component/common/button.component';
-import { DropdownComponent } from '../component/common/dropdown.component';
+import { ErrorComponent } from '../component/common/error/error.component';
 import { FilterComponent } from '../component/filter/filter.component';
-import { InputComponent } from '../component/common/input.component';
+import { FilterModalComponent } from '../component/filter/modal/filter-modal.component';
+import { HeroComponent } from '../component/layout/hero/hero.component';
+import { RandomTopComponent } from '../component/word/random/top/random-top.component';
+import { SelectComponent } from '../component/common/select/select.component';
+import { TagsComponent } from '../component/tags/tags.component';
 
 @NgModule({
     imports: [
@@ -16,10 +19,13 @@ import { InputComponent } from '../component/common/input.component';
         ReactiveFormsModule
     ],
     declarations: [
-        ButtonComponent,
-        DropdownComponent,
+        ErrorComponent,
         FilterComponent,
-        InputComponent,
+        FilterModalComponent,
+        HeroComponent,
+        RandomTopComponent,
+        SelectComponent,
+        TagsComponent,
 
         ChunkPipe
     ],
@@ -28,10 +34,12 @@ import { InputComponent } from '../component/common/input.component';
         FormsModule,
         ReactiveFormsModule,
 
-        ButtonComponent,
-        DropdownComponent,
+        ErrorComponent,
         FilterComponent,
-        InputComponent,
+        HeroComponent,
+        RandomTopComponent,
+        SelectComponent,
+        TagsComponent,
 
         ChunkPipe
     ]

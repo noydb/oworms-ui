@@ -1,12 +1,11 @@
-import { Component, EventEmitter, Input, OnChanges, Output } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
-import { Params } from '@angular/router';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { ActivatedRoute, ParamMap, Router } from '@angular/router';
+import { Observable, Subscription } from 'rxjs';
+import { tap } from 'rxjs/operators';
 
-import { FilterUtil } from '../../util/filter.util';
+import { TagService } from '../../service/tag.service';
+import { WordService } from '../../service/word.service';
 
-import { DropdownItem } from '../../model/dropdown-item.interface';
-import { FilterProp } from '../../model/filter-prop.interface';
-import { PartOfSpeech } from '../../model/part-of-speech.enum';
 import { WordFilter } from '../../model/word-filter.interface';
 
 @Component({
@@ -14,111 +13,91 @@ import { WordFilter } from '../../model/word-filter.interface';
     templateUrl: './filter.component.html',
     styleUrls: ['./filter.component.scss']
 })
-export class FilterComponent implements OnChanges {
+export class FilterComponent {
 
     @Input()
-    existingFilter: WordFilter | undefined;
+    wordFilter: WordFilter;
 
-    queryParams: Params = {};
-    properties: FilterProp[] = FilterUtil.getFreshProps();
-    partsOfSpeechDropdownItems: DropdownItem<PartOfSpeech>[] = FilterUtil.getPartOfSpeechDropdownItems();
-    partsOfSpeechToFilterBy: PartOfSpeech[] = [];
+    showModal = false;
+    existingFilters: string[] = [];
 
     @Output()
-    readonly filterChange: EventEmitter<Params> = new EventEmitter<Params>();
-    readonly form: FormGroup = new FormGroup({
-        theWord: new FormControl(),
-        definition: new FormControl(),
-        createdBy: new FormControl()
-    });
+    readonly showChange: EventEmitter<number> = new EventEmitter<number>();
 
-    ngOnChanges(): void {
-        if (!this.existingFilter) {
-            return;
-        }
+    readonly wordCount$: Observable<number>;
+    readonly subs: Subscription[] = [];
 
-        const { theWord, definition, partsOfSpeech, createdBy, haveLearnt } = this.existingFilter;
-
-        const hasAFilter = !!theWord || !!definition || !!partsOfSpeech || !!createdBy || !!haveLearnt;
-        if (hasAFilter) {
-            this.setExistingFilters();
-        }
+    constructor(private readonly tagService: TagService,
+                private readonly route: ActivatedRoute,
+                private readonly router: Router,
+                private readonly wordService: WordService) {
+        this.subs.push(this.getQueryParams());
+        this.wordCount$ = this.wordService.getCount();
     }
 
-    private setExistingFilters(): void {
-        const updatedProps: FilterProp[] = this.properties.map((property) => {
-
-            // why is optional chaining needed here? existingFilter cannot be undefined (see if check in on changes)
-            switch (property.key) {
-                case 'theWord':
-                    property.value = this.existingFilter?.theWord;
-                    break;
-                case 'definition':
-                    property.value = this.existingFilter?.definition;
-                    break;
-                case 'createdBy':
-                    property.value = this.existingFilter?.createdBy;
-                    break;
-            }
-
-            return property;
-        });
-
-        const partsOfSpeech = this.existingFilter?.partsOfSpeech;
-        if (!!partsOfSpeech) {
-            this.partsOfSpeechToFilterBy = partsOfSpeech.map((pos: string) => pos as PartOfSpeech);
-        }
-
-        this.properties = [...updatedProps];
+    filter(): void {
+        this.showModal = false;
     }
 
-    addFilter(prop: FilterProp): void {
-        prop.filterBy = true;
-
-        this.queryParams = {
-            ...this.queryParams,
-            [prop.key]: prop.value
-        };
-
-        this.filterChange.emit(this.queryParams);
-    }
-
-    removeFilter(prop: FilterProp): void {
-        prop.filterBy = false;
-        prop.value = '';
-
-        delete this.queryParams[prop.key];
-
-        this.filterChange.emit(this.queryParams);
-    }
-
-    selectPartOfSpeech($event: PartOfSpeech[]): void {
-        this.partsOfSpeechToFilterBy = $event;
-
-        const partOfSpeechFilterProp: FilterProp = {
-            key: 'partOfSpeech',
-            pHolder: 'part of speech',
-            value: this.partsOfSpeechToFilterBy,
-            filterBy: false
-        };
-        this.addFilter(partOfSpeechFilterProp);
-    }
-
-    updateValue($event: any, prop: FilterProp): void {
-        prop.value = $event;
+    showSelect($event: number): void {
+        this.showChange.emit($event);
     }
 
     clearFilters(): void {
-        this.properties.forEach((prop: FilterProp) => {
-            this.removeFilter(prop);
-        });
+        void this.router.navigate([], { relativeTo: this.route, queryParams: {} });
+    }
 
-        this.partsOfSpeechToFilterBy = [];
-        this.removeFilter({
-            key: 'partOfSpeech',
-            value: undefined,
-            filterBy: false,
-            pHolder: ''
-        });
+    private getQueryParams(): Subscription {
+        return this.route.queryParamMap
+        .pipe(
+            tap((qParamsMap: ParamMap) => {
+                if (qParamsMap.get('filter')) {
+                    this.showModal = true;
+                }
+
+                this.existingFilters = this.getFilterLabels(qParamsMap);
+            }),
+        ).subscribe();
+    }
+
+    private getFilterLabels(qParamsMap: ParamMap): string[] {
+        let filters: string[] = [];
+
+        const word: string = qParamsMap.get('word');
+        if (!!word?.trim()) {
+            filters.push(`Word: ${word}`);
+        }
+
+        const partsOfSpeech: string[] = qParamsMap.getAll('pos');
+        if (!!partsOfSpeech[0]?.trim()) {
+            filters = [...filters, ...partsOfSpeech[0].split(',')];
+        }
+
+        const definition: string = qParamsMap.get('def');
+        if (!!definition?.trim()) {
+            filters.push(`Definition: ${definition}`);
+        }
+
+        const origin: string = qParamsMap.get('ori');
+        if (!!origin?.trim()) {
+            filters.push(`Origin: ${origin}`);
+        }
+
+        const example: string = qParamsMap.get('ex');
+        if (!!example?.trim()) {
+            filters.push(`Example: ${word}`);
+        }
+
+        const note: string = qParamsMap.get('note');
+        if (!!note?.trim()) {
+            filters.push(`Note: ${note}`);
+        }
+
+        const tags: string[] = qParamsMap.getAll('tags');
+        if (!!tags[0]?.trim()) {
+            filters = [...filters, ...tags[0].split(',')];
+        }
+
+        return filters;
     }
 }

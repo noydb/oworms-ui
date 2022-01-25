@@ -7,14 +7,18 @@ import { ComponentModule } from './module/component.module';
 import { WordModule } from './module/word.module';
 
 import { LocalStorageService } from './service/local-storage.service';
+import { TagService } from './service/tag.service';
 import { WordHttpService } from './service/word.http.service';
 import { WordService } from './service/word.service';
 
+import { AboutComponent } from './component/about/about.component';
 import { AppComponent } from './app.component';
-import { CredentialsComponent } from './component/credentials/credentials.component';
-import { SpinnerComponent } from './component/common/spinner.component';
+import { CredentialsComponent } from './component/about/credentials/credentials.component';
+import { FooterComponent } from './component/layout/footer/footer.component';
+import { MainComponent } from './component/layout/main/main.component';
+import { SpinnerComponent } from './component/common/spinner/spinner.component';
 import { StatisticsComponent } from './component/stats/statistics.component';
-import { TopComponent } from './component/top/top.component';
+import { TopComponent } from './component/layout/top/top.component';
 
 @NgModule({
     imports: [
@@ -25,8 +29,11 @@ import { TopComponent } from './component/top/top.component';
         WordModule
     ],
     declarations: [
+        AboutComponent,
         AppComponent,
         CredentialsComponent,
+        FooterComponent,
+        MainComponent,
         SpinnerComponent,
         StatisticsComponent,
         TopComponent
@@ -35,6 +42,7 @@ import { TopComponent } from './component/top/top.component';
         FormGroupDirective,
 
         LocalStorageService,
+        TagService,
         WordHttpService,
         WordService
     ],

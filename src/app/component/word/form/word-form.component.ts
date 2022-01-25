@@ -1,12 +1,13 @@
-import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { Subscription } from 'rxjs';
+import { Observable } from 'rxjs';
+
+import { TagService } from '../../../service/tag.service';
 
 import { FilterUtil } from '../../../util/filter.util';
-import { SubscriptionUtil } from '../../../util/subscription.util';
-
-import { DropdownItem } from '../../../model/dropdown-item.interface';
 import { PartOfSpeech } from '../../../model/part-of-speech.enum';
+import { SelectOption } from '../../../model/select-option.interface';
+import { TagUtil } from '../../../util/tag.util';
 import { Word } from '../../../model/word.interface';
 
 @Component({
@@ -14,10 +15,10 @@ import { Word } from '../../../model/word.interface';
     templateUrl: './word-form.component.html',
     styleUrls: ['./word-form.component.scss']
 })
-export class WordFormComponent implements OnInit, OnDestroy {
+export class WordFormComponent implements OnInit {
 
     @Input()
-    title: string = 'Add New Word';
+    title: string = 'Add A Word';
 
     @Input()
     word: Word = {
@@ -26,17 +27,24 @@ export class WordFormComponent implements OnInit, OnDestroy {
         pronunciation: '',
         origin: '',
         exampleUsage: '',
-        partOfSpeech: PartOfSpeech.ADJECTIVE
+        partOfSpeech: undefined,
+        tags: undefined
     };
 
     @Input()
-    buttonText: string = 'Create Word';
+    btnText: string = 'Add Word';
+
+    @Input()
+    secondBtnText: string = 'Cancel';
 
     @Input()
     viewOnly: boolean = false;
 
     @Output()
-    btnEvent: EventEmitter<Word> = new EventEmitter<Word>();
+    readonly submitForm: EventEmitter<Word> = new EventEmitter<Word>();
+
+    @Output()
+    readonly secondBtnClick: EventEmitter<void> = new EventEmitter<void>();
 
     form: FormGroup = new FormGroup({
         word: new FormControl('', [Validators.required]),
@@ -46,13 +54,18 @@ export class WordFormComponent implements OnInit, OnDestroy {
         exampleUsage: new FormControl(),
         note: new FormControl()
     });
-    partsOfSpeechDropdownItems: DropdownItem<PartOfSpeech>[] = FilterUtil.getPartOfSpeechDropdownItems();
-    partOfSpeech: PartOfSpeech[] = []; // store as array to cater for dropdown. will fix.
+    posOptions: SelectOption[] = FilterUtil.getPartOfSpeechDropdownItems();
+    selectedPos: SelectOption;
+    selectedTags: SelectOption[];
 
-    private readonly subs: Subscription[] = [];
+    readonly tagOptions$: Observable<SelectOption[]>;
+
+    constructor(private readonly tagService: TagService) {
+        this.tagOptions$ = this.tagService.getTagSelectOptions();
+    }
 
     get disabled(): boolean {
-        return this.form.invalid || !this.partOfSpeech;
+        return this.form.invalid || !this.selectedPos?.value
     }
 
     ngOnInit(): void {
@@ -63,28 +76,36 @@ export class WordFormComponent implements OnInit, OnDestroy {
         }
     }
 
-    ngOnDestroy(): void {
-        SubscriptionUtil.unsubscribe(this.subs);
-    }
+    onBtnClick(cancel?: boolean): void {
+        if (cancel) {
+            this.form.reset();
+            this.secondBtnClick.emit();
 
-    onButtonClicked(): void {
+            return;
+        }
+
         const { word: theWord, definition, pronunciation, origin, exampleUsage, note }: any = this.form.value;
 
         const word: Word = {
             theWord,
             definition,
-            partOfSpeech: this.partOfSpeech[0],
+            partOfSpeech: this.selectedPos.value as PartOfSpeech,
             pronunciation,
             origin,
             exampleUsage,
-            note
+            note,
+            tagIds: this.selectedTags.map(({ value }: SelectOption) => value as number)
         };
 
-        this.btnEvent.emit(word);
+        this.submitForm.emit(word);
     }
 
-    selectPartOfSpeech($event: PartOfSpeech[]): void {
-        this.partOfSpeech = $event && $event.length > 0 ? $event : [];
+    selectPartOfSpeech($event: SelectOption): void {
+        this.selectedPos = $event;
+    }
+
+    selectTags($event: SelectOption[]): void {
+        this.selectedTags = $event;
     }
 
     private injectValuesIntoForm(): void {
@@ -97,6 +118,15 @@ export class WordFormComponent implements OnInit, OnDestroy {
             note: new FormControl(this.word?.note)
         });
 
-        this.partOfSpeech = this.word?.partOfSpeech ? [this.word.partOfSpeech] : [];
+        if (this.word?.partOfSpeech) {
+            this.selectedPos = {
+                value: this.word?.partOfSpeech,
+                selected: true,
+                label: this.word?.partOfSpeech,
+                titleLabel: this.word?.partOfSpeech
+            };
+        }
+
+        this.selectedTags = TagUtil.mapTagsToOptions(this.word.tags, true);
     }
 }

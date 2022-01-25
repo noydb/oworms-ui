@@ -1,0 +1,22 @@
+N<ow-hero>
+    <ow-random-top></ow-random-top>
+</ow-hero>
+
+<div class="tabs">
+    <div (click)="setState('about')" class="tab">
+        <button [class.transparent]="state !== 'about'">About</button>
+    </div>
+    <div (click)="setState('creds')" class="tab">
+        <button [class.transparent]="state !== 'creds'">Credentials</button>
+    </div>
+</div>
+<div [ngSwitch]="state" class="about">
+    <div *ngSwitchCase="'about'" class="info">
+        <h5>Why this app?</h5>
+        <p>{{ paraOne }}</p>
+        <p>{{ paraTwo }}</p>
+        <p>{{ paraThree }}</p>
+        <p>{{ paraFour }}</p>
+    </div>
+    <ow-credentials *ngSwitchCase="'creds'"></ow-credentials>
+</div>

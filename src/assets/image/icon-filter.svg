@@ -1,0 +1,8 @@
+<svg data-name="icon/content/filter_list_24px" height="24"
+     id="icon_content_filter_list_24px"
+     viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+    <rect fill="none" height="24" id="Boundary" width="24" />
+    <path d="M11,12H7V10h4v2Zm4-5H3V5H15V7Zm3-5H0V0H18V2Z" data-name=" ↳Color" fill="#B2B2B2"
+          id="_Color"
+          transform="translate(3 6)" />
+</svg>

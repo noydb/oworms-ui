@@ -1,25 +1,21 @@
-<div class="filter">
-    <h3>Filtering</h3>
-    <div class="props" [formGroup]="form">
-        <div class="prop" *ngFor="let filterProp of properties">
-            <div class="prop-input">
-                <ow-input [name]="filterProp.key"
-                          [withNgModel]="true"
-                          type="text"
-                          [value]="filterProp.value"
-                          [placeholder]="filterProp.pHolder"
-                          (onValueChange)="updateValue($event, filterProp)"></ow-input>
-                <ow-button type="button" (onButtonClick)="addFilter(filterProp)">Apply</ow-button>
-                <ow-button type="button" (onButtonClick)="removeFilter(filterProp)">X</ow-button>
-            </div>
-        </div>
-        <ow-dropdown [items]="partsOfSpeechDropdownItems"
-                     [selectedValues]="partsOfSpeechToFilterBy"
-                     (valueChange)="selectPartOfSpeech($event)"
-                     [closeAfterEachSelection]="false"
-                     [multiSelections]="true"></ow-dropdown>
-        <div class="button-row">
-            <ow-button (onButtonClick)="clearFilters()">Clear Filters</ow-button>
-        </div>
+<article class="filter">
+    <img (click)="showModal = true" alt="filter icon" src="/assets/image/icon-filter.svg" />
+    <div class="clear">
+        <button (click)="clearFilters()" *ngIf="existingFilters?.length > 0" class="transparent">
+            Clear Filters
+        </button>
     </div>
-</div>
+</article>
+
+<ng-container *ngIf="existingFilters?.length > 0">
+    <div class="existing">
+        <ow-tags [sTags]="existingFilters"></ow-tags>
+    </div>
+    <div class="count">
+        <label>{{ wordCount$ | async }} results</label>
+    </div>
+</ng-container>
+
+<ng-container *ngIf="showModal">
+    <ow-filter-modal (modalClosed)="filter()"></ow-filter-modal>
+</ng-container>

@@ -1,0 +1,17 @@
+<ow-hero>
+    <ow-random-top [word]="word$ | async"></ow-random-top>
+</ow-hero>
+
+<div *ngIf="word$ | async as word; else error" class="word-edit">
+    <ow-word-form (secondBtnClick)="cancel(word.id)"
+                  (submitForm)="update(word.id, $event)"
+                  [word]="word"
+                  btnText="Save Changes"
+                  secondBtnText="Cancel"
+                  title="Details"></ow-word-form>
+
+</div>
+
+<ng-template #error>
+    <ow-error>{{errorMessage}}</ow-error>
+</ng-template>

@@ -1,13 +1,24 @@
+.title {
+    padding-bottom: 16px;
+}
+
 .form {
-    width: 50%;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
 
-    .form-title {
-        padding-top: .5rem;
-    }
+    .column {
+        width: 48%;
 
-    > .form-row {
-        width: 100%;
-        margin-top: 1.2rem;
-        margin-bottom: 1.2rem;
+        > .row {
+            width: 100%;
+            margin-top: 1.2rem;
+            margin-bottom: 1.2rem;
+        }
     }
+}
+
+.actions {
+    width: 25%;
+    margin: 2rem auto auto;
 }

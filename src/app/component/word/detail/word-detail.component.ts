@@ -1,91 +1,56 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
-import { Subscription } from 'rxjs';
-import { map, switchMap } from 'rxjs/operators';
-
-import { WordService } from '../../../service/word.service';
-
-import { SubscriptionUtil } from '../../../util/subscription.util';
+import { Observable, of } from 'rxjs';
+import { catchError, map, switchMap, tap } from 'rxjs/operators';
 
 import { AppRoutes } from '../../../util/app.routes';
 
+import { WordService } from '../../../service/word.service';
+
+import { Tag } from '../../../model/tag.interface';
 import { Word } from '../../../model/word.interface';
 
-import { LoadComponent } from '../../common/load.component';
+import { LoadComponent } from '../../common/spinner/load.component';
 
 @Component({
-	selector: 'ow-word-detail',
-	templateUrl: 'word-detail.component.html',
-	styleUrls: ['./word-detail.component.scss']
+    selector: 'ow-word-detail',
+    templateUrl: 'word-detail.component.html',
+    styleUrls: ['./word-detail.component.scss']
 })
-export class WordDetailComponent extends LoadComponent implements OnInit, OnDestroy {
+export class WordDetailComponent extends LoadComponent {
 
-	word: Word = undefined;
-	private theWord: string = '';
-	private readonly subs: Subscription[] = [];
+    word$: Observable<Word>;
+    tags: string[] = [];
 
-	constructor(private readonly route: ActivatedRoute,
-				private readonly service: WordService,
-				private readonly router: Router,
-				private readonly titleService: Title) {
-		super();
+    constructor(private readonly service: WordService,
+                private readonly router: Router,
+                private readonly route: ActivatedRoute,
+                private readonly titleService: Title) {
+        super();
 
-		this.titleService.setTitle('oworms | view');
-	}
+        this.titleService.setTitle('oworms | new');
+        this.word$ = this.getWord();
+    }
 
-	ngOnInit(): void {
-		this.subs.push(this.getWord());
-	}
+    edit({ id }: Word): void {
+        void this.router.navigate([AppRoutes.BASE, id, 'edit']);
+    }
 
-	ngOnDestroy(): void {
-		SubscriptionUtil.unsubscribe(this.subs);
-	}
+    private getWord(): Observable<Word> {
+        return this.route.paramMap
+        .pipe(
+            map((params: ParamMap) => params.get('id') ?? '0'),
+            switchMap((id: string) => this.service.retrieve(Number(id))),
+            tap((word: Word) => {
+                this.tags = word.tags.map(({ name }: Tag) => name);
+            }),
+            catchError((e: any) => {
+                console.error(e);
+                this.errorMessage = e.error.message;
 
-	private getWord(): Subscription {
-		this.state = 'loading';
-
-		return this.route.paramMap
-		.pipe(
-			map((params: ParamMap) => params.get('id') ?? '0'),
-			switchMap((id: string) => this.service.retrieve(Number(id))),
-		).subscribe((word: Word) => {
-			if (word) {
-				this.word = { ...word };
-				this.theWord = word.theWord ?? 'word-not-found';
-			}
-
-			this.state = 'complete';
-		}, (e) => {
-			this.state = 'error';
-			this.errorMessage = e.error.message;
-		});
-	}
-
-	update(word: Word): void {
-		this.subs.push(
-			this.service
-			.update(this.word.id, word)
-			.subscribe(() => {
-				alert('word updated');
-
-				this.router.navigate([AppRoutes.LIST]);
-			}, (e) => {
-				console.error(e);
-
-				alert(e.error.message);
-			})
-		);
-	}
-
-	get formTitle(): string {
-		switch (this.state) {
-			case 'loading':
-				return 'Details for Loading...';
-			case 'error':
-				return 'Error (see below for more details)';
-			case 'complete':
-				return `Details for ${this.word.theWord}`;
-		}
-	}
+                return of(undefined);
+            })
+        );
+    }
 }

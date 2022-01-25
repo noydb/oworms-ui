@@ -1,0 +1,54 @@
+@use '../../../style/colour' as colour;
+
+.footer {
+    height: 100px;
+    display: flex;
+    align-items: center;
+    border-top: 1px solid #121212;
+    margin-top: 32px;
+
+    .items {
+        display: flex;
+        align-items: center;
+
+        .item {
+            padding: 1rem;
+            transition: background-color .1s ease-in-out;
+            cursor: pointer;
+            color: #f2f2f2;
+
+            &:hover {
+                label {
+                    color: colour.$primary;
+                }
+            }
+
+            &:not(last-of-type) {
+                margin-right: .5rem;
+            }
+
+            label {
+                cursor: pointer;
+            }
+
+            &.active {
+                color: colour.$primary;
+            }
+
+            &.logo {
+                margin-right: 2rem;
+            }
+        }
+    }
+
+    .signature {
+        width: 100%;
+        display: flex;
+        justify-content: flex-end;
+        padding-right: 1rem;
+
+        > label {
+            font-size: .75rem;
+        }
+    }
+}
