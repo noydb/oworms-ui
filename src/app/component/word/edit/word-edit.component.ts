@@ -29,7 +29,7 @@ export class WordEditComponent extends LoadComponent {
                 private readonly titleService: Title) {
         super();
 
-        this.titleService.setTitle('oworms | view');
+        this.titleService.setTitle('oworms | edit');
         this.word$ = this.getWord();
     }
 

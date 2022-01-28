@@ -29,7 +29,7 @@ export class WordDetailComponent extends LoadComponent {
                 private readonly titleService: Title) {
         super();
 
-        this.titleService.setTitle('oworms | new');
+        this.titleService.setTitle('oworms | detail');
         this.word$ = this.getWord();
     }
 

@@ -1,4 +1,5 @@
 @use '../../../style/font' as font;
+@use '../../../style/mixin' as mxn;
 
 .word {
     margin-left: 25%;
@@ -26,6 +27,8 @@
                 display: flex;
                 justify-content: space-between;
                 width: 10%;
+
+                @include mxn.svg-hover;
             }
         }
 

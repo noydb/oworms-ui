@@ -10,9 +10,8 @@
                 <small>#{{word.id}}</small>
             </div>
             <div class="actions">
-                <!-- TODO: insert edit and link synonym icons -->
-                <span (click)="edit(word)">E</span>
-                <span>S</span>
+                <img alt="edit" src="/assets/image/pencil-circled.svg" (click)="edit(word)" />
+                <img alt="synonyms" src="/assets/image/plus-circled.svg" />
             </div>
         </div>
         <p class="pos">{{word.partOfSpeech}}</p>
