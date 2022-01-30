@@ -16,7 +16,7 @@ import { WordsComponent } from '../component/word/list/words.component';
 const routes: Routes = [
     {
         path: '',
-        redirectTo: AppRoutes.LIST,
+        redirectTo: AppRoutes.HOME,
         pathMatch: 'full'
     },
     {
@@ -36,7 +36,7 @@ const routes: Routes = [
         component: WordEditComponent
     },
     {
-        path: AppRoutes.LIST,
+        path: AppRoutes.HOME,
         component: WordsComponent
     },
     {

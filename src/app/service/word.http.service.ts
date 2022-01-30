@@ -11,62 +11,54 @@ import { WordFilter } from '../model/word-filter.interface';
 @Injectable()
 export class WordHttpService {
 
-    private readonly baseURL: string = '/api/o';
+    private readonly baseURL: string = '/api/o/worms';
 
-    constructor(private readonly http: HttpClient, private readonly lsService: LocalStorageService) {
+    constructor(private readonly http: HttpClient, private readonly ls: LocalStorageService) {
     }
 
     retrieveAll(wordFilter: WordFilter): Observable<Word[]> {
         return this.http.get<Word[]>(
-            `${this.baseURL}/worms`,
-            {
-                params: this.getFilterHttpParams(wordFilter)
-            }
+            `${this.baseURL}`,
+            { params: this.getFilterHttpParams(wordFilter) }
         );
     }
 
     retrieve(wordId: number): Observable<Word> {
-        return this.http.get<Word>(`${this.baseURL}/worms/${wordId}`);
+        return this.http.get<Word>(`${this.baseURL}/${wordId}`);
     }
 
     retrieveRandom(): Observable<Word> {
-        return this.http.get<Word>(`${this.baseURL}/worms/random`);
+        return this.http.get<Word>(`${this.baseURL}/random`);
     }
 
     retrieveFromOxford(theWord: string): Observable<string> {
-        return this.http.get<string>(
-            `${this.baseURL}/worms/oxford/${theWord}`,
-            { params: this.getCredentialHttpParams() }
-        );
+        return this.http.get<string>(`${this.baseURL}/oxford/${theWord}`, { params: this.getBNA() });
     }
 
     create(word: Word): Observable<void> {
         return this.http.post<void>(
-            `${this.baseURL}/worms`,
+            `${this.baseURL}`,
             { word, tagIds: word.tagIds },
-            { params: this.getCredentialHttpParams() }
+            { params: this.getBNA() }
         );
     }
 
     update(wordId: number, updatedWord: Word): Observable<Word> {
         return this.http.put<Word>(
-            `${this.baseURL}/worms/${wordId}`,
-            {
-                word: updatedWord,
-                tagIds: updatedWord.tagIds
-            },
-            { params: this.getCredentialHttpParams() }
+            `${this.baseURL}/${wordId}`,
+            { word: updatedWord, tagIds: updatedWord.tagIds },
+            { params: this.getBNA() }
         );
     }
 
     getStatistics(): Observable<Statistics> {
-        return this.http.get<Statistics>('/api/o/settings');
+        return this.http.get<Statistics>(`${this.baseURL}/statistics`);
     }
 
     // https://roytuts.com/download-file-from-server-using-angular/
     // try add types.
     getCSV(): any {
-        return this.http.get('/api/o/worms/file/csv', { responseType: 'blob' });
+        return this.http.get(`${this.baseURL}/file/csv`, { responseType: 'blob' });
     }
 
     private getFilterHttpParams(wordFilter: WordFilter): HttpParams | undefined {
@@ -100,11 +92,7 @@ export class WordHttpService {
         return httpParams.set(paramKey, paramVal);
     }
 
-    private getCredentialHttpParams(): HttpParams {
-        let params: HttpParams = new HttpParams();
-        params = params.set('u', this.lsService.get('u'));
-        params = params.set('permission_key', this.lsService.get('p'));
-
-        return params;
+    private getBNA(): HttpParams {
+        return new HttpParams().set('u', this.ls.get('u')).set('bna', this.ls.get('bna'));
     }
 }

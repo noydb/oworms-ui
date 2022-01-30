@@ -1,5 +1,5 @@
 <h5 class="title">{{ title }}</h5>
-<div [formGroup]="form" class="form">
+<form [formGroup]="form">
     <div class="column">
         <div class="row">
             <input [required]="!viewOnly"
@@ -48,7 +48,7 @@
             <textarea formControlName="note" name="note" placeholder="note"></textarea>
         </div>
     </div>
-</div>
+</form>
 <div *ngIf="!viewOnly" class="actions">
     <button (click)="onBtnClick()" [disabled]="disabled">
         {{ btnText }}

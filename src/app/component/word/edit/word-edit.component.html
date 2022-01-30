@@ -3,7 +3,7 @@
 </ow-hero>
 
 <div *ngIf="word$ | async as word; else error" class="word-edit">
-    <ow-word-form (secondBtnClick)="cancel(word.id)"
+    <ow-word-form (secondBtnClick)="navToDetail(word.id)"
                   (submitForm)="update(word.id, $event)"
                   [word]="word"
                   btnText="Save Changes"

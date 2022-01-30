@@ -10,6 +10,7 @@ import { FilterModalComponent } from '../component/filter/modal/filter-modal.com
 import { HeroComponent } from '../component/layout/hero/hero.component';
 import { RandomTopComponent } from '../component/word/random/top/random-top.component';
 import { SelectComponent } from '../component/common/select/select.component';
+import { SpinnerComponent } from '../component/common/spinner/spinner.component';
 import { TagsComponent } from '../component/tags/tags.component';
 
 @NgModule({
@@ -25,6 +26,7 @@ import { TagsComponent } from '../component/tags/tags.component';
         HeroComponent,
         RandomTopComponent,
         SelectComponent,
+        SpinnerComponent,
         TagsComponent,
 
         ChunkPipe
@@ -39,6 +41,7 @@ import { TagsComponent } from '../component/tags/tags.component';
         HeroComponent,
         RandomTopComponent,
         SelectComponent,
+        SpinnerComponent,
         TagsComponent,
 
         ChunkPipe

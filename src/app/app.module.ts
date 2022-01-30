@@ -12,11 +12,11 @@ import { WordHttpService } from './service/word.http.service';
 import { WordService } from './service/word.service';
 
 import { AboutComponent } from './component/about/about.component';
+import { AlertComponent } from './component/alert/alert.component';
 import { AppComponent } from './app.component';
 import { CredentialsComponent } from './component/about/credentials/credentials.component';
 import { FooterComponent } from './component/layout/footer/footer.component';
-import { MainComponent } from './component/layout/main/main.component';
-import { SpinnerComponent } from './component/common/spinner/spinner.component';
+import { LoaderComponent } from './component/common/loader/loader.component';
 import { StatisticsComponent } from './component/stats/statistics.component';
 import { TopComponent } from './component/layout/top/top.component';
 
@@ -30,11 +30,11 @@ import { TopComponent } from './component/layout/top/top.component';
     ],
     declarations: [
         AboutComponent,
+        AlertComponent,
         AppComponent,
         CredentialsComponent,
         FooterComponent,
-        MainComponent,
-        SpinnerComponent,
+        LoaderComponent,
         StatisticsComponent,
         TopComponent
     ],

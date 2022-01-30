@@ -1,9 +1,12 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { take } from 'rxjs/operators';
 
+import { AlertService } from '../../../service/alert.service';
 import { WordService } from '../../../service/word.service';
 
+import { ErrorUtil } from '../../../util/error.util';
 import { FileUtil } from '../../../util/file.util';
 
 import { AppRoutes } from '../../../util/app.routes';
@@ -21,15 +24,22 @@ export class TopComponent {
 
     readonly items: MenuItem[] = MENU_ITEMS;
 
-    constructor(private readonly router: Router, private readonly wordService: WordService) {
+    constructor(private readonly router: Router,
+                private readonly wordService: WordService,
+                private readonly alertService: AlertService) {
     }
 
     navigateToRandom(): void {
         this.wordService
         .retrieveRandom()
         .pipe(take(1))
-        .subscribe(({ id }: Word) => {
-            void this.router.navigate([AppRoutes.BASE, String(id), 'detail']);
+        .subscribe({
+            next: ({ id }: Word) => {
+                void this.router.navigate([AppRoutes.BASE, String(id), 'detail']);
+            },
+            error: (e: HttpErrorResponse) => {
+                this.alertService.add(ErrorUtil.getMessage(e), true);
+            }
         });
 
     }
@@ -49,8 +59,9 @@ export class TopComponent {
         this.wordService
         .getCSV()
         .pipe(take(1))
-        .subscribe((response: any) => {
-            FileUtil.downloadFile(response);
+        .subscribe({
+            next: (response: any) => FileUtil.downloadFile(response),
+            error: (e: HttpErrorResponse) => this.alertService.add(ErrorUtil.getMessage(e), true)
         });
     }
 }

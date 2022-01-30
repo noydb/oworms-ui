@@ -65,7 +65,7 @@ export class WordFormComponent implements OnInit {
     }
 
     get disabled(): boolean {
-        return this.form.invalid || !this.selectedPos?.value
+        return this.form.invalid || !this.selectedPos?.value;
     }
 
     ngOnInit(): void {
@@ -80,6 +80,8 @@ export class WordFormComponent implements OnInit {
         if (cancel) {
             this.form.reset();
             this.secondBtnClick.emit();
+            this.selectedPos = undefined;
+            this.selectedTags = [];
 
             return;
         }

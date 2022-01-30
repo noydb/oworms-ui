@@ -50,6 +50,7 @@ export class SelectComponent implements OnDestroy {
     @Input()
     set values(arg: SelectOption[] | SelectOption) {
         if (!arg || Array.isArray(arg) && arg.length === 0) {
+            this.selected = [];
             return;
         }
 

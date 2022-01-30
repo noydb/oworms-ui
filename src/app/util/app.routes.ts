@@ -5,7 +5,7 @@ export class AppRoutes {
     static readonly ADD = `${AppRoutes.BASE}/new`;
     static readonly DETAIL = `${AppRoutes.BASE}/:id/detail`;
     static readonly EDIT = `${AppRoutes.BASE}/:id/edit`;
-    static readonly LIST = `${AppRoutes.BASE}/list`;
+    static readonly HOME = `${AppRoutes.BASE}/list`;
     static readonly RANDOM = `${AppRoutes.BASE}/random`;
     static readonly SEARCH_OX = `${AppRoutes.BASE}/oxford`;
     static readonly STATS = `${AppRoutes.BASE}/stats`;

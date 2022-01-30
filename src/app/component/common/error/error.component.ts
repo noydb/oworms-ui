@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
     selector: 'ow-error',
@@ -7,16 +7,4 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 })
 export class ErrorComponent {
 
-    @Input()
-    showAction: boolean = false;
-
-    @Input()
-    actionText: string = 'Action';
-
-    @Output()
-    readonly actionClick: EventEmitter<void> = new EventEmitter<void>();
-
-    actionClicked(_: Event): void {
-        this.actionClick.emit();
-    }
 }
