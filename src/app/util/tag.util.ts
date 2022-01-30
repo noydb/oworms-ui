@@ -24,7 +24,7 @@ export class TagUtil {
             selected,
             value: id,
             titleLabel: name,
-            label: `${name} ${words?.length ?? 0}`
+            label: `${name} (${words?.length ?? 0})`
         };
     }
 }

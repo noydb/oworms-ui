@@ -3,7 +3,8 @@
      [class.focused]="!closed"
      [class.fueled]="selected?.length > 0"
      [class.transparent]="transparent"
-     class="select">
+     class="select"
+     role="listbox">
     <div class="s-title">
         {{ title }}
         <img alt="chev icon" src="/assets/image/chevron-down.svg" />
@@ -12,7 +13,8 @@
         <div (click)="selectItem(item)"
              *ngFor="let item of options"
              [class.selected]="isSelected(item)"
-             class="s-option">
+             class="s-option"
+             role="option">
             <label class="s-option-l">
                 {{ item.label ? item.label : item.value }}
             </label>

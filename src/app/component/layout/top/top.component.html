@@ -1,11 +1,12 @@
-<div class="top">
+<header>
     <div class="items">
         <div class="item logo">
             <img alt="oworms logo" src="/assets/image/logo.svg">
         </div>
         <div (click)="navigate(item)"
              *ngFor="let item of items"
-             class="item">
+             class="item"
+             role="menuitem">
             <label>{{ item.name }}</label>
         </div>
         <div (click)="getCSV()" class="item">
@@ -22,4 +23,4 @@
             add
         </button>
     </div>
-</div>
+</header>

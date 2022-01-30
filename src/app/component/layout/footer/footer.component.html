@@ -1,18 +1,19 @@
-<div class="footer">
+<footer>
     <div class="items">
         <div class="item logo">
             <img alt="oworms logo" src="/assets/image/logo.svg">
         </div>
         <div (click)="navigate(item.path)"
              *ngFor="let item of items"
-             class="item">
+             class="item"
+             role="menuitem">
             <label>{{ item.name }}</label>
         </div>
-        <div (click)="getCSV()" class="item">
+        <div (click)="getCSV()" class="item" role="document">
             <label>csv</label>
         </div>
     </div>
     <div class="signature">
         <label>&copy; 2022 bp, cw, tg, sk, fv, jg, kmw</label>
     </div>
-</div>
+</footer>

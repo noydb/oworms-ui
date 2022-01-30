@@ -6,6 +6,8 @@ import { catchError, map, switchMap, tap } from 'rxjs/operators';
 
 import { WordService } from '../../../service/word.service';
 
+import { ErrorUtil } from '../../../util/error.util';
+
 import { Word } from '../../../model/word.interface';
 import { WordFilter } from '../../../model/word-filter.interface';
 
@@ -69,6 +71,8 @@ export class WordsComponent extends LoadComponent implements OnDestroy {
     }
 
     private getWords(): Observable<Word[]> {
+        this.state = 'loading';
+
         return this.route.queryParamMap
         .pipe(
             map((qParamsMap: ParamMap) => {
@@ -83,6 +87,7 @@ export class WordsComponent extends LoadComponent implements OnDestroy {
                 } as WordFilter;
             }),
             tap((wordFilter: WordFilter) => {
+                this.state = 'complete';
                 this.wordFilter = wordFilter;
             }),
             switchMap((wordFilter: WordFilter) => this.wordService.retrieveAll(wordFilter)),
@@ -91,9 +96,8 @@ export class WordsComponent extends LoadComponent implements OnDestroy {
             }),
             catchError((e: any) => {
                 console.error(e);
-
                 this.state = 'error';
-                this.errorMessage = e.error.message;
+                this.errorMessage = ErrorUtil.getMessage(e);
 
                 return of(undefined);
             })

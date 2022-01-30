@@ -1,0 +1,9 @@
+<article class="alerts" *ngIf="show">
+    <div *ngFor="let alert of (alerts$ | async) as alerts"
+         class="alert"
+         [class.error]="alert.error"
+         role="dialog">
+        <img alt="edit" src="/assets/image/icon-cross.svg" (click)="remove(alert)" />
+        <label>{{ alert.message }}</label>
+    </div>
+</article>

@@ -23,7 +23,13 @@
 </ng-container>
 
 <ng-template #error>
-    <ow-error (actionClick)="reloadWords()" [showAction]="true" actionText="Reload">
+    <ow-error *ngIf="state === 'error' else loading">
         <label>{{ errorMessage ?? 'no message available' }}</label>
     </ow-error>
+</ng-template>
+
+<ng-template #loading>
+    <div class="loading">
+        <h5>Loading...</h5>
+    </div>
 </ng-template>

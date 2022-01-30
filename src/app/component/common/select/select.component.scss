@@ -11,6 +11,7 @@
     cursor: pointer;
     padding: .7rem;
     min-width: 160px;
+    z-index: 1000;
 
     &.transparent {
         @include mxn.input();
@@ -27,7 +28,6 @@
     }
 
     .s-title {
-        padding: .3rem;
         font-size: 1rem;
         font-family: 'roboto-regular', font.$default-font;
         display: flex;
@@ -38,7 +38,7 @@
     .options {
         position: absolute;
         right: 0;
-        z-index: 5000;
+        z-index: 1000;
         max-height: 300px;
         width: 300px;
         background-color: #292929;

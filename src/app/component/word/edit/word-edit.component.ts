@@ -4,10 +4,13 @@ import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { Observable, of } from 'rxjs';
 import { catchError, map, switchMap, take } from 'rxjs/operators';
 
+import { AlertService } from '../../../service/alert.service';
 import { TagService } from '../../../service/tag.service';
 import { WordService } from '../../../service/word.service';
 
 import { AppRoutes } from '../../../util/app.routes';
+
+import { ErrorUtil } from '../../../util/error.util';
 
 import { Word } from '../../../model/word.interface';
 
@@ -26,7 +29,8 @@ export class WordEditComponent extends LoadComponent {
                 private readonly service: WordService,
                 private readonly tagService: TagService,
                 private readonly router: Router,
-                private readonly titleService: Title) {
+                private readonly titleService: Title,
+                private readonly alertService: AlertService) {
         super();
 
         this.titleService.setTitle('oworms | edit');
@@ -36,19 +40,22 @@ export class WordEditComponent extends LoadComponent {
     update(id: number, updated: Word): void {
         this.service.update(id, updated)
         .pipe(take(1))
-        .subscribe(() => {
-            alert('word updated');
+        .subscribe({
+            next: () => {
+                this.alertService.addWithAction('Updated word', `ui/worms/${id}/detail`);
 
-            this.navToDetail(id);
-        }, (e) => {
-            console.error(e);
+                this.navToDetail(id);
+            },
+            error: (e) => {
+                console.error(e);
 
-            alert(e.error.message);
+                this.alertService.add(ErrorUtil.getMessage(e), true);
+            }
         });
     }
 
-    cancel(wordId: number): void {
-        this.navToDetail(wordId);
+    navToDetail(wordId: number): void {
+        void this.router.navigate([AppRoutes.BASE, wordId, 'detail']);
     }
 
     private getWord(): Observable<Word> {
@@ -63,9 +70,5 @@ export class WordEditComponent extends LoadComponent {
                     return of(undefined);
                 }
             ));
-    }
-
-    private navToDetail(wordId: number): void {
-        void this.router.navigate([AppRoutes.BASE, wordId, 'detail']);
     }
 }
