@@ -3,7 +3,7 @@
     "version": "2.1.0",
     "scripts": {
         "ng": "ng",
-        "start": "ng serve --proxy-config=local.proxy.conf.json",
+        "start": "node server.js",
         "build": "ng build",
         "heroku-postbuild": "ng build --aot --configuration production"
     },
