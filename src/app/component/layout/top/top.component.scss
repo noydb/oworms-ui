@@ -13,36 +13,37 @@ header {
     padding-bottom: .5rem;
     padding-top: .5rem;
 
-    .logo {
-        width: 10%;
-    }
-
-    .items {
+    section {
         display: flex;
         align-items: center;
 
-        .item {
-            padding: 1rem;
-            transition: background-color .1s ease-in-out;
-            cursor: pointer;
-            color: #f2f2f2;
+        span {
+            width: 10%;
+            padding-left: 1rem;
+        }
 
-            &:hover {
-                label {
-                    color: colour.$primary;
+        nav {
+            ul {
+                display: flex;
+
+                li {
+                    padding: 1rem;
+                    transition: background-color .1s ease-in-out;
+                    cursor: pointer;
+                    color: #f2f2f2;
+
+                    &:not(last-of-type) {
+                        margin-right: .5rem;
+                    }
+
+                    label {
+                        cursor: pointer;
+
+                        &:hover {
+                            color: colour.$primary;
+                        }
+                    }
                 }
-            }
-
-            &:not(last-of-type) {
-                margin-right: .5rem;
-            }
-
-            label {
-                cursor: pointer;
-            }
-
-            &.logo {
-                margin-right: 2rem;
             }
         }
     }

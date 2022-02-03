@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, OnDestroy, Output, ViewChild } from '@angular/core';
 import { Subscription } from 'rxjs';
+import { filter } from 'rxjs/operators';
 
 import { UtilService } from '../../../service/util.service';
 
@@ -23,11 +24,6 @@ export class SelectComponent implements OnDestroy {
     @Input()
     multiSelect: boolean = false;
 
-    selected: SelectOption[] = [];
-
-    @Input()
-    closeAfterEachSelection: boolean = true;
-
     @Input()
     disabled: boolean = false;
 
@@ -39,8 +35,8 @@ export class SelectComponent implements OnDestroy {
     @Output()
     readonly valueChange: EventEmitter<SelectOption[] | SelectOption> = new EventEmitter<SelectOption[] | SelectOption>();
 
+    selected: SelectOption[] = [];
     readonly subs: Subscription[] = [];
-
     @ViewChild('select') select;
 
     constructor(private readonly uSer: UtilService) {
@@ -78,8 +74,6 @@ export class SelectComponent implements OnDestroy {
     }
 
     selectItem(item: SelectOption): void {
-        this.closed = this.closeAfterEachSelection;
-
         if (!this.multiSelect) {
             this.selected = [item];
 
@@ -95,6 +89,7 @@ export class SelectComponent implements OnDestroy {
             this.selected.push(item);
         }
 
+        this.closed = true;
         this.valueChange.emit(this.selected);
     }
 
@@ -113,7 +108,10 @@ export class SelectComponent implements OnDestroy {
         return this.selected.some((sVal) => sVal === value);
     }
 
-    invertClosed(): void {
+    invertClosed($event: Event): void {
+        $event.preventDefault();
+        $event.stopPropagation();
+
         if (this.disabled) {
             return;
         }
@@ -124,11 +122,12 @@ export class SelectComponent implements OnDestroy {
     private listenForOutsideClicks(): Subscription {
         return this.uSer
         .documentClickedTarget
+        .pipe(filter((_) => !this.closed))
         .subscribe((el: HTMLElement) => {
-            if (!el.classList.contains('select') && !el.classList.contains('s-title') &&
-                (!el.classList.contains('s-option') && !el.classList.contains('s-option-l') && !this.multiSelect)
-                && !this.closed) {
-                // fix dropdown not closing when making non multi selection
+            const classes: DOMTokenList = el.classList;
+
+            if (!classes.contains('select') && !classes.contains('s-title') &&
+                !classes.contains('s-option') && !classes.contains('s-option-l')) {
                 this.closed = true;
             }
         });

@@ -1,19 +1,20 @@
 <header>
-    <div class="items">
-        <div class="item logo">
-            <img alt="oworms logo" src="/assets/image/logo.svg">
-        </div>
-        <div (click)="navigate(item)"
-             *ngFor="let item of items"
-             class="item"
-             role="menuitem">
-            <label>{{ item.name }}</label>
-        </div>
-        <div (click)="getCSV()" class="item">
-            <label>csv</label>
-        </div>
-    </div>
-    <div class="actions">
+    <section>
+        <span><img alt="oworms logo" src="/assets/image/logo.svg"></span>
+        <nav>
+            <ul>
+                <li (click)="navigate(item)"
+                    *ngFor="let item of items"
+                    class="item">
+                    <label>{{ item.name }}</label>
+                </li>
+                <li (click)="getCSV()" class="item">
+                    <label>csv</label>
+                </li>
+            </ul>
+        </nav>
+    </section>
+    <section class="actions">
         <button (click)="navigateToRandom()" class="icon">
             <img alt="" src="/assets/image/icon-shuffle.svg">
             random
@@ -22,5 +23,5 @@
             <img alt="+" src="/assets/image/icon-plus.svg">
             add
         </button>
-    </div>
+    </section>
 </header>

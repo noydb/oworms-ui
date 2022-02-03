@@ -1,12 +1,13 @@
 import { Component, OnDestroy } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
-import { Observable, of } from 'rxjs';
+import { of, Subscription } from 'rxjs';
 import { catchError, map, switchMap, tap } from 'rxjs/operators';
 
 import { WordService } from '../../../service/word.service';
 
 import { ErrorUtil } from '../../../util/error.util';
+import { SubscriptionUtil } from '../../../util/subscription.util';
 
 import { Word } from '../../../model/word.interface';
 import { WordFilter } from '../../../model/word-filter.interface';
@@ -20,10 +21,11 @@ import { LoadComponent } from '../../common/spinner/load.component';
 })
 export class WordsComponent extends LoadComponent implements OnDestroy {
 
-    words$: Observable<Word[]>;
+    words: Word[];
     wordsToShow: number = 25;
     increment: number = 6;
     wordFilter: WordFilter;
+    private readonly subs: Subscription[] = [];
 
     constructor(private readonly wordService: WordService,
                 private readonly route: ActivatedRoute,
@@ -32,7 +34,7 @@ export class WordsComponent extends LoadComponent implements OnDestroy {
         super();
 
         this.titleService.setTitle('oworms | all');
-        this.words$ = this.getWords();
+        this.subs.push(this.getWords());
     }
 
     get disableShowLess(): boolean {
@@ -41,6 +43,8 @@ export class WordsComponent extends LoadComponent implements OnDestroy {
 
     ngOnDestroy(): void {
         void this.router.navigate([], { relativeTo: this.route, queryParams: {} });
+
+        SubscriptionUtil.unsubscribe(this.subs);
     }
 
     chunkChanged($event: number, numberOfWords: number): void {
@@ -66,11 +70,7 @@ export class WordsComponent extends LoadComponent implements OnDestroy {
         this.wordsToShow -= this.increment;
     }
 
-    reloadWords(): void {
-        this.words$ = this.getWords();
-    }
-
-    private getWords(): Observable<Word[]> {
+    private getWords(): Subscription {
         this.state = 'loading';
 
         return this.route.queryParamMap
@@ -92,15 +92,22 @@ export class WordsComponent extends LoadComponent implements OnDestroy {
             }),
             switchMap((wordFilter: WordFilter) => this.wordService.retrieveAll(wordFilter)),
             tap((words: Word[]) => {
+                if (words.length === 1) {
+                    void this.router.navigate(['ui/worms/', words[0].id, 'detail']);
+                }
+
+                this.words = words;
                 this.wordsToShow = words.length < 25 ? words.length : 25;
             }),
             catchError((e: any) => {
+                this.words = [];
                 console.error(e);
                 this.state = 'error';
                 this.errorMessage = ErrorUtil.getMessage(e);
 
-                return of(undefined);
+                return of({});
             })
-        );
+        )
+        .subscribe();
     }
 }

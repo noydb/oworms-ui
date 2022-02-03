@@ -9,14 +9,13 @@ import { WordAddComponent } from '../component/word/add/word-add.component';
 import { WordDetailComponent } from '../component/word/detail/word-detail.component';
 import { WordEditComponent } from '../component/word/edit/word-edit.component';
 import { WordOxfordComponent } from '../component/word/search/word-oxford.component';
-import { WordRandomComponent } from '../component/word/random/word-random.component';
 import { WordsComponent } from '../component/word/list/words.component';
 
-// added 'ui/' so requests can be redirected in server.js on prod
+// added 'o/' so requests can be redirected in server.js on prod
 const routes: Routes = [
     {
         path: '',
-        redirectTo: AppRoutes.HOME,
+        redirectTo: AppRoutes.ALL,
         pathMatch: 'full'
     },
     {
@@ -36,12 +35,8 @@ const routes: Routes = [
         component: WordEditComponent
     },
     {
-        path: AppRoutes.HOME,
+        path: AppRoutes.ALL,
         component: WordsComponent
-    },
-    {
-        path: AppRoutes.RANDOM,
-        component: WordRandomComponent
     },
     {
         path: AppRoutes.SEARCH_OX,

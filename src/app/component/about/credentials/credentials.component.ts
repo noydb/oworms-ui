@@ -40,7 +40,7 @@ export class CredentialsComponent {
         this.ls.set('bna', p);
 
         this.alertService.add('Authenticated');
-        void this.router.navigate([AppRoutes.HOME]);
+        void this.router.navigate([AppRoutes.ALL]);
     }
 
     cancel(): void {

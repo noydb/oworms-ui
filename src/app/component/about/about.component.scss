@@ -1,15 +1,15 @@
-.tabs {
+section.tabs > ul {
     margin-left: 10%;
     margin-right: 10%;
     width: 20%;
     display: flex;
 
-    .tab + .tab {
+    li + li {
         margin-left: 8px;
     }
 }
 
-.about {
+section.about {
     margin-left: 10%;
     margin-right: 10%;
     padding-bottom: 80px;

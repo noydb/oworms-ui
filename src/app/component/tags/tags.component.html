@@ -1,5 +1,7 @@
-<article class="tags">
-    <div *ngFor="let tag of tags" class="tag">
-        <label>{{ tag }}</label>
-    </div>
+<article>
+    <ul>
+        <li *ngFor="let tag of tags" class="tag">
+            <span>{{ tag }}</span>
+        </li>
+    </ul>
 </article>
