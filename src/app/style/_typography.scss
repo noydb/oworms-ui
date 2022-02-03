@@ -12,7 +12,7 @@ h1, h2 {
     font-style: normal;
 }
 
-h3, h4, h5, input, textarea, label, p {
+h3, h4, h5, input, textarea, label, p, span {
     // subtitle 1, body 1, body 1, caption overline
     font-family: 'roboto-regular', font.$default-font;
 }
@@ -58,4 +58,8 @@ label, p {
 
 small {
     font-size: .75rem; // 12px
+}
+
+li {
+    list-style: none;
 }

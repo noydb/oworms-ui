@@ -14,7 +14,7 @@ export const AB_PARA_4 = 'Finding new words and improving my knowledge of existi
     ' precisely what you (and others) mean.'
 
 export const MENU_ITEMS: MenuItem[] = [
-    { name: 'home', path: AppRoutes.HOME },
+    { name: 'home', path: AppRoutes.ALL },
     { name: 'oxford', path: AppRoutes.SEARCH_OX },
     { name: 'about', path: AppRoutes.ABOUT },
     { name: 'statistics', path: AppRoutes.STATS },

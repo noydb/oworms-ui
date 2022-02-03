@@ -44,7 +44,7 @@ export class FilterComponent {
     }
 
     clearFilters(): void {
-        void this.router.navigate([], { relativeTo: this.route, queryParams: {} });
+        void this.router.navigate([], { relativeTo: this.route, queryParams: undefined });
     }
 
     private getQueryParams(): Subscription {

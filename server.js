@@ -4,8 +4,8 @@ const { createProxyMiddleware } = require('http-proxy-middleware');
 const path = require('path');
 
 const APP = express();
-const HOST = process.env.api_host;
-const PORT = process.env.api_port;
+const HOST = 'https://oworms-api.herokuapp.com';
+const PORT = 8080;
 
 // serve only static files from dist directory
 APP.use(express.static(__dirname + '/dist/oworms'));

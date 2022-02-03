@@ -34,7 +34,7 @@ export class WordAddComponent {
             next: () => {
                 this.alertService.add('Created word');
 
-                void this.router.navigate([AppRoutes.HOME], { queryParamsHandling: 'preserve' });
+                void this.router.navigate([AppRoutes.ALL], { queryParamsHandling: 'preserve' });
             },
             error: (e) => {
                 console.error(e);

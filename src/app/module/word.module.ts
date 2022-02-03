@@ -8,7 +8,6 @@ import { WordDetailComponent } from '../component/word/detail/word-detail.compon
 import { WordEditComponent } from '../component/word/edit/word-edit.component';
 import { WordFormComponent } from '../component/word/form/word-form.component';
 import { WordOxfordComponent } from '../component/word/search/word-oxford.component';
-import { WordRandomComponent } from '../component/word/random/word-random.component';
 import { WordsComponent } from '../component/word/list/words.component';
 
 @NgModule({
@@ -22,7 +21,6 @@ import { WordsComponent } from '../component/word/list/words.component';
         WordEditComponent,
         WordFormComponent,
         WordOxfordComponent,
-        WordRandomComponent,
         WordsComponent,
     ],
     exports: [
@@ -32,7 +30,6 @@ import { WordsComponent } from '../component/word/list/words.component';
         WordEditComponent,
         WordFormComponent,
         WordOxfordComponent,
-        WordRandomComponent,
         WordsComponent
     ]
 })
