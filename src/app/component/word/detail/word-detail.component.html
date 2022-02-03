@@ -3,7 +3,7 @@
 </ow-hero>
 
 <div *ngIf="word$ | async as word; else error" class="word">
-    <div class="detail">
+    <section class="detail">
         <div class="top">
             <div class="title">
                 <h5 class="mono">{{word.theWord}}</h5>
@@ -14,8 +14,8 @@
                 <img alt="synonyms" src="/assets/image/plus-circled.svg" />
             </div>
         </div>
-        <p class="pos">{{word.partOfSpeech}}</p>
-        <p>{{word.definition}}</p>
+        <p class="def">{{word.definition}}</p>
+        <p>{{word.partOfSpeech}}</p>
         <div class="pair">
             <label>Origin:&nbsp;</label>
             <p>{{word.origin ?? 'N/A' }}</p>
@@ -40,9 +40,9 @@
             <label>Synonyms</label>
             <ow-tags [sTags]="[]"></ow-tags>
         </div>
-    </div>
+    </section>
 
-    <div class="meta">
+    <section class="meta">
         <div class="column">
             <div class="pair">
                 <label>Created By:&nbsp;</label>
@@ -63,7 +63,7 @@
                 <p>{{ word.creationDate | date:'h:mm:ss a' }}</p>
             </div>
         </div>
-    </div>
+    </section>
 
 </div>
 

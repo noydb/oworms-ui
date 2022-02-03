@@ -35,7 +35,7 @@ export class TopComponent {
         .pipe(take(1))
         .subscribe({
             next: ({ id }: Word) => {
-                void this.router.navigate([AppRoutes.BASE, String(id), 'detail']);
+                void this.router.navigate([AppRoutes.getDetail(id)]);
             },
             error: (e: HttpErrorResponse) => {
                 this.alertService.add(ErrorUtil.getMessage(e), true);

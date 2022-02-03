@@ -9,6 +9,8 @@ import { WordService } from '../../../service/word.service';
 import { ErrorUtil } from '../../../util/error.util';
 import { SubscriptionUtil } from '../../../util/subscription.util';
 
+import { AppRoutes } from '../../../util/app.routes';
+
 import { Word } from '../../../model/word.interface';
 import { WordFilter } from '../../../model/word-filter.interface';
 
@@ -90,23 +92,28 @@ export class WordsComponent extends LoadComponent implements OnDestroy {
                 this.state = 'complete';
                 this.wordFilter = wordFilter;
             }),
-            switchMap((wordFilter: WordFilter) => this.wordService.retrieveAll(wordFilter)),
+            switchMap((wordFilter: WordFilter) =>
+                this.wordService
+                .retrieveAll(wordFilter)
+                .pipe(
+                    catchError((e: any) => {
+                        console.error(e);
+                        this.errorMessage = ErrorUtil.getMessage(e);
+                        this.state = 'error';
+                        this.words = [];
+
+                        return of([]);
+                    })
+                )
+            ),
             tap((words: Word[]) => {
                 if (words.length === 1) {
-                    void this.router.navigate(['ui/worms/', words[0].id, 'detail']);
+                    void this.router.navigate([AppRoutes.getDetail(words[0].id)]);
                 }
 
                 this.words = words;
                 this.wordsToShow = words.length < 25 ? words.length : 25;
             }),
-            catchError((e: any) => {
-                this.words = [];
-                console.error(e);
-                this.state = 'error';
-                this.errorMessage = ErrorUtil.getMessage(e);
-
-                return of({});
-            })
         )
         .subscribe();
     }

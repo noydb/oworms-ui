@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
-import { finalize, tap } from 'rxjs/operators';
+import { BehaviorSubject, Observable, throwError } from 'rxjs';
+import { catchError, finalize, tap } from 'rxjs/operators';
 
 import { WordHttpService } from './word.http.service';
 
@@ -28,6 +28,11 @@ export class WordService {
             }),
             finalize(() => {
                 this.busy$.next(false);
+            }),
+            catchError((e) => {
+                this.wordCount$.next(0);
+
+                return throwError(e);
             })
         );
     }

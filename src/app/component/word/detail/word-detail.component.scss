@@ -1,3 +1,4 @@
+@use '../../../style/colour' as colour;
 @use '../../../style/font' as font;
 @use '../../../style/mixin' as mxn;
 
@@ -12,7 +13,6 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            margin-bottom: 15px;
 
             .title {
                 display: flex;
@@ -26,14 +26,13 @@
             .actions {
                 display: flex;
                 justify-content: space-between;
-                width: 10%;
 
                 @include mxn.svg-hover;
             }
         }
 
-        .pos {
-            padding-bottom: 15px;
+        .def {
+            padding-bottom: 12px;
         }
 
         .pair {

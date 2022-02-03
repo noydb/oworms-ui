@@ -8,4 +8,20 @@ export class AppRoutes {
     static readonly EDIT = `${AppRoutes.BASE}/:id/edit`;
     static readonly SEARCH_OX = `${AppRoutes.BASE}/oxford`;
     static readonly STATS = `${AppRoutes.BASE}/stats`;
+
+    static getDetail(wordId: number): string {
+        if (isNaN(wordId)) {
+            throw new Error("not a valid word id");
+        }
+
+        return AppRoutes.DETAIL.replace(':id', String(wordId));
+    }
+
+    static getEdit(wordId: number): string {
+        if (isNaN(wordId)) {
+            throw new Error("not a valid word id");
+        }
+
+        return AppRoutes.EDIT.replace(':id', String(wordId));
+    }
 }

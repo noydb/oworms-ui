@@ -19,6 +19,6 @@ export class WordCardComponent {
     }
 
     viewWordDetails(): void {
-        void this.router.navigate([AppRoutes.BASE, `${this.word.id}`, 'detail']);
+        void this.router.navigate([AppRoutes.getDetail(this.word.id)]);
     }
 }
