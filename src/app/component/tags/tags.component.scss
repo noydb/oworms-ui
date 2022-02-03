@@ -1,9 +1,10 @@
-.tags {
+article > ul {
     display: flex;
-    margin-top: 1.2rem;
     flex-wrap: wrap;
+    margin-top: 1.2rem;
+    padding-left: 0; //wtf why?
 
-    .tag {
+    li {
         border-radius: 1rem;
         background-color: rgba(255, 255, 255, 0.12);
         padding: .6rem;

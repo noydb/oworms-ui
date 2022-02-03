@@ -2,11 +2,6 @@
 ---
 [![Maintainability](https://api.codeclimate.com/v1/badges/022c3d76d9caaf459fbc/maintainability)](https://codeclimate.com/github/noydb/oworms-ui/maintainability)
 
-<img src="https://github.com/benj-power/oworms-ui/blob/develop/src/assets/image/oh-worm.jpg"></img>
-
-command used to generate
-project: `ng new oworms-ui --package-manager=yarn --routing --style=scss --prefix=ow`
-
 [Explanation of Name](https://memedocumentation.tumblr.com/post/163767097995/explained-oh-worm-meme)
 
 [Swagger Documentation](https://oworms-api.herokuapp.com/swagger-ui/)
@@ -19,17 +14,16 @@ project: `ng new oworms-ui --package-manager=yarn --routing --style=scss --prefi
 
 ---
 
-### Building
+### Commands
+
+generate base project using angular cli:\
+`ng new oworms-ui --package-manager=yarn --routing --style=scss --prefix=ow`
 
 dev build:\
 `yarn build`
 
 production build:\
 `ng build --aot --configuration production`
-
----
-
-### Running
 
 run with angular cli:\
 `yarn start-regular` (`ng serve`)
@@ -39,9 +33,6 @@ run with a proxy pointed to `localhost:8080`:\
 
 run on an express server:\
 `yarn start` (`node server.js`)\
-
-**Note**: one must provide values for `api_host` and `api_port` in `environment.prod.ts` when running
-either command that points to a locally hosted api.
 
 [click here to setup locally hosted api](https://github.com/noydb/oworms-api#readme)
 

@@ -1,5 +1,5 @@
 <div #select
-     (click)="invertClosed()"
+     (click)="invertClosed($event)"
      [class.focused]="!closed"
      [class.fueled]="selected?.length > 0"
      [class.transparent]="transparent"
@@ -7,7 +7,7 @@
      role="listbox">
     <div class="s-title">
         {{ title }}
-        <img alt="chev icon" src="/assets/image/chevron-down.svg" />
+        <img alt="chev icon" src="/assets/image/chevron-down.svg" (click)="invertClosed($event)" />
     </div>
     <div [class.closed]="closed" class="options">
         <div (click)="selectItem(item)"
