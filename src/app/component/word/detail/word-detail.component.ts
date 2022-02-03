@@ -34,7 +34,7 @@ export class WordDetailComponent extends LoadComponent {
     }
 
     edit({ id }: Word): void {
-        void this.router.navigate([AppRoutes.BASE, id, 'edit']);
+        void this.router.navigate([AppRoutes.getEdit(id)]);
     }
 
     private getWord(): Observable<Word> {

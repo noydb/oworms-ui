@@ -55,7 +55,7 @@ export class WordEditComponent extends LoadComponent {
     }
 
     navToDetail(wordId: number): void {
-        void this.router.navigate([AppRoutes.BASE, wordId, 'detail']);
+        void this.router.navigate([AppRoutes.getDetail(wordId)]);
     }
 
     private getWord(): Observable<Word> {

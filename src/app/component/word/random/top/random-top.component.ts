@@ -28,6 +28,6 @@ export class RandomTopComponent {
     }
 
     navToDetails({ id }: Word): void {
-        void this.router.navigate([AppRoutes.BASE, id, 'detail']);
+        void this.router.navigate([AppRoutes.getDetail(id)]);
     }
 }

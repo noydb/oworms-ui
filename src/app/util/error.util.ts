@@ -7,7 +7,7 @@ export class ErrorUtil {
             case 401:
                 return e.error.error_description ?? e.error.message ?? e.statusText;
             case 404:
-                return e.error.error;
+                return e.error.error ?? e.error.message;
             case 504:
                 return e.statusText;
             default:
