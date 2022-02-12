@@ -1,19 +1,19 @@
-import { Component, EventEmitter, Input, OnDestroy, Output, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Input, Output, ViewChild } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { filter } from 'rxjs/operators';
 
 import { UtilService } from '../../../service/util.service';
 
-import { SubscriptionUtil } from '../../../util/subscription.util';
-
 import { SelectOption } from '../../../model/select-option.interface';
+
+import { AutoUnsubscribeComponent } from '../auto-unsubscribe.component';
 
 @Component({
     selector: 'ow-select',
     templateUrl: 'select.component.html',
     styleUrls: ['./select.component.scss']
 })
-export class SelectComponent implements OnDestroy {
+export class SelectComponent extends AutoUnsubscribeComponent {
 
     @Input()
     titleLabel: string = 'Select';
@@ -36,11 +36,12 @@ export class SelectComponent implements OnDestroy {
     readonly valueChange: EventEmitter<SelectOption[] | SelectOption> = new EventEmitter<SelectOption[] | SelectOption>();
 
     selected: SelectOption[] = [];
-    readonly subs: Subscription[] = [];
     @ViewChild('select') select;
 
     constructor(private readonly uSer: UtilService) {
-        this.subs.push(this.listenForOutsideClicks());
+        super();
+
+        this.markForUnsub(this.listenForOutsideClicks());
     }
 
     @Input()
@@ -67,10 +68,6 @@ export class SelectComponent implements OnDestroy {
         }
 
         return this.selected.map(({ titleLabel }: SelectOption) => titleLabel).join(', ');
-    }
-
-    ngOnDestroy(): void {
-        SubscriptionUtil.unsubscribe(this.subs);
     }
 
     selectItem(item: SelectOption): void {

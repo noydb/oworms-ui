@@ -1,4 +1,4 @@
-import { Component, OnDestroy } from '@angular/core';
+import { Component } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { of, Subscription } from 'rxjs';
@@ -7,7 +7,6 @@ import { catchError, map, switchMap, tap } from 'rxjs/operators';
 import { WordService } from '../../../service/word.service';
 
 import { ErrorUtil } from '../../../util/error.util';
-import { SubscriptionUtil } from '../../../util/subscription.util';
 
 import { AppRoutes } from '../../../util/app.routes';
 
@@ -21,13 +20,12 @@ import { LoadComponent } from '../../common/spinner/load.component';
     templateUrl: './words.component.html',
     styleUrls: ['./words.component.scss']
 })
-export class WordsComponent extends LoadComponent implements OnDestroy {
+export class WordsComponent extends LoadComponent {
 
     words: Word[];
     wordsToShow: number = 25;
     increment: number = 6;
     wordFilter: WordFilter;
-    private readonly subs: Subscription[] = [];
 
     constructor(private readonly wordService: WordService,
                 private readonly route: ActivatedRoute,
@@ -36,7 +34,7 @@ export class WordsComponent extends LoadComponent implements OnDestroy {
         super();
 
         this.titleService.setTitle('oworms | all');
-        this.subs.push(this.getWords());
+        this.markForUnsub(this.getWords());
     }
 
     get disableShowLess(): boolean {
@@ -45,8 +43,6 @@ export class WordsComponent extends LoadComponent implements OnDestroy {
 
     ngOnDestroy(): void {
         void this.router.navigate([], { relativeTo: this.route, queryParams: {} });
-
-        SubscriptionUtil.unsubscribe(this.subs);
     }
 
     chunkChanged($event: number, numberOfWords: number): void {

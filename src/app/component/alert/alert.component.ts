@@ -4,29 +4,26 @@ import { filter } from 'rxjs/operators';
 
 import { AlertService } from '../../service/alert.service';
 
-import { SubscriptionUtil } from '../../util/subscription.util';
-
 import { Alert } from '../../model/alert.interface';
+
+import { AutoUnsubscribeComponent } from '../common/auto-unsubscribe.component';
 
 @Component({
     selector: 'ow-alerts',
     templateUrl: 'alert.component.html',
     styleUrls: ['./alert.component.scss']
 })
-export class AlertComponent {
+export class AlertComponent extends AutoUnsubscribeComponent {
 
     show = false;
     readonly alerts$: Observable<Alert[]>;
     private readonly subs: Subscription[] = [];
 
     constructor(private readonly alertService: AlertService) {
+        super();
         this.alerts$ = this.alertService.getAll();
 
-        this.subs.push(this.listenForAlerts());
-    }
-
-    ngOnDestroy(): void {
-        SubscriptionUtil.unsubscribe(this.subs);
+        this.markForUnsub(this.listenForAlerts());
     }
 
     remove(alert: Alert): void {
@@ -37,7 +34,7 @@ export class AlertComponent {
         // probably a better way to do this
         return this.alerts$
         .pipe(
-            filter((alerts: Alert[]) => !!alerts && alerts.length > 0)
+            filter((alerts: Alert[]) => alerts?.length > 0)
         )
         .subscribe(() => {
             this.show = true;

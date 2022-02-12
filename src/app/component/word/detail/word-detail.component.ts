@@ -1,3 +1,4 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
@@ -7,6 +8,8 @@ import { catchError, map, switchMap, tap } from 'rxjs/operators';
 import { AppRoutes } from '../../../util/app.routes';
 
 import { WordService } from '../../../service/word.service';
+
+import { ErrorUtil } from '../../../util/error.util';
 
 import { Tag } from '../../../model/tag.interface';
 import { Word } from '../../../model/word.interface';
@@ -38,16 +41,20 @@ export class WordDetailComponent extends LoadComponent {
     }
 
     private getWord(): Observable<Word> {
+        this.state = 'loading';
+
         return this.route.paramMap
         .pipe(
             map((params: ParamMap) => params.get('id') ?? '0'),
             switchMap((id: string) => this.service.retrieve(Number(id))),
             tap((word: Word) => {
                 this.tags = word.tags.map(({ name }: Tag) => name);
+                this.state = 'complete';
             }),
-            catchError((e: any) => {
+            catchError((e: HttpErrorResponse) => {
                 console.error(e);
-                this.errorMessage = e.error.message;
+                this.errorMessage = ErrorUtil.getMessage(e);
+                this.state = 'error';
 
                 return of(undefined);
             })

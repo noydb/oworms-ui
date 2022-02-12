@@ -4,6 +4,7 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { ChunkPipe } from '../pipe/chunk.pipe';
 
+import { AutoUnsubscribeComponent } from '../component/common/auto-unsubscribe.component';
 import { ErrorComponent } from '../component/common/error/error.component';
 import { FilterComponent } from '../component/filter/filter.component';
 import { FilterModalComponent } from '../component/filter/modal/filter-modal.component';
@@ -20,6 +21,7 @@ import { TagsComponent } from '../component/tags/tags.component';
         ReactiveFormsModule
     ],
     declarations: [
+        AutoUnsubscribeComponent,
         ErrorComponent,
         FilterComponent,
         FilterModalComponent,
@@ -36,6 +38,7 @@ import { TagsComponent } from '../component/tags/tags.component';
         FormsModule,
         ReactiveFormsModule,
 
+        AutoUnsubscribeComponent,
         ErrorComponent,
         FilterComponent,
         HeroComponent,

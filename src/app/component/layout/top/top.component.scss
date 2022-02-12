@@ -37,9 +37,10 @@ header {
 
                     label {
                         cursor: pointer;
+                        transition: all .25s ease-in;
 
                         &:hover {
-                            color: colour.$primary;
+                            color: colour.$secondary;
                         }
                     }
                 }
