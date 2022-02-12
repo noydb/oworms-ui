@@ -14,19 +14,20 @@
                 <img alt="synonyms" src="/assets/image/plus-circled.svg" />
             </div>
         </div>
-        <p class="def">{{word.definition}}</p>
-        <p>{{word.partOfSpeech}}</p>
+        <p class="def">{{ word.definition }}</p>
+        <p>{{ word.partOfSpeech }}</p>
         <div class="pair">
             <label>Origin:&nbsp;</label>
-            <p>{{word.origin ?? 'N/A' }}</p>
+            <!-- <p>{{ word?.origin ?? 'N/A' }}</p> this should work...-->
+            <p>{{ word?.origin ? word.origin : 'N/A' }}</p>
         </div>
         <div class="pair">
             <label>Example:&nbsp;</label>
-            <p>{{word.exampleUsage ?? 'N/A' }}</p>
+            <p>{{word.exampleUsage ? word.exampleUsage : 'N/A' }}</p>
         </div>
         <div class="pair">
             <label>Pronunciation:&nbsp;</label>
-            <p>{{word.pronunciation ?? 'N/A' }}</p>
+            <p>{{word.pronunciation ? word.pronunciation : 'N/A' }}</p>
         </div>
         <div class="tags">
             <label>Associated Tags:</label>
@@ -34,7 +35,7 @@
         </div>
         <div class="pair">
             <label>Note:&nbsp;</label>
-            <p>{{word.note ?? 'N/A' }}</p>
+            <p>{{word.note ? word.note : 'N/A' }}</p>
         </div>
         <div class="synonyms">
             <label>Synonyms</label>
@@ -68,5 +69,13 @@
 </div>
 
 <ng-template #error>
-    <ow-error>{{errorMessage}}</ow-error>
+    <ow-error *ngIf="state === 'error' else loading">
+        <label>{{ errorMessage ?? 'no message available' }}</label>
+    </ow-error>
+</ng-template>
+
+<ng-template #loading>
+    <section class="loading">
+        <h5>Loading...</h5>
+    </section>
 </ng-template>

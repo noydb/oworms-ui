@@ -1,13 +1,10 @@
-.word-edit {
+section {
     margin-left: 25%;
     margin-right: 25%;
-
-    .button-row {
-        width: 50%;
-    }
-
 }
 
-.no-worm {
+.loading {
+    display: flex;
+    justify-content: center;
     padding: 3rem;
 }

@@ -1,3 +1,4 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
@@ -38,6 +39,8 @@ export class WordEditComponent extends LoadComponent {
     }
 
     update(id: number, updated: Word): void {
+        this.state = 'loading';
+
         this.service.update(id, updated)
         .pipe(take(1))
         .subscribe({
@@ -63,9 +66,10 @@ export class WordEditComponent extends LoadComponent {
         .pipe(
             map((params: ParamMap) => params.get('id') ?? '0'),
             switchMap((id: string) => this.service.retrieve(Number(id))),
-            catchError((e: any) => {
+            catchError((e: HttpErrorResponse) => {
                     this.state = 'error';
-                    this.errorMessage = e.error.message;
+                    this.errorMessage = ErrorUtil.getMessage(e);
+                    this.state = 'error';
 
                     return of(undefined);
                 }

@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnDestroy, Output } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Title } from '@angular/platform-browser';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
@@ -8,17 +8,18 @@ import { filter, map, switchMap, take, tap } from 'rxjs/operators';
 import { TagService } from '../../../service/tag.service';
 
 import { FilterUtil } from '../../../util/filter.util';
-import { SubscriptionUtil } from '../../../util/subscription.util';
 
 import { SelectOption } from '../../../model/select-option.interface';
 import { WordFilter } from '../../../model/word-filter.interface';
+
+import { AutoUnsubscribeComponent } from '../../common/auto-unsubscribe.component';
 
 @Component({
     selector: 'ow-filter-modal',
     templateUrl: 'filter-modal.component.html',
     styleUrls: ['./filter-modal.component.scss']
 })
-export class FilterModalComponent implements OnDestroy {
+export class FilterModalComponent extends AutoUnsubscribeComponent {
 
     @Output()
     readonly modalClosed: EventEmitter<void> = new EventEmitter<void>();
@@ -35,16 +36,16 @@ export class FilterModalComponent implements OnDestroy {
     // TODO: get parts of speech from service so counts can be displayed. need to get counts for tags as well
     readonly posOptions: SelectOption[] = FilterUtil.getPartOfSpeechDropdownItems();
     readonly tagOptions$: Observable<SelectOption[]>;
-    readonly subs: Subscription[] = [];
 
     constructor(private readonly tagService: TagService,
                 private readonly router: Router,
                 private readonly route: ActivatedRoute,
                 private readonly titleService: Title) {
+        super();
         this.titleService.setTitle('oworms | filter');
 
         this.tagOptions$ = this.tagService.getTagSelectOptions();
-        this.subs.push(this.getQueryParams());
+        this.markForUnsub(this.getQueryParams());
     }
 
     get noValues(): boolean {
@@ -53,10 +54,6 @@ export class FilterModalComponent implements OnDestroy {
         return this.isBlank(word) && (!this.selectedPos || this.selectedPos.length === 0) &&
             this.isBlank(definition) && this.isBlank(origin) && this.isBlank(example) &&
             (!this.selectedTags || this.selectedTags.length === 0) && this.isBlank(note);
-    }
-
-    ngOnDestroy(): void {
-        SubscriptionUtil.unsubscribe(this.subs);
     }
 
     filter(): void {

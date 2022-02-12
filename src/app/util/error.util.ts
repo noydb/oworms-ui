@@ -4,6 +4,8 @@ export class ErrorUtil {
 
     static getMessage(e: HttpErrorResponse) {
         switch (e.status) {
+            case 400:
+                return e.error.error;
             case 401:
                 return e.error.error_description ?? e.error.message ?? e.statusText;
             case 404:

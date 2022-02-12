@@ -2,7 +2,7 @@
     <ow-random-top [word]="word$ | async"></ow-random-top>
 </ow-hero>
 
-<div *ngIf="word$ | async as word; else error" class="word-edit">
+<section *ngIf="word$ | async as word; else error">
     <ow-word-form (secondBtnClick)="navToDetail(word.id)"
                   (submitForm)="update(word.id, $event)"
                   [word]="word"
@@ -10,8 +10,16 @@
                   secondBtnText="Cancel"
                   title="Details"></ow-word-form>
 
-</div>
+</section>
 
 <ng-template #error>
-    <ow-error>{{errorMessage}}</ow-error>
+    <ow-error *ngIf="state === 'error' else loading">
+        <label>{{ errorMessage ?? 'no message available' }}</label>
+    </ow-error>
+</ng-template>
+
+<ng-template #loading>
+    <section class="loading">
+        <h5>Loading...</h5>
+    </section>
 </ng-template>
