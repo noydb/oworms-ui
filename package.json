@@ -1,9 +1,9 @@
 {
     "name": "oworms",
-    "version": "2.1.2",
+    "version": "2.1.3",
     "scripts": {
         "ng": "ng",
-        "start": "ng serve",
+        "start": "node server.js",
         "build": "ng build",
         "heroku-postbuild": "ng build --aot --configuration production"
     },
