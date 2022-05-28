@@ -2,7 +2,7 @@ import { PartOfSpeech } from './part-of-speech.enum';
 import { Tag } from './tag.interface';
 
 export interface Word {
-    id?: number;
+    uuid?: string;
     theWord?: string;
     definition?: string;
     partOfSpeech?: PartOfSpeech;

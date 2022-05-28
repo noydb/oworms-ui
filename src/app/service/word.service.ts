@@ -17,6 +17,10 @@ export class WordService {
     constructor(private readonly wordHttpService: WordHttpService) {
     }
 
+    isBusy(): Observable<boolean> {
+        return this.busy$.asObservable();
+    }
+
     retrieveAll(wordFilter: WordFilter): Observable<Word[]> {
         this.busy$.next(true);
 
@@ -37,11 +41,11 @@ export class WordService {
         );
     }
 
-    retrieve(wordId: number): Observable<Word> {
+    retrieve(uuid: string): Observable<Word> {
         this.busy$.next(true);
 
         return this.wordHttpService
-        .retrieve(wordId)
+        .retrieve(uuid)
         .pipe(
             finalize(() => {
                 this.busy$.next(false);
@@ -61,18 +65,6 @@ export class WordService {
         );
     }
 
-    retrieveFromOxford(theWord: string): Observable<string> {
-        this.busy$.next(true);
-
-        return this.wordHttpService
-        .retrieveFromOxford(theWord)
-        .pipe(
-            finalize(() => {
-                this.busy$.next(false);
-            })
-        );
-    }
-
     create(word: Word): Observable<void> {
         this.busy$.next(true);
 
@@ -85,11 +77,11 @@ export class WordService {
         );
     }
 
-    update(wordId: number, word: Word): Observable<Word> {
+    update(uuid: string, word: Word): Observable<Word> {
         this.busy$.next(true);
 
         return this.wordHttpService
-        .update(wordId, word)
+        .update(uuid, word)
         .pipe(
             finalize(() => {
                 this.busy$.next(false);
@@ -121,11 +113,7 @@ export class WordService {
         );
     }
 
-    isBusy(): BehaviorSubject<boolean> {
-        return this.busy$;
-    }
-
-    getCount(): BehaviorSubject<number> {
-        return this.wordCount$;
+    getCount(): Observable<number> {
+        return this.wordCount$.asObservable();
     }
 }

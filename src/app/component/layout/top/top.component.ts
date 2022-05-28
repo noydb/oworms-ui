@@ -34,8 +34,8 @@ export class TopComponent {
         .retrieveRandom()
         .pipe(take(1))
         .subscribe({
-            next: ({ id }: Word) => {
-                void this.router.navigate([AppRoutes.getDetail(id)]);
+            next: ({ uuid }: Word) => {
+                void this.router.navigate([AppRoutes.getDetail(uuid)]);
             },
             error: (e: HttpErrorResponse) => {
                 this.alertService.add(ErrorUtil.getMessage(e), true);

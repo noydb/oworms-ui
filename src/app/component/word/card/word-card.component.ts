@@ -19,6 +19,6 @@ export class WordCardComponent {
     }
 
     viewWordDetails(): void {
-        void this.router.navigate([AppRoutes.getDetail(this.word.id)]);
+        void this.router.navigate([AppRoutes.getDetail(this.word.uuid)]);
     }
 }

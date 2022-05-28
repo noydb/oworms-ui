@@ -36,8 +36,8 @@ export class WordDetailComponent extends LoadComponent {
         this.word$ = this.getWord();
     }
 
-    edit({ id }: Word): void {
-        void this.router.navigate([AppRoutes.getEdit(id)]);
+    edit({ uuid }: Word): void {
+        void this.router.navigate([AppRoutes.getEdit(uuid)]);
     }
 
     private getWord(): Observable<Word> {
@@ -45,14 +45,13 @@ export class WordDetailComponent extends LoadComponent {
 
         return this.route.paramMap
         .pipe(
-            map((params: ParamMap) => params.get('id') ?? '0'),
-            switchMap((id: string) => this.service.retrieve(Number(id))),
+            map((params: ParamMap) => params.get('uuid') ?? '0'),
+            switchMap((uuid: string) => this.service.retrieve(uuid)),
             tap((word: Word) => {
                 this.tags = word.tags.map(({ name }: Tag) => name);
                 this.state = 'complete';
             }),
             catchError((e: HttpErrorResponse) => {
-                console.error(e);
                 this.errorMessage = ErrorUtil.getMessage(e);
                 this.state = 'error';
 

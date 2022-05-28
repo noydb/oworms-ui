@@ -23,16 +23,12 @@ export class WordHttpService {
         );
     }
 
-    retrieve(wordId: number): Observable<Word> {
-        return this.http.get<Word>(`${this.baseURL}/${wordId}`);
+    retrieve(uuid: string): Observable<Word> {
+        return this.http.get<Word>(`${this.baseURL}/${uuid}`);
     }
 
     retrieveRandom(): Observable<Word> {
         return this.http.get<Word>(`${this.baseURL}/random`);
-    }
-
-    retrieveFromOxford(theWord: string): Observable<string> {
-        return this.http.get<string>(`${this.baseURL}/oxford/${theWord}`, { params: this.getBNA() });
     }
 
     create(word: Word): Observable<void> {
@@ -43,9 +39,9 @@ export class WordHttpService {
         );
     }
 
-    update(wordId: number, updatedWord: Word): Observable<Word> {
+    update(uuid: string, updatedWord: Word): Observable<Word> {
         return this.http.put<Word>(
-            `${this.baseURL}/${wordId}`,
+            `${this.baseURL}/${uuid}`,
             { word: updatedWord, tagIds: updatedWord.tagIds },
             { params: this.getBNA() }
         );

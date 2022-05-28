@@ -27,7 +27,7 @@ export class RandomTopComponent {
         this.word$ = of(word);
     }
 
-    navToDetails({ id }: Word): void {
-        void this.router.navigate([AppRoutes.getDetail(id)]);
+    navToDetails({ uuid }: Word): void {
+        void this.router.navigate([AppRoutes.getDetail(uuid)]);
     }
 }
