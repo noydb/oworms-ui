@@ -30,6 +30,13 @@
             background-color: colour.$error;
         }
 
+        &.navigatable {
+            &:hover {
+                cursor: pointer;
+                opacity: .8;
+            }
+        }
+
         &:not(:only-child) {
             border: 1px solid #000;
         }

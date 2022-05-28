@@ -49,7 +49,6 @@ generate base project using angular cli:\
 - linking tags to words
 - receive an email everytime a word is created or updated
 - filtering by any of the available fields
-- search the oxford dictionaries api
 - retrieve a random word
 - view statistics on the application
 - import spreadsheet of words
@@ -57,7 +56,7 @@ generate base project using angular cli:\
 
 ### Planned Features
 - automated creation of words
-- adding word while leveraging oxford api
+- adding word with assistance/wizard
 - more detailed statistics, daily, weekly stats, graphs, etc
 - linking of synonyms and antonyms
 - ability to delete words

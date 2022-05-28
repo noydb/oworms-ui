@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { Observable, Subscription } from 'rxjs';
 import { filter } from 'rxjs/operators';
 
@@ -17,13 +18,20 @@ export class AlertComponent extends AutoUnsubscribeComponent {
 
     show = false;
     readonly alerts$: Observable<Alert[]>;
-    private readonly subs: Subscription[] = [];
 
-    constructor(private readonly alertService: AlertService) {
+    constructor(private readonly alertService: AlertService, private readonly router: Router) {
         super();
         this.alerts$ = this.alertService.getAll();
 
         this.markForUnsub(this.listenForAlerts());
+    }
+
+    navigate({ path }: Alert): void {
+        if (!path || path.trim() === '') {
+            return;
+        }
+
+        void this.router.navigate([path]);
     }
 
     remove(alert: Alert): void {

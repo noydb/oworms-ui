@@ -22,10 +22,6 @@
         color: #ffffff;
     }
 
-    .closed {
-        display: none;
-    }
-
     .s-title {
         font-size: 1rem;
         font-family: 'roboto-regular', font.$default-font;
@@ -36,26 +32,36 @@
 
     .options {
         position: absolute;
-        right: 0;
+        left: 0;
         z-index: 1000;
         max-height: 300px;
-        width: 300px;
-        background-color: #292929;
+        min-width: 150px;
+        background-color: #252728;
         padding: .5rem;
-        margin-top: 4px;
+        margin-top: 8px;
         border-radius: 6px;
+        border-top-left-radius: 0;
+        overflow-y: scroll;
+        transition: all .15s ease-in;
+        border-left: 1px solid rgba(255, 255, 255, 0.1);
+
+        &.closed {
+            height: 0;
+            width: 0;
+            overflow-y: hidden;
+            padding: 0;
+        }
 
         .s-option {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            transition: background-color .2s ease-out;
+            transition: all .2s ease-out;
             cursor: pointer;
-            padding-top: .3rem;
-            padding-bottom: .3rem;
+            padding: 1rem;
 
             &:hover {
-                opacity: .8;
+                background-color: #4b4242;
             }
 
             label {

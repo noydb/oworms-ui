@@ -21,6 +21,12 @@ export class FooterComponent {
     constructor(private readonly router: Router, private readonly wordService: WordService) {
     }
 
+    get signature(): string {
+        const year: number = new Date().getFullYear();
+
+        return year + ' bp, cw, fv, jg, kmw, sk, tg';
+    }
+
     navigate(path: string): void {
         void this.router.navigate([path]);
     }

@@ -2,7 +2,9 @@
     <div *ngFor="let alert of (alerts$ | async) as alerts"
          class="alert"
          [class.error]="alert.error"
-         role="dialog">
+         [class.navigatable]="alert.path"
+         role="dialog"
+         (click)="navigate(alert)">
         <img alt="edit" src="/assets/image/icon-cross.svg" (click)="remove(alert)" />
         <span>{{ alert.message }}</span>
     </div>

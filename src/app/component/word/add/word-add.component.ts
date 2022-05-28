@@ -1,3 +1,4 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
@@ -36,10 +37,11 @@ export class WordAddComponent {
 
                 void this.router.navigate([AppRoutes.ALL], { queryParamsHandling: 'preserve' });
             },
-            error: (e) => {
-                console.error(e);
-
-                this.alertService.add(ErrorUtil.getMessage(e), true);
+            error: (e: HttpErrorResponse) => {
+                const message: string = ErrorUtil.getMessage(e);
+                if (message.includes('exists')) {
+                    this.alertService.add(ErrorUtil.getMessage(e), true, AppRoutes.getDetail(e.error.uuid));
+                }
             }
         });
     }

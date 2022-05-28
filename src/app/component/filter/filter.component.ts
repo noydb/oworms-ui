@@ -6,6 +6,8 @@ import { tap } from 'rxjs/operators';
 import { TagService } from '../../service/tag.service';
 import { WordService } from '../../service/word.service';
 
+import { FilterUtil } from '../../util/filter.util';
+
 import { WordFilter } from '../../model/word-filter.interface';
 
 @Component({
@@ -55,49 +57,8 @@ export class FilterComponent {
                     this.showModal = true;
                 }
 
-                this.existingFilters = this.getFilterLabels(qParamsMap);
+                this.existingFilters = FilterUtil.getFilterLabels(qParamsMap);
             }),
         ).subscribe();
-    }
-
-    private getFilterLabels(qParamsMap: ParamMap): string[] {
-        let filters: string[] = [];
-
-        const word: string = qParamsMap.get('word');
-        if (!!word?.trim()) {
-            filters.push(`Word: ${word}`);
-        }
-
-        const partsOfSpeech: string[] = qParamsMap.getAll('pos');
-        if (!!partsOfSpeech[0]?.trim()) {
-            filters = [...filters, ...partsOfSpeech[0].split(',')];
-        }
-
-        const definition: string = qParamsMap.get('def');
-        if (!!definition?.trim()) {
-            filters.push(`Definition: ${definition}`);
-        }
-
-        const origin: string = qParamsMap.get('ori');
-        if (!!origin?.trim()) {
-            filters.push(`Origin: ${origin}`);
-        }
-
-        const example: string = qParamsMap.get('ex');
-        if (!!example?.trim()) {
-            filters.push(`Example: ${word}`);
-        }
-
-        const note: string = qParamsMap.get('note');
-        if (!!note?.trim()) {
-            filters.push(`Note: ${note}`);
-        }
-
-        const tags: string[] = qParamsMap.getAll('tags');
-        if (!!tags[0]?.trim()) {
-            filters = [...filters, ...tags[0].split(',')];
-        }
-
-        return filters;
     }
 }

@@ -2,18 +2,22 @@ import { HttpErrorResponse } from '@angular/common/http';
 
 export class ErrorUtil {
 
-    static getMessage(e: HttpErrorResponse) {
-        switch (e.status) {
+    static getMessage(e: HttpErrorResponse): string {
+        const status: number = e.status;
+
+        switch (status) {
             case 400:
-                return e.error.error;
+                return status + ' ' + e.error.error;
             case 401:
-                return e.error.error_description ?? e.error.message ?? e.statusText;
+                return status + ' ' + (e.error.error_description ?? e.error.message ?? e.statusText);
             case 404:
-                return e.error.error ?? e.error.message;
-            case 504:
-                return e.statusText;
-            default:
+                return status + ' ' + (e.error.error ?? e.error.message);
+            case 409:
                 return e.error.message;
+            case 504:
+                return status + ' ' + e.statusText;
+            default:
+                return status + ' ' + e.error.message;
         }
     }
 }

@@ -1,3 +1,5 @@
+import { ParamMap } from '@angular/router';
+
 import { PartOfSpeech } from '../model/part-of-speech.enum';
 import { SelectOption } from '../model/select-option.interface';
 
@@ -21,4 +23,45 @@ export class FilterUtil {
             { value: 24, label: 'Show 24', selected: false },
         ];
     };
+
+    static getFilterLabels(qParamsMap: ParamMap): string[] {
+        let filters: string[] = [];
+
+        const word: string = qParamsMap.get('word');
+        if (!!word?.trim()) {
+            filters.push(`Word: ${word}`);
+        }
+
+        const partsOfSpeech: string[] = qParamsMap.getAll('pos');
+        if (!!partsOfSpeech[0]?.trim()) {
+            filters = [...filters, ...partsOfSpeech[0].split(',')];
+        }
+
+        const definition: string = qParamsMap.get('def');
+        if (!!definition?.trim()) {
+            filters.push(`Definition: ${definition}`);
+        }
+
+        const origin: string = qParamsMap.get('ori');
+        if (!!origin?.trim()) {
+            filters.push(`Origin: ${origin}`);
+        }
+
+        const example: string = qParamsMap.get('ex');
+        if (!!example?.trim()) {
+            filters.push(`Example: ${word}`);
+        }
+
+        const note: string = qParamsMap.get('note');
+        if (!!note?.trim()) {
+            filters.push(`Note: ${note}`);
+        }
+
+        const tags: string[] = qParamsMap.getAll('tags');
+        if (!!tags[0]?.trim()) {
+            filters = [...filters, ...tags[0].split(',')];
+        }
+
+        return filters;
+    }
 }

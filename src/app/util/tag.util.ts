@@ -19,12 +19,12 @@ export class TagUtil {
         return tags.map((name: string) => ({ value: name, label: name, titleLabel: name, selected: true } as SelectOption));
     }
 
-    static mapTagToOption({ id, name, words }: Tag, selected = false): SelectOption {
+    static mapTagToOption({ id, name, wordCount }: Tag, selected = false): SelectOption {
         return {
             selected,
             value: id,
             titleLabel: name,
-            label: `${name} (${words?.length ?? 0})`
+            label: `${name} (${wordCount ?? 0})`
         };
     }
 }
