@@ -1,7 +1,9 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+
+import { LocalStorageService } from './local-storage.service';
 
 import { TagUtil } from '../util/tag.util';
 
@@ -13,11 +15,14 @@ export class TagService {
 
     private readonly baseURL: string = '/api/o';
 
-    constructor(private readonly http: HttpClient) {
+    constructor(private readonly http: HttpClient, private readonly ls: LocalStorageService) {
     }
 
     getTags(): Observable<Tag[]> {
-        return this.http.get<Tag[]>(`${this.baseURL}/tags`);
+        return this.http.get<Tag[]>(
+            `${this.baseURL}/tags`,
+            { params: new HttpParams().set('u', this.ls.get('u')).set('bna', this.ls.get('bna')) }
+        );
     }
 
     getTagSelectOptions(): Observable<SelectOption[]> {
