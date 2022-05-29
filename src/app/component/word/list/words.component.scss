@@ -1,6 +1,4 @@
 .worms {
-    padding-left: 10%;
-    padding-right: 10%;
     // TODO
     //background-image: url('/assets/image/bg-bottom.png');
 
@@ -34,4 +32,12 @@
     display: flex;
     justify-content: center;
     padding: 3rem;
+}
+
+@media screen and (min-width: 1500px) {
+
+    .worms {
+        padding-left: 10%;
+        padding-right: 10%;
+    }
 }

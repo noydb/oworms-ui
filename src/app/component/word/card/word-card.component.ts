@@ -18,6 +18,19 @@ export class WordCardComponent {
     constructor(private readonly router: Router) {
     }
 
+    getViews(daWord: Word): string {
+        switch (daWord?.timesViewed) {
+            case 0:
+                return 'No views';
+            case 1:
+                return '1 view';
+            case null:
+                return 'n/a';
+            default:
+                return daWord.timesViewed + ' views';
+        }
+    }
+
     viewWordDetails(): void {
         void this.router.navigate([AppRoutes.getDetail(this.word.uuid)]);
     }

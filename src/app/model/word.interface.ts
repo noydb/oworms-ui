@@ -13,7 +13,7 @@ export interface Word {
     tags?: Tag[];
     creationDate?: Date;
     createdBy?: string;
-    timesViewed?: string;
+    timesViewed?: number;
 
     // non-api
     tagIds?: number[];

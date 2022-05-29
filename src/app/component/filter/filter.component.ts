@@ -22,12 +22,15 @@ export class FilterComponent {
 
     showModal = false;
     existingFilters: string[] = [];
+    expanded = false;
+    quickSearch: string = '';
 
     @Output()
     readonly showChange: EventEmitter<number> = new EventEmitter<number>();
 
     readonly wordCount$: Observable<number>;
     readonly subs: Subscription[] = [];
+    private busyHovering = false;
 
     constructor(private readonly tagService: TagService,
                 private readonly route: ActivatedRoute,
@@ -35,6 +38,25 @@ export class FilterComponent {
                 private readonly wordService: WordService) {
         this.subs.push(this.getQueryParams());
         this.wordCount$ = this.wordService.getCount();
+    }
+
+    hover(): void {
+        if (this.busyHovering) {
+            return;
+        }
+
+        this.busyHovering = true;
+
+        setTimeout(() => {
+            this.expanded = true;
+            this.busyHovering = false;
+        }, 500);
+    }
+
+    hoverLeave(): void {
+        setTimeout(() => {
+            this.expanded = false;
+        }, 800);
     }
 
     filter(): void {
