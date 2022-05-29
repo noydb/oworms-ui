@@ -3,7 +3,8 @@
     "version": "2.1.4",
     "scripts": {
         "ng": "ng",
-        "start": "ng serve",
+        "start": "node server.js",
+	"start-l": "ng serve",
         "build": "ng build",
         "heroku-postbuild": "ng build --aot --configuration production"
     },
