@@ -34,4 +34,22 @@ li {
     &:hover {
         background-color: #151617;
     }
+
+    section {
+        display: flex;
+        justify-content: space-between;
+
+        &:first-of-type {
+            margin-top: 2.5rem;
+        }
+
+        label {
+            font-size: .6rem;
+        }
+
+        &.date {
+            margin-top: .2rem;
+            justify-content: flex-end;
+        }
+    }
 }
