@@ -10,26 +10,20 @@
     align-items: center;
     background-color: #4b4242;
     height: 70px;
-    transition: all .6s;
+    width: 30%;
 
     &:hover {
-        background-color: #3d3737;
         cursor: pointer;
-    }
-
-    &.expanded {
-        width: 30%;
-
-        img {
-            margin-right: 1rem;
-        }
     }
 
     img {
         cursor: pointer;
+        margin-right: 1rem;
+        padding: .5rem;
+        transition: all .2s;
 
         &:hover {
-            opacity: .7;
+            background-color: #3d3737;
         }
     }
 

@@ -1,10 +1,6 @@
-<article class="filter"
-         [class.expanded]="expanded"
-         (mouseover)="hover()"
-         (mouseleave)="hoverLeave()">
+<article class="filter">
     <img (click)="showModal = true" alt="filter icon" src="/assets/image/icon-filter.svg" />
-    <input *ngIf="expanded"
-           [(ngModel)]="quickSearch"
+    <input [(ngModel)]="quickSearch"
            name="quick-search"
            placeholder="search" />
     <section class="clear" [class.hidden]="!existingFilters || existingFilters.length === 0">
