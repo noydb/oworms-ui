@@ -22,10 +22,12 @@
     }
 
     span {
-        text-transform: uppercase;
-    }
+        &.creator {
+            color: colour.$secondary;
+        }
 
-    .creator {
-        color: colour.$secondary;
+        &.uuid {
+            font-size: .6rem;
+        }
     }
 }

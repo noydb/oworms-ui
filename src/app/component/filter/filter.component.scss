@@ -1,36 +1,53 @@
 .filter {
-    padding-left: 9%;
-    padding-right: 8%;
-    display: flex;
-    align-items: center;
-    margin-top: 1rem;
+    z-index: 9999;
+    position: fixed;
+    bottom: 0;
+    padding: 1rem;
     margin-bottom: .5rem;
-    margin-left: 1.5rem;
+    margin-left: .5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #4b4242;
+    height: 70px;
+    width: 30%;
+
+    &:hover {
+        cursor: pointer;
+    }
 
     img {
         cursor: pointer;
-        transition: all .2s;
         margin-right: 1rem;
+        padding: .5rem;
+        transition: all .2s;
 
         &:hover {
-            opacity: .7;
+            background-color: #3d3737;
         }
     }
 
     .clear {
-        width: 25%;
+        width: 100%;
+        margin-left: 1rem;
+
+        &.hidden {
+            width: 0;
+            margin-left: 0;
+        }
     }
 }
 
 .existing {
     padding-left: 10%;
     padding-right: 10%;
-    margin-bottom: 2rem;
+    margin-bottom: 1rem;
     margin-left: .7rem;
 }
 
 .count {
     padding-left: 10%;
     padding-right: 10%;
-    margin-left: .7rem;
+    margin-left: 1rem;
+    margin-bottom: 1rem;
 }

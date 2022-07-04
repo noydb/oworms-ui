@@ -4,24 +4,15 @@ export class AppRoutes {
     static readonly ABOUT = `${AppRoutes.BASE}/about`;
     static readonly ADD = `${AppRoutes.BASE}/new`;
     static readonly ALL = `${AppRoutes.BASE}/all`;
-    static readonly DETAIL = `${AppRoutes.BASE}/:id/detail`;
-    static readonly EDIT = `${AppRoutes.BASE}/:id/edit`;
-    static readonly SEARCH_OX = `${AppRoutes.BASE}/oxford`;
+    static readonly DETAIL = `${AppRoutes.BASE}/:uuid/detail`;
+    static readonly EDIT = `${AppRoutes.BASE}/:uuid/edit`;
     static readonly STATS = `${AppRoutes.BASE}/stats`;
 
-    static getDetail(wordId: number): string {
-        if (isNaN(wordId)) {
-            throw new Error("not a valid word id");
-        }
-
-        return AppRoutes.DETAIL.replace(':id', String(wordId));
+    static getDetail(uuid: string): string {
+        return AppRoutes.DETAIL.replace(':uuid', uuid);
     }
 
-    static getEdit(wordId: number): string {
-        if (isNaN(wordId)) {
-            throw new Error("not a valid word id");
-        }
-
-        return AppRoutes.EDIT.replace(':id', String(wordId));
+    static getEdit(uuid: string): string {
+        return AppRoutes.EDIT.replace(':uuid', uuid);
     }
 }

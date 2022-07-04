@@ -2,4 +2,11 @@
     <h5 class="mono">{{ word.theWord }}</h5>
     <label class="part-of-speech">{{ word.partOfSpeech }}</label>
     <p class="definition">{{ word.definition }}</p>
+    <section>
+        <label>{{ getViews(word) }}</label>
+        <label>by {{ word.createdBy }}</label>
+    </section>
+    <section class="date">
+        <label>{{ word.creationDate | date : 'MMMM yyyy HH:mm:ss' }}</label>
+    </section>
 </li>

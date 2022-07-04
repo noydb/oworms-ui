@@ -1,20 +1,21 @@
 <article class="filter">
     <img (click)="showModal = true" alt="filter icon" src="/assets/image/icon-filter.svg" />
-    <div class="clear">
+    <input [(ngModel)]="quickSearch"
+           name="quick-search"
+           placeholder="search" />
+    <section class="clear" [class.hidden]="!existingFilters || existingFilters.length === 0">
         <button (click)="clearFilters()" *ngIf="existingFilters?.length > 0" class="transparent">
             Clear Filters
         </button>
-    </div>
+    </section>
 </article>
 
-<ng-container *ngIf="existingFilters?.length > 0">
-    <div class="existing">
-        <ow-tags [sTags]="existingFilters"></ow-tags>
-    </div>
-    <div class="count">
-        <label>{{ wordCount$ | async }} results</label>
-    </div>
-</ng-container>
+<div class="existing" *ngIf="existingFilters?.length > 0">
+    <ow-tags [sTags]="existingFilters"></ow-tags>
+</div>
+<div class="count">
+    <label>{{ wordCount$ | async }} results</label>
+</div>
 
 <ng-container *ngIf="showModal">
     <ow-filter-modal (modalClosed)="filter()"></ow-filter-modal>

@@ -7,6 +7,7 @@ import { catchError, map, switchMap, tap } from 'rxjs/operators';
 import { WordService } from '../../../service/word.service';
 
 import { ErrorUtil } from '../../../util/error.util';
+import { FilterUtil } from '../../../util/filter.util';
 
 import { AppRoutes } from '../../../util/app.routes';
 
@@ -70,10 +71,13 @@ export class WordsComponent extends LoadComponent {
 
     private getWords(): Subscription {
         this.state = 'loading';
+        let filtering = false;
 
         return this.route.queryParamMap
         .pipe(
             map((qParamsMap: ParamMap) => {
+                filtering = FilterUtil.getFilterLabels(qParamsMap).length > 0;
+
                 return {
                     word: qParamsMap.get('word'),
                     partsOfSpeech: qParamsMap.getAll('pos'),
@@ -93,7 +97,6 @@ export class WordsComponent extends LoadComponent {
                 .retrieveAll(wordFilter)
                 .pipe(
                     catchError((e: any) => {
-                        console.error(e);
                         this.errorMessage = ErrorUtil.getMessage(e);
                         this.state = 'error';
                         this.words = [];
@@ -103,8 +106,8 @@ export class WordsComponent extends LoadComponent {
                 )
             ),
             tap((words: Word[]) => {
-                if (words.length === 1) {
-                    void this.router.navigate([AppRoutes.getDetail(words[0].id)]);
+                if (words.length === 1 && filtering) {
+                    void this.router.navigate([AppRoutes.getDetail(words[0].uuid)]);
                 }
 
                 this.words = words;

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { Observable } from 'rxjs';
 
 import { WordService } from '../../../service/word.service';
 
@@ -10,7 +10,7 @@ import { WordService } from '../../../service/word.service';
 })
 export class SpinnerComponent {
 
-    readonly busy$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+    readonly busy$: Observable<boolean>;
 
     constructor(private readonly wordService: WordService) {
         this.busy$ = this.wordService.isBusy();

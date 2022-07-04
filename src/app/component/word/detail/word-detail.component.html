@@ -7,7 +7,7 @@
         <div class="top">
             <div class="title">
                 <h5 class="mono">{{word.theWord}}</h5>
-                <small>#{{word.id}}</small>
+                <small>{{word.uuid}}</small>
             </div>
             <div class="actions">
                 <img alt="edit" src="/assets/image/pencil-circled.svg" (click)="edit(word)" />
@@ -35,7 +35,7 @@
         </div>
         <div class="pair">
             <label>Note:&nbsp;</label>
-            <p>{{word.note ? word.note : 'N/A' }}</p>
+            <p class="note">{{word.note ? word.note : 'N/A' }}</p>
         </div>
         <div class="synonyms">
             <label>Synonyms</label>

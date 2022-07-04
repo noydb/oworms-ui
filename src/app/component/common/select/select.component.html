@@ -5,10 +5,10 @@
      [class.transparent]="transparent"
      class="select"
      role="listbox">
-    <div class="s-title">
+    <span class="s-title">
         {{ title }}
         <img alt="chev icon" src="/assets/image/chevron-down.svg" (click)="invertClosed($event)" />
-    </div>
+    </span>
     <div [class.closed]="closed" class="options">
         <div (click)="selectItem(item)"
              *ngFor="let item of options"

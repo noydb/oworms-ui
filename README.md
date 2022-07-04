@@ -1,4 +1,4 @@
-<img src="https://github.com/benj-power/oworms-ui/blob/develop/src/assets/image/logo.svg"></img> [![Maintainability](https://api.codeclimate.com/v1/badges/022c3d76d9caaf459fbc/maintainability)](https://codeclimate.com/github/noydb/oworms-ui/maintainability)
+<img src="https://github.com/noydb/oworms-ui/blob/develop/src/assets/image/logo.svg"></img> [![Maintainability](https://api.codeclimate.com/v1/badges/022c3d76d9caaf459fbc/maintainability)](https://codeclimate.com/github/noydb/oworms-ui/maintainability)
 ---
 
 [Explanation of Name](https://memedocumentation.tumblr.com/post/163767097995/explained-oh-worm-meme)
@@ -49,7 +49,6 @@ generate base project using angular cli:\
 - linking tags to words
 - receive an email everytime a word is created or updated
 - filtering by any of the available fields
-- search the oxford dictionaries api
 - retrieve a random word
 - view statistics on the application
 - import spreadsheet of words
@@ -57,7 +56,7 @@ generate base project using angular cli:\
 
 ### Planned Features
 - automated creation of words
-- adding word while leveraging oxford api
+- adding word with assistance/wizard
 - more detailed statistics, daily, weekly stats, graphs, etc
 - linking of synonyms and antonyms
 - ability to delete words

@@ -14,28 +14,15 @@ export class AlertService {
         return this.alerts$.asObservable();
     }
 
-    add(message: string, error = false): void {
+    add(message: string, error = false, path: string = ''): void {
         const alerts: Alert[] = this.alerts$.value;
 
         const alert: Alert = {
             error,
             id: alerts.length,
             message,
-            timeout: 5000
-        };
-        alerts.push(alert);
-
-        this.alerts$.next(alerts);
-    }
-
-    addWithAction(message: string, path: string): void {
-        const alerts: Alert[] = this.alerts$.value;
-
-        const alert: Alert = {
-            id: alerts.length,
-            message,
-            path,
-            timeout: 5000
+            timeout: 5000,
+            path
         };
         alerts.push(alert);
 

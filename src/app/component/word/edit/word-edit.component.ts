@@ -38,38 +38,39 @@ export class WordEditComponent extends LoadComponent {
         this.word$ = this.getWord();
     }
 
-    update(id: number, updated: Word): void {
+    update(uuid: string, updated: Word): void {
         this.state = 'loading';
 
-        this.service.update(id, updated)
+        this.service.update(uuid, updated)
         .pipe(take(1))
         .subscribe({
             next: () => {
-                this.alertService.addWithAction('Updated word', `ui/worms/${id}/detail`);
+                this.alertService.add('Updated word', false, AppRoutes.getDetail(uuid));
 
-                this.navToDetail(id);
+                this.navToDetail(uuid);
             },
             error: (e) => {
-                console.error(e);
-
                 this.alertService.add(ErrorUtil.getMessage(e), true);
             }
         });
     }
 
-    navToDetail(wordId: number): void {
-        void this.router.navigate([AppRoutes.getDetail(wordId)]);
+    navToDetail(uuid: string): void {
+        void this.router.navigate([AppRoutes.getDetail(uuid)]);
     }
 
     private getWord(): Observable<Word> {
         return this.route.paramMap
         .pipe(
-            map((params: ParamMap) => params.get('id') ?? '0'),
-            switchMap((id: string) => this.service.retrieve(Number(id))),
+            map((params: ParamMap) => params.get('uuid') ?? '0'),
+            switchMap((uuid: string) => this.service.retrieve(uuid)),
             catchError((e: HttpErrorResponse) => {
                     this.state = 'error';
                     this.errorMessage = ErrorUtil.getMessage(e);
-                    this.state = 'error';
+
+                    if (this.errorMessage.includes('exists')) {
+                        this.alertService.add(this.errorMessage, true, AppRoutes.getDetail(e.error.uuid));
+                    }
 
                     return of(undefined);
                 }
