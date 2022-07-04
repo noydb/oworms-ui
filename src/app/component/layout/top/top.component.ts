@@ -16,52 +16,52 @@ import { MENU_ITEMS } from '../../../util/data';
 import { Word } from '../../../model/word.interface';
 
 @Component({
-    selector: 'ow-top',
-    templateUrl: 'top.component.html',
-    styleUrls: ['./top.component.scss']
+  selector: 'ow-top',
+  templateUrl: 'top.component.html',
+  styleUrls: ['./top.component.scss']
 })
 export class TopComponent {
-
-    readonly items: MenuItem[] = MENU_ITEMS;
-
-    constructor(private readonly router: Router,
-                private readonly wordService: WordService,
-                private readonly alertService: AlertService) {
-    }
-
-    navigateToRandom(): void {
-        this.wordService
-        .retrieveRandom()
-        .pipe(take(1))
-        .subscribe({
-            next: ({ uuid }: Word) => {
-                void this.router.navigate([AppRoutes.getDetail(uuid)]);
-            },
-            error: (e: HttpErrorResponse) => {
-                this.alertService.add(ErrorUtil.getMessage(e), true);
-            }
-        });
-
-    }
-
-    navigateToAdd(): void {
-        void this.router.navigate([AppRoutes.ADD]);
-    }
-
-    navigate(item: MenuItem): void {
-        void this.router.navigate(
-            [item.path],
-            { queryParams: item.filter ? { filter: item.filter } : undefined }
-        );
-    }
-
-    getCSV(): void {
-        this.wordService
-        .getCSV()
-        .pipe(take(1))
-        .subscribe({
-            next: (response: any) => FileUtil.downloadFile(response),
-            error: (e: HttpErrorResponse) => this.alertService.add(ErrorUtil.getMessage(e), true)
-        });
-    }
+  
+  readonly items: MenuItem[] = MENU_ITEMS;
+  
+  constructor(private readonly router: Router,
+              private readonly wordService: WordService,
+              private readonly alertService: AlertService) {
+  }
+  
+  navigateToRandom(): void {
+    this.wordService
+    .retrieveRandom()
+    .pipe(take(1))
+    .subscribe({
+      next: ({ uuid }: Word) => {
+        void this.router.navigate([AppRoutes.getDetail(uuid)]);
+      },
+      error: (e: HttpErrorResponse) => {
+        this.alertService.add(ErrorUtil.getMessage(e), true);
+      }
+    });
+    
+  }
+  
+  navigateToAdd(): void {
+    void this.router.navigate([AppRoutes.ADD]);
+  }
+  
+  navigate(item: MenuItem): void {
+    void this.router.navigate(
+      [item.path],
+      { queryParams: item.filter ? { filter: item.filter } : undefined }
+    );
+  }
+  
+  getCSV(): void {
+    this.wordService
+    .getCSV()
+    .pipe(take(1))
+    .subscribe({
+      next: (response: any) => FileUtil.downloadFile(response),
+      error: (e: HttpErrorResponse) => this.alertService.add(ErrorUtil.getMessage(e), true)
+    });
+  }
 }
