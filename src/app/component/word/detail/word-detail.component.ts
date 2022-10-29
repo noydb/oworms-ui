@@ -35,11 +35,13 @@ export class WordDetailComponent extends LoadComponent {
         this.word$ = this.getWord();
     }
 
-    getStatsURL(word: Word): string {
-        const date: Date = word.creationDate;
+    navToStats(word: Word): void {
+        const date: Date = new Date(word.creationDate);
 
-        // + 1 because java local date time API indexes months 1 - 12
-        return `/statistics?day=${date.getDate()}&month=${date.getMonth() + 1}&year=${date.getFullYear()}`;
+        void this.router.navigate(
+            ['o/worms/stats'],
+            { queryParams: { day: date.getDate(), month: date.getMonth(), year: date.getFullYear() } }
+        );
     }
 
     edit({ uuid }: Word): void {

@@ -48,7 +48,7 @@ export class WordHttpService {
     }
 
     getStatistics(): Observable<Statistics> {
-        return this.http.get<Statistics>(`${this.baseURL}/statistics`);
+        return this.http.get<Statistics>('api/o/stats');
     }
 
     // https://roytuts.com/download-file-from-server-using-angular/

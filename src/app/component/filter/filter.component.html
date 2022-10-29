@@ -2,7 +2,7 @@
     <img (click)="showModal = true" alt="filter icon" src="/assets/image/icon-filter.svg" />
     <input [formControl]="ctrl"
            name="quick-search"
-           placeholder="search" />
+           placeholder="search for anything" />
     <section class="clear" [class.hidden]="!existingFilters || existingFilters.length === 0">
         <button (click)="clearFilters()" *ngIf="existingFilters?.length > 0" class="transparent">
             Clear Filters

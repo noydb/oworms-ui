@@ -1,10 +1,11 @@
 article > ul {
     display: flex;
     flex-wrap: wrap;
-    margin-top: 1.2rem;
     padding-left: 0; //wtf why?
+    margin-top: 0;
 
     li {
+        margin-top: .3rem;
         border-radius: 1rem;
         background-color: rgba(255, 255, 255, 0.12);
         padding: .6rem;

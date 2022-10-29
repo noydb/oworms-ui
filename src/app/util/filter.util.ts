@@ -37,19 +37,19 @@ export class FilterUtil {
             filters = [...filters, ...partsOfSpeech[0].split(',')];
         }
 
-        const definition: string = qParamsMap.get('def');
+        const definition: string = qParamsMap.get('definition');
         if (!!definition?.trim()) {
             filters.push(`Definition: ${definition}`);
         }
 
-        const origin: string = qParamsMap.get('ori');
+        const origin: string = qParamsMap.get('origin');
         if (!!origin?.trim()) {
             filters.push(`Origin: ${origin}`);
         }
 
-        const example: string = qParamsMap.get('ex');
+        const example: string = qParamsMap.get('exampleUsage');
         if (!!example?.trim()) {
-            filters.push(`Example: ${word}`);
+            filters.push(`Example: ${example}`);
         }
 
         const note: string = qParamsMap.get('note');

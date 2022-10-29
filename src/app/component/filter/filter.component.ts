@@ -60,7 +60,17 @@ export class FilterComponent {
                         return;
                     }
 
-                    void this.router.navigate([], { relativeTo: this.route, queryParams: { theWord: value } });
+                    void this.router.navigate([], {
+                            relativeTo: this.route,
+                            queryParams: {
+                                word: value,
+                                definition: value,
+                                origin: value,
+                                exampleUsage: value,
+                                note: value
+                            }
+                        }
+                    );
                 })
             )
             .subscribe();
