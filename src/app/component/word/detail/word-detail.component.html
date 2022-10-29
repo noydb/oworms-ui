@@ -11,7 +11,6 @@
                 <img alt="synonyms" src="/assets/image/plus-circled.svg"/>
             </div>
         </div>
-        <small>{{word.uuid}}</small>
         <p class="def">{{ word.definition }}</p>
         <p>{{ word.partOfSpeech }}</p>
         <div class="pair">
@@ -53,7 +52,7 @@
             </div>
         </div>
         <div class="column">
-            <div class="pair creation-date" [routerLink]="getStatsURL(word)">
+            <div class="pair creation-date" (click)="navToStats(word)">
                 <label>Creation Date:&nbsp;</label>
                 <p>{{ word.creationDate | date:'EEEE d MMMM y' }}</p>
             </div>

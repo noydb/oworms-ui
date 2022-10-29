@@ -3,7 +3,9 @@
 
 li {
     width: 285px;
-    height: 200px;
+    min-height: 200px;
+    max-height: 200px;
+    overflow-y: scroll;
     padding: 1rem;
     margin: .5rem;
     box-shadow: 0 2px 4px -5px #101010;
@@ -38,7 +40,6 @@ li {
     section {
         display: flex;
         justify-content: space-between;
-        color: #907f7f;
 
         &:first-of-type {
             margin-top: 2.5rem;
@@ -46,6 +47,7 @@ li {
 
         label {
             font-size: .6rem;
+            color: #907f7f;
         }
 
         &.date {

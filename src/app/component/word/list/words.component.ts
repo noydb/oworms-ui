@@ -80,9 +80,9 @@ export class WordsComponent extends LoadComponent {
                     return {
                         word: qParamsMap.get('word'),
                         partsOfSpeech: qParamsMap.getAll('pos'),
-                        definition: qParamsMap.get('def'),
-                        origin: qParamsMap.get('ori'),
-                        exampleUsage: qParamsMap.get('ex'),
+                        definition: qParamsMap.get('definition'),
+                        origin: qParamsMap.get('origin'),
+                        exampleUsage: qParamsMap.get('exampleUsage'),
                         tags: qParamsMap.getAll('tags'),
                         note: qParamsMap.get('note')
                     } as WordFilter;
