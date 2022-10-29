@@ -1,10 +1,10 @@
 {
     "name": "oworms",
-    "version": "2.1.6",
+    "version": "2.2.0",
     "scripts": {
         "ng": "ng",
         "start": "node server.js",
-        "start-l": "ng serve",
+        "start-l": "ng serve --proxy-config=proxy.conf.json",
         "build": "ng build",
         "heroku-postbuild": "ng build --aot --configuration production"
     },

@@ -1,18 +1,20 @@
-<article class="filter">
-    <img (click)="showModal = true" alt="filter icon" src="/assets/image/icon-filter.svg" />
-    <input [formControl]="ctrl"
+<dialog>
+    <img (click)="showModal = true" alt="filter icon" src="/assets/image/icon-filter.svg"/>
+    <input *ngIf="showField"
+           [formControl]="ctrl"
            name="quick-search"
-           placeholder="search for anything" />
+           placeholder="search for anything"/>
     <section class="clear" [class.hidden]="!existingFilters || existingFilters.length === 0">
         <button (click)="clearFilters()" *ngIf="existingFilters?.length > 0" class="transparent">
             Clear Filters
         </button>
     </section>
-</article>
+</dialog>
 
 <div class="existing" *ngIf="existingFilters?.length > 0">
     <ow-tags [sTags]="existingFilters"></ow-tags>
 </div>
+
 <div class="count">
     <label>{{ wordCount$ | async }} results</label>
 </div>

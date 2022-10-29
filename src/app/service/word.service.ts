@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, throwError } from 'rxjs';
-import { catchError, finalize, tap } from 'rxjs/operators';
+import { catchError, finalize, map, tap } from 'rxjs/operators';
 
 import { WordHttpService } from './word.http.service';
 
@@ -25,95 +25,99 @@ export class WordService {
         this.busy$.next(true);
 
         return this.wordHttpService
-        .retrieveAll(wordFilter)
-        .pipe(
-            tap((words: Word[]) => {
-                this.wordCount$.next(words.length);
-            }),
-            finalize(() => {
-                this.busy$.next(false);
-            }),
-            catchError((e) => {
-                this.wordCount$.next(0);
+            .retrieveAll(wordFilter)
+            .pipe(
+                tap((words: Word[]) => {
+                    this.wordCount$.next(words.length);
+                }),
+                finalize(() => {
+                    this.busy$.next(false);
+                }),
+                catchError((e) => {
+                    this.wordCount$.next(0);
 
-                return throwError(e);
-            })
-        );
+                    return throwError(e);
+                })
+            );
     }
 
     retrieve(uuid: string): Observable<Word> {
         this.busy$.next(true);
 
         return this.wordHttpService
-        .retrieve(uuid)
-        .pipe(
-            finalize(() => {
-                this.busy$.next(false);
-            })
-        );
+            .retrieve(uuid)
+            .pipe(
+                finalize(() => {
+                    this.busy$.next(false);
+                })
+            );
     }
 
     retrieveRandom(): Observable<Word> {
         this.busy$.next(true);
 
         return this.wordHttpService
-        .retrieveRandom()
-        .pipe(
-            finalize(() => {
-                this.busy$.next(false);
-            })
-        );
+            .retrieveRandom()
+            .pipe(
+                finalize(() => {
+                    this.busy$.next(false);
+                })
+            );
     }
 
     create(word: Word): Observable<void> {
         this.busy$.next(true);
 
         return this.wordHttpService
-        .create(word)
-        .pipe(
-            finalize(() => {
-                this.busy$.next(false);
-            })
-        );
+            .create(word)
+            .pipe(
+                finalize(() => {
+                    this.busy$.next(false);
+                })
+            );
     }
 
     update(uuid: string, word: Word): Observable<Word> {
         this.busy$.next(true);
 
         return this.wordHttpService
-        .update(uuid, word)
-        .pipe(
-            finalize(() => {
-                this.busy$.next(false);
-            })
-        );
+            .update(uuid, word)
+            .pipe(
+                finalize(() => {
+                    this.busy$.next(false);
+                })
+            );
     }
 
     getStatistics(): Observable<Statistics> {
         this.busy$.next(true);
 
         return this.wordHttpService
-        .getStatistics()
-        .pipe(
-            finalize(() => {
-                this.busy$.next(false);
-            })
-        );
+            .getStatistics()
+            .pipe(
+                finalize(() => {
+                    this.busy$.next(false);
+                })
+            );
     }
 
     getCSV(): Observable<any> {
         this.busy$.next(true);
 
         return this.wordHttpService
-        .getCSV()
-        .pipe(
-            finalize(() => {
-                this.busy$.next(false);
-            })
-        );
+            .getCSV()
+            .pipe(
+                finalize(() => {
+                    this.busy$.next(false);
+                })
+            );
     }
 
     getCount(): Observable<number> {
-        return this.wordCount$.asObservable();
+        return this.wordCount$
+            .asObservable()
+            .pipe(
+                map((value: number) => !value || isNaN(value) ? 0 : value)
+            );
     }
 }

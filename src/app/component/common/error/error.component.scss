@@ -8,3 +8,10 @@ section {
         margin-bottom: 16px;
     }
 }
+
+@media screen and (max-width: 600px) {
+    section {
+        width: 100%;
+        margin: auto;
+    }
+}

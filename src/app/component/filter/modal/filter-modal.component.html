@@ -1,58 +1,59 @@
-<div class="overlay">
-    <div class="title">
-        <h5>Advanced Filter</h5>
-    </div>
+<section class="overlay">
+    <h2>Advanced Filter</h2>
 
-    <div [formGroup]="form" class="form">
+    <form [formGroup]="form" class="form">
         <div class="column">
-            <div class="row">
-                <input formControlName="word"
-                       name="word"
-                       placeholder="word" />
-            </div>
-            <div class="row">
+            <fieldset>
+                <input formControlName="word" name="word" placeholder="word"/>
+            </fieldset>
+
+            <fieldset>
                 <ow-select titleLabel="parts of speech"
                            (valueChange)="selectPartOfSpeech($event)"
                            [multiSelect]="true"
                            [values]="selectedPos"
                            [options]="posOptions"
                            [transparent]="true"></ow-select>
-            </div>
-            <div class="row">
-            <textarea [required]="true"
-                      formControlName="definition"
-                      name="definition"
-                      placeholder="definition"></textarea>
-            </div>
-            <div class="row">
-            <textarea formControlName="origin"
-                      name="origin"
-                      placeholder="origin"></textarea>
-            </div>
+            </fieldset>
+
+            <fieldset>
+                <textarea [required]="true"
+                          formControlName="definition"
+                          name="definition"
+                          placeholder="definition"></textarea>
+            </fieldset>
+
+            <fieldset>
+                <textarea formControlName="origin" name="origin" placeholder="origin"></textarea>
+            </fieldset>
         </div>
+
         <div class="column">
-            <div class="row">
+            <fieldset>
                 <input formControlName="example"
                        name="example"
-                       placeholder="example" />
-            </div>
-            <ow-select titleLabel="tags"
-                       (valueChange)="selectTags($event)"
-                       [multiSelect]="true"
-                       [values]="selectedTags"
-                       [options]="tagOptions$ | async"
-                       [transparent]="true"></ow-select>
-            <div class="row">
-                <input formControlName="note" name="note" placeholder="note" />
-            </div>
+                       placeholder="example"/>
+            </fieldset>
+            <fieldset>
+                <ow-select titleLabel="tags"
+                           (valueChange)="selectTags($event)"
+                           [multiSelect]="true"
+                           [values]="selectedTags"
+                           [options]="tagOptions$ | async"
+                           [transparent]="true"></ow-select>
+            </fieldset>
+            <fieldset>
+                <input formControlName="note" name="note" placeholder="note"/>
+            </fieldset>
         </div>
-    </div>
-    <div class="actions">
+    </form>
+
+    <section class="actions">
         <button (click)="filter()" [disabled]="noValues">
             Filter
         </button>
         <button (click)="cancel()" class="below transparent">
             Cancel
         </button>
-    </div>
-</div>
+    </section>
+</section>

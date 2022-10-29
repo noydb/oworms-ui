@@ -1,28 +1,25 @@
-.worms {
-    // TODO
-    //background-image: url('/assets/image/bg-bottom.png');
+// TODO
+//background-image: url('/assets/image/bg-bottom.png');
 
-    .filter {
-        display: flex;
-        justify-content: center;
-        flex-wrap: wrap;
-        overflow-y: hidden;
-        padding-bottom: 47px;
-    }
+.filter {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    overflow-y: hidden;
+    padding-bottom: 47px;
+}
 
-    .words {
-        display: flex;
-        justify-content: center;
-        flex-wrap: wrap;
-        overflow-y: hidden;
-    }
+.words {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    overflow-y: hidden;
 }
 
 .actions {
     display: flex;
     justify-content: center;
-    margin-left: 10%;
-    margin-right: 10%;
     padding-top: 2rem;
     padding-bottom: 2rem;
 }
@@ -36,8 +33,40 @@
 
 @media screen and (min-width: 1500px) {
 
-    .worms {
+    .words {
         padding-left: 10%;
         padding-right: 10%;
+    }
+}
+
+@media screen and (min-width: 600px) {
+    .worms {
+        // TODO
+        //background-image: url('/assets/image/bg-bottom.png');
+
+        .filter {
+            width: auto;
+        }
+    }
+
+    .actions {
+        margin-left: 10%;
+        margin-right: 10%;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .actions {
+        width: 100%;
+        flex-wrap: wrap;
+
+        > button {
+            width: 100%;
+            margin-left: 0;
+
+            &:not(:last-of-type) {
+                margin-bottom: .5rem;
+            }
+        }
     }
 }

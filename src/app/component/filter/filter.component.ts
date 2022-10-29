@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
-import { debounceTime, Observable } from 'rxjs';
+import { debounceTime, Observable, of } from 'rxjs';
 import { tap } from 'rxjs/operators';
 
 import { TagService } from '../../service/tag.service';
@@ -30,7 +30,7 @@ export class FilterComponent {
     readonly showChange: EventEmitter<number> = new EventEmitter<number>();
 
     readonly ctrl: FormControl = new FormControl<string>('');
-    readonly wordCount$: Observable<number>;
+    readonly wordCount$: Observable<number> = of(0);
 
     constructor(private readonly tagService: TagService,
                 private readonly route: ActivatedRoute,
@@ -39,6 +39,10 @@ export class FilterComponent {
         this.getQueryParams();
         this.wordCount$ = this.wordService.getCount();
         this.quickSearchFilter();
+    }
+
+    get showField(): boolean {
+        return window.innerWidth > 600;
     }
 
     filter(): void {

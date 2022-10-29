@@ -1,7 +1,7 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { take } from 'rxjs/operators';
+import { finalize, take } from 'rxjs/operators';
 
 import { AlertService } from '../../../service/alert.service';
 import { WordService } from '../../../service/word.service';
@@ -21,6 +21,7 @@ import { Word } from '../../../model/word.interface';
 })
 export class TopComponent {
 
+    expandMenu: boolean = false;
     readonly items: MenuItem[] = MENU_ITEMS;
 
     constructor(private readonly router: Router,
@@ -28,10 +29,19 @@ export class TopComponent {
                 private readonly alertService: AlertService) {
     }
 
+    get showBurger(): boolean {
+        return window.innerWidth < 600;
+    }
+
     navigateToRandom(): void {
         this.wordService
             .retrieveRandom()
-            .pipe(take(1))
+            .pipe(
+                take(1),
+                finalize(() => {
+                    this.expandMenu = false;
+                })
+            )
             .subscribe({
                 next: ({ uuid }: Word) => {
                     void this.router.navigate([AppRoutes.getDetail(uuid)]);
@@ -48,6 +58,8 @@ export class TopComponent {
     }
 
     navigate(item: MenuItem): void {
+        this.expandMenu = false;
+
         void this.router.navigate(
             [item.path],
             { queryParams: item.filter ? { filter: item.filter } : undefined }

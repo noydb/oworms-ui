@@ -2,8 +2,9 @@
     <ow-random-top [word]="word$ | async"></ow-random-top>
 </ow-hero>
 
-<div *ngIf="word$ | async as word; else error" class="word">
+<article *ngIf="word$ | async as word; else error" class="word">
     <section class="detail">
+
         <div class="top">
             <h2 class="mono">{{word.theWord}}</h2>
             <div class="actions">
@@ -11,6 +12,7 @@
                 <img alt="synonyms" src="/assets/image/plus-circled.svg"/>
             </div>
         </div>
+
         <p class="def">{{ word.definition }}</p>
         <p>{{ word.partOfSpeech }}</p>
         <div class="pair">
@@ -63,7 +65,7 @@
         </div>
     </section>
 
-</div>
+</article>
 
 <ng-template #error>
     <ow-error *ngIf="state === 'error' else loading">

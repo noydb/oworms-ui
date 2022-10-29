@@ -5,21 +5,22 @@
 <ow-filter (showChange)="chunkChanged($event, 0)"></ow-filter>
 
 <ng-container *ngIf="words?.length > 0; else error">
-    <div class="worms">
-        <div class="words">
-            <ow-word-card *ngFor="let word of words | chunkPipe: wordsToShow" [word]="word"></ow-word-card>
-        </div>
-    </div>
-    <div class="actions">
-        <button (click)="showLess()" [disabled]="disableShowLess">Show {{  increment }} Less</button>
+
+    <article class="words">
+        <ow-word-card *ngFor="let word of words | chunkPipe: wordsToShow" [word]="word"></ow-word-card>
+    </article>
+
+    <section class="actions">
+        <button (click)="showLess()" [disabled]="disableShowLess">Show {{ increment }} Less</button>
         <button (click)="showMore()" [disabled]="wordsToShow >= words.length">
-            Show {{increment}} more
+            Show {{ increment }} more
         </button>
         <button (click)="showAll(words.length)" [disabled]="wordsToShow >= words.length"
                 class="transparent">
             Show All
         </button>
-    </div>
+    </section>
+
 </ng-container>
 
 <ng-template #error>

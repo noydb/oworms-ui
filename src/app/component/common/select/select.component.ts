@@ -51,7 +51,7 @@ export class SelectComponent {
         }
 
         if (Array.isArray(arg)) {
-            this.selected = arg;
+            this.selected = [...arg];
         } else {
             this.selected = [arg];
         }
@@ -101,7 +101,7 @@ export class SelectComponent {
     }
 
     isSelected(value: SelectOption): boolean {
-        return this.selected.some((sVal) => sVal === value);
+        return this.selected.some((sVal: SelectOption) => sVal.titleLabel === value.titleLabel);
     }
 
     invertClosed($event: Event): void {
