@@ -3,11 +3,11 @@
 </ow-hero>
 
 <ow-filter (showChange)="chunkChanged($event, 0)"></ow-filter>
+
 <ng-container *ngIf="words?.length > 0; else error">
     <div class="worms">
         <div class="words">
-            <ow-word-card *ngFor="let word of words | chunkPipe: wordsToShow"
-                          [word]="word"></ow-word-card>
+            <ow-word-card *ngFor="let word of words | chunkPipe: wordsToShow" [word]="word"></ow-word-card>
         </div>
     </div>
     <div class="actions">

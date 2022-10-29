@@ -1,3 +1,4 @@
+// added 'o/' so requests can be redirected in server.js on prod
 export class AppRoutes {
     static readonly BASE: string = 'o/worms';
 

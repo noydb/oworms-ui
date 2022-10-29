@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Title } from '@angular/platform-browser';
 import { Observable, of } from 'rxjs';
 
 import { WordService } from '../../service/word.service';
@@ -15,9 +14,7 @@ export class StatisticsComponent implements OnInit {
 
     statistics$: Observable<Statistics> = of({});
 
-    constructor(private readonly service: WordService,
-                private readonly titleService: Title) {
-        this.titleService.setTitle('oworms | statistics');
+    constructor(private readonly service: WordService) {
     }
 
     ngOnInit(): void {

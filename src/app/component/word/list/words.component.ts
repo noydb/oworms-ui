@@ -30,12 +30,10 @@ export class WordsComponent extends LoadComponent {
 
     constructor(private readonly wordService: WordService,
                 private readonly route: ActivatedRoute,
-                private readonly router: Router,
-                private readonly titleService: Title) {
+                private readonly router: Router) {
         super();
 
-        this.titleService.setTitle('oworms | all');
-        this.markForUnsub(this.getWords());
+        this.getWords();
     }
 
     get disableShowLess(): boolean {
@@ -69,51 +67,52 @@ export class WordsComponent extends LoadComponent {
         this.wordsToShow -= this.increment;
     }
 
-    private getWords(): Subscription {
+    private getWords(): void {
         this.state = 'loading';
-        let filtering = false;
+        let filtering: boolean = false;
 
-        return this.route.queryParamMap
-        .pipe(
-            map((qParamsMap: ParamMap) => {
-                filtering = FilterUtil.getFilterLabels(qParamsMap).length > 0;
+        this.route
+            .queryParamMap
+            .pipe(
+                map((qParamsMap: ParamMap) => {
+                    filtering = FilterUtil.getFilterLabels(qParamsMap).length > 0;
 
-                return {
-                    word: qParamsMap.get('word'),
-                    partsOfSpeech: qParamsMap.getAll('pos'),
-                    definition: qParamsMap.get('def'),
-                    origin: qParamsMap.get('ori'),
-                    exampleUsage: qParamsMap.get('ex'),
-                    tags: qParamsMap.getAll('tags'),
-                    note: qParamsMap.get('note')
-                } as WordFilter;
-            }),
-            tap((wordFilter: WordFilter) => {
-                this.state = 'complete';
-                this.wordFilter = wordFilter;
-            }),
-            switchMap((wordFilter: WordFilter) =>
-                this.wordService
-                .retrieveAll(wordFilter)
-                .pipe(
-                    catchError((e: any) => {
-                        this.errorMessage = ErrorUtil.getMessage(e);
-                        this.state = 'error';
-                        this.words = [];
+                    return {
+                        word: qParamsMap.get('word'),
+                        partsOfSpeech: qParamsMap.getAll('pos'),
+                        definition: qParamsMap.get('def'),
+                        origin: qParamsMap.get('ori'),
+                        exampleUsage: qParamsMap.get('ex'),
+                        tags: qParamsMap.getAll('tags'),
+                        note: qParamsMap.get('note')
+                    } as WordFilter;
+                }),
+                tap((wordFilter: WordFilter) => {
+                    this.state = 'complete';
+                    this.wordFilter = wordFilter;
+                }),
+                switchMap((wordFilter: WordFilter) =>
+                    this.wordService
+                        .retrieveAll(wordFilter)
+                        .pipe(
+                            catchError((e: any) => {
+                                this.errorMessage = ErrorUtil.getMessage(e);
+                                this.state = 'error';
+                                this.words = [];
 
-                        return of([]);
-                    })
-                )
-            ),
-            tap((words: Word[]) => {
-                if (words.length === 1 && filtering) {
-                    void this.router.navigate([AppRoutes.getDetail(words[0].uuid)]);
-                }
+                                return of([]);
+                            })
+                        )
+                ),
+                tap((words: Word[]) => {
+                    if (words.length === 1 && filtering) {
+                        void this.router.navigate([AppRoutes.getDetail(words[0].uuid)]);
+                    }
 
-                this.words = words;
-                this.wordsToShow = words.length < 25 ? words.length : 25;
-            }),
-        )
-        .subscribe();
+                    this.words = words;
+                    this.wordsToShow = words.length < 25 ? words.length : 25;
+                })
+            )
+            .subscribe();
     }
 }

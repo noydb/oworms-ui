@@ -5,15 +5,13 @@
 <div *ngIf="word$ | async as word; else error" class="word">
     <section class="detail">
         <div class="top">
-            <div class="title">
-                <h5 class="mono">{{word.theWord}}</h5>
-                <small>{{word.uuid}}</small>
-            </div>
+            <h2 class="mono">{{word.theWord}}</h2>
             <div class="actions">
-                <img alt="edit" src="/assets/image/pencil-circled.svg" (click)="edit(word)" />
-                <img alt="synonyms" src="/assets/image/plus-circled.svg" />
+                <img alt="edit" src="/assets/image/pencil-circled.svg" (click)="edit(word)"/>
+                <img alt="synonyms" src="/assets/image/plus-circled.svg"/>
             </div>
         </div>
+        <small>{{word.uuid}}</small>
         <p class="def">{{ word.definition }}</p>
         <p>{{ word.partOfSpeech }}</p>
         <div class="pair">
@@ -33,13 +31,13 @@
             <label>Associated Tags:</label>
             <ow-tags [sTags]="tags"></ow-tags>
         </div>
-        <div class="pair">
-            <label>Note:&nbsp;</label>
-            <p class="note">{{word.note ? word.note : 'N/A' }}</p>
-        </div>
         <div class="synonyms">
             <label>Synonyms</label>
             <ow-tags [sTags]="[]"></ow-tags>
+        </div>
+        <div class="pair">
+            <label>Note:&nbsp;</label>
+            <p class="note">{{word.note ? word.note : 'N/A' }}</p>
         </div>
     </section>
 
@@ -55,7 +53,7 @@
             </div>
         </div>
         <div class="column">
-            <div class="pair">
+            <div class="pair creation-date" [routerLink]="getStatsURL(word)">
                 <label>Creation Date:&nbsp;</label>
                 <p>{{ word.creationDate | date:'EEEE d MMMM y' }}</p>
             </div>

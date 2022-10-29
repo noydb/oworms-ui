@@ -48,19 +48,21 @@ export class CredentialsComponent {
     }
 
     private getQueryParams(): Subscription {
-        return this.route.queryParamMap
-        .pipe(
-            take(1),
-            filter((qParamsMap: ParamMap) => qParamsMap.has('bna')),
-            tap((qParamsMap: ParamMap) => {
-                this.form.get('p').setValue(qParamsMap.get('bna'));
+        return this.route
+            .queryParamMap
+            .pipe(
+                take(1),
+                filter((qParamsMap: ParamMap) => qParamsMap.has('bna')),
+                tap((qParamsMap: ParamMap) => {
+                    this.form.get('p').setValue(qParamsMap.get('bna'));
 
-                const u = this.ls.get('u');
-                if (u) {
-                    this.form.get('u').setValue(this.ls.get('u'));
-                    this.submit();
-                }
-            }),
-        ).subscribe();
+                    const u = this.ls.get('u');
+                    if (u) {
+                        this.form.get('u').setValue(this.ls.get('u'));
+                        this.submit();
+                    }
+                })
+            )
+            .subscribe();
     }
 }
