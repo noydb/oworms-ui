@@ -1,19 +1,19 @@
 <footer>
-    <div class="items">
+    <ul class="items" *ngIf="showMenu">
         <div class="item logo">
             <img alt="oworms logo" src="/assets/image/logo.svg">
         </div>
-        <div (click)="navigate(item.path)"
-             *ngFor="let item of items"
-             class="item"
-             role="menuitem">
+        <li (click)="navigate(item.path)"
+            *ngFor="let item of items"
+            class="item"
+            role="menuitem">
             <label>{{ item.name }}</label>
-        </div>
-        <div (click)="getCSV()" class="item" role="document">
+        </li>
+        <li (click)="getCSV()" class="item" role="document">
             <label>csv</label>
-        </div>
-    </div>
-    <div class="signature">
-        <label>{{ signature }}</label>
-    </div>
+        </li>
+    </ul>
+
+    <img *ngIf="!showMenu" alt="oworms logo" src="/assets/image/logo.svg">
+    <p>{{ signature }}</p>
 </footer>

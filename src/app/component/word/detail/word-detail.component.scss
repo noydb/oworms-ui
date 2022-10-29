@@ -3,34 +3,33 @@
 @use '../../../style/mixin' as mxn;
 
 .word {
-    margin-left: 25%;
-    margin-right: 25%;
-    padding: 1.5rem 1.5rem 3rem;
-
     .detail {
-
         .top {
             display: flex;
-            align-items: center;
             justify-content: space-between;
-            overflow-x: scroll;
+            align-items: center;
+
+            h2 {
+                font-size: 2rem;
+            }
 
             .actions {
-                display: flex;
-                justify-content: space-between;
-
                 @include mxn.svg-hover;
+
+                img {
+                    width: 40%;
+                    height: 40%;
+                }
             }
         }
 
         .def {
-            padding-bottom: 15px;
-            font-size: 1rem;
+            padding-bottom: 20px;
         }
 
         .pair {
             display: flex;
-            padding-top: 30px;
+            padding-top: 10px;
 
             label {
                 font-family: 'roboto-medium', font.$default-font;
@@ -43,7 +42,7 @@
 
         .tags,
         .synonyms {
-            padding-top: 20px;
+            padding-top: 10px;
 
             label {
                 font-family: 'roboto-medium', font.$default-font;
@@ -52,13 +51,10 @@
     }
 
     .meta {
-        display: flex;
         padding-top: 30px;
-        padding-bottom: 8px;
+        padding-bottom: 1rem;
 
         .column {
-            width: 48%;
-
             .pair {
                 display: flex;
                 margin-top: 1rem;
@@ -95,4 +91,45 @@
     display: flex;
     justify-content: center;
     padding: 3rem;
+}
+
+@media screen and (min-width: 600px) {
+    .word {
+        margin-left: 25%;
+        margin-right: 25%;
+        padding: 1.5rem 1.5rem 3rem;
+
+        .detail {
+
+            .top {
+                display: flex;
+                align-items: center;
+                overflow-x: scroll;
+
+                .actions {
+                    display: flex;
+                    justify-content: space-between;
+
+                    @include mxn.svg-hover;
+                }
+            }
+
+            .def {
+                padding-bottom: 15px;
+                font-size: 1rem;
+            }
+
+            .pair {
+                padding-top: 30px;
+            }
+        }
+
+        .meta {
+            display: flex;
+
+            .column {
+                width: 48%;
+            }
+        }
+    }
 }

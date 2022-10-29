@@ -4,7 +4,7 @@
     "scripts": {
         "ng": "ng",
         "start": "node server.js",
-        "start-l": "ng serve",
+        "start-l": "ng serve --proxy-config=proxy.conf.json",
         "build": "ng build",
         "heroku-postbuild": "ng build --aot --configuration production"
     },

@@ -40,5 +40,9 @@
         &:not(:only-child) {
             border: 1px solid #000;
         }
+
+        span {
+            color: #ffffff;
+        }
     }
 }

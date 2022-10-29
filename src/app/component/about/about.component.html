@@ -2,7 +2,7 @@
     <ow-random-top></ow-random-top>
 </ow-hero>
 
-<section class="tabs">
+<nav>
     <ul>
         <li (click)="setState('about')">
             <button [class.transparent]="state !== 'about'">About</button>
@@ -11,15 +11,17 @@
             <button [class.transparent]="state !== 'creds'">Credentials</button>
         </li>
     </ul>
-</section>
+</nav>
 
-<section [ngSwitch]="state" class="about">
-    <article *ngSwitchCase="'about'" class="info">
-        <h5>Why this app?</h5>
+<ng-container [ngSwitch]="state" class="about">
+
+    <section *ngSwitchCase="'about'">
+        <h2>Why this app?</h2>
         <p>{{ paraOne }}</p>
         <p>{{ paraTwo }}</p>
         <p>{{ paraThree }}</p>
         <p>{{ paraFour }}</p>
-    </article>
+    </section>
+
     <ow-credentials *ngSwitchCase="'creds'"></ow-credentials>
-</section>
+</ng-container>

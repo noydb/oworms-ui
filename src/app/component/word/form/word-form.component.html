@@ -1,54 +1,52 @@
 <h5 class="title">{{ title }}</h5>
 <form [formGroup]="form">
     <div class="column">
-        <div class="row">
+        <fieldset>
             <input [required]="!viewOnly"
                    formControlName="word"
                    name="word"
-                   placeholder="word" />
-        </div>
-        <div class="row">
+                   placeholder="word"/>
+        </fieldset>
+        <fieldset>
             <ow-select titleLabel="part of speech"
                        (valueChange)="selectPartOfSpeech($event)"
                        [disabled]="viewOnly"
                        [values]="selectedPos"
                        [options]="posOptions"
                        [transparent]="true"></ow-select>
-        </div>
-        <div class="row">
+        </fieldset>
+        <fieldset>
             <textarea [required]="true"
                       formControlName="definition"
                       name="definition"
                       placeholder="definition"></textarea>
-        </div>
-        <div class="row">
-            <textarea formControlName="origin"
-                      name="origin"
-                      placeholder="origin"></textarea>
-        </div>
+        </fieldset>
+        <fieldset>
+            <textarea formControlName="origin" name="origin" placeholder="origin"></textarea>
+        </fieldset>
     </div>
+
     <div class="column">
-        <div class="row">
-            <textarea formControlName="exampleUsage"
-                      name="exampleUsage"
-                      placeholder="example"></textarea>
-        </div>
-        <div class="row">
-            <input formControlName="pronunciation"
-                   name="pronunciation"
-                   placeholder="pronunciation" />
-        </div>
-        <ow-select titleLabel="tags"
-                   (valueChange)="selectTags($event)"
-                   [multiSelect]="true"
-                   [values]="selectedTags"
-                   [options]="tagOptions$ | async"
-                   [transparent]="true"></ow-select>
-        <div class="row">
+        <fieldset>
+            <textarea formControlName="exampleUsage" name="exampleUsage" placeholder="example"></textarea>
+        </fieldset>
+        <fieldset>
+            <input formControlName="pronunciation" name="pronunciation" placeholder="pronunciation"/>
+        </fieldset>
+        <fieldset>
+            <ow-select titleLabel="tags"
+                       (valueChange)="selectTags($event)"
+                       [multiSelect]="true"
+                       [values]="selectedTags"
+                       [options]="tagOptions$ | async"
+                       [transparent]="true"></ow-select>
+        </fieldset>
+        <fieldset>
             <textarea formControlName="note" name="note" placeholder="note"></textarea>
-        </div>
+        </fieldset>
     </div>
 </form>
+
 <div *ngIf="!viewOnly" class="actions">
     <button (click)="onBtnClick()" [disabled]="disabled">
         {{ btnText }}

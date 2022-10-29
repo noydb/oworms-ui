@@ -1,11 +1,9 @@
 <header>
-    <section>
+    <section *ngIf="!showBurger">
         <span><img alt="oworms logo" src="/assets/image/logo.svg"></span>
         <nav>
             <ul>
-                <li (click)="navigate(item)"
-                    *ngFor="let item of items"
-                    class="item">
+                <li (click)="navigate(item)" *ngFor="let item of items" class="item">
                     <label>{{ item.name }}</label>
                 </li>
                 <li (click)="getCSV()" class="item">
@@ -17,14 +15,42 @@
             </ul>
         </nav>
     </section>
-    <section class="actions">
+
+    <section class="actions" *ngIf="!showBurger">
         <button (click)="navigateToRandom()" class="icon">
-            <img alt="" src="/assets/image/icon-shuffle.svg">
+            <img alt="shuffle icon" src="/assets/image/icon-shuffle.svg">
             random
         </button>
         <button (click)="navigateToAdd()" class="icon">
-            <img alt="+" src="/assets/image/icon-plus.svg">
+            <img alt="plus icon" src="/assets/image/icon-plus.svg">
             add
         </button>
     </section>
+
+    <!-- responsive menu -->
+    <section *ngIf="showBurger" class="menu-toggle">
+        <img alt="oworms logo" src="/assets/image/logo.svg">
+        <span (click)="expandMenu = true">menu</span>
+    </section>
+    <nav *ngIf="expandMenu">
+        <img alt="oworms logo" src="/assets/image/logo.svg">
+
+        <li (click)="navigate(item)" *ngFor="let item of items" class="item">
+            <label>{{ item.name }}</label>
+        </li>
+        <a href="https://oworms-api.herokuapp.com/swagger-ui/" target="_blank" class="item">
+            <label>api</label>
+        </a>
+
+        <button routerLink="/o/worms/new" (click)="expandMenu = false" class="icon">
+            <img alt="plus icon" src="/assets/image/icon-plus.svg">
+            add
+        </button>
+        <button (click)="navigateToRandom()" class="icon">
+            <img alt="shuffle icon" src="/assets/image/icon-shuffle.svg">
+            random
+        </button>
+        <button class="transparent" (click)="expandMenu = false">Close</button>
+    </nav>
+
 </header>

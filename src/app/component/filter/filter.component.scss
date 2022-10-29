@@ -1,16 +1,14 @@
-.filter {
+dialog {
     z-index: 9999;
     position: fixed;
     bottom: 0;
     padding: 1rem;
     margin-bottom: .5rem;
-    margin-left: .5rem;
     display: flex;
     justify-content: space-between;
     align-items: center;
     background-color: #4b4242;
     height: 70px;
-    width: 30%;
 
     &:hover {
         cursor: pointer;
@@ -18,7 +16,6 @@
 
     img {
         cursor: pointer;
-        margin-right: 1rem;
         padding: .5rem;
         transition: all .2s;
 
@@ -46,8 +43,26 @@
 }
 
 .count {
-    padding-left: 10%;
-    padding-right: 10%;
     margin-left: 1rem;
     margin-bottom: 1rem;
+}
+
+@media screen and (min-width: 600px) {
+
+    dialog {
+        margin-left: .5rem;
+        height: 70px;
+        width: 30%;
+
+        img {
+            margin-right: 1rem;
+        }
+    }
+
+    .count {
+        padding-left: 10%;
+        padding-right: 10%;
+        margin-left: 1rem;
+        margin-bottom: 1rem;
+    }
 }
