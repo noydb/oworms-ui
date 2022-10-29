@@ -14,15 +14,6 @@
             align-items: center;
             justify-content: space-between;
 
-            .title {
-                display: flex;
-                align-items: center;
-
-                small {
-                    padding-left: 1rem;
-                }
-            }
-
             .actions {
                 display: flex;
                 justify-content: space-between;
@@ -33,6 +24,7 @@
 
         .def {
             padding-bottom: 15px;
+            font-size: 1rem;
         }
 
         .pair {
@@ -45,6 +37,15 @@
 
             &.note {
                 white-space: pre-wrap;
+            }
+
+            &.creation-date {
+                cursor: pointer;
+                transition: all .2s ease;
+
+                &:hover {
+                    opacity: .8;
+                }
             }
         }
 

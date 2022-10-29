@@ -1,6 +1,5 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component } from '@angular/core';
-import { Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { take } from 'rxjs/operators';
 
@@ -19,14 +18,12 @@ import { Word } from '../../../model/word.interface';
   styleUrls: ['./word-add.component.scss']
 })
 export class WordAddComponent {
-  
+
   constructor(private readonly service: WordService,
               private readonly router: Router,
-              private readonly titleService: Title,
               private readonly alertService: AlertService) {
-    this.titleService.setTitle('oworms | new');
   }
-  
+
   createWord(word: Word): void {
     this.service
     .create(word)
@@ -34,12 +31,12 @@ export class WordAddComponent {
     .subscribe({
       next: () => {
         this.alertService.add('Created word');
-        
+
         void this.router.navigate([AppRoutes.ALL], { queryParamsHandling: 'preserve' });
       },
       error: (e: HttpErrorResponse) => {
         const message: string = ErrorUtil.getMessage(e);
-        
+
         if (message.includes('exists')) {
           this.alertService.add(ErrorUtil.getMessage(e), true, AppRoutes.getDetail(e.error.uuid));
         } else {

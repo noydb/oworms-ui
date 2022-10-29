@@ -1,6 +1,5 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
-import { Title } from '@angular/platform-browser';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { combineLatest, Observable, of, Subscription } from 'rxjs';
 import { filter, map, switchMap, take, tap } from 'rxjs/operators';
@@ -8,18 +7,18 @@ import { filter, map, switchMap, take, tap } from 'rxjs/operators';
 import { TagService } from '../../../service/tag.service';
 
 import { FilterUtil } from '../../../util/filter.util';
+import { Unsubscribes } from "../../../util/auto-unsubscribe.directive";
 
 import { SelectOption } from '../../../model/select-option.interface';
 import { WordFilter } from '../../../model/word-filter.interface';
-
-import { AutoUnsubscribeComponent } from '../../common/auto-unsubscribe.component';
 
 @Component({
     selector: 'ow-filter-modal',
     templateUrl: 'filter-modal.component.html',
     styleUrls: ['./filter-modal.component.scss']
 })
-export class FilterModalComponent extends AutoUnsubscribeComponent {
+@Unsubscribes()
+export class FilterModalComponent {
 
     @Output()
     readonly modalClosed: EventEmitter<void> = new EventEmitter<void>();
@@ -39,13 +38,9 @@ export class FilterModalComponent extends AutoUnsubscribeComponent {
 
     constructor(private readonly tagService: TagService,
                 private readonly router: Router,
-                private readonly route: ActivatedRoute,
-                private readonly titleService: Title) {
-        super();
-        this.titleService.setTitle('oworms | filter');
-
+                private readonly route: ActivatedRoute) {
         this.tagOptions$ = this.tagService.getTagSelectOptions();
-        this.markForUnsub(this.getQueryParams());
+        this.getQueryParams();
     }
 
     get noValues(): boolean {

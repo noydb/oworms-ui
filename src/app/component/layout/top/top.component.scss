@@ -26,10 +26,11 @@ header {
             ul {
                 display: flex;
 
-                li {
+                li, a {
                     padding: 1rem;
                     transition: background-color .1s ease-in-out;
                     color: #f2f2f2;
+                    text-decoration: none;
 
                     &:not(last-of-type) {
                         margin-right: .5rem;

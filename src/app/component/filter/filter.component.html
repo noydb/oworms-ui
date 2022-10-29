@@ -1,6 +1,6 @@
 <article class="filter">
     <img (click)="showModal = true" alt="filter icon" src="/assets/image/icon-filter.svg" />
-    <input [(ngModel)]="quickSearch"
+    <input [formControl]="ctrl"
            name="quick-search"
            placeholder="search" />
     <section class="clear" [class.hidden]="!existingFilters || existingFilters.length === 0">

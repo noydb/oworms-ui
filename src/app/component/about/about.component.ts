@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { Title } from '@angular/platform-browser';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { take, tap } from 'rxjs/operators';
@@ -19,10 +18,7 @@ export class AboutComponent {
     paraThree = AB_PARA_3;
     paraFour = AB_PARA_4;
 
-    constructor(private readonly titleService: Title,
-                private readonly route: ActivatedRoute) {
-        this.titleService.setTitle('oworms | about');
-
+    constructor(private readonly route: ActivatedRoute) {
         this.getQueryParams();
     }
 
@@ -31,14 +27,16 @@ export class AboutComponent {
     }
 
     private getQueryParams(): Subscription {
-        return this.route.queryParamMap
-        .pipe(
-            take(1),
-            tap((qParamsMap: ParamMap) => {
-                if (qParamsMap.get('creds')) {
-                    this.state = 'creds';
-                }
-            }),
-        ).subscribe();
+        return this.route
+            .queryParamMap
+            .pipe(
+                take(1),
+                tap((qParamsMap: ParamMap) => {
+                    if (qParamsMap.get('creds')) {
+                        this.state = 'creds';
+                    }
+                })
+            )
+            .subscribe();
     }
 }

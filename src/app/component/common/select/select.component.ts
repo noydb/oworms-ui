@@ -4,16 +4,17 @@ import { filter } from 'rxjs/operators';
 
 import { UtilService } from '../../../service/util.service';
 
-import { SelectOption } from '../../../model/select-option.interface';
+import { Unsubscribes } from '../../../util/auto-unsubscribe.directive';
 
-import { AutoUnsubscribeComponent } from '../auto-unsubscribe.component';
+import { SelectOption } from '../../../model/select-option.interface';
 
 @Component({
     selector: 'ow-select',
     templateUrl: 'select.component.html',
     styleUrls: ['./select.component.scss']
 })
-export class SelectComponent extends AutoUnsubscribeComponent {
+@Unsubscribes()
+export class SelectComponent {
 
     @Input()
     titleLabel: string = 'Select';
@@ -38,10 +39,8 @@ export class SelectComponent extends AutoUnsubscribeComponent {
     selected: SelectOption[] = [];
     @ViewChild('select') select;
 
-    constructor(private readonly uSer: UtilService) {
-        super();
-
-        this.markForUnsub(this.listenForOutsideClicks());
+    constructor(private readonly utilService: UtilService) {
+        this.listenForOutsideClicks();
     }
 
     @Input()
@@ -117,16 +116,18 @@ export class SelectComponent extends AutoUnsubscribeComponent {
     }
 
     private listenForOutsideClicks(): Subscription {
-        return this.uSer
-        .documentClickedTarget
-        .pipe(filter((_) => !this.closed))
-        .subscribe((el: HTMLElement) => {
-            const classes: DOMTokenList = el.classList;
+        return this.utilService
+            .documentClickedTarget
+            .pipe(
+                filter(() => !this.closed)
+            )
+            .subscribe((el: HTMLElement) => {
+                const classes: DOMTokenList = el.classList;
 
-            if (!classes.contains('select') && !classes.contains('s-title') &&
-                !classes.contains('s-option') && !classes.contains('s-option-l')) {
-                this.closed = true;
-            }
-        });
+                if (!classes.contains('select') && !classes.contains('s-title') &&
+                    !classes.contains('s-option') && !classes.contains('s-option-l')) {
+                    this.closed = true;
+                }
+            });
     }
 }
