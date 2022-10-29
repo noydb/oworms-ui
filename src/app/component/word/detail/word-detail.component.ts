@@ -23,7 +23,7 @@ import { LoadComponent } from '../../common/spinner/load.component';
 })
 export class WordDetailComponent extends LoadComponent {
 
-    word$: Observable<Word>;
+    readonly word$: Observable<Word>;
     tags: string[] = [];
 
     constructor(private readonly service: WordService,
@@ -32,8 +32,14 @@ export class WordDetailComponent extends LoadComponent {
                 private readonly titleService: Title) {
         super();
 
-        this.titleService.setTitle('oworms | detail');
         this.word$ = this.getWord();
+    }
+
+    getStatsURL(word: Word): string {
+        const date: Date = word.creationDate;
+
+        // + 1 because java local date time API indexes months 1 - 12
+        return `/statistics?day=${date.getDate()}&month=${date.getMonth() + 1}&year=${date.getFullYear()}`;
     }
 
     edit({ uuid }: Word): void {
@@ -43,20 +49,22 @@ export class WordDetailComponent extends LoadComponent {
     private getWord(): Observable<Word> {
         this.state = 'loading';
 
-        return this.route.paramMap
-        .pipe(
-            map((params: ParamMap) => params.get('uuid') ?? '0'),
-            switchMap((uuid: string) => this.service.retrieve(uuid)),
-            tap((word: Word) => {
-                this.tags = word.tags.map(({ name }: Tag) => name);
-                this.state = 'complete';
-            }),
-            catchError((e: HttpErrorResponse) => {
-                this.errorMessage = ErrorUtil.getMessage(e);
-                this.state = 'error';
+        return this.route
+            .paramMap
+            .pipe(
+                map((params: ParamMap) => params.get('uuid') ?? '0'),
+                switchMap((uuid: string) => this.service.retrieve(uuid)),
+                tap((word: Word) => {
+                    this.tags = word.tags.map(({ name }: Tag) => name);
+                    this.state = 'complete';
+                    this.titleService.setTitle(`${word.theWord} - oworms`);
+                }),
+                catchError((e: HttpErrorResponse) => {
+                    this.errorMessage = ErrorUtil.getMessage(e);
+                    this.state = 'error';
 
-                return of(undefined);
-            })
-        );
+                    return of(undefined);
+                })
+            );
     }
 }

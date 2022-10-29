@@ -10,7 +10,6 @@ import { WordDetailComponent } from '../component/word/detail/word-detail.compon
 import { WordEditComponent } from '../component/word/edit/word-edit.component';
 import { WordsComponent } from '../component/word/list/words.component';
 
-// added 'o/' so requests can be redirected in server.js on prod
 const routes: Routes = [
     {
         path: '',
@@ -19,11 +18,13 @@ const routes: Routes = [
     },
     {
         path: AppRoutes.ABOUT,
-        component: AboutComponent
+        component: AboutComponent,
+        title: 'about - oworms'
     },
     {
         path: AppRoutes.ADD,
-        component: WordAddComponent
+        component: WordAddComponent,
+        title: 'new - oworms'
     },
     {
         path: AppRoutes.DETAIL,
@@ -35,11 +36,13 @@ const routes: Routes = [
     },
     {
         path: AppRoutes.ALL,
-        component: WordsComponent
+        component: WordsComponent,
+        title: 'all - oworms'
     },
     {
         path: AppRoutes.STATS,
-        component: StatisticsComponent
+        component: StatisticsComponent,
+        title: 'statistics - oworms'
     }
 ];
 

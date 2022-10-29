@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+import { RouterModule } from '@angular/router';
 
 import { ComponentModule } from './component.module';
 
@@ -11,6 +12,8 @@ import { WordsComponent } from '../component/word/list/words.component';
 
 @NgModule({
     imports: [
+        RouterModule,
+
         ComponentModule
     ],
     declarations: [
