@@ -23,7 +23,7 @@ of a company, the company will appear first (thanks SEO) and not the word.
 
 ### Commands
 
-run with a proxy pointed to `localhost:8080`:\
+run with a proxy pointed to `localhost:8080` ([api setup instructions](https://github.com/noydb/oworms-api#readme)):\
 `ng serve --proxy-config=proxy.conf.json`
 
 dev build:\
@@ -37,8 +37,6 @@ run on an express server:\
 
 generate base project using angular cli:\
 `ng new oworms-ui --package-manager=yarn --routing --style=scss --prefix=ow`
-
-[click here to setup locally hosted api](https://github.com/noydb/oworms-api#readme)
 
 **Note: the details you capture under about -> credentials will be passed as query params (`u` & `bna`)**
 **for "protected" endpoints**
