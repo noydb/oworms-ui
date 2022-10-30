@@ -23,8 +23,8 @@ of a company, the company will appear first (thanks SEO) and not the word.
 
 ### Commands
 
-run with a proxy pointed to `localhost:8080`:\
-`ng serve`
+run with a proxy pointed to `localhost:8080` ([api setup instructions](https://github.com/noydb/oworms-api#readme)):\
+`ng serve --proxy-config=proxy.conf.json`
 
 dev build:\
 `yarn build`
@@ -38,8 +38,6 @@ run on an express server:\
 generate base project using angular cli:\
 `ng new oworms-ui --package-manager=yarn --routing --style=scss --prefix=ow`
 
-[click here to setup locally hosted api](https://github.com/noydb/oworms-api#readme)
-
 **Note: the details you capture under about -> credentials will be passed as query params (`u` & `bna`)**
 **for "protected" endpoints**
 
@@ -48,19 +46,19 @@ generate base project using angular cli:\
 ### Features
 - Viewing words, creating, updating words
 - linking tags to words
+- liking/favouriting words
 - receive an email everytime a word is created or updated
 - filtering by any of the available fields
 - retrieve a random word
-- view statistics on the application
+- view statistics on the application & the words
 - import spreadsheet of words
 - export all words to csv
 - fully responsive
 
 ### Planned Features
-- automated creation of words
-- adding word with assistance/wizard
-- more detailed statistics, daily, weekly stats, graphs, etc
+- Full implementation of ui design
+- allowing multiple parts of speech and definitions to be linked to one word
 - linking of synonyms and antonyms
 - ability to delete words
-- allowing multiple parts of speech and definitions to be linked to one word
-- Full implementation of ui design
+- automated creation of words, adding word with assistance/wizard
+- more detailed statistics, daily, weekly stats, graphs, etc
