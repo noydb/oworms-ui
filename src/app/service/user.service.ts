@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
-import { finalize, tap } from 'rxjs/operators';
+import { BehaviorSubject, Observable, switchMap } from 'rxjs';
+import { finalize, take, tap } from 'rxjs/operators';
 
 import { UserHttpService } from './user.http.service';
 
@@ -15,18 +15,17 @@ export class UserService {
     private readonly user$: BehaviorSubject<User> = new BehaviorSubject(undefined);
 
     constructor(private readonly userHttp: UserHttpService) {
+        this.loadLoggedInUser()
+            .pipe(take(1))
+            .subscribe({
+                next: (user: User) => {
+                    this.user$.next(user);
+                }
+            });
     }
 
-    isBusy(): Observable<boolean> {
-        return this.busy$.asObservable();
-    }
-
-    setUser(arg: User): void {
-        this.user$.next(arg);
-    }
-
-    retrieve(): Observable<User> {
-        if (!!this.user$.value) {
+    loadLoggedInUser(forceReload: boolean = false): Observable<User> {
+        if (!!this.user$.value && !forceReload) {
             return this.user$.asObservable();
         }
 
@@ -44,16 +43,21 @@ export class UserService {
             );
     }
 
+    getLoggedInUser(): Observable<User> {
+        return this.user$;
+    }
+
     update(user: User): Observable<User> {
         this.busy$.next(true);
 
         return this.userHttp
             .update(user)
             .pipe(
+                switchMap(() => this.loadLoggedInUser(true)),
+                take(1),
                 finalize(() => {
                     this.busy$.next(false);
                 })
             );
     }
-
 }

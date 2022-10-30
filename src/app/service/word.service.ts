@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, throwError } from 'rxjs';
-import { catchError, finalize, map, tap } from 'rxjs/operators';
+import { catchError, finalize, map, take, tap } from 'rxjs/operators';
 
 import { UserHttpService } from './user.http.service';
 import { WordHttpService } from './word.http.service';
@@ -18,10 +18,22 @@ export class WordService {
 
     constructor(private readonly wordHttpService: WordHttpService,
                 private readonly userHttp: UserHttpService) {
+        this
+            .retrieveAll(undefined)
+            .pipe(take(1))
+            .subscribe({
+                next: (words: Word[]) => {
+                    this.words$.next(words);
+                }
+            })
     }
 
     isBusy(): Observable<boolean> {
         return this.busy$.asObservable();
+    }
+
+    getWords(): Observable<Word[]> {
+        return this.words$;
     }
 
     retrieveAll(wordFilter: WordFilter): Observable<Word[]> {
