@@ -9,7 +9,7 @@
     <article class="words">
         <ow-word-card *ngFor="let word of words | chunkPipe: wordsToShow"
                       [word]="word"
-                      [likedWordUUIDs]="(user$ | async)?.likedWordUUIDs"></ow-word-card>
+                      [likedWordUUIDs]="user?.likedWordUUIDs"></ow-word-card>
     </article>
 
     <section class="actions">

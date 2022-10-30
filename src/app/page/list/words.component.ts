@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { Observable, of } from 'rxjs';
-import { catchError, map, switchMap, tap } from 'rxjs/operators';
+import { catchError, map, switchMap, take, tap } from 'rxjs/operators';
 
 import { UserService } from '../../service/user.service';
 import { WordService } from '../../service/word.service';
@@ -27,7 +27,7 @@ export class WordsComponent extends LoadComponent {
     wordsToShow: number = 25;
     increment: number = 6;
     wordFilter: WordFilter;
-    readonly user$: Observable<User>;
+    user: User;
 
     constructor(private readonly wordService: WordService,
                 private readonly route: ActivatedRoute,
@@ -35,7 +35,7 @@ export class WordsComponent extends LoadComponent {
                 readonly userService: UserService) {
         super();
 
-        this.user$ = userService.retrieve();
+        this.getUser();
         this.getWords();
     }
 
@@ -68,6 +68,17 @@ export class WordsComponent extends LoadComponent {
 
     showLess(): void {
         this.wordsToShow -= this.increment;
+    }
+
+    private getUser(): void {
+        this.userService
+            .retrieve()
+            .pipe(take(1))
+            .subscribe({
+                next: (user: User) => {
+                    this.user = user;
+                }
+            });
     }
 
     private getWords(): void {
