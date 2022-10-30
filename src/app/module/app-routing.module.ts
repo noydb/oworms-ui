@@ -3,12 +3,13 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { AppRoutes } from '../util/app.routes';
 
-import { AboutComponent } from '../component/about/about.component';
-import { StatisticsComponent } from '../component/stats/statistics.component';
-import { WordAddComponent } from '../component/word/add/word-add.component';
-import { WordDetailComponent } from '../component/word/detail/word-detail.component';
-import { WordEditComponent } from '../component/word/edit/word-edit.component';
-import { WordsComponent } from '../component/word/list/words.component';
+import { AboutComponent } from '../page/about/about.component';
+import { ProfileComponent } from '../page/profile/profile.component';
+import { StatisticsComponent } from '../page/stats/statistics.component';
+import { WordAddComponent } from '../page/add/word-add.component';
+import { WordDetailComponent } from '../page/detail/word-detail.component';
+import { WordEditComponent } from '../page/edit/word-edit.component';
+import { WordsComponent } from '../page/list/words.component';
 
 const routes: Routes = [
     {
@@ -43,7 +44,13 @@ const routes: Routes = [
         path: AppRoutes.STATS,
         component: StatisticsComponent,
         title: 'statistics - oworms'
-    }
+    },
+    {
+        path: AppRoutes.PROFILE,
+        component: ProfileComponent,
+        title: 'my profile - oworms'
+    },
+
 ];
 
 @NgModule({

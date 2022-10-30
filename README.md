@@ -54,6 +54,7 @@ generate base project using angular cli:\
 - view statistics on the application
 - import spreadsheet of words
 - export all words to csv
+- fully responsive
 
 ### Planned Features
 - automated creation of words
@@ -62,5 +63,4 @@ generate base project using angular cli:\
 - linking of synonyms and antonyms
 - ability to delete words
 - allowing multiple parts of speech and definitions to be linked to one word
-- mobile responsiveness
 - Full implementation of ui design

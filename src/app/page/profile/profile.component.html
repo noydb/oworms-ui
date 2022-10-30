@@ -1,0 +1,32 @@
+<ow-hero>
+    <ow-random-top></ow-random-top>
+</ow-hero>
+
+<h2 class="title">My Profile</h2>
+<article class="profile">
+
+    <section class="column">
+        <h5>Word Statistics</h5>
+        <p>Liked: {{ likedWords?.length ?? 0 }}</p>
+        <p>Created: {{ wordsCreated ?? 0 }}</p>
+    </section>
+
+    <section class="column">
+        <h5 class="user-details">User Details</h5>
+        <form [formGroup]="form">
+            <fieldset>
+                <input formControlName="username" name="username" placeholder="username"/>
+            </fieldset>
+            <fieldset>
+                <input formControlName="email" name="email" placeholder="email" type="email"/>
+            </fieldset>
+        </form>
+
+        <div class="actions">
+            <button (click)="update()" [disabled]="form.invalid">
+                Save Changes
+            </button>
+        </div>
+    </section>
+
+</article>

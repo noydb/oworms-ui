@@ -3,7 +3,7 @@
     <input *ngIf="showField"
            [formControl]="ctrl"
            name="quick-search"
-           placeholder="search for anything"/>
+           placeholder="search for a word"/>
     <section class="clear" [class.hidden]="!existingFilters || existingFilters.length === 0">
         <button (click)="clearFilters()" *ngIf="existingFilters?.length > 0" class="transparent">
             Clear Filters

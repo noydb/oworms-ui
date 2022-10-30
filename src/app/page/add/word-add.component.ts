@@ -3,14 +3,13 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { take } from 'rxjs/operators';
 
-import { AlertService } from '../../../service/alert.service';
-import { WordService } from '../../../service/word.service';
+import { AlertService } from '../../service/alert.service';
+import { WordService } from '../../service/word.service';
 
-import { ErrorUtil } from '../../../util/error.util';
+import { AppRoutes } from '../../util/app.routes';
+import { ErrorUtil } from '../../util/error.util';
 
-import { AppRoutes } from '../../../util/app.routes';
-
-import { Word } from '../../../model/word.interface';
+import { Word } from '../../model/word.interface';
 
 @Component({
   selector: 'ow-word-add',

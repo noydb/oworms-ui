@@ -5,16 +5,16 @@ import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { Observable, of } from 'rxjs';
 import { catchError, map, switchMap, take, tap } from 'rxjs/operators';
 
-import { AlertService } from '../../../service/alert.service';
-import { TagService } from '../../../service/tag.service';
-import { WordService } from '../../../service/word.service';
+import { AlertService } from '../../service/alert.service';
+import { TagService } from '../../service/tag.service';
+import { WordService } from '../../service/word.service';
 
-import { AppRoutes } from '../../../util/app.routes';
-import { ErrorUtil } from '../../../util/error.util';
+import { AppRoutes } from '../../util/app.routes';
+import { ErrorUtil } from '../../util/error.util';
 
-import { Word } from '../../../model/word.interface';
+import { Word } from '../../model/word.interface';
 
-import { LoadComponent } from '../../common/spinner/load.component';
+import { LoadComponent } from '../../component/common/spinner/load.component';
 
 @Component({
     selector: 'ow-word-edit',
