@@ -67,11 +67,7 @@ export class FilterComponent {
                     void this.router.navigate([], {
                             relativeTo: this.route,
                             queryParams: {
-                                word: value,
-                                definition: value,
-                                origin: value,
-                                exampleUsage: value,
-                                note: value
+                                word: value
                             }
                         }
                     );

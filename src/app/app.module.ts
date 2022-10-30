@@ -8,16 +8,18 @@ import { WordModule } from './module/word.module';
 
 import { LocalStorageService } from './service/local-storage.service';
 import { TagService } from './service/tag.service';
+import { UserHttpService } from './service/user.http.service';
 import { WordHttpService } from './service/word.http.service';
 import { WordService } from './service/word.service';
 
-import { AboutComponent } from './component/about/about.component';
+import { AboutComponent } from './page/about/about.component';
 import { AlertComponent } from './component/alert/alert.component';
 import { AppComponent } from './app.component';
-import { CredentialsComponent } from './component/about/credentials/credentials.component';
+import { CredentialsComponent } from './page/about/credentials/credentials.component';
 import { FooterComponent } from './component/layout/footer/footer.component';
 import { LoaderComponent } from './component/common/loader/loader.component';
-import { StatisticsComponent } from './component/stats/statistics.component';
+import { ProfileComponent } from './page/profile/profile.component';
+import { StatisticsComponent } from './page/stats/statistics.component';
 import { TopComponent } from './component/layout/top/top.component';
 
 @NgModule({
@@ -29,13 +31,17 @@ import { TopComponent } from './component/layout/top/top.component';
         WordModule
     ],
     declarations: [
+        // page
         AboutComponent,
-        AlertComponent,
         AppComponent,
+        ProfileComponent,
+        StatisticsComponent,
+
+        // component
+        AlertComponent,
         CredentialsComponent,
         FooterComponent,
         LoaderComponent,
-        StatisticsComponent,
         TopComponent
     ],
     providers: [
@@ -43,6 +49,7 @@ import { TopComponent } from './component/layout/top/top.component';
 
         LocalStorageService,
         TagService,
+        UserHttpService,
         WordHttpService,
         WordService
     ],

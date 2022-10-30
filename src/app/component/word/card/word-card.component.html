@@ -1,4 +1,6 @@
 <li (click)="viewWordDetails()" *ngIf="word">
+    <span (click)="likeWord($event, word)" [class.liked]="wordIsLiked"></span>
+
     <h5 class="mono">{{ word.theWord }}</h5>
     <label class="part-of-speech">{{ word.partOfSpeech }}</label>
     <p class="definition">{{ word.definition }}</p>

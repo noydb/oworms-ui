@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, throwError } from 'rxjs';
 import { catchError, finalize, map, tap } from 'rxjs/operators';
 
+import { UserHttpService } from './user.http.service';
 import { WordHttpService } from './word.http.service';
 
 import { Statistics } from '../model/statistics.interface';
@@ -11,10 +12,12 @@ import { WordFilter } from '../model/word-filter.interface';
 @Injectable()
 export class WordService {
 
+    readonly words$: BehaviorSubject<Word[]> = new BehaviorSubject<Word[]>([]);
     private readonly busy$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
     private readonly wordCount$: BehaviorSubject<number> = new BehaviorSubject<number>(undefined);
 
-    constructor(private readonly wordHttpService: WordHttpService) {
+    constructor(private readonly wordHttpService: WordHttpService,
+                private readonly userHttp: UserHttpService) {
     }
 
     isBusy(): Observable<boolean> {
@@ -28,6 +31,7 @@ export class WordService {
             .retrieveAll(wordFilter)
             .pipe(
                 tap((words: Word[]) => {
+                    this.words$.next(words);
                     this.wordCount$.next(words.length);
                 }),
                 finalize(() => {
@@ -82,6 +86,18 @@ export class WordService {
 
         return this.wordHttpService
             .update(uuid, word)
+            .pipe(
+                finalize(() => {
+                    this.busy$.next(false);
+                })
+            );
+    }
+
+    like(wordUUID: string): Observable<void> {
+        this.busy$.next(true);
+
+        return this.userHttp
+            .likeWord(wordUUID)
             .pipe(
                 finalize(() => {
                     this.busy$.next(false);

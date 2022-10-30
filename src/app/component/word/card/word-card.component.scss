@@ -16,6 +16,22 @@ li {
     border-radius: 4px;
     background-color: transparent;
 
+    span {
+        float: right;
+        width: 20px;
+        height: 20px;
+        border: 1px solid colour.$primary;
+        cursor: pointer;
+
+        &:hover {
+            opacity: .8;
+        }
+
+        &.liked {
+            background-color: colour.$primary;
+        }
+    }
+
     h5.mono {
         font-family: 'roboto-mono-medium', font.$default-font;
         white-space: nowrap;

@@ -1,20 +1,20 @@
 import { Component } from '@angular/core';
-import { Title } from '@angular/platform-browser';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
-import { of, Subscription } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { catchError, map, switchMap, tap } from 'rxjs/operators';
 
-import { WordService } from '../../../service/word.service';
+import { UserService } from '../../service/user.service';
+import { WordService } from '../../service/word.service';
 
-import { ErrorUtil } from '../../../util/error.util';
-import { FilterUtil } from '../../../util/filter.util';
+import { AppRoutes } from '../../util/app.routes';
+import { ErrorUtil } from '../../util/error.util';
+import { FilterUtil } from '../../util/filter.util';
 
-import { AppRoutes } from '../../../util/app.routes';
+import { User } from '../../model/user.interface';
+import { Word } from '../../model/word.interface';
+import { WordFilter } from '../../model/word-filter.interface';
 
-import { Word } from '../../../model/word.interface';
-import { WordFilter } from '../../../model/word-filter.interface';
-
-import { LoadComponent } from '../../common/spinner/load.component';
+import { LoadComponent } from '../../component/common/spinner/load.component';
 
 @Component({
     selector: 'ow-words',
@@ -27,12 +27,15 @@ export class WordsComponent extends LoadComponent {
     wordsToShow: number = 25;
     increment: number = 6;
     wordFilter: WordFilter;
+    readonly user$: Observable<User>;
 
     constructor(private readonly wordService: WordService,
                 private readonly route: ActivatedRoute,
-                private readonly router: Router) {
+                private readonly router: Router,
+                readonly userService: UserService) {
         super();
 
+        this.user$ = userService.retrieve();
         this.getWords();
     }
 

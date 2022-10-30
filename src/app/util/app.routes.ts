@@ -8,6 +8,7 @@ export class AppRoutes {
     static readonly DETAIL = `${AppRoutes.BASE}/:uuid/detail`;
     static readonly EDIT = `${AppRoutes.BASE}/:uuid/edit`;
     static readonly STATS = `${AppRoutes.BASE}/stats`;
+    static readonly PROFILE: string = 'o/profile';
 
     static getDetail(uuid: string): string {
         return AppRoutes.DETAIL.replace(':uuid', uuid);

@@ -7,7 +7,9 @@
 <ng-container *ngIf="words?.length > 0; else error">
 
     <article class="words">
-        <ow-word-card *ngFor="let word of words | chunkPipe: wordsToShow" [word]="word"></ow-word-card>
+        <ow-word-card *ngFor="let word of words | chunkPipe: wordsToShow"
+                      [word]="word"
+                      [likedWordUUIDs]="(user$ | async)?.likedWordUUIDs"></ow-word-card>
     </article>
 
     <section class="actions">
