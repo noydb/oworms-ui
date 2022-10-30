@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
-import { Observable, of } from 'rxjs';
-import { catchError, map, switchMap, take, tap } from 'rxjs/operators';
+import { of } from 'rxjs';
+import { catchError, filter, map, switchMap, tap } from 'rxjs/operators';
 
 import { UserService } from '../../service/user.service';
 import { WordService } from '../../service/word.service';
@@ -72,8 +72,10 @@ export class WordsComponent extends LoadComponent {
 
     private getUser(): void {
         this.userService
-            .retrieve()
-            .pipe(take(1))
+            .getLoggedInUser()
+            .pipe(
+                filter((user: User) => !!user)
+            )
             .subscribe({
                 next: (user: User) => {
                     this.user = user;

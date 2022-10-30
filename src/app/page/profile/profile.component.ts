@@ -2,7 +2,8 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { take } from 'rxjs/operators';
+import { combineLatest, of } from 'rxjs';
+import { filter, switchMap, take, tap } from 'rxjs/operators';
 
 import { AlertService } from '../../service/alert.service';
 import { UserService } from '../../service/user.service';
@@ -21,7 +22,7 @@ import { Word } from '../../model/word.interface';
 })
 export class ProfileComponent {
 
-    wordsCreated: number;
+    wordsCreated: number = 0;
     likedWords: string[] = [];
     readonly form: FormGroup = new FormGroup<unknown>({
         username: new FormControl<string>('', [Validators.required]),
@@ -52,8 +53,6 @@ export class ProfileComponent {
                 next: () => {
                     this.alertService.add('Saved profile changes');
 
-                    this.service.setUser(undefined);
-
                     void this.router.navigate([AppRoutes.ALL]);
                 },
                 error: (e: HttpErrorResponse) => {
@@ -64,21 +63,29 @@ export class ProfileComponent {
 
     private getUser(): void {
         this.service
-            .retrieve()
-            .pipe(take(1))
-            .subscribe({
-                next: (user: User) => {
+            .getLoggedInUser()
+            .pipe(
+                filter((user: User) => !!user),
+                take(1),
+                tap((user: User) => {
                     this.existing = user;
                     this.form.setValue({
                         username: user.username,
                         email: user.email
                     });
-
-                    const words: Word[] = this.wordService.words$.value;
-
+                }),
+                switchMap((user: User) => combineLatest([
+                    of(user),
+                    this.wordService.getWords()
+                ])),
+                filter(([, words]: [User, Word[]]) => words?.length > 0),
+                take(1)
+            )
+            .subscribe({
+                next: ([user, words]: [User, Word[]]) => {
                     for (const word of words) {
                         if (word.createdBy.includes(user.username)) {
-                            this.wordsCreated = this.wordsCreated++;
+                            this.wordsCreated = this.wordsCreated += 1;
                         }
 
                         if (user.likedWordUUIDs.includes(word.uuid)) {
