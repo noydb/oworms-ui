@@ -2,7 +2,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { forkJoin } from 'rxjs';
+import { forkJoin, of } from 'rxjs';
 import { filter, switchMap, take, tap } from 'rxjs/operators';
 
 import { AlertService } from '../../service/alert.service';
@@ -76,6 +76,7 @@ export class ProfileComponent {
                 }),
                 take(1),
                 switchMap((user: User) => forkJoin([
+                    // TODO: call api to get user's liked words
                     this.wordService.retrieveAll({ uuids: user.likedWordUUIDs }),
                     this.wordService.retrieveAll({ createdBy: user.username })
                 ])),

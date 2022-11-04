@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Attribute, Component, Input } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { Router } from '@angular/router';
 
@@ -17,12 +17,12 @@ export class RandomTopComponent {
 
     word$: Observable<Word>;
 
-    @Input()
-    title: string = '';
-
     constructor(private readonly service: WordService,
-                private readonly router: Router) {
-        this.word$ = service.retrieveRandom();
+                private readonly router: Router,
+                @Attribute('title') readonly title: string) {
+        if(!title?.trim()) {
+            this.word$ = service.retrieveRandom();
+        }
     }
 
     @Input()

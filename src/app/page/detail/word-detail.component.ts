@@ -11,6 +11,7 @@ import { AlertService } from '../../service/alert.service';
 import { UserService } from '../../service/user.service';
 import { WordService } from '../../service/word.service';
 
+import { Unsubscribes } from '../../util/auto-unsubscribe.directive';
 import { ErrorUtil } from '../../util/error.util';
 
 import { Tag } from '../../model/tag.interface';
@@ -24,6 +25,7 @@ import { LoadComponent } from '../../component/common/spinner/load.component';
     templateUrl: 'word-detail.component.html',
     styleUrls: ['./word-detail.component.scss']
 })
+@Unsubscribes()
 export class WordDetailComponent extends LoadComponent {
 
     readonly word$: Observable<Word>;
@@ -83,7 +85,6 @@ export class WordDetailComponent extends LoadComponent {
                 switchMap((uuid: string) => this.service.retrieve(uuid)),
                 take(1),
                 tap((word: Word) => {
-                    console.log(word);
                     this.tags = word.tags.map(({ name }: Tag) => name);
                     this.state = 'complete';
                     this.titleService.setTitle(`${word.theWord} - oworms`);
@@ -93,7 +94,6 @@ export class WordDetailComponent extends LoadComponent {
                     this.userService.getLoggedInUser()
                 ])),
                 filter(([, user]: [Word, User]) => !!user),
-                take(1),
                 map(([word, user]: [Word, User]) => {
                     this.isLiked = user.likedWordUUIDs.includes(word.uuid);
 
