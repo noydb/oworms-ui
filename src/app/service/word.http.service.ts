@@ -62,7 +62,7 @@ export class WordHttpService {
             return undefined;
         }
 
-        const { word, partsOfSpeech, definition, origin, exampleUsage, tags, note } = wordFilter;
+        const { word, partsOfSpeech, definition, origin, exampleUsage, tags, note, createdBy, uuids } = wordFilter;
 
         let params: HttpParams = new HttpParams();
         params = this.setParam(params, 'word', word);
@@ -76,6 +76,10 @@ export class WordHttpService {
             params = params.append('tags', tag);
         });
         params = this.setParam(params, 'note', note);
+        params = this.setParam(params, 'creator', createdBy);
+        uuids?.forEach((uuid: string) => {
+            params = params.append('uuids', uuid);
+        });
 
         return params;
     }

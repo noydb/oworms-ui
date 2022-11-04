@@ -2,9 +2,9 @@ import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { FormGroupDirective } from '@angular/forms';
 
-import { AppRoutingModule } from './module/app-routing.module';
-import { ComponentModule } from './module/component.module';
-import { WordModule } from './module/word.module';
+import { AppRoutingModule } from './app-routing.module';
+import { ComponentModule } from './util/component.module';
+import { WordModule } from './util/word.module';
 
 import { LocalStorageService } from './service/local-storage.service';
 import { TagService } from './service/tag.service';
@@ -15,7 +15,7 @@ import { WordService } from './service/word.service';
 import { AboutComponent } from './page/about/about.component';
 import { AlertComponent } from './component/alert/alert.component';
 import { AppComponent } from './app.component';
-import { CredentialsComponent } from './page/about/credentials/credentials.component';
+import { CredentialsComponent } from './page/credentials/credentials.component';
 import { FooterComponent } from './component/layout/footer/footer.component';
 import { LoaderComponent } from './component/common/loader/loader.component';
 import { ProfileComponent } from './page/profile/profile.component';

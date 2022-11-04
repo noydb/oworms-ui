@@ -1,3 +1,5 @@
+//Ï@use '../../style/_colour' as aa; WHY NO WORK?
+
 .title {
     padding-bottom: 16px;
     padding-left: .5rem;
@@ -16,11 +18,37 @@
         padding: .5rem;
 
         span {
-            color: #ffffff;
+            color: #35F29A;
+            font-size: 1.1rem;
+
+            &:last-of-type {
+                margin-left: .5rem;
+            }
         }
 
         h5 {
             margin-bottom: 1rem;
+        }
+
+        ul {
+            overflow-y: scroll;
+            width: 100%;
+
+            li {
+                text-align: right;
+
+                &:not(last-of-type) {
+                    padding-bottom: .5rem;
+                }
+
+                h3 {
+                    margin-bottom: .3rem;
+                }
+
+                p {
+                    font-size: .8rem;
+                }
+            }
         }
     }
 
@@ -51,8 +79,10 @@ form {
 
     .column {
         width: 48%;
-        min-height: 300px;
-        overflow-y: scroll;
+
+        ul.words {
+            max-height: 300px;
+        }
     }
 
     .actions {

@@ -1,15 +1,16 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-import { AppRoutes } from '../util/app.routes';
+import { AppRoutes } from './util/app.routes';
 
-import { AboutComponent } from '../page/about/about.component';
-import { ProfileComponent } from '../page/profile/profile.component';
-import { StatisticsComponent } from '../page/stats/statistics.component';
-import { WordAddComponent } from '../page/add/word-add.component';
-import { WordDetailComponent } from '../page/detail/word-detail.component';
-import { WordEditComponent } from '../page/edit/word-edit.component';
-import { WordsComponent } from '../page/list/words.component';
+import { AboutComponent } from './page/about/about.component';
+import { CredentialsComponent } from './page/credentials/credentials.component';
+import { ProfileComponent } from './page/profile/profile.component';
+import { StatisticsComponent } from './page/stats/statistics.component';
+import { WordAddComponent } from './page/add/word-add.component';
+import { WordDetailComponent } from './page/detail/word-detail.component';
+import { WordEditComponent } from './page/edit/word-edit.component';
+import { WordsComponent } from './page/list/words.component';
 
 const routes: Routes = [
     {
@@ -26,6 +27,11 @@ const routes: Routes = [
         path: AppRoutes.ADD,
         component: WordAddComponent,
         title: 'new - oworms'
+    },
+    {
+        path: AppRoutes.CREDENTIAL,
+        component: CredentialsComponent,
+        title: 'enter credentials - oworms'
     },
     {
         path: AppRoutes.DETAIL,

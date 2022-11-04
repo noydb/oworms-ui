@@ -1,6 +1,8 @@
 <header>
     <section *ngIf="!showBurger">
-        <span><img alt="oworms logo" src="/assets/image/logo.svg"></span>
+        <span>
+            <img alt="oworms logo" src="/assets/image/logo.svg">
+        </span>
         <nav>
             <ul>
                 <li (click)="navigate(item)" *ngFor="let item of items" class="item">
@@ -26,7 +28,7 @@
             add
         </button>
 
-        <img src="/assets/image/user.png" alt="user icon" routerLink="o/profile" class="profile">
+        <img src="/assets/image/user.png" alt="user icon" (click)="navToProfile()" class="profile">
     </section>
 
     <!-- responsive menu -->
@@ -43,7 +45,7 @@
         <a href="https://oworms-api.herokuapp.com/swagger-ui/" target="_blank" class="item">
             <label>api</label>
         </a>
-        <img src="/assets/image/user.png" alt="user icon" routerLink="o/profile" class="profile">
+        <img src="/assets/image/user.png" alt="user icon" (click)="navToProfile()" class="profile">
 
         <button routerLink="/o/worms/new" (click)="expandMenu = false" class="icon">
             <img alt="plus icon" src="/assets/image/icon-plus.svg">
