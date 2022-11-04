@@ -1,7 +1,11 @@
 <article *ngIf="word$ | async as word" class="random-top">
     <h1 (click)="navToDetails(word)">{{ word.theWord }}</h1>
     <p>{{ word.definition }}</p>
-    <span>by </span>
+    <span *ngIf="word">by </span>
     <span class="creator">{{ word.createdBy }}</span>
     <br/>
+</article>
+
+<article *ngIf="title" class="random-top">
+    <h1>{{ title }}</h1>
 </article>

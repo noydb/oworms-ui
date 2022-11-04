@@ -54,7 +54,6 @@ export class WordCardComponent {
                     this.alertService.add(e.error.message, true);
                 }
             });
-
     }
 
     getViews(daWord: Word): string {

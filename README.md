@@ -2,8 +2,6 @@
 ---
 [![Maintainability](https://api.codeclimate.com/v1/badges/022c3d76d9caaf459fbc/maintainability)](https://codeclimate.com/github/noydb/oworms-ui/maintainability)
 
-[Explanation of Name](https://memedocumentation.tumblr.com/post/163767097995/explained-oh-worm-meme)
-
 [Swagger Documentation](https://oworms-api.herokuapp.com/swagger-ui/)
 
 [Hosted Application](https://oworms.herokuapp.com)
@@ -48,7 +46,7 @@ generate base project using angular cli:\
 - linking tags to words
 - liking/favouriting words
 - receive an email everytime a word is created or updated
-- filtering by any of the available fields
+- filtering by any of the available fields, driven by query parameters (e.g. https://oworms.herokuapp.com/o/worms/all?pos=verb,adjective&tags=informal,politics)
 - retrieve a random word
 - view statistics on the application & the words
 - import spreadsheet of words

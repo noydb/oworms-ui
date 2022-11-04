@@ -2,7 +2,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { combineLatest, of } from 'rxjs';
+import { forkJoin } from 'rxjs';
 import { filter, switchMap, take, tap } from 'rxjs/operators';
 
 import { AlertService } from '../../service/alert.service';
@@ -23,7 +23,7 @@ import { Word } from '../../model/word.interface';
 export class ProfileComponent {
 
     wordsCreated: number = 0;
-    likedWords: string[] = [];
+    likedWords: Word[] = [];
     readonly form: FormGroup = new FormGroup<unknown>({
         username: new FormControl<string>('', [Validators.required]),
         email: new FormControl<string>('', [Validators.required, Validators.email])
@@ -74,26 +74,18 @@ export class ProfileComponent {
                         email: user.email
                     });
                 }),
-                switchMap((user: User) => combineLatest([
-                    of(user),
-                    this.wordService.getWords()
+                take(1),
+                switchMap((user: User) => forkJoin([
+                    this.wordService.retrieveAll({ uuids: user.likedWordUUIDs }),
+                    this.wordService.retrieveAll({ createdBy: user.username })
                 ])),
-                filter(([, words]: [User, Word[]]) => words?.length > 0),
-                take(1)
+                take(1),
+                tap(([likedWords, createdWords]: [Word[], Word[]]) => {
+                    this.likedWords = likedWords;
+                    this.wordsCreated = createdWords.length;
+                })
             )
-            .subscribe({
-                next: ([user, words]: [User, Word[]]) => {
-                    for (const word of words) {
-                        if (word.createdBy.includes(user.username)) {
-                            this.wordsCreated = this.wordsCreated += 1;
-                        }
-
-                        if (user.likedWordUUIDs.includes(word.uuid)) {
-                            this.likedWords.push(word.theWord);
-                        }
-                    }
-                }
-            });
+            .subscribe();
     }
 }
 

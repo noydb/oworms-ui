@@ -34,6 +34,7 @@ export class UserService {
         return this.userHttp
             .retrieve()
             .pipe(
+                take(1),
                 tap((user: User) => {
                     this.user$.next(user);
                 }),
@@ -54,6 +55,17 @@ export class UserService {
             .update(user)
             .pipe(
                 switchMap(() => this.loadLoggedInUser(true)),
+                take(1),
+                finalize(() => {
+                    this.busy$.next(false);
+                })
+            );
+    }
+
+    login(u: string, p: string): Observable<User> {
+        return this.userHttp
+            .retrieve(u, p)
+            .pipe(
                 take(1),
                 finalize(() => {
                     this.busy$.next(false);
