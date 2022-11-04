@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 
-import { ChunkPipe } from '../pipe/chunk.pipe';
+import { ChunkPipe } from '../component/pipe/chunk.pipe';
 
 import { ErrorComponent } from '../component/common/error/error.component';
 import { FilterComponent } from '../component/filter/filter.component';

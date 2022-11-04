@@ -17,6 +17,9 @@ export class RandomTopComponent {
 
     word$: Observable<Word>;
 
+    @Input()
+    title: string = '';
+
     constructor(private readonly service: WordService,
                 private readonly router: Router) {
         this.word$ = service.retrieveRandom();

@@ -1,27 +1,10 @@
 <ow-hero>
-    <ow-random-top></ow-random-top>
+    <ow-random-top title="Why this app?"></ow-random-top>
 </ow-hero>
 
-<nav>
-    <ul>
-        <li (click)="setState('about')">
-            <button [class.transparent]="state !== 'about'">About</button>
-        </li>
-        <li (click)="setState('creds')">
-            <button [class.transparent]="state !== 'creds'">Credentials</button>
-        </li>
-    </ul>
-</nav>
-
-<ng-container [ngSwitch]="state" class="about">
-
-    <section *ngSwitchCase="'about'">
-        <h2>Why this app?</h2>
-        <p>{{ paraOne }}</p>
-        <p>{{ paraTwo }}</p>
-        <p>{{ paraThree }}</p>
-        <p>{{ paraFour }}</p>
-    </section>
-
-    <ow-credentials *ngSwitchCase="'creds'"></ow-credentials>
-</ng-container>
+<section>
+    <p>{{ paraOne }}</p>
+    <p>{{ paraTwo }}</p>
+    <p>{{ paraThree }}</p>
+    <p>{{ paraFour }}</p>
+</section>

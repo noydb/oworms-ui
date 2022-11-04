@@ -14,8 +14,16 @@ export class UserHttpService {
     constructor(private readonly http: HttpClient, private readonly ls: LocalStorageService) {
     }
 
-    retrieve(): Observable<User> {
-        return this.http.get<User>(this.baseURL, { params: this.getBNA() });
+    retrieve(u?: string, bna?: string): Observable<User> {
+        let params: HttpParams = new HttpParams();
+
+        if (!u?.trim || !bna?.trim()) {
+            params = this.getBNA();
+        } else {
+            params = params.set('u', u).set('bna', bna);
+        }
+
+        return this.http.get<User>(this.baseURL, { params });
     }
 
     update(user: User): Observable<User> {
@@ -36,5 +44,9 @@ export class UserHttpService {
 
     private getBNA(): HttpParams {
         return new HttpParams().set('u', this.ls.get('u')).set('bna', this.ls.get('bna'));
+    }
+
+    login(u: string, bna: string): Observable<void> {
+        return this.http.post<void>(this.baseURL + '/login', { u, bna });
     }
 }

@@ -20,6 +20,21 @@
                     width: 40%;
                     height: 40%;
                 }
+
+                span {
+                    width: 20px;
+                    height: 20px;
+                    border: 1px solid colour.$primary;
+                    cursor: pointer;
+
+                    &:hover {
+                        opacity: .8;
+                    }
+
+                    &.liked {
+                        background-color: colour.$primary;
+                    }
+                }
             }
         }
 
@@ -104,11 +119,11 @@
             .top {
                 display: flex;
                 align-items: center;
-                overflow-x: scroll;
 
                 .actions {
                     display: flex;
                     justify-content: space-between;
+                    align-items: center;
 
                     @include mxn.svg-hover;
                 }
@@ -119,7 +134,7 @@
                 font-size: 1rem;
             }
 
-            .pair {
+            .pair, .tags {
                 padding-top: 30px;
             }
         }

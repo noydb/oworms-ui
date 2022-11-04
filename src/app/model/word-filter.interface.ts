@@ -6,4 +6,6 @@ export interface WordFilter {
     exampleUsage?: string;
     tags?: string[];
     note?: string;
+    uuids?: string[];
+    createdBy?: string;
 }

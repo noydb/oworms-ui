@@ -8,8 +8,11 @@
         <div class="top">
             <h2 class="mono">{{word.theWord}}</h2>
             <div class="actions">
-                <img alt="edit" src="/src/assets/image/pencil-circled.svg" (click)="edit(word)"/>
-                <img alt="synonyms" src="/src/assets/image/plus-circled.svg"/>
+                <img alt="pencil in a circle with pink background"
+                     src="/assets/image/pencil-circled.svg"
+                     (click)="edit(word)"/>
+                <img alt="synonyms" src="/assets/image/plus-circled.svg"/>
+                <span (click)="likeWord($event, word)" [class.liked]="isLiked"></span>
             </div>
         </div>
 
@@ -29,7 +32,7 @@
             <p>{{word.pronunciation ? word.pronunciation : 'N/A' }}</p>
         </div>
         <div class="tags">
-            <label>Associated Tags:</label>
+            <label>Associated Tags</label>
             <ow-tags [sTags]="tags"></ow-tags>
         </div>
         <div class="synonyms">

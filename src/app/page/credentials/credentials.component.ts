@@ -4,10 +4,11 @@ import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { filter, take, tap } from 'rxjs/operators';
 
-import { AppRoutes } from '../../../util/app.routes';
+import { AlertService } from '../../service/alert.service';
+import { LocalStorageService } from '../../service/local-storage.service';
+import { UserService } from '../../service/user.service';
 
-import { AlertService } from '../../../service/alert.service';
-import { LocalStorageService } from '../../../service/local-storage.service';
+import { AppRoutes } from '../../util/app.routes';
 
 @Component({
     selector: 'ow-credentials',
@@ -17,14 +18,15 @@ import { LocalStorageService } from '../../../service/local-storage.service';
 export class CredentialsComponent {
 
     readonly form: FormGroup = new FormGroup({
-        u: new FormControl('', [Validators.required]),
-        p: new FormControl('', [Validators.required])
+        u: new FormControl<string>('', [Validators.required]),
+        p: new FormControl<string>('', [Validators.required])
     });
 
     constructor(private readonly ls: LocalStorageService,
                 private readonly alertService: AlertService,
                 private readonly router: Router,
-                private readonly route: ActivatedRoute) {
+                private readonly route: ActivatedRoute,
+                private readonly userService: UserService) {
         this.getQueryParams();
     }
 
@@ -36,11 +38,21 @@ export class CredentialsComponent {
         const u: string = this.form.get('u')?.value;
         const p: string = this.form.get('p')?.value;
 
-        this.ls.set('u', u);
-        this.ls.set('bna', p);
+        this.userService
+            .login(u, p)
+            .pipe(take(1))
+            .subscribe({
+                next: () => {
+                    this.ls.set('u', u);
+                    this.ls.set('bna', p);
 
-        this.alertService.add('Authenticated');
-        void this.router.navigate([AppRoutes.ALL]);
+                    this.alertService.add('Authenticated');
+                    void this.router.navigate([AppRoutes.PROFILE]);
+                },
+                error: () => {
+                    this.alertService.add('Failed to authenticate', true);
+                }
+            });
     }
 
     cancel(): void {
