@@ -11,7 +11,6 @@ import { AlertService } from '../../service/alert.service';
 import { UserService } from '../../service/user.service';
 import { WordService } from '../../service/word.service';
 
-import { Unsubscribes } from '../../util/auto-unsubscribe.directive';
 import { ErrorUtil } from '../../util/error.util';
 
 import { Tag } from '../../model/tag.interface';
@@ -25,7 +24,6 @@ import { LoadComponent } from '../../component/common/spinner/load.component';
     templateUrl: 'word-detail.component.html',
     styleUrls: ['./word-detail.component.scss']
 })
-@Unsubscribes()
 export class WordDetailComponent extends LoadComponent {
 
     readonly word$: Observable<Word>;
