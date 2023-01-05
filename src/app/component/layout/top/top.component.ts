@@ -81,6 +81,8 @@ export class TopComponent {
 
     // TODO: convert to guard
     navToProfile(): void {
+        this.expandMenu = false;
+
         this.userService
             .loadLoggedInUser()
             .pipe(take(1))

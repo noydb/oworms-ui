@@ -78,10 +78,8 @@ export class WordDetailComponent extends LoadComponent {
         return this.route
             .paramMap
             .pipe(
-                take(1),
                 map((params: ParamMap) => params.get('uuid') ?? '0'),
                 switchMap((uuid: string) => this.service.retrieve(uuid)),
-                take(1),
                 tap((word: Word) => {
                     this.tags = word.tags.map(({ name }: Tag) => name);
                     this.state = 'complete';
@@ -91,9 +89,10 @@ export class WordDetailComponent extends LoadComponent {
                     of(word),
                     this.userService.getLoggedInUser()
                 ])),
-                filter(([, user]: [Word, User]) => !!user),
                 map(([word, user]: [Word, User]) => {
-                    this.isLiked = user.likedWordUUIDs.includes(word.uuid);
+                    if (user) {
+                        this.isLiked = user.likedWordUUIDs.includes(word.uuid);
+                    }
 
                     return word;
                 }),
