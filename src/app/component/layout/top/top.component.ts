@@ -79,22 +79,9 @@ export class TopComponent {
             });
     }
 
-    // TODO: convert to guard
     navToProfile(): void {
         this.expandMenu = false;
 
-        this.userService
-            .loadLoggedInUser()
-            .pipe(take(1))
-            .subscribe({
-                next: (_: User) => {
-                    void this.router.navigate([AppRoutes.PROFILE]);
-                },
-                error: (e: HttpErrorResponse) => {
-                    if (e.status === 403) {
-                        void this.router.navigate([AppRoutes.CREDENTIAL]);
-                    }
-                }
-            });
+        void this.router.navigate([AppRoutes.PROFILE]);
     }
 }

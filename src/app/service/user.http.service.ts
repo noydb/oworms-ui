@@ -5,11 +5,13 @@ import { Observable } from 'rxjs';
 import { LocalStorageService } from './local-storage.service';
 
 import { User } from '../model/user.interface';
+import { UserProfile } from '../model/user-profile.interface';
 
 @Injectable()
 export class UserHttpService {
 
     private readonly baseURL: string = '/api/o/users';
+    private readonly profileURL: string = '/api/o/worms/profile';
 
     constructor(private readonly http: HttpClient, private readonly ls: LocalStorageService) {
     }
@@ -18,7 +20,7 @@ export class UserHttpService {
         let params: HttpParams = new HttpParams();
 
         if (!u?.trim || !bna?.trim()) {
-            params = this.getBNA();
+            params = this.getBnaParams();
         } else {
             params = params.set('u', u).set('bna', bna);
         }
@@ -30,7 +32,7 @@ export class UserHttpService {
         return this.http.put<User>(
             `${this.baseURL}/${user.uuid}`,
             user,
-            { params: this.getBNA() }
+            { params: this.getBnaParams() }
         );
     }
 
@@ -38,11 +40,15 @@ export class UserHttpService {
         return this.http.patch<void>(
             `${this.baseURL}/word/${wordUUID}/like`,
             undefined,
-            { params: this.getBNA() }
+            { params: this.getBnaParams() }
         );
     }
 
-    private getBNA(): HttpParams {
+    retrieveProfile(): Observable<UserProfile> {
+        return this.http.get<UserProfile>(this.profileURL, { params: this.getBnaParams() });
+    }
+
+    private getBnaParams(): HttpParams {
         return new HttpParams().set('u', this.ls.get('u')).set('bna', this.ls.get('bna'));
     }
 

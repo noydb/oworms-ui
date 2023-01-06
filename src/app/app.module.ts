@@ -6,6 +6,8 @@ import { AppRoutingModule } from './app-routing.module';
 import { ComponentModule } from './util/component.module';
 import { WordModule } from './util/word.module';
 
+import { LoggedInGuard } from './guard/logged-in.guard';
+
 import { LocalStorageService } from './service/local-storage.service';
 import { TagService } from './service/tag.service';
 import { UserHttpService } from './service/user.http.service';
@@ -51,7 +53,9 @@ import { TopComponent } from './component/layout/top/top.component';
         TagService,
         UserHttpService,
         WordHttpService,
-        WordService
+        WordService,
+
+        LoggedInGuard
     ],
     bootstrap: [AppComponent]
 })

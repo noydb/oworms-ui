@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, delay, Observable, of } from 'rxjs';
 
 import { Alert } from '../model/alert.interface';
 
@@ -9,37 +9,34 @@ import { Alert } from '../model/alert.interface';
 export class AlertService {
 
     private readonly alerts$: BehaviorSubject<Alert[]> = new BehaviorSubject<Alert[]>([] as Alert[]);
+    readonly alerts: Alert[] = [];
 
     getAll(): Observable<Alert[]> {
         return this.alerts$.asObservable();
     }
 
     add(message: string, error = false, path: string = ''): void {
-        const alerts: Alert[] = this.alerts$.value;
-
         const alert: Alert = {
             error,
-            id: alerts.length,
+            id: Math.round(Math.random() * 100),
             message,
-            timeout: 5000,
             path
         };
-        alerts.push(alert);
+        this.alerts.push(alert);
 
-        this.alerts$.next(alerts);
+        of({})
+        .pipe(delay(5000))
+        .subscribe({
+            next: () => {
+                this.remove(alert);
+            }
+        });
     }
 
     remove(alert: Alert): void {
-        const alerts: Alert[] = this.alerts$.value;
+        const toRemove: Alert = this.alerts.find(({id}: Alert) => id === alert.id);
+        const index: number = this.alerts.indexOf(toRemove);
 
-        const index: number = alerts.indexOf(alert);
-
-        alerts.splice(index);
-
-        this.alerts$.next(alerts);
-    }
-
-    removeAll(): void {
-        this.alerts$.next([] as Alert[]);
+        this.alerts.splice(index, 1);
     }
 }

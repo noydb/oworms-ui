@@ -1,5 +1,5 @@
 <dialog>
-    <img (click)="showModal = true" alt="filter icon" src="/assets/image/icon-filter.svg"/>
+    <img (click)="openFilterModal()" alt="filter icon" src="/assets/image/icon-filter.svg"/>
     <input *ngIf="showField"
            [formControl]="ctrl"
            name="quick-search"

@@ -3,7 +3,7 @@ import { Component } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { combineLatest, Observable, of } from 'rxjs';
-import { catchError, filter, map, switchMap, take, tap } from 'rxjs/operators';
+import { catchError, map, switchMap, take, tap } from 'rxjs/operators';
 
 import { AppRoutes } from '../../util/app.routes';
 
@@ -35,7 +35,7 @@ export class WordDetailComponent extends LoadComponent {
                 private readonly route: ActivatedRoute,
                 private readonly titleService: Title,
                 private readonly alertService: AlertService,
-                readonly userService: UserService) {
+                private readonly userService: UserService) {
         super();
 
         this.word$ = this.getWord();
@@ -58,8 +58,8 @@ export class WordDetailComponent extends LoadComponent {
         $event.preventDefault();
         $event.stopPropagation();
 
-        this.service
-            .like(word.uuid)
+        this.userService
+            .likeWord(word.uuid)
             .pipe(
                 take(1),
                 switchMap(() => this.userService.loadLoggedInUser(true)),

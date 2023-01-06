@@ -53,41 +53,51 @@ export class FilterComponent {
         void this.router.navigate([], { relativeTo: this.route, queryParams: undefined });
     }
 
+    openFilterModal(): void {
+        window.scroll({
+            top: 0,
+            left: 0,
+            behavior: 'smooth'
+        });
+
+        this.showModal = true;
+    }
+
     private quickSearchFilter(): void {
         this.ctrl
-            .valueChanges
-            .pipe(
-                debounceTime(600),
-                tap((value: string) => {
-                    if (!value || !value.trim()) {
-                        void this.router.navigate([], { relativeTo: this.route });
-                        return;
-                    }
+        .valueChanges
+        .pipe(
+            debounceTime(600),
+            tap((value: string) => {
+                if (!value || !value.trim()) {
+                    void this.router.navigate([], { relativeTo: this.route });
+                    return;
+                }
 
-                    void this.router.navigate([], {
-                            relativeTo: this.route,
-                            queryParams: {
-                                word: value
-                            }
+                void this.router.navigate([], {
+                        relativeTo: this.route,
+                        queryParams: {
+                            word: value
                         }
-                    );
-                })
-            )
-            .subscribe();
+                    }
+                );
+            })
+        )
+        .subscribe();
     }
 
     private getQueryParams(): void {
         this.route
-            .queryParamMap
-            .pipe(
-                tap((qParamsMap: ParamMap) => {
-                    if (qParamsMap.get('filter')) {
-                        this.showModal = true;
-                    }
+        .queryParamMap
+        .pipe(
+            tap((qParamsMap: ParamMap) => {
+                if (qParamsMap.get('filter')) {
+                    this.showModal = true;
+                }
 
-                    this.existingFilters = FilterUtil.getFilterLabels(qParamsMap);
-                })
-            )
-            .subscribe();
+                this.existingFilters = FilterUtil.getFilterLabels(qParamsMap);
+            })
+        )
+        .subscribe();
     }
 }

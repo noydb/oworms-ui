@@ -7,7 +7,9 @@
      role="listbox">
     <span class="s-title">
         {{ title }}
-        <img alt="chev  icon" src="/assets/image/chevron-down.svg" (click)="invertClosed($event)"/>
+        <img alt="chevron/arrow icon pointing downwards"
+             src="/assets/image/chevron-down.svg"
+             (click)="invertClosed($event)" />
     </span>
     <div [class.closed]="closed" class="options">
         <div (click)="selectItem(item)"

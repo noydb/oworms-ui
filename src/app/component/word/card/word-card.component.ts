@@ -38,8 +38,8 @@ export class WordCardComponent {
         $event.preventDefault();
         $event.stopPropagation();
 
-        this.wordService
-            .like(word.uuid)
+        this.userService
+            .likeWord(word.uuid)
             .pipe(
                 take(1),
                 switchMap(() => this.userService.loadLoggedInUser(true)),

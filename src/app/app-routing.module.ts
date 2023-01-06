@@ -3,6 +3,8 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { AppRoutes } from './util/app.routes';
 
+import { LoggedInGuard } from './guard/logged-in.guard';
+
 import { AboutComponent } from './page/about/about.component';
 import { CredentialsComponent } from './page/credentials/credentials.component';
 import { ProfileComponent } from './page/profile/profile.component';
@@ -54,7 +56,8 @@ const routes: Routes = [
     {
         path: AppRoutes.PROFILE,
         component: ProfileComponent,
-        title: 'my profile - oworms'
+        title: 'my profile - oworms',
+        canActivate: [LoggedInGuard]
     },
 
 ];
