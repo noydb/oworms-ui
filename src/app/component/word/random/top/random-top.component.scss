@@ -4,8 +4,7 @@
     text-align: center;
     color: #ffffff;
 
-    h2 {
-        text-transform: uppercase;
+    h1 {
         font-weight: bold;
         transition: all .15s ease-in-out;
         cursor: pointer;
@@ -22,12 +21,16 @@
     }
 
     span {
+        color: #ffffff;
+
         &.creator {
             color: colour.$secondary;
         }
+    }
+}
 
-        &.uuid {
-            font-size: .6rem;
-        }
+@media screen and (max-width: 600px) {
+    h1 {
+        font-size: 2rem;
     }
 }

@@ -1,0 +1,150 @@
+@use '../../style/colour' as colour;
+@use '../../style/font' as font;
+@use '../../style/mixin' as mxn;
+
+.word {
+    .detail {
+        .top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            h2 {
+                font-size: 2rem;
+            }
+
+            .actions {
+                @include mxn.svg-hover;
+
+                img {
+                    width: 40%;
+                    height: 40%;
+                }
+
+                span {
+                    width: 20px;
+                    height: 20px;
+                    border: 1px solid colour.$primary;
+                    cursor: pointer;
+
+                    &:hover {
+                        opacity: .8;
+                    }
+
+                    &.liked {
+                        background-color: colour.$primary;
+                    }
+                }
+            }
+        }
+
+        .def {
+            padding-bottom: 20px;
+        }
+
+        .pair {
+            display: flex;
+            padding-top: 10px;
+
+            label {
+                font-family: 'roboto-medium', font.$default-font;
+            }
+
+            &.note {
+                white-space: pre-wrap;
+            }
+        }
+
+        .tags,
+        .synonyms {
+            padding-top: 10px;
+
+            label {
+                font-family: 'roboto-medium', font.$default-font;
+            }
+        }
+    }
+
+    .meta {
+        padding-top: 30px;
+        padding-bottom: 1rem;
+
+        .column {
+            .pair {
+                display: flex;
+                margin-top: 1rem;
+
+                label {
+                    color: #907f7f;
+                    font-family: 'roboto-medium', font.$default-font;
+                }
+
+                p {
+                    color: #907f7f;
+                    font-family: 'roboto-light', font.$default-font;
+                }
+
+                &.creation-date {
+                    cursor: pointer;
+                    transition: all .2s ease;
+
+                    > label {
+                        cursor: pointer;
+                    }
+
+                    &:hover {
+                        opacity: .8;
+                    }
+                }
+            }
+        }
+    }
+}
+
+.loading {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    padding: 3rem;
+}
+
+@media screen and (min-width: 600px) {
+    .word {
+        margin-left: 25%;
+        margin-right: 25%;
+        padding: 1.5rem 1.5rem 3rem;
+
+        .detail {
+
+            .top {
+                display: flex;
+                align-items: center;
+
+                .actions {
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+
+                    @include mxn.svg-hover;
+                }
+            }
+
+            .def {
+                padding-bottom: 15px;
+                font-size: 1rem;
+            }
+
+            .pair, .tags {
+                padding-top: 30px;
+            }
+        }
+
+        .meta {
+            display: flex;
+
+            .column {
+                width: 48%;
+            }
+        }
+    }
+}

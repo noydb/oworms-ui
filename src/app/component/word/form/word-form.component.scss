@@ -1,24 +1,47 @@
 .title {
     padding-bottom: 16px;
+    text-align: center;
 }
 
 form {
     width: 100%;
-    display: flex;
-    justify-content: space-between;
 
     .column {
-        width: 48%;
 
-        > .row {
-            width: 100%;
-            margin-top: 1.2rem;
-            margin-bottom: 1.2rem;
+        > fieldset {
+            padding-left: 1rem;
+            padding-right: 1rem;
         }
     }
 }
 
 .actions {
-    width: 25%;
-    margin: 2rem auto auto;
+    width: 100%;
+}
+
+@media screen and (min-width: 600px) {
+
+    .title {
+        text-align: left;
+    }
+
+    form {
+        display: flex;
+        justify-content: space-between;
+
+        .column {
+            width: 48%;
+
+            > fieldset {
+                width: 100%;
+                margin-top: 1.2rem;
+                margin-bottom: 1.2rem;
+            }
+        }
+    }
+
+    .actions {
+        width: 25%;
+        margin: 2rem auto auto;
+    }
 }

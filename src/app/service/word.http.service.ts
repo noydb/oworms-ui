@@ -48,7 +48,7 @@ export class WordHttpService {
     }
 
     getStatistics(): Observable<Statistics> {
-        return this.http.get<Statistics>(`${this.baseURL}/statistics`);
+        return this.http.get<Statistics>('api/o/stats');
     }
 
     // https://roytuts.com/download-file-from-server-using-angular/
@@ -62,20 +62,35 @@ export class WordHttpService {
             return undefined;
         }
 
-        const { word, partsOfSpeech, definition, origin, exampleUsage, tags, note } = wordFilter;
+        const {
+            numberOfWords,
+            word,
+            partsOfSpeech,
+            definition,
+            origin,
+            example,
+            tags,
+            note,
+            createdBy,
+            uuids
+        } = wordFilter;
 
-        let params: HttpParams = new HttpParams();
+        let params: HttpParams = new HttpParams().set('numberOfWords', numberOfWords);
         params = this.setParam(params, 'word', word);
         partsOfSpeech?.forEach((pos: string) => {
             params = params.append('pos', pos as string);
         });
         params = this.setParam(params, 'def', definition);
         params = this.setParam(params, 'ori', origin);
-        params = this.setParam(params, 'ex', exampleUsage);
+        params = this.setParam(params, 'ex', example);
         tags?.forEach((tag: string) => {
             params = params.append('tags', tag);
         });
         params = this.setParam(params, 'note', note);
+        params = this.setParam(params, 'creator', createdBy);
+        uuids?.forEach((uuid: string) => {
+            params = params.append('uuids', uuid);
+        });
 
         return params;
     }

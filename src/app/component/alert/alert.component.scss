@@ -6,12 +6,10 @@
     top: 80px;
     width: 100%;
     height: 50px;
-    display: flex;
-    justify-content: center;
 
     .alert {
         z-index: 10000;
-        width: 40%;
+        width: 100%;
         display: flex;
         justify-content: center;
         align-items: center;
@@ -39,6 +37,10 @@
 
         &:not(:only-child) {
             border: 1px solid #000;
+        }
+
+        span {
+            color: #ffffff;
         }
     }
 }

@@ -1,0 +1,38 @@
+<ow-hero>
+    <ow-random-top></ow-random-top>
+</ow-hero>
+
+<ow-filter (showChange)="chunkChanged($event, 0)"></ow-filter>
+
+<ng-container *ngIf="words?.length > 0; else error">
+
+    <article class="words">
+        <ow-word-card *ngFor="let word of words | chunkPipe: wordsToShow"
+                      [word]="word"
+                      [likedWordUUIDs]="user?.likedWordUUIDs"></ow-word-card>
+    </article>
+
+    <section class="actions">
+        <button (click)="showMoreOrLess(true)" [disabled]="disableShowLess">Show {{ increment }} Less</button>
+        <button (click)="showMoreOrLess(false)" [disabled]="wordsToShow >= words.length">
+            Show {{ increment }} more
+        </button>
+        <button (click)="showAll(words.length)" [disabled]="wordsToShow >= words.length"
+                class="transparent">
+            Show All
+        </button>
+    </section>
+
+</ng-container>
+
+<ng-template #error>
+    <ow-error *ngIf="state === 'error' else loading">
+        <label>{{ errorMessage ?? 'no message available' }}</label>
+    </ow-error>
+</ng-template>
+
+<ng-template #loading>
+    <section class="loading">
+        <h5>Loading...</h5>
+    </section>
+</ng-template>

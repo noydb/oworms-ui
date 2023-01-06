@@ -1,0 +1,92 @@
+//Ï@use '../../style/_colour' as aa; WHY NO WORK?
+
+.title {
+    padding-bottom: 16px;
+    padding-left: .5rem;
+    text-align: center;
+}
+
+.profile {
+
+    section {
+        p:last-of-type {
+            margin-bottom: 1rem;
+        }
+    }
+
+    .column {
+        padding: .5rem;
+
+        span {
+            color: #35F29A;
+            font-size: 1.1rem;
+
+            &:last-of-type {
+                margin-left: .5rem;
+            }
+        }
+
+        h5 {
+            margin-bottom: 1rem;
+        }
+
+        ul {
+            overflow-y: scroll;
+            width: 100%;
+
+            li {
+                text-align: right;
+
+                &:not(last-of-type) {
+                    padding-bottom: .5rem;
+                }
+
+                h3 {
+                    margin-bottom: .3rem;
+                }
+
+                p {
+                    font-size: .8rem;
+                }
+            }
+        }
+    }
+
+}
+
+form {
+    width: 100%;
+
+    > fieldset {
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
+}
+
+.actions {
+    width: 100%;
+}
+
+@media screen and (min-width: 600px) {
+
+    .title {
+        text-align: left;
+    }
+
+    .profile {
+        display: flex;
+    }
+
+    .column {
+        width: 48%;
+
+        ul.words {
+            max-height: 300px;
+        }
+    }
+
+    .actions {
+        width: 25%;
+        margin: 2rem auto auto;
+    }
+}

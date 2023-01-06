@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, throwError } from 'rxjs';
-import { catchError, finalize, tap } from 'rxjs/operators';
+import { catchError, finalize, map, tap } from 'rxjs/operators';
 
 import { WordHttpService } from './word.http.service';
 
@@ -114,6 +114,10 @@ export class WordService {
     }
 
     getCount(): Observable<number> {
-        return this.wordCount$.asObservable();
+        return this.wordCount$
+        .asObservable()
+        .pipe(
+            map((value: number) => !value || isNaN(value) ? 0 : value)
+        );
     }
 }

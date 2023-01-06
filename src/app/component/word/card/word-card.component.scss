@@ -3,7 +3,9 @@
 
 li {
     width: 285px;
-    height: 200px;
+    min-height: 200px;
+    max-height: 200px;
+    overflow-y: scroll;
     padding: 1rem;
     margin: .5rem;
     box-shadow: 0 2px 4px -5px #101010;
@@ -13,6 +15,22 @@ li {
     color: #ffffff;
     border-radius: 4px;
     background-color: transparent;
+
+    span {
+        float: right;
+        width: 20px;
+        height: 20px;
+        border: 1px solid colour.$primary;
+        cursor: pointer;
+
+        &:hover {
+            opacity: .8;
+        }
+
+        &.liked {
+            background-color: colour.$primary;
+        }
+    }
 
     h5.mono {
         font-family: 'roboto-mono-medium', font.$default-font;
@@ -45,6 +63,7 @@ li {
 
         label {
             font-size: .6rem;
+            color: #907f7f;
         }
 
         &.date {

@@ -7,7 +7,7 @@
     width: 100%;
     border-radius: 6px;
     background-color: colour.$primary;
-    color: #ffffff;
+    color: #8f9699 !important;
     cursor: pointer;
     padding: .7rem;
     min-width: 160px;
@@ -18,8 +18,7 @@
     }
 
     &.fueled {
-        //border: 1px solid #ffffff;
-        color: #ffffff;
+        color: #ffffff !important;
     }
 
     .s-title {

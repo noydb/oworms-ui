@@ -1,29 +1,22 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { Observable, Subscription } from 'rxjs';
-import { filter } from 'rxjs/operators';
 
 import { AlertService } from '../../service/alert.service';
 
 import { Alert } from '../../model/alert.interface';
-
-import { AutoUnsubscribeComponent } from '../common/auto-unsubscribe.component';
 
 @Component({
     selector: 'ow-alerts',
     templateUrl: 'alert.component.html',
     styleUrls: ['./alert.component.scss']
 })
-export class AlertComponent extends AutoUnsubscribeComponent {
+export class AlertComponent {
 
-    show = false;
-    readonly alerts$: Observable<Alert[]>;
+    readonly alerts: Alert[] = [];
 
-    constructor(private readonly alertService: AlertService, private readonly router: Router) {
-        super();
-        this.alerts$ = this.alertService.getAll();
-
-        this.markForUnsub(this.listenForAlerts());
+    constructor(private readonly alertService: AlertService,
+                private readonly router: Router) {
+        this.alerts = this.alertService.alerts;
     }
 
     navigate({ path }: Alert): void {
@@ -36,21 +29,5 @@ export class AlertComponent extends AutoUnsubscribeComponent {
 
     remove(alert: Alert): void {
         this.alertService.remove(alert);
-    }
-
-    private listenForAlerts(): Subscription {
-        // probably a better way to do this
-        return this.alerts$
-        .pipe(
-            filter((alerts: Alert[]) => alerts?.length > 0)
-        )
-        .subscribe(() => {
-            this.show = true;
-
-            setTimeout(() => {
-                this.show = false;
-                this.alertService.removeAll();
-            }, 5000);
-        });
     }
 }

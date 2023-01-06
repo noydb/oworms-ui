@@ -1,11 +1,13 @@
-<article class="alerts" *ngIf="show">
-    <div *ngFor="let alert of (alerts$ | async) as alerts"
-         class="alert"
-         [class.error]="alert.error"
-         [class.navigatable]="alert.path"
-         role="dialog"
-         (click)="navigate(alert)">
-        <img alt="edit" src="/assets/image/icon-cross.svg" (click)="remove(alert)" />
-        <span>{{ alert.message }}</span>
-    </div>
+<article class="alerts">
+    <ng-container *ngFor="let alert of alerts">
+        <div
+            class="alert"
+            [class.error]="alert.error"
+            [class.navigatable]="alert.path"
+            role="dialog"
+            (click)="navigate(alert)">
+            <img alt="edit" src="/assets/image/icon-cross.svg" (click)="remove(alert)" />
+            <span>{{ alert.message }}</span>
+        </div>
+    </ng-container>
 </article>
