@@ -13,8 +13,8 @@
     </article>
 
     <section class="actions">
-        <button (click)="showMoreOrLess(true)" [disabled]="disableShowLess">Show {{ increment }} Less</button>
-        <button (click)="showMoreOrLess(false)">
+        <button (click)="showMoreOrLess(false)" [disabled]="disableShowLess">Show {{ increment }} Less</button>
+        <button (click)="showMoreOrLess(true)">
             Show {{ increment }} more
         </button>
         <button (click)="showAll(words.length)" [disabled]="wordsToShow >= words.length"
