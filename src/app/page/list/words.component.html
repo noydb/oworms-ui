@@ -17,8 +17,7 @@
         <button (click)="showMoreOrLess(true)">
             Show {{ increment }} more
         </button>
-        <button (click)="showAll(words.length)" [disabled]="wordsToShow >= words.length"
-                class="transparent">
+        <button (click)="showAll(words.length)" class="transparent" disabled>
             Show All
         </button>
     </section>

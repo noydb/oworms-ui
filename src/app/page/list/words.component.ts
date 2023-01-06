@@ -74,7 +74,7 @@ export class WordsComponent extends LoadComponent {
         .pipe(
             take(1),
             map((params: ParamMap) => {
-                return { numberOfWords: this.wordsToShow, ...params } as WordFilter;
+                return { ...params, numberOfWords: this.wordsToShow } as WordFilter;
             }),
             take(1)
         )
@@ -82,7 +82,7 @@ export class WordsComponent extends LoadComponent {
             next: (queryParams: WordFilter) => {
                 void this.router.navigate([], { relativeTo: this.route, queryParams });
             }
-        })
+        });
     }
 
     private getWords(): void {
@@ -96,7 +96,7 @@ export class WordsComponent extends LoadComponent {
                 filtering = FilterUtil.getFilterLabels(qParamsMap).length > 0;
 
                 return {
-                    numberOfWords: qParamsMap.get('numberOfWords') ?? this.wordsToShow,
+                    numberOfWords: this.wordsToShow,
                     word: qParamsMap.get('word'),
                     partsOfSpeech: qParamsMap.getAll('pos'),
                     definition: qParamsMap.get('definition'),
@@ -129,7 +129,6 @@ export class WordsComponent extends LoadComponent {
                 }
 
                 this.words = words;
-                this.wordsToShow = words.length < 25 ? words.length : 25;
             })
         )
         .subscribe();
