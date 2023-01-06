@@ -50,7 +50,7 @@ export class FilterComponent {
     }
 
     clearFilters(): void {
-        void this.router.navigate([], { relativeTo: this.route, queryParams: undefined });
+        void this.router.navigate([], { relativeTo: this.route, queryParams: { numberOfWords: 25 } });
     }
 
     openFilterModal(): void {
@@ -70,7 +70,7 @@ export class FilterComponent {
             debounceTime(600),
             tap((value: string) => {
                 if (!value || !value.trim()) {
-                    void this.router.navigate([], { relativeTo: this.route });
+                    void this.router.navigate([], { relativeTo: this.route, queryParamsHandling: 'merge' });
                     return;
                 }
 
@@ -78,7 +78,8 @@ export class FilterComponent {
                         relativeTo: this.route,
                         queryParams: {
                             word: value
-                        }
+                        },
+                        queryParamsHandling: 'merge'
                     }
                 );
             })
@@ -96,6 +97,8 @@ export class FilterComponent {
                 }
 
                 this.existingFilters = FilterUtil.getFilterLabels(qParamsMap);
+
+                this.ctrl.setValue(qParamsMap.get('word'));
             })
         )
         .subscribe();

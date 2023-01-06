@@ -35,6 +35,11 @@ export class WordsComponent extends LoadComponent {
                 readonly userService: UserService) {
         super();
 
+        void this.router.navigate(
+            [],
+            { relativeTo: this.route, queryParams: { numberOfWords: this.wordsToShow }, queryParamsHandling: 'merge' }
+        );
+
         this.getUser();
         this.getWords();
     }

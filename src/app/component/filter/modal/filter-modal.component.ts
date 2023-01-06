@@ -86,7 +86,7 @@ export class FilterModalComponent {
             queryParams.note = note;
         }
 
-        void this.router.navigate([], { relativeTo: this.route, queryParams });
+        void this.router.navigate([], { relativeTo: this.route, queryParams, queryParamsHandling: 'merge' });
         this.modalClosed.emit();
     }
 
