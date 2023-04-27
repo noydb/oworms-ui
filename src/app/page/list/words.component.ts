@@ -27,7 +27,7 @@ export class WordsComponent extends LoadComponent {
     increment: number = 6;
     wordFilter: WordFilter;
     user: User;
-    readonly wordsToShow$: Observable<number>;
+    wordsToShow: number;
     readonly isBusy$: Observable<boolean>;
 
     constructor(private readonly wordService: WordService,
@@ -39,7 +39,7 @@ export class WordsComponent extends LoadComponent {
         this.isBusy$ = wordService.isBusy();
         this.getUser();
         this.getWords();
-        this.wordsToShow$ = this.getNoOfWordsToShow();
+        this.getNoOfWordsToShow();
     }
 
     ngOnDestroy(): void {
@@ -145,20 +145,23 @@ export class WordsComponent extends LoadComponent {
         });
     }
 
-    private getNoOfWordsToShow(): Observable<number> {
-        return this.route
+    private getNoOfWordsToShow(): void {
+        this.route
             .queryParams
             .pipe(
                 distinctUntilChanged(),
                 map((params: Params) => params['size']),
                 map((size: string) => Number(size)),
-                map((size: number) => isNaN(size) ? 25 : size),
-                tap((size: number) => {
+                map((size: number) => isNaN(size) ? 25 : size)
+            )
+            .subscribe({
+                next: (size: number) => {
+                    this.wordsToShow  = size;
                     void this.router.navigate(
                         [],
                         { relativeTo: this.route, queryParams: { size }, queryParamsHandling: 'merge' }
                     );
-                })
-            )
+                }
+            });
     }
 }

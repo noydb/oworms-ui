@@ -4,15 +4,15 @@
 
 <ow-filter></ow-filter>
 
-<ng-container *ngIf="words && !loading; else error">
+<ng-container *ngIf="!(isBusy$ | async); else error">
 
     <section id="words">
-        <ow-word-card *ngFor="let word of words | chunkPipe: (wordsToShow$ | async)" [word]="word"></ow-word-card>
+        <ow-word-card *ngFor="let word of words | chunkPipe: wordsToShow" [word]="word"></ow-word-card>
     </section>
 
     <section class="actions">
         <button (click)="showMoreOrLess(false)"
-                [disabled]="increment > (wordsToShow$ | async)">
+                [disabled]="increment > wordsToShow">
             Show {{ increment }} Less
         </button>
         <button (click)="showMoreOrLess(true)">
