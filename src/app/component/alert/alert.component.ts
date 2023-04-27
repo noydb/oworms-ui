@@ -19,8 +19,10 @@ export class AlertComponent {
         this.alerts = this.alertService.alerts;
     }
 
-    navigate({ path }: Alert): void {
+    navigate(alert: Alert): void {
+        const path: string = alert.path;
         if (!path || path.trim() === '') {
+            this.remove(alert);
             return;
         }
 

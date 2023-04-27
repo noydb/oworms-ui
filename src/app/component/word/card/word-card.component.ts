@@ -1,36 +1,49 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, Input } from '@angular/core';
 import { Router } from '@angular/router';
-import { switchMap, take } from 'rxjs/operators';
+import { filter, map, take } from 'rxjs/operators';
 
 import { AlertService } from '../../../service/alert.service';
 import { UserService } from '../../../service/user.service';
 import { WordService } from '../../../service/word.service';
 
 import { AppRoutes } from '../../../util/app.routes';
+import { Unsubscribes } from '../../../util/auto-unsubscribe.directive';
 
 import { Word } from '../../../model/word.interface';
+import { User } from '../../../model/user.interface';
 
 @Component({
     selector: 'ow-word-card',
     templateUrl: './word-card.component.html',
     styleUrls: ['./word-card.component.scss']
 })
+@Unsubscribes()
 export class WordCardComponent {
 
     @Input()
     word: Word;
 
-    @Input()
-    likedWordUUIDs: string[] = [];
+    private likedWordUUIDs: string[] = [];
 
     constructor(private readonly router: Router,
                 private readonly wordService: WordService,
                 private readonly alertService: AlertService,
                 private readonly userService: UserService) {
+        this.userService
+            .getLoggedInUser()
+            .pipe(
+                filter((user: User) => !!user),
+                map(({ likedWords }: User) => likedWords.map((word: Word) => word.uuid))
+            )
+            .subscribe({
+                next: (likedWordUUIDs: string[]) => {
+                    this.likedWordUUIDs = likedWordUUIDs;
+                }
+            });
     }
 
-    get wordIsLiked(): boolean {
+    get isLiked(): boolean {
         return this.likedWordUUIDs?.includes(this.word.uuid);
     }
 
@@ -40,15 +53,14 @@ export class WordCardComponent {
 
         this.userService
             .likeWord(word.uuid)
-            .pipe(
-                take(1),
-                switchMap(() => this.userService.loadLoggedInUser(true)),
-                take(1)
-            )
+            .pipe(take(1))
             .subscribe({
                 next: () => {
-                    this.likedWordUUIDs.includes(word.uuid) ? this.alertService.add('unliked word successfully') :
-                        this.alertService.add('liked word successfully');
+                    if (this.isLiked) {
+                        this.alertService.add('liked word successfully')
+                    } else {
+                        this.alertService.add('unliked word successfully');
+                    }
                 },
                 error: (e: HttpErrorResponse) => {
                     this.alertService.add(e.error.message, true);

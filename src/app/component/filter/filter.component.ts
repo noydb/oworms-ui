@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { debounceTime, Observable, of } from 'rxjs';
@@ -26,18 +26,15 @@ export class FilterComponent {
     showModal = false;
     existingFilters: string[] = [];
 
-    @Output()
-    readonly showChange: EventEmitter<number> = new EventEmitter<number>();
-
     readonly ctrl: FormControl = new FormControl<string>('');
-    readonly wordCount$: Observable<number> = of(0);
+    readonly wordCount$: Observable<number>;
 
     constructor(private readonly tagService: TagService,
                 private readonly route: ActivatedRoute,
                 private readonly router: Router,
                 private readonly wordService: WordService) {
-        this.getQueryParams();
         this.wordCount$ = this.wordService.getCount();
+        this.getQueryParams();
         this.quickSearchFilter();
     }
 

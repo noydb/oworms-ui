@@ -7,11 +7,11 @@
 
     <section class="column">
         <h5>Word Statistics</h5>
-        <span>Liked: {{ profile?.likedWords?.length ?? 0 }}</span>
-        <span>Created: {{ profile?.createdWordCount ?? 0 }}</span>
+        <span>Liked: {{ existing?.likedWords?.length ?? 0 }}</span>
+        <span>Created: {{ existing?.createdWordCount ?? 0 }}</span>
 
         <ul class="words">
-            <li *ngFor="let word of profile?.likedWords">
+            <li *ngFor="let word of existing?.likedWords">
                 <h3>
                     {{ word.theWord }}
                 </h3>

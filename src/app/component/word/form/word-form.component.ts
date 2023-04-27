@@ -27,6 +27,7 @@ export class WordFormComponent implements OnInit {
         pronunciation: '',
         origin: '',
         exampleUsage: '',
+        discoveredAt: '',
         partOfSpeech: undefined,
         tags: undefined
     };
@@ -52,6 +53,7 @@ export class WordFormComponent implements OnInit {
         pronunciation: new FormControl(),
         origin: new FormControl(),
         exampleUsage: new FormControl(),
+        discoveredAt: new FormControl(),
         note: new FormControl()
     });
     posOptions: SelectOption[] = FilterUtil.getPartOfSpeechDropdownItems();
@@ -86,7 +88,15 @@ export class WordFormComponent implements OnInit {
             return;
         }
 
-        const { word: theWord, definition, pronunciation, origin, exampleUsage, note }: any = this.form.value;
+        const {
+            word: theWord,
+            definition,
+            pronunciation,
+            origin,
+            exampleUsage,
+            discoveredAt,
+            note
+        }: any = this.form.value;
 
         const word: Word = {
             theWord,
@@ -95,6 +105,7 @@ export class WordFormComponent implements OnInit {
             pronunciation,
             origin,
             exampleUsage,
+            discoveredAt,
             note,
             tagIds: this.selectedTags.map(({ value }: SelectOption) => value as number)
         };
@@ -117,6 +128,7 @@ export class WordFormComponent implements OnInit {
             pronunciation: new FormControl(this.word?.pronunciation),
             origin: new FormControl(this.word?.origin),
             exampleUsage: new FormControl(this.word?.exampleUsage),
+            discoveredAt: new FormControl(this.word?.discoveredAt),
             note: new FormControl(this.word?.note)
         });
 

@@ -16,19 +16,17 @@ li {
     border-radius: 4px;
     background-color: transparent;
 
-    span {
+    img {
         float: right;
-        width: 20px;
-        height: 20px;
-        border: 1px solid colour.$primary;
-        cursor: pointer;
+        width: 20%;
 
-        &:hover {
-            opacity: .8;
-        }
+        &.heart {
+            padding-left: 1rem;
+            width: 20%;
 
-        &.liked {
-            background-color: colour.$primary;
+            &.outlined {
+                width: 20%;
+            }
         }
     }
 
@@ -50,7 +48,7 @@ li {
     }
 
     &:hover {
-        background-color: #151617;
+        background-color: rgba(161, 161, 161, 0.06);
     }
 
     section {

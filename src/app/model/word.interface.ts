@@ -9,6 +9,7 @@ export interface Word {
     pronunciation?: string;
     origin?: string;
     exampleUsage?: string;
+    discoveredAt?: string;
     note?: string;
     tags?: Tag[];
     creationDate?: Date;

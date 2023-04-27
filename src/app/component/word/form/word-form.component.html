@@ -1,5 +1,6 @@
 <h5 class="title">{{ title }}</h5>
 <form [formGroup]="form">
+
     <div class="column">
         <fieldset>
             <input [required]="!viewOnly"
@@ -22,13 +23,18 @@
                       placeholder="definition"></textarea>
         </fieldset>
         <fieldset>
-            <textarea formControlName="origin" name="origin" placeholder="origin"></textarea>
+            <textarea formControlName="origin" name="origin" placeholder="origin" rows="7"></textarea>
         </fieldset>
     </div>
 
     <div class="column">
         <fieldset>
             <textarea formControlName="exampleUsage" name="exampleUsage" placeholder="example"></textarea>
+        </fieldset>
+        <fieldset>
+            <textarea formControlName="discoveredAt"
+                      name="discoveredAt"
+                      placeholder="Where did you first see/hear this word?"></textarea>
         </fieldset>
         <fieldset>
             <input formControlName="pronunciation" name="pronunciation" placeholder="pronunciation"/>
@@ -45,6 +51,7 @@
             <textarea formControlName="note" name="note" placeholder="note"></textarea>
         </fieldset>
     </div>
+
 </form>
 
 <div *ngIf="!viewOnly" class="actions">

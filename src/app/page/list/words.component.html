@@ -2,22 +2,23 @@
     <ow-random-top></ow-random-top>
 </ow-hero>
 
-<ow-filter (showChange)="chunkChanged($event, 0)"></ow-filter>
+<ow-filter></ow-filter>
 
-<ng-container *ngIf="words?.length > 0; else error">
+<ng-container>
 
-    <article class="words">
-        <ow-word-card *ngFor="let word of words | chunkPipe: wordsToShow"
-                      [word]="word"
-                      [likedWordUUIDs]="user?.likedWordUUIDs"></ow-word-card>
-    </article>
+    <section id="words">
+        <ow-word-card *ngFor="let word of words | chunkPipe: (wordsToShow$ | async)" [word]="word"></ow-word-card>
+    </section>
 
     <section class="actions">
-        <button (click)="showMoreOrLess(false)" [disabled]="disableShowLess">Show {{ increment }} Less</button>
+        <button (click)="showMoreOrLess(false)"
+                [disabled]="increment > (wordsToShow$ | async)">
+            Show {{ increment }} Less
+        </button>
         <button (click)="showMoreOrLess(true)">
             Show {{ increment }} more
         </button>
-        <button (click)="showAll(words.length)" class="transparent" disabled>
+        <button (click)="showAll()" class="transparent">
             Show All
         </button>
     </section>
