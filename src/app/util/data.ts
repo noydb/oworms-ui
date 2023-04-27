@@ -21,8 +21,9 @@ export const MENU_ITEMS: MenuItem[] = [
 ];
 
 export const RESPONSIVE_MENU_ITEMS: MenuItem[] = [
-    { name: 'home', path: AppRoutes.ALL },
     { name: 'about', path: AppRoutes.ABOUT },
-    { name: 'statistics', path: AppRoutes.STATS },
-    { name: 'my profile', path: AppRoutes.PROFILE }
+    { name: 'add', path: AppRoutes.ADD },
+    { name: 'home', path: AppRoutes.ALL },
+    { name: 'my profile', path: AppRoutes.PROFILE },
+    { name: 'statistics', path: AppRoutes.STATS }
 ];

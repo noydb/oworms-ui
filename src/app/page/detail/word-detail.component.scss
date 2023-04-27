@@ -31,13 +31,15 @@ article {
             #actions {
                 display: flex;
                 align-items: center;
+                justify-content: flex-end;
                 @include mxn.svg-hover;
 
                 img {
-                    width: 40%;
+                    width: 35%;
 
                     &.heart {
                         width: 27%;
+                        margin-left: .3rem;
 
                         &.outlined {
                             width: 20%;
@@ -85,7 +87,7 @@ article {
 
         #note {
             padding-bottom: 2rem;
-            padding-top: 1.5rem;
+            padding-top: 1rem;
 
             p {
                 white-space: pre-wrap;
@@ -102,7 +104,7 @@ article {
         display: flex;
         justify-content: space-between;
         flex-wrap: wrap;
-        padding: 30px .5rem 1rem;
+        padding: 2rem 1rem 3rem 1rem;
 
         .column {
             .pair {

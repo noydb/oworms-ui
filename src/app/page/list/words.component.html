@@ -4,35 +4,27 @@
 
 <ow-filter></ow-filter>
 
-<ng-container *ngIf="!(isBusy$ | async); else error">
+<section id="words" *ngIf="state !== 'error'; else error">
+    <ow-word-card *ngFor="let word of words | chunkPipe: wordsToShow" [word]="word"></ow-word-card>
+</section>
 
-    <section id="words">
-        <ow-word-card *ngFor="let word of words | chunkPipe: wordsToShow" [word]="word"></ow-word-card>
-    </section>
-
-    <section class="actions">
-        <button (click)="showMoreOrLess(false)"
-                [disabled]="increment > wordsToShow">
-            Show {{ increment }} Less
-        </button>
-        <button (click)="showMoreOrLess(true)">
-            Show {{ increment }} more
-        </button>
-        <button (click)="showAll()" class="transparent">
-            Show All
-        </button>
-    </section>
-
-</ng-container>
+<section id="actions">
+    <button class="transparent"
+            (click)="showMoreOrLess(false)"
+            [disabled]="increment > wordsToShow">
+        Show {{ increment }} Less
+    </button>
+    <button class="transparent below"
+            (click)="showMoreOrLess(true)">
+        Show {{ increment }} more
+    </button>
+    <button (click)="showAll()" class="below">
+        Show All
+    </button>
+</section>
 
 <ng-template #error>
-    <ow-error *ngIf="state === 'error' else loading">
-        <label>{{ errorMessage ?? 'no message available' }}</label>
+    <ow-error>
+        <label>{{ errorMessage ?? 'No error message available' }}</label>
     </ow-error>
-</ng-template>
-
-<ng-template #loading>
-    <section class="loading">
-        <h5>Loading...</h5>
-    </section>
 </ng-template>

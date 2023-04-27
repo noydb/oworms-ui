@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, ParamMap, Params, Router } from '@angular/router';
-import { distinctUntilChanged, Observable, of } from 'rxjs';
+import { distinctUntilChanged, of } from 'rxjs';
 import { catchError, filter, map, switchMap, take, tap } from 'rxjs/operators';
 
 import { UserService } from '../../service/user.service';
@@ -28,7 +28,6 @@ export class WordsComponent extends LoadComponent {
     wordFilter: WordFilter;
     user: User;
     wordsToShow: number;
-    readonly isBusy$: Observable<boolean>;
 
     constructor(private readonly wordService: WordService,
                 private readonly route: ActivatedRoute,
@@ -36,7 +35,6 @@ export class WordsComponent extends LoadComponent {
                 readonly userService: UserService) {
         super();
 
-        this.isBusy$ = wordService.isBusy();
         this.getUser();
         this.getWords();
         this.getNoOfWordsToShow();

@@ -6,7 +6,7 @@
         <img alt="oworms logo" src="/assets/image/logo.svg" routerLink="/o/worms/all">
         <img src="/assets/image/burger-menu.svg" (click)="expandMenu = true" alt="A burger menu svg icon"/>
     </section>
-    <nav *ngIf="expandMenu" id="responsive-menu">
+    <nav id="responsive-menu" [class.show]="expandMenu">
         <img alt="oworms logo" src="/assets/image/logo.svg">
 
         <li (click)="navigate(item)" *ngFor="let item of responsiveItems" class="item">
@@ -17,10 +17,6 @@
         </a>
 
         <div>
-            <button routerLink="/o/worms/new" (click)="expandMenu = false" class="icon">
-                <img alt="plus icon" src="/assets/image/icon-plus.svg">
-                add
-            </button>
             <button (click)="navigateToRandom()" class="icon below">
                 <img alt="shuffle icon" src="/assets/image/icon-shuffle.svg">
                 random

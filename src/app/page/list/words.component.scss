@@ -14,7 +14,7 @@
     overflow-y: hidden;
 }
 
-.actions {
+#actions {
     display: flex;
     justify-content: center;
     padding-top: 2rem;
@@ -37,25 +37,17 @@
 }
 
 @media screen and (min-width: 600px) {
-    #words {
-        // TODO
-        //background-image: url('/assets/image/bg-bottom.png');
-
-        .filter {
-            width: auto;
-        }
-    }
-
-    .actions {
+    #actions {
         margin-left: 10%;
         margin-right: 10%;
     }
 }
 
 @media screen and (max-width: 600px) {
-    .actions {
+    #actions {
         width: 100%;
         flex-wrap: wrap;
+        padding: 2rem;
 
         > button {
             width: 100%;
