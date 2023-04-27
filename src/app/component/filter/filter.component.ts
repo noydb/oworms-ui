@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { debounceTime, Observable, of } from 'rxjs';
@@ -26,18 +26,15 @@ export class FilterComponent {
     showModal = false;
     existingFilters: string[] = [];
 
-    @Output()
-    readonly showChange: EventEmitter<number> = new EventEmitter<number>();
-
     readonly ctrl: FormControl = new FormControl<string>('');
-    readonly wordCount$: Observable<number> = of(0);
+    readonly wordCount$: Observable<number>;
 
     constructor(private readonly tagService: TagService,
                 private readonly route: ActivatedRoute,
                 private readonly router: Router,
                 private readonly wordService: WordService) {
-        this.getQueryParams();
         this.wordCount$ = this.wordService.getCount();
+        this.getQueryParams();
         this.quickSearchFilter();
     }
 
@@ -50,44 +47,57 @@ export class FilterComponent {
     }
 
     clearFilters(): void {
-        void this.router.navigate([], { relativeTo: this.route, queryParams: undefined });
+        void this.router.navigate([], { relativeTo: this.route, queryParams: { numberOfWords: 25 } });
+    }
+
+    openFilterModal(): void {
+        window.scroll({
+            top: 0,
+            left: 0,
+            behavior: 'smooth'
+        });
+
+        this.showModal = true;
     }
 
     private quickSearchFilter(): void {
         this.ctrl
-            .valueChanges
-            .pipe(
-                debounceTime(600),
-                tap((value: string) => {
-                    if (!value || !value.trim()) {
-                        void this.router.navigate([], { relativeTo: this.route });
-                        return;
-                    }
+        .valueChanges
+        .pipe(
+            debounceTime(600),
+            tap((value: string) => {
+                if (!value || !value.trim()) {
+                    void this.router.navigate([], { relativeTo: this.route, queryParamsHandling: 'merge' });
+                    return;
+                }
 
-                    void this.router.navigate([], {
-                            relativeTo: this.route,
-                            queryParams: {
-                                word: value
-                            }
-                        }
-                    );
-                })
-            )
-            .subscribe();
+                void this.router.navigate([], {
+                        relativeTo: this.route,
+                        queryParams: {
+                            word: value
+                        },
+                        queryParamsHandling: 'merge'
+                    }
+                );
+            })
+        )
+        .subscribe();
     }
 
     private getQueryParams(): void {
         this.route
-            .queryParamMap
-            .pipe(
-                tap((qParamsMap: ParamMap) => {
-                    if (qParamsMap.get('filter')) {
-                        this.showModal = true;
-                    }
+        .queryParamMap
+        .pipe(
+            tap((qParamsMap: ParamMap) => {
+                if (qParamsMap.get('filter')) {
+                    this.showModal = true;
+                }
 
-                    this.existingFilters = FilterUtil.getFilterLabels(qParamsMap);
-                })
-            )
-            .subscribe();
+                this.existingFilters = FilterUtil.getFilterLabels(qParamsMap);
+
+                this.ctrl.setValue(qParamsMap.get('word'));
+            })
+        )
+        .subscribe();
     }
 }

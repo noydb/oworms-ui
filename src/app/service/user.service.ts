@@ -16,12 +16,25 @@ export class UserService {
 
     constructor(private readonly userHttp: UserHttpService) {
         this.loadLoggedInUser()
-            .pipe(take(1))
-            .subscribe({
-                next: (user: User) => {
-                    this.user$.next(user);
-                }
-            });
+        .pipe(take(1))
+        .subscribe({
+            next: (user: User) => {
+                this.user$.next(user);
+            }
+        });
+    }
+
+    login(u: string, p: string): Observable<User> {
+        this.busy$.next(true);
+
+        return this.userHttp
+        .retrieve(u, p)
+        .pipe(
+            take(1),
+            finalize(() => {
+                this.busy$.next(false);
+            })
+        );
     }
 
     loadLoggedInUser(forceReload: boolean = false): Observable<User> {
@@ -32,16 +45,16 @@ export class UserService {
         this.busy$.next(true);
 
         return this.userHttp
-            .retrieve()
-            .pipe(
-                take(1),
-                tap((user: User) => {
-                    this.user$.next(user);
-                }),
-                finalize(() => {
-                    this.busy$.next(false);
-                })
-            );
+        .retrieve()
+        .pipe(
+            take(1),
+            tap((user: User) => {
+                this.user$.next(user);
+            }),
+            finalize(() => {
+                this.busy$.next(false);
+            })
+        );
     }
 
     getLoggedInUser(): Observable<User> {
@@ -52,24 +65,28 @@ export class UserService {
         this.busy$.next(true);
 
         return this.userHttp
-            .update(user)
-            .pipe(
-                switchMap(() => this.loadLoggedInUser(true)),
-                take(1),
-                finalize(() => {
-                    this.busy$.next(false);
-                })
-            );
+        .update(user)
+        .pipe(
+            switchMap(() => this.loadLoggedInUser(true)),
+            take(1),
+            finalize(() => {
+                this.busy$.next(false);
+            })
+        );
     }
 
-    login(u: string, p: string): Observable<User> {
+    likeWord(wordUUID: string): Observable<User> {
+        this.busy$.next(true);
+
         return this.userHttp
-            .retrieve(u, p)
-            .pipe(
-                take(1),
-                finalize(() => {
-                    this.busy$.next(false);
-                })
-            );
+        .likeWord(wordUUID)
+        .pipe(
+            take(1),
+            switchMap(() => this.loadLoggedInUser(true)),
+            take(1),
+            finalize(() => {
+                this.busy$.next(false);
+            })
+        );
     }
 }

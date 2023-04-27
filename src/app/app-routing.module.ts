@@ -3,6 +3,8 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { AppRoutes } from './util/app.routes';
 
+import { LoggedInGuard } from './guard/logged-in.guard';
+
 import { AboutComponent } from './page/about/about.component';
 import { CredentialsComponent } from './page/credentials/credentials.component';
 import { ProfileComponent } from './page/profile/profile.component';
@@ -26,12 +28,13 @@ const routes: Routes = [
     {
         path: AppRoutes.ADD,
         component: WordAddComponent,
-        title: 'new - oworms'
+        title: 'new - oworms',
+        canActivate: [LoggedInGuard]
     },
     {
         path: AppRoutes.CREDENTIAL,
         component: CredentialsComponent,
-        title: 'enter credentials - oworms'
+        title: 'halt - oworms'
     },
     {
         path: AppRoutes.DETAIL,
@@ -39,7 +42,8 @@ const routes: Routes = [
     },
     {
         path: AppRoutes.EDIT,
-        component: WordEditComponent
+        component: WordEditComponent,
+        canActivate: [LoggedInGuard]
     },
     {
         path: AppRoutes.ALL,
@@ -54,7 +58,8 @@ const routes: Routes = [
     {
         path: AppRoutes.PROFILE,
         component: ProfileComponent,
-        title: 'my profile - oworms'
+        title: 'my profile - oworms',
+        canActivate: [LoggedInGuard]
     },
 
 ];

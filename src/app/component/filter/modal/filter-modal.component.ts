@@ -86,7 +86,7 @@ export class FilterModalComponent {
             queryParams.note = note;
         }
 
-        void this.router.navigate([], { relativeTo: this.route, queryParams });
+        void this.router.navigate([], { relativeTo: this.route, queryParams, queryParamsHandling: 'merge' });
         this.modalClosed.emit();
     }
 
@@ -113,17 +113,17 @@ export class FilterModalComponent {
                         partsOfSpeech: qParamsMap.getAll('pos'),
                         definition: qParamsMap.get('definition'),
                         origin: qParamsMap.get('origin'),
-                        exampleUsage: qParamsMap.get('example'),
+                        example: qParamsMap.get('example'),
                         note: qParamsMap.get('note'),
                         tags: qParamsMap.getAll('tags')
                     } as WordFilter;
                 }),
-                tap(({ word, definition, origin, exampleUsage, note, partsOfSpeech }: WordFilter) => {
+                tap(({ word, definition, origin, example, note, partsOfSpeech }: WordFilter) => {
                     this.form = new FormGroup({
                         word: new FormControl(word),
                         definition: new FormControl(definition),
                         origin: new FormControl(origin),
-                        example: new FormControl(exampleUsage),
+                        example: new FormControl(example),
                         note: new FormControl(note)
                     });
                     this.setSelectedPos(partsOfSpeech);

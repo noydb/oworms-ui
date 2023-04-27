@@ -4,7 +4,6 @@ import { Router } from '@angular/router';
 import { finalize, take } from 'rxjs/operators';
 
 import { AlertService } from '../../../service/alert.service';
-import { UserService } from '../../../service/user.service';
 import { WordService } from '../../../service/word.service';
 
 import { AppRoutes } from '../../../util/app.routes';
@@ -13,7 +12,6 @@ import { ErrorUtil } from '../../../util/error.util';
 import { FileUtil } from '../../../util/file.util';
 
 import { MenuItem } from '../../../model/menu-item.interface';
-import { User } from '../../../model/user.interface';
 import { Word } from '../../../model/word.interface';
 
 @Component({
@@ -28,8 +26,7 @@ export class TopComponent {
 
     constructor(private readonly router: Router,
                 private readonly wordService: WordService,
-                private readonly alertService: AlertService,
-                private readonly userService: UserService) {
+                private readonly alertService: AlertService) {
     }
 
     get showBurger(): boolean {
@@ -79,22 +76,9 @@ export class TopComponent {
             });
     }
 
-    // TODO: convert to guard
     navToProfile(): void {
         this.expandMenu = false;
 
-        this.userService
-            .loadLoggedInUser()
-            .pipe(take(1))
-            .subscribe({
-                next: (_: User) => {
-                    void this.router.navigate([AppRoutes.PROFILE]);
-                },
-                error: (e: HttpErrorResponse) => {
-                    if (e.status === 403) {
-                        void this.router.navigate([AppRoutes.CREDENTIAL]);
-                    }
-                }
-            });
+        void this.router.navigate([AppRoutes.PROFILE]);
     }
 }

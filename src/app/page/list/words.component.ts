@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
-import { ActivatedRoute, ParamMap, Router } from '@angular/router';
-import { of } from 'rxjs';
-import { catchError, filter, map, switchMap, tap } from 'rxjs/operators';
+import { ActivatedRoute, ParamMap, Params, Router } from '@angular/router';
+import { distinctUntilChanged, Observable, of } from 'rxjs';
+import { catchError, filter, map, switchMap, take, tap } from 'rxjs/operators';
 
 import { UserService } from '../../service/user.service';
 import { WordService } from '../../service/word.service';
@@ -24,10 +24,10 @@ import { LoadComponent } from '../../component/common/spinner/load.component';
 export class WordsComponent extends LoadComponent {
 
     words: Word[];
-    wordsToShow: number = 25;
     increment: number = 6;
     wordFilter: WordFilter;
     user: User;
+    readonly wordsToShow$: Observable<number>;
 
     constructor(private readonly wordService: WordService,
                 private readonly route: ActivatedRoute,
@@ -37,50 +37,46 @@ export class WordsComponent extends LoadComponent {
 
         this.getUser();
         this.getWords();
-    }
-
-    get disableShowLess(): boolean {
-        return this.increment > this.wordsToShow;
+        this.wordsToShow$ = this.getNoOfWordsToShow();
     }
 
     ngOnDestroy(): void {
         void this.router.navigate([], { relativeTo: this.route, queryParams: {} });
     }
 
-    chunkChanged($event: number, numberOfWords: number): void {
-        // show all was selected
-        if ($event === 0) {
-            this.wordsToShow = numberOfWords;
-
-            return;
-        }
-
-        this.increment = $event;
-    }
-
-    showAll(numberOfWords: number): void {
-        this.wordsToShow = numberOfWords;
-    }
-
-    showMore(): void {
-        this.wordsToShow += this.increment;
-    }
-
-    showLess(): void {
-        this.wordsToShow -= this.increment;
-    }
-
-    private getUser(): void {
-        this.userService
-            .getLoggedInUser()
+    showAll(): void {
+        this.route
+            .queryParams
             .pipe(
-                filter((user: User) => !!user)
+                take(1),
+                map((params: ParamMap) => ({ ...params, size: 2000 })),
+                take(1)
             )
             .subscribe({
-                next: (user: User) => {
-                    this.user = user;
+                next: (queryParams: WordFilter) => {
+                    void this.router.navigate([], { relativeTo: this.route, queryParams });
                 }
             });
+    }
+
+    showMoreOrLess(showMore: boolean): void {
+        this.route
+        .queryParams
+        .pipe(
+            take(1),
+            map((params: ParamMap) => {
+                const currentSize: number = Number(params['size']);
+                const size = showMore ? this.increment + currentSize : currentSize - this.increment;
+
+                return { ...params, size };
+            }),
+            take(1)
+        )
+        .subscribe({
+            next: (queryParams: WordFilter) => {
+                void this.router.navigate([], { relativeTo: this.route, queryParams });
+            }
+        });
     }
 
     private getWords(): void {
@@ -88,47 +84,79 @@ export class WordsComponent extends LoadComponent {
         let filtering: boolean = false;
 
         this.route
-            .queryParamMap
+        .queryParamMap
+        .pipe(
+            distinctUntilChanged(),
+            map((qParamsMap: ParamMap) => {
+                filtering = FilterUtil.getFilterLabels(qParamsMap).length > 0;
+                const size: number = Number(qParamsMap.get('size'));
+
+                return {
+                    word: qParamsMap.get('word'),
+                    partsOfSpeech: qParamsMap.getAll('pos'),
+                    definition: qParamsMap.get('definition'),
+                    origin: qParamsMap.get('origin'),
+                    example: qParamsMap.get('example'),
+                    tags: qParamsMap.getAll('tags'),
+                    note: qParamsMap.get('note'),
+                    size: isNaN(size) ? 25 : size
+                } as WordFilter;
+            }),
+            tap((wordFilter: WordFilter) => {
+                this.state = 'complete';
+                this.wordFilter = wordFilter;
+            }),
+            switchMap((wordFilter: WordFilter) =>
+                this.wordService
+                .retrieveAll(wordFilter)
+                .pipe(
+                    catchError((e: any) => {
+                        this.errorMessage = ErrorUtil.getMessage(e);
+                        this.state = 'error';
+                        this.words = [];
+
+                        return of([]);
+                    })
+                )
+            ),
+            tap((words: Word[]) => {
+                if (words.length === 1 && filtering) {
+                    void this.router.navigate([AppRoutes.getDetail(words[0].uuid)]);
+                }
+
+                this.words = words;
+            })
+        )
+        .subscribe();
+    }
+
+    private getUser(): void {
+        this.userService
+        .getLoggedInUser()
+        .pipe(
+            filter((user: User) => !!user)
+        )
+        .subscribe({
+            next: (user: User) => {
+                this.user = user;
+            }
+        });
+    }
+
+    private getNoOfWordsToShow(): Observable<number> {
+        return this.route
+            .queryParams
             .pipe(
-                map((qParamsMap: ParamMap) => {
-                    filtering = FilterUtil.getFilterLabels(qParamsMap).length > 0;
-
-                    return {
-                        word: qParamsMap.get('word'),
-                        partsOfSpeech: qParamsMap.getAll('pos'),
-                        definition: qParamsMap.get('definition'),
-                        origin: qParamsMap.get('origin'),
-                        exampleUsage: qParamsMap.get('example'),
-                        tags: qParamsMap.getAll('tags'),
-                        note: qParamsMap.get('note')
-                    } as WordFilter;
-                }),
-                tap((wordFilter: WordFilter) => {
-                    this.state = 'complete';
-                    this.wordFilter = wordFilter;
-                }),
-                switchMap((wordFilter: WordFilter) =>
-                    this.wordService
-                        .retrieveAll(wordFilter)
-                        .pipe(
-                            catchError((e: any) => {
-                                this.errorMessage = ErrorUtil.getMessage(e);
-                                this.state = 'error';
-                                this.words = [];
-
-                                return of([]);
-                            })
-                        )
-                ),
-                tap((words: Word[]) => {
-                    if (words.length === 1 && filtering) {
-                        void this.router.navigate([AppRoutes.getDetail(words[0].uuid)]);
-                    }
-
-                    this.words = words;
-                    this.wordsToShow = words.length < 25 ? words.length : 25;
+                distinctUntilChanged(),
+                map((params: Params) => params['size']),
+                map((size: string) => Number(size)),
+                map((size: number) => isNaN(size) ? 25 : size),
+                tap((size: number) => {
+                    void this.router.navigate(
+                        [],
+                        { relativeTo: this.route, queryParams: { size }, queryParamsHandling: 'merge' }
+                    );
                 })
             )
-            .subscribe();
     }
 }

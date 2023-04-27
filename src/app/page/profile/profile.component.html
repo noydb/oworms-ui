@@ -7,11 +7,11 @@
 
     <section class="column">
         <h5>Word Statistics</h5>
-        <span>Liked: {{ likedWords?.length ?? 0 }}</span>
-        <span>Created: {{ wordsCreated ?? 0 }}</span>
+        <span>Liked: {{ existing?.likedWords?.length ?? 0 }}</span>
+        <span>Created: {{ existing?.createdWordCount ?? 0 }}</span>
 
         <ul class="words">
-            <li *ngFor="let word of likedWords">
+            <li *ngFor="let word of existing?.likedWords">
                 <h3>
                     {{ word.theWord }}
                 </h3>
@@ -25,10 +25,10 @@
         <h5 class="user-details">User Details</h5>
         <form [formGroup]="form">
             <fieldset>
-                <input formControlName="username" name="username" placeholder="username"/>
+                <input formControlName="username" name="username" placeholder="username" />
             </fieldset>
             <fieldset>
-                <input formControlName="email" name="email" placeholder="email" type="email"/>
+                <input formControlName="email" name="email" placeholder="email" type="email" />
             </fieldset>
         </form>
 

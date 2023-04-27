@@ -3,9 +3,10 @@ export interface WordFilter {
     partsOfSpeech?: string[];
     definition?: string;
     origin?: string;
-    exampleUsage?: string;
+    example?: string;
     tags?: string[];
     note?: string;
     uuids?: string[];
     createdBy?: string;
+    size: number;
 }

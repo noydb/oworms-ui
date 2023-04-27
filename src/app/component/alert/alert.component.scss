@@ -10,16 +10,17 @@
     justify-content: center;
 
     .alert {
+        position: relative;
         z-index: 10000;
-        width: 40%;
+        width: 50%;
         display: flex;
         justify-content: center;
         align-items: center;
-        background-color: #3d3737;
-        border-color: #3d3737;
+        background-color: #25571a;
         overflow: hidden;
         padding: 1rem;
-        @include mxn.svg-hover;
+        font-size: .9rem;
+        transition: all .2s ease-in;
 
         img {
             margin-left: .5rem;
@@ -30,11 +31,9 @@
             background-color: colour.$error;
         }
 
-        &.navigatable {
-            &:hover {
-                cursor: pointer;
-                opacity: .8;
-            }
+        &:hover {
+            cursor: pointer;
+            opacity: .8;
         }
 
         &:not(:only-child) {
