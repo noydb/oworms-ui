@@ -1,20 +1,13 @@
 //Ï@use '../../style/_colour' as aa; WHY NO WORK?
 
-.title {
-    padding-bottom: 16px;
-    padding-left: .5rem;
+#title {
+    padding: 1rem;
     text-align: center;
 }
 
-.profile {
+article {
 
     section {
-        p:last-of-type {
-            margin-bottom: 1rem;
-        }
-    }
-
-    .column {
         padding: .5rem;
 
         span {
@@ -35,10 +28,14 @@
             width: 100%;
 
             li {
-                text-align: right;
+                & {
+                    margin-bottom: 1rem;
+                    transition: all .3s ease-in;
+                }
 
-                &:not(last-of-type) {
-                    padding-bottom: .5rem;
+                &:hover {
+                    cursor: pointer;
+                    opacity: .8;
                 }
 
                 h3 {
@@ -47,11 +44,14 @@
 
                 p {
                     font-size: .8rem;
+
+                    &:last-of-type {
+                        margin-bottom: 1rem;
+                    }
                 }
             }
         }
     }
-
 }
 
 form {
@@ -63,30 +63,31 @@ form {
     }
 }
 
-.actions {
+#actions {
     width: 100%;
+    padding: 1rem;
 }
 
 @media screen and (min-width: 600px) {
 
-    .title {
+    #title {
         text-align: left;
     }
 
-    .profile {
+    article {
         display: flex;
     }
 
-    .column {
+    section {
         width: 48%;
 
-        ul.words {
+        ul {
             max-height: 300px;
         }
-    }
 
-    .actions {
-        width: 25%;
-        margin: 2rem auto auto;
+        #actions {
+            width: 70%;
+            margin: 2rem auto auto;
+        }
     }
 }

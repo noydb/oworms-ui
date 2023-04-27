@@ -34,6 +34,34 @@ export class TopComponent {
         return window.innerWidth < 920;
     }
 
+    navigateToAdd(): void {
+        void this.router.navigate([AppRoutes.ADD]);
+    }
+
+    navigate(item: MenuItem): void {
+        this.expandMenu = false;
+
+        if (item.name === 'random') {
+            this.navigateToRandom();
+            return;
+        }
+
+        void this.router.navigate(
+            [item.path],
+            { queryParams: item.filter ? { filter: item.filter } : undefined }
+        );
+    }
+
+    getCSV(): void {
+        this.wordService
+            .getCSV()
+            .pipe(take(1))
+            .subscribe({
+                next: (response: any) => FileUtil.downloadFile(response),
+                error: (e: HttpErrorResponse) => this.alertService.add(ErrorUtil.getMessage(e), true)
+            });
+    }
+
     navigateToRandom(): void {
         this.wordService
             .retrieveRandom()
@@ -52,28 +80,5 @@ export class TopComponent {
                 }
             });
 
-    }
-
-    navigateToAdd(): void {
-        void this.router.navigate([AppRoutes.ADD]);
-    }
-
-    navigate(item: MenuItem): void {
-        this.expandMenu = false;
-
-        void this.router.navigate(
-            [item.path],
-            { queryParams: item.filter ? { filter: item.filter } : undefined }
-        );
-    }
-
-    getCSV(): void {
-        this.wordService
-            .getCSV()
-            .pipe(take(1))
-            .subscribe({
-                next: (response: any) => FileUtil.downloadFile(response),
-                error: (e: HttpErrorResponse) => this.alertService.add(ErrorUtil.getMessage(e), true)
-            });
     }
 }

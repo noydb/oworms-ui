@@ -7,21 +7,17 @@
         <img src="/assets/image/burger-menu.svg" (click)="expandMenu = true" alt="A burger menu svg icon"/>
     </section>
     <nav id="responsive-menu" [class.show]="expandMenu">
-        <img alt="oworms logo" src="/assets/image/logo.svg">
-
+        <div>
+            <img alt="oworms logo" src="/assets/image/logo.svg" routerLink="/o/worms/all" (click)="expandMenu = false">
+        </div>
         <li (click)="navigate(item)" *ngFor="let item of responsiveItems" class="item">
             <span>{{ item.name }}</span>
         </li>
         <a href="https://oworms-api.herokuapp.com/swagger-ui/" target="_blank" class="item">
             api
         </a>
-
         <div>
-            <button (click)="navigateToRandom()" class="icon below">
-                <img alt="shuffle icon" src="/assets/image/icon-shuffle.svg">
-                random
-            </button>
-            <button class="transparent below" (click)="expandMenu = false">Close</button>
+            <img alt="A close (X) icon" src="/assets/image/close-icon.svg" (click)="expandMenu = false">
         </div>
     </nav>
 
@@ -56,7 +52,7 @@
             add
         </button>
 
-        <img src="/assets/image/user.png" alt="user icon" routerLink="/o/profile" class="profile">
+        <img src="/assets/image/user.png" alt="user icon" routerLink="/o/profile">
     </section>
 
 </header>
