@@ -3,66 +3,83 @@
 </ow-hero>
 
 <article *ngIf="word$ | async as word; else error" class="word">
-    <section class="detail">
+    <section id="main-detail">
 
-        <div class="top">
+        <div id="top">
             <h2 class="mono">{{word.theWord}}</h2>
-            <div class="actions">
+            <div id="actions">
                 <img alt="pencil in a circle with pink background"
                      src="/assets/image/pencil-circled.svg"
                      (click)="edit(word)"/>
-                <img alt="synonyms" src="/assets/image/plus-circled.svg"/>
-                <span (click)="likeWord($event, word)" [class.liked]="isLiked"></span>
+                <img alt="a white plus icon with a circular purple background"
+                     src="/assets/image/plus-circled.svg"/>
+
+                <img *ngIf="isLiked; else notLiked"
+                     [alt]="'a white, filled heart'"
+                     src="/assets/image/heart-filled.svg"
+                     class="heart"
+                     (click)="likeWord($event, word)"/>
+                <ng-template #notLiked>
+                    <img [alt]="'a white, outlined heart'"
+                         src="/assets/image/heart.svg"
+                         class="heart outlined"
+                         (click)="likeWord($event, word)"/>
+                </ng-template>
             </div>
         </div>
 
-        <p class="def">{{ word.definition }}</p>
-        <p>{{ word.partOfSpeech }}</p>
+        <p id="definition">{{ word.definition }}</p>
+        <p id="part-of-speech">{{ word.partOfSpeech }}</p>
         <div class="pair">
-            <label>Origin:&nbsp;</label>
-            <!-- <p>{{ word?.origin ?? 'N/A' }}</p> this should work...-->
+            <span>Pronunciation:&nbsp;</span>
+            <p>{{word.pronunciation ? word.pronunciation : 'N/A' }}</p>
+        </div>
+        <div class="pair">
+            <span>Origin:&nbsp;</span>
             <p>{{ word?.origin ? word.origin : 'N/A' }}</p>
         </div>
         <div class="pair">
-            <label>Example:&nbsp;</label>
+            <span>Example:&nbsp;</span>
             <p>{{word.exampleUsage ? word.exampleUsage : 'N/A' }}</p>
         </div>
         <div class="pair">
-            <label>Pronunciation:&nbsp;</label>
-            <p>{{word.pronunciation ? word.pronunciation : 'N/A' }}</p>
+            <span>Discovered At:&nbsp;</span>
+            <p>{{word.discoveredAt ? word.discoveredAt : 'N/A' }}</p>
         </div>
-        <div class="tags">
-            <label>Associated Tags</label>
+        <div id="tags">
+            <span>Associated Tags</span>
             <ow-tags [sTags]="tags"></ow-tags>
         </div>
-        <div class="synonyms">
-            <label>Synonyms</label>
+        <div id="synonyms">
+            <span>Synonyms</span>
             <ow-tags [sTags]="[]"></ow-tags>
         </div>
-        <div class="pair">
-            <label>Note:&nbsp;</label>
-            <p class="note">{{word.note ? word.note : 'N/A' }}</p>
+        <div id="note">
+            <span>Note</span>
+            <p>{{word.note ? word.note : 'N/A' }}</p>
         </div>
     </section>
 
-    <section class="meta">
+    <hr/>
+
+    <section id="meta-data">
         <div class="column">
             <div class="pair">
-                <label>Created By:&nbsp;</label>
+                <span>Created By:&nbsp;</span>
                 <p>{{ word.createdBy }}</p>
             </div>
             <div class="pair">
-                <label>Times Viewed:&nbsp;</label>
+                <span>Times Viewed:&nbsp;</span>
                 <p>{{ word.timesViewed }}</p>
             </div>
         </div>
         <div class="column">
             <div class="pair creation-date" (click)="navToStats(word)">
-                <label>Creation Date:&nbsp;</label>
+                <span>Creation Date:&nbsp;</span>
                 <p>{{ word.creationDate | date:'EEEE d MMMM y' }}</p>
             </div>
             <div class="pair">
-                <label>Creation Time:&nbsp;</label>
+                <span>Creation Time:&nbsp;</span>
                 <p>{{ word.creationDate | date:'h:mm:ss a' }}</p>
             </div>
         </div>
@@ -72,7 +89,7 @@
 
 <ng-template #error>
     <ow-error *ngIf="state === 'error' else loading">
-        <label>{{ errorMessage ?? 'no message available' }}</label>
+        <p>{{ errorMessage ?? 'no message available' }}</p>
     </ow-error>
 </ng-template>
 

@@ -1,5 +1,16 @@
 <li (click)="viewWordDetails()" *ngIf="word">
-    <span (click)="likeWord($event, word)" [class.liked]="wordIsLiked"></span>
+
+    <img *ngIf="isLiked; else notLiked"
+         [alt]="'a white, filled heart'"
+         src="/assets/image/heart-filled.svg"
+         class="heart"
+         (click)="likeWord($event, word)"/>
+    <ng-template #notLiked>
+        <img [alt]="'a white, outlined heart'"
+             src="/assets/image/heart.svg"
+             class="heart outlined"
+             (click)="likeWord($event, word)"/>
+    </ng-template>
 
     <h5 class="mono">{{ word.theWord }}</h5>
     <label class="part-of-speech">{{ word.partOfSpeech }}</label>

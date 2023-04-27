@@ -5,13 +5,11 @@ import { Observable } from 'rxjs';
 import { LocalStorageService } from './local-storage.service';
 
 import { User } from '../model/user.interface';
-import { UserProfile } from '../model/user-profile.interface';
 
 @Injectable()
 export class UserHttpService {
 
     private readonly baseURL: string = '/api/o/users';
-    private readonly profileURL: string = '/api/o/worms/profile';
 
     constructor(private readonly http: HttpClient, private readonly ls: LocalStorageService) {
     }
@@ -42,10 +40,6 @@ export class UserHttpService {
             undefined,
             { params: this.getBnaParams() }
         );
-    }
-
-    retrieveProfile(): Observable<UserProfile> {
-        return this.http.get<UserProfile>(this.profileURL, { params: this.getBnaParams() });
     }
 
     private getBnaParams(): HttpParams {

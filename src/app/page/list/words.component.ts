@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { ActivatedRoute, ParamMap, Router } from '@angular/router';
-import { of } from 'rxjs';
+import { ActivatedRoute, ParamMap, Params, Router } from '@angular/router';
+import { distinct, distinctUntilChanged, Observable, of } from 'rxjs';
 import { catchError, filter, map, switchMap, take, tap } from 'rxjs/operators';
 
 import { UserService } from '../../service/user.service';
@@ -24,10 +24,11 @@ import { LoadComponent } from '../../component/common/spinner/load.component';
 export class WordsComponent extends LoadComponent {
 
     words: Word[];
-    wordsToShow: number = 25;
     increment: number = 6;
     wordFilter: WordFilter;
     user: User;
+    readonly wordsToShow$: Observable<number>;
+    // readonly likedWordUUIDs$: Observable<string[]>;
 
     constructor(private readonly wordService: WordService,
                 private readonly route: ActivatedRoute,
@@ -35,17 +36,20 @@ export class WordsComponent extends LoadComponent {
                 readonly userService: UserService) {
         super();
 
-        void this.router.navigate(
-            [],
-            { relativeTo: this.route, queryParams: { numberOfWords: this.wordsToShow }, queryParamsHandling: 'merge' }
-        );
-
         this.getUser();
         this.getWords();
-    }
-
-    get disableShowLess(): boolean {
-        return this.increment > this.wordsToShow;
+        this.wordsToShow$ = this.getNoOfWordsToShow();
+        // this.likedWordUUIDs$ = this.userService
+        //     .loadProfile()
+        //     .pipe(
+        //         take(1),
+        //         switchMap(() => this.userService.getUserProfile()),
+        //         distinctUntilChanged(),
+        //         map(({likedWords}: UserProfile) => {
+        //             console.log(likedWords);
+        //             return likedWords.map((word: Word) => word.uuid);
+        //         }),
+        //     );
     }
 
     ngOnDestroy(): void {
@@ -55,7 +59,7 @@ export class WordsComponent extends LoadComponent {
     chunkChanged($event: number, numberOfWords: number): void {
         // show all was selected
         if ($event === 0) {
-            this.wordsToShow = numberOfWords;
+            // this.wordsToShow = numberOfWords;
 
             return;
         }
@@ -63,23 +67,31 @@ export class WordsComponent extends LoadComponent {
         this.increment = $event;
     }
 
-    showAll(numberOfWords: number): void {
-        this.wordsToShow = numberOfWords;
+    showAll(): void {
+        this.route
+            .queryParams
+            .pipe(
+                take(1),
+                map((params: ParamMap) => ({ ...params, size: 2000 })),
+                take(1)
+            )
+            .subscribe({
+                next: (queryParams: WordFilter) => {
+                    void this.router.navigate([], { relativeTo: this.route, queryParams });
+                }
+            });
     }
 
     showMoreOrLess(showMore: boolean): void {
-        if (showMore) {
-            this.wordsToShow += this.increment;
-        } else {
-            this.wordsToShow -= this.increment;
-        }
-
         this.route
         .queryParams
         .pipe(
             take(1),
             map((params: ParamMap) => {
-                return { ...params, numberOfWords: this.wordsToShow } as WordFilter;
+                const currentSize: number = Number(params['size']);
+                const size = showMore ? this.increment + currentSize : currentSize - this.increment;
+
+                return { ...params, size };
             }),
             take(1)
         )
@@ -97,18 +109,20 @@ export class WordsComponent extends LoadComponent {
         this.route
         .queryParamMap
         .pipe(
+            distinctUntilChanged(),
             map((qParamsMap: ParamMap) => {
                 filtering = FilterUtil.getFilterLabels(qParamsMap).length > 0;
+                const size: number = Number(qParamsMap.get('size'));
 
                 return {
-                    numberOfWords: this.wordsToShow,
                     word: qParamsMap.get('word'),
                     partsOfSpeech: qParamsMap.getAll('pos'),
                     definition: qParamsMap.get('definition'),
                     origin: qParamsMap.get('origin'),
                     example: qParamsMap.get('example'),
                     tags: qParamsMap.getAll('tags'),
-                    note: qParamsMap.get('note')
+                    note: qParamsMap.get('note'),
+                    size: isNaN(size) ? 25 : size
                 } as WordFilter;
             }),
             tap((wordFilter: WordFilter) => {
@@ -150,5 +164,26 @@ export class WordsComponent extends LoadComponent {
                 this.user = user;
             }
         });
+    }
+
+    private getNoOfWordsToShow(): Observable<number> {
+        return this.route
+            .queryParams
+            .pipe(
+                take(1),
+                map((params: Params) => params['size']),
+                map((size: string) => {
+                    console.log('wrewerwer');
+                    return Number(size);
+                }),
+                map((size: number) => isNaN(size) ? 25 : size),
+                tap((size: number) => {
+                    console.log(size);
+                    void this.router.navigate(
+                        [],
+                        { relativeTo: this.route, queryParams: { size }, queryParamsHandling: 'merge' }
+                    );
+                })
+            )
     }
 }

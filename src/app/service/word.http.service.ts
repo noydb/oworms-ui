@@ -63,7 +63,7 @@ export class WordHttpService {
         }
 
         const {
-            numberOfWords,
+            size,
             word,
             partsOfSpeech,
             definition,
@@ -75,7 +75,7 @@ export class WordHttpService {
             uuids
         } = wordFilter;
 
-        let params: HttpParams = new HttpParams().set('numberOfWords', numberOfWords);
+        let params: HttpParams = new HttpParams().set('numberOfWords', size);
         params = this.setParam(params, 'word', word);
         partsOfSpeech?.forEach((pos: string) => {
             params = params.append('pos', pos as string);

@@ -2,7 +2,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { filter, switchMap, take, tap } from 'rxjs/operators';
+import { filter, take, tap } from 'rxjs/operators';
 
 import { AlertService } from '../../service/alert.service';
 import { UserService } from '../../service/user.service';
@@ -11,7 +11,6 @@ import { AppRoutes } from '../../util/app.routes';
 import { ErrorUtil } from '../../util/error.util';
 
 import { User } from '../../model/user.interface';
-import { UserProfile } from '../../model/user-profile.interface';
 
 @Component({
     selector: 'ow-profile',
@@ -20,12 +19,11 @@ import { UserProfile } from '../../model/user-profile.interface';
 })
 export class ProfileComponent {
 
-    profile: UserProfile;
+    existing: User;
     readonly form: FormGroup = new FormGroup<unknown>({
         username: new FormControl<string>('', [Validators.required]),
         email: new FormControl<string>('', [Validators.required, Validators.email])
     });
-    private existing: User;
 
     constructor(private readonly service: UserService,
                 private readonly router: Router,
@@ -59,9 +57,8 @@ export class ProfileComponent {
 
     private getUser(): void {
         this.service
-        .loadLoggedInUser()
+        .getLoggedInUser()
         .pipe(
-            take(1),
             filter((user: User) => !!user),
             take(1),
             tap((user: User) => {
@@ -71,15 +68,9 @@ export class ProfileComponent {
                     email: user.email
                 });
             }),
-            take(1),
-            switchMap(() => this.service.getUserProfile()),
             take(1)
         )
-        .subscribe({
-            next: (profile: UserProfile) => {
-                this.profile = profile;
-            }
-        });
+        .subscribe();
     }
 }
 

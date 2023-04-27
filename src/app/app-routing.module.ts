@@ -28,12 +28,13 @@ const routes: Routes = [
     {
         path: AppRoutes.ADD,
         component: WordAddComponent,
-        title: 'new - oworms'
+        title: 'new - oworms',
+        canActivate: [LoggedInGuard]
     },
     {
         path: AppRoutes.CREDENTIAL,
         component: CredentialsComponent,
-        title: 'enter credentials - oworms'
+        title: 'halt - oworms'
     },
     {
         path: AppRoutes.DETAIL,
@@ -41,7 +42,8 @@ const routes: Routes = [
     },
     {
         path: AppRoutes.EDIT,
-        component: WordEditComponent
+        component: WordEditComponent,
+        canActivate: [LoggedInGuard]
     },
     {
         path: AppRoutes.ALL,

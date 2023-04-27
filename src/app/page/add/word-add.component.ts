@@ -1,5 +1,6 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component } from '@angular/core';
+import { Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { take } from 'rxjs/operators';
 
@@ -20,7 +21,9 @@ export class WordAddComponent {
 
   constructor(private readonly service: WordService,
               private readonly router: Router,
-              private readonly alertService: AlertService) {
+              private readonly alertService: AlertService,
+              private readonly titleService: Title) {
+      this.titleService.setTitle('new - oworms')
   }
 
   createWord(word: Word): void {
@@ -37,7 +40,11 @@ export class WordAddComponent {
         const message: string = ErrorUtil.getMessage(e);
 
         if (message.includes('exists')) {
-          this.alertService.add(ErrorUtil.getMessage(e), true, AppRoutes.getDetail(e.error.uuid));
+          this.alertService.add(
+              ErrorUtil.getMessage(e) + ". Click here to view it",
+              true,
+              AppRoutes.getDetail(e.error.uuid)
+          );
         } else {
           this.alertService.add(ErrorUtil.getMessage(e), true);
         }

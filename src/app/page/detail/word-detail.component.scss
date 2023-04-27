@@ -2,9 +2,14 @@
 @use '../../style/font' as font;
 @use '../../style/mixin' as mxn;
 
-.word {
-    .detail {
-        .top {
+article {
+
+    span {
+        color: #ffffff;
+    }
+
+    #main-detail {
+        #top {
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -13,32 +18,32 @@
                 font-size: 2rem;
             }
 
-            .actions {
+            #actions {
+                display: flex;
+                align-items: center;
                 @include mxn.svg-hover;
 
                 img {
                     width: 40%;
-                    height: 40%;
-                }
 
-                span {
-                    width: 20px;
-                    height: 20px;
-                    border: 1px solid colour.$primary;
-                    cursor: pointer;
+                    &.heart {
+                        padding-left: 1rem;
+                        width: 27%;
 
-                    &:hover {
-                        opacity: .8;
-                    }
-
-                    &.liked {
-                        background-color: colour.$primary;
+                        &.outlined {
+                            width: 20%;
+                        }
                     }
                 }
             }
         }
 
-        .def {
+        #definition {
+            padding-bottom: 10px;
+        }
+
+        #part-of-speech {
+            color: colour.$secondary;
             padding-bottom: 20px;
         }
 
@@ -46,26 +51,47 @@
             display: flex;
             padding-top: 10px;
 
-            label {
+            span {
+                font-size: .9rem;
                 font-family: 'roboto-medium', font.$default-font;
-            }
-
-            &.note {
-                white-space: pre-wrap;
             }
         }
 
-        .tags,
-        .synonyms {
+        #tags,
+        #synonyms,
+        #note {
             padding-top: 10px;
 
-            label {
+            > span {
+                font-family: "roboto-medium", sans-serif;
+                font-size: .9rem;
+            }
+        }
+
+        #synonyms {
+            span {
                 font-family: 'roboto-medium', font.$default-font;
+            }
+        }
+
+        #note {
+            padding-bottom: 2rem;
+            padding-top: 1.5rem;
+
+            p {
+                white-space: pre-wrap;
             }
         }
     }
 
-    .meta {
+    hr {
+        height: 1px;
+        width: 5%;
+    }
+
+    #meta-data {
+        display: flex;
+        justify-content: space-between;
         padding-top: 30px;
         padding-bottom: 1rem;
 
@@ -74,13 +100,12 @@
                 display: flex;
                 margin-top: 1rem;
 
-                label {
-                    color: #907f7f;
+                span {
                     font-family: 'roboto-medium', font.$default-font;
+                    font-size: .9rem;
                 }
 
                 p {
-                    color: #907f7f;
                     font-family: 'roboto-light', font.$default-font;
                 }
 
@@ -88,7 +113,7 @@
                     cursor: pointer;
                     transition: all .2s ease;
 
-                    > label {
+                    > span {
                         cursor: pointer;
                     }
 
@@ -129,8 +154,7 @@
                 }
             }
 
-            .def {
-                padding-bottom: 15px;
+            #definition {
                 font-size: 1rem;
             }
 

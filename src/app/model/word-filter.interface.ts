@@ -1,5 +1,4 @@
 export interface WordFilter {
-    numberOfWords?: number;
     word?: string;
     partsOfSpeech?: string[];
     definition?: string;
@@ -9,4 +8,5 @@ export interface WordFilter {
     note?: string;
     uuids?: string[];
     createdBy?: string;
+    size: number;
 }

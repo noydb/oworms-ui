@@ -1,7 +1,12 @@
+import { Word } from './word.interface';
+
 export interface User {
-    uuid?: string;
     username?: string;
     email?: string;
+
+    // read-only
+    uuid?: string;
     status?: string;
-    likedWordUUIDs?: string[];
+    createdWordCount: number;
+    likedWords: Word[];
 }

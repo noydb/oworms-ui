@@ -5,7 +5,6 @@ import { finalize, take, tap } from 'rxjs/operators';
 import { UserHttpService } from './user.http.service';
 
 import { User } from '../model/user.interface';
-import { UserProfile } from '../model/user-profile.interface';
 
 @Injectable({
     providedIn: 'root'
@@ -76,25 +75,15 @@ export class UserService {
         );
     }
 
-    getUserProfile(): Observable<UserProfile> {
-        this.busy$.next(true);
-
-        return this.userHttp
-        .retrieveProfile()
-        .pipe(
-            take(1),
-            finalize(() => {
-                this.busy$.next(false);
-            })
-        );
-    }
-
-    likeWord(wordUUID: string): Observable<void> {
+    likeWord(wordUUID: string): Observable<User> {
         this.busy$.next(true);
 
         return this.userHttp
         .likeWord(wordUUID)
         .pipe(
+            take(1),
+            switchMap(() => this.loadLoggedInUser(true)),
+            take(1),
             finalize(() => {
                 this.busy$.next(false);
             })

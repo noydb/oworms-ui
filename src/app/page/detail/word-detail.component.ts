@@ -60,12 +60,11 @@ export class WordDetailComponent extends LoadComponent {
 
         this.userService
             .likeWord(word.uuid)
-            .pipe(
-                take(1),
-                switchMap(() => this.userService.loadLoggedInUser(true)),
-                take(1)
-            )
+            .pipe(take(1))
             .subscribe({
+                next: ({ likedWords }: User) => {
+                    this.isLiked = !!likedWords.find((comparator: Word) => word.uuid === comparator.uuid);
+                },
                 error: (e: HttpErrorResponse) => {
                     this.alertService.add(e.error.message, true);
                 }
@@ -91,7 +90,7 @@ export class WordDetailComponent extends LoadComponent {
                 ])),
                 map(([word, user]: [Word, User]) => {
                     if (user) {
-                        this.isLiked = user.likedWordUUIDs.includes(word.uuid);
+                        this.isLiked = !!user.likedWords.find((comparator: Word) => word.uuid === comparator.uuid);
                     }
 
                     return word;
