@@ -22,7 +22,11 @@ of a company, the company will appear first (thanks SEO) and not the word.
 ### Commands
 
 run with a proxy pointed to `localhost:8080` ([api setup instructions](https://github.com/noydb/oworms-api#readme)):\
-`ng serve --proxy-config=proxy.conf.json`
+`ng serve --proxy-config=proxy.conf.json`\
+OR\
+`npm run start-l`\
+OR\
+`yarn start-l`
 
 dev build:\
 `yarn build`

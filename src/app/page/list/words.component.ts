@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, ParamMap, Params, Router } from '@angular/router';
-import { distinct, distinctUntilChanged, Observable, of } from 'rxjs';
+import { distinctUntilChanged, Observable, of } from 'rxjs';
 import { catchError, filter, map, switchMap, take, tap } from 'rxjs/operators';
 
 import { UserService } from '../../service/user.service';
@@ -28,7 +28,6 @@ export class WordsComponent extends LoadComponent {
     wordFilter: WordFilter;
     user: User;
     readonly wordsToShow$: Observable<number>;
-    // readonly likedWordUUIDs$: Observable<string[]>;
 
     constructor(private readonly wordService: WordService,
                 private readonly route: ActivatedRoute,
@@ -39,32 +38,10 @@ export class WordsComponent extends LoadComponent {
         this.getUser();
         this.getWords();
         this.wordsToShow$ = this.getNoOfWordsToShow();
-        // this.likedWordUUIDs$ = this.userService
-        //     .loadProfile()
-        //     .pipe(
-        //         take(1),
-        //         switchMap(() => this.userService.getUserProfile()),
-        //         distinctUntilChanged(),
-        //         map(({likedWords}: UserProfile) => {
-        //             console.log(likedWords);
-        //             return likedWords.map((word: Word) => word.uuid);
-        //         }),
-        //     );
     }
 
     ngOnDestroy(): void {
         void this.router.navigate([], { relativeTo: this.route, queryParams: {} });
-    }
-
-    chunkChanged($event: number, numberOfWords: number): void {
-        // show all was selected
-        if ($event === 0) {
-            // this.wordsToShow = numberOfWords;
-
-            return;
-        }
-
-        this.increment = $event;
     }
 
     showAll(): void {
@@ -170,15 +147,11 @@ export class WordsComponent extends LoadComponent {
         return this.route
             .queryParams
             .pipe(
-                take(1),
+                distinctUntilChanged(),
                 map((params: Params) => params['size']),
-                map((size: string) => {
-                    console.log('wrewerwer');
-                    return Number(size);
-                }),
+                map((size: string) => Number(size)),
                 map((size: number) => isNaN(size) ? 25 : size),
                 tap((size: number) => {
-                    console.log(size);
                     void this.router.navigate(
                         [],
                         { relativeTo: this.route, queryParams: { size }, queryParamsHandling: 'merge' }
