@@ -4,26 +4,32 @@ footer {
     height: 100px;
     border-top: 1px solid #121212;
     text-align: center;
-    padding-top: .5rem;
+    padding: 2rem;
+    margin-bottom: 2rem;
 
-    > p {
+    > div > span#copyright {
+        color: #ffffff;
+        display: block;
+        margin-top: 1rem;
         font-size: .75rem;
     }
 }
 
 @media screen and (min-width: 600px) {
     footer {
+        height: auto;
         display: flex;
         align-items: center;
         justify-content: space-between;
         margin-top: 32px;
-        padding-top: 0;
+        padding: 1rem;
+        margin-bottom: 0;
 
-        .items {
+        ul {
             display: flex;
             align-items: center;
 
-            .item {
+            li {
                 padding: 1rem;
                 transition: background-color .1s ease-in-out;
                 cursor: pointer;

@@ -1,4 +1,36 @@
 <header>
+
+    <!-- responsive menu -->
+
+    <section *ngIf="showBurger" id="menu-toggle">
+        <img alt="oworms logo" src="/assets/image/logo.svg" routerLink="/o/worms/all">
+        <img src="/assets/image/burger-menu.svg" (click)="expandMenu = true" alt="A burger menu svg icon"/>
+    </section>
+    <nav *ngIf="expandMenu" id="responsive-menu">
+        <img alt="oworms logo" src="/assets/image/logo.svg">
+
+        <li (click)="navigate(item)" *ngFor="let item of responsiveItems" class="item">
+            <span>{{ item.name }}</span>
+        </li>
+        <a href="https://oworms-api.herokuapp.com/swagger-ui/" target="_blank" class="item">
+            api
+        </a>
+
+        <div>
+            <button routerLink="/o/worms/new" (click)="expandMenu = false" class="icon">
+                <img alt="plus icon" src="/assets/image/icon-plus.svg">
+                add
+            </button>
+            <button (click)="navigateToRandom()" class="icon below">
+                <img alt="shuffle icon" src="/assets/image/icon-shuffle.svg">
+                random
+            </button>
+            <button class="transparent below" (click)="expandMenu = false">Close</button>
+        </div>
+    </nav>
+
+    <!-- normal menu -->
+
     <section *ngIf="!showBurger">
         <span>
             <img alt="oworms logo" src="/assets/image/logo.svg">
@@ -18,7 +50,7 @@
         </nav>
     </section>
 
-    <section class="actions" *ngIf="!showBurger">
+    <section id="actions" *ngIf="!showBurger">
         <button (click)="navigateToRandom()" class="icon">
             <img alt="shuffle icon" src="/assets/image/icon-shuffle.svg">
             random
@@ -28,34 +60,7 @@
             add
         </button>
 
-        <img src="/assets/image/user.png" alt="user icon" (click)="navToProfile()" class="profile">
+        <img src="/assets/image/user.png" alt="user icon" routerLink="/o/profile" class="profile">
     </section>
-
-    <!-- responsive menu -->
-    <section *ngIf="showBurger" class="menu-toggle">
-        <img alt="oworms logo" src="/assets/image/logo.svg">
-        <span (click)="expandMenu = true">menu</span>
-    </section>
-    <nav *ngIf="expandMenu">
-        <img alt="oworms logo" src="/assets/image/logo.svg">
-
-        <li (click)="navigate(item)" *ngFor="let item of items" class="item">
-            <label>{{ item.name }}</label>
-        </li>
-        <a href="https://oworms-api.herokuapp.com/swagger-ui/" target="_blank" class="item">
-            <label>api</label>
-        </a>
-        <img src="/assets/image/user.png" alt="user icon" (click)="navToProfile()" class="profile">
-
-        <button routerLink="/o/worms/new" (click)="expandMenu = false" class="icon">
-            <img alt="plus icon" src="/assets/image/icon-plus.svg">
-            add
-        </button>
-        <button (click)="navigateToRandom()" class="icon">
-            <img alt="shuffle icon" src="/assets/image/icon-shuffle.svg">
-            random
-        </button>
-        <button class="transparent" (click)="expandMenu = false">Close</button>
-    </nav>
 
 </header>

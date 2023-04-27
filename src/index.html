@@ -1,16 +1,30 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta name="viewport" content="width=device-width,height=device-height,initial-scale=1">
+
     <meta charset="utf-8">
     <meta name="description"
           content="oworms is a dictionary app, with features like filtering, emails, statistics and more">
-
+    <!--    <meta name="viewport" content="width=device-width,height=device-height,initial-scale=1">-->
+    <!-- prevents screen rescaling when focusing an input on mobile -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+    <meta content="oworms" property="og:site_name" data-rh="true">
     <title>oworms</title>
     <base href="/">
     <link href="favicon.ico" rel="icon" type="image/x-icon">
+
+    <link as="image"
+          href="/assets/image/logo.svg"
+          rel="preload" data-rh="true">
+    <meta content="/assets/image/logo.svg"
+          property="og:image" data-rh="true">
+    <meta content="/assets/image/logo.svg"
+          property="og:image:secure_url" data-rh="true">
+
 </head>
+
 <body>
 <ow-root></ow-root>
 </body>
+
 </html>

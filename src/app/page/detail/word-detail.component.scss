@@ -2,6 +2,13 @@
 @use '../../style/font' as font;
 @use '../../style/mixin' as mxn;
 
+.loading {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    padding: 3rem;
+}
+
 article {
 
     span {
@@ -9,13 +16,16 @@ article {
     }
 
     #main-detail {
+        padding: 1rem;
+
         #top {
             display: flex;
-            justify-content: space-between;
+            justify-content: center;
             align-items: center;
+            flex-wrap: wrap;
 
             h2 {
-                font-size: 2rem;
+                font-size: 1.75rem;
             }
 
             #actions {
@@ -27,7 +37,6 @@ article {
                     width: 40%;
 
                     &.heart {
-                        padding-left: 1rem;
                         width: 27%;
 
                         &.outlined {
@@ -92,8 +101,8 @@ article {
     #meta-data {
         display: flex;
         justify-content: space-between;
-        padding-top: 30px;
-        padding-bottom: 1rem;
+        flex-wrap: wrap;
+        padding: 30px .5rem 1rem;
 
         .column {
             .pair {
@@ -126,26 +135,27 @@ article {
     }
 }
 
-.loading {
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    padding: 3rem;
+@media screen and (min-width: 360px) {
+    article#word > #main-detail > #top {
+        justify-content: space-between;
+    }
 }
 
-@media screen and (min-width: 600px) {
-    .word {
+@media screen and (min-width: 1120px) {
+    #word {
         margin-left: 25%;
         margin-right: 25%;
         padding: 1.5rem 1.5rem 3rem;
 
-        .detail {
+        #main-detail {
 
-            .top {
+            #top {
                 display: flex;
                 align-items: center;
+                flex-wrap: nowrap;
+                justify-content: space-between;
 
-                .actions {
+                #actions {
                     display: flex;
                     justify-content: space-between;
                     align-items: center;
@@ -158,7 +168,7 @@ article {
                 font-size: 1rem;
             }
 
-            .pair, .tags {
+            .pair, #tags {
                 padding-top: 30px;
             }
         }

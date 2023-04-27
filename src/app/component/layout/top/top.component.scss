@@ -14,7 +14,7 @@ header {
     padding-top: .5rem;
 
     section {
-        &.menu-toggle {
+        &#menu-toggle {
             width: 100%;
             display: flex;
             align-items: center;
@@ -23,11 +23,18 @@ header {
 
             img {
                 margin-left: 1rem;
+                width: 40px;
+                height: 40px;
+                cursor: pointer;
+
+                &:hover {
+                    opacity: .8;
+                }
             }
         }
     }
 
-    > nav {
+    > nav#responsive-menu {
         position: absolute;
         overflow-y: scroll;
         width: 100%;
@@ -43,24 +50,32 @@ header {
         li, a {
             display: flex;
             align-items: center;
-            padding: 1rem;
-            justify-content: center;
+            padding-top: 1rem;
+            padding-bottom: 1rem;
+            padding-left: 1rem;
+            border-bottom: 1px solid #8e7d7d;
+            width: 80%;
+            text-transform: uppercase;
+            text-decoration: none;
+            font-family: "roboto-regular", sans-serif;
+            color: #fff;
+            letter-spacing: 4px;
+            cursor: pointer;
         }
 
-        button {
-            margin: 0;
+        > div {
+            padding-left: 1rem;
+            padding-right: 1rem;
 
-            &:nth-of-type(1) {
-                margin-top: 3rem;
-            }
-
-            &:not(:last-of-type) {
-                margin-bottom: .5rem;
+            button {
+                &:nth-of-type(1) {
+                    margin-top: 2rem;
+                }
             }
         }
     }
 
-    .actions {
+    section#actions {
         display: flex;
         justify-content: space-between;
         margin-right: 1rem;
@@ -77,7 +92,7 @@ header {
     }
 }
 
-@media screen and (min-width: 762px) {
+@media screen and (min-width: 920px) {
     header {
 
         section {
@@ -112,11 +127,15 @@ header {
                                 color: colour.$secondary;
                             }
                         }
+
+                        &.responsive {
+                            display: none;
+                        }
                     }
                 }
             }
 
-            &.responsive-menu {
+            &#responsive-menu {
                 width: 100%;
                 display: flex;
                 align-items: center;
@@ -124,10 +143,10 @@ header {
             }
         }
 
-        .actions {
+        #actions {
             display: flex;
             justify-content: space-between;
-            width: 20%;
+            width: 25%;
             margin-right: 1rem;
 
             .profile {

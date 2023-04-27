@@ -1,10 +1,12 @@
-.title {
+h5 {
+    margin-top: 1rem;
     padding-bottom: 16px;
     text-align: center;
 }
 
 form {
     width: 100%;
+    padding: 2rem;
 
     .column {
 
@@ -15,17 +17,28 @@ form {
     }
 }
 
-.actions {
-    width: 100%;
+#actions {
+    margin: 2rem;
 }
 
-@media screen and (min-width: 600px) {
+textarea {
+    height: 100px;
+}
 
-    .title {
+@media screen and (min-width: 920px) {
+    h5, form {
+        margin-left: 25%;
+        margin-right: 25%;
+    }
+
+    h5 {
         text-align: left;
+        margin-left: 26%;
     }
 
     form {
+        width: auto;
+        padding: 0;
         display: flex;
         justify-content: space-between;
 
@@ -36,12 +49,16 @@ form {
                 width: 100%;
                 margin-top: 1.2rem;
                 margin-bottom: 1.2rem;
+
+                textarea {
+                    height: auto;
+                }
             }
         }
     }
 
-    .actions {
-        width: 25%;
+    #actions {
+        width: 30%;
         margin: 2rem auto auto;
     }
 }

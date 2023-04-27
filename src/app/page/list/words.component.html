@@ -4,7 +4,7 @@
 
 <ow-filter></ow-filter>
 
-<ng-container>
+<ng-container *ngIf="words && !loading; else error">
 
     <section id="words">
         <ow-word-card *ngFor="let word of words | chunkPipe: (wordsToShow$ | async)" [word]="word"></ow-word-card>

@@ -1,6 +1,6 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component } from '@angular/core';
-import { Title } from '@angular/platform-browser';
+import { Meta, Title } from '@angular/platform-browser';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { Observable, of } from 'rxjs';
 import { catchError, map, switchMap, take, tap } from 'rxjs/operators';
@@ -30,7 +30,8 @@ export class WordEditComponent extends LoadComponent {
                 private readonly tagService: TagService,
                 private readonly router: Router,
                 private readonly titleService: Title,
-                private readonly alertService: AlertService) {
+                private readonly alertService: AlertService,
+                private readonly meta: Meta) {
         super();
         this.word$ = this.getWord();
     }
@@ -64,7 +65,7 @@ export class WordEditComponent extends LoadComponent {
                 map((params: ParamMap) => params.get('uuid') ?? '0'),
                 switchMap((uuid: string) => this.service.retrieve(uuid)),
                 tap((word: Word) => {
-                    this.titleService.setTitle(`edit | ${word.theWord} - oworms`);
+                    this.updateMetaInfo(word);
                 }),
                 catchError((e: HttpErrorResponse) => {
                         this.state = 'error';
@@ -78,5 +79,29 @@ export class WordEditComponent extends LoadComponent {
                     }
                 )
             );
+    }
+
+    private updateMetaInfo(word: Word): void {
+        this.titleService.setTitle(`edit ${word.theWord} - oworms`);
+        this.meta.updateTag({
+            name: 'og:title',
+            content: `Edit ${word.theWord} - ${word.partOfSpeech}`
+        });
+        this.meta.updateTag({
+            name: 'twitter:title',
+            content: `Edit ${word.theWord} - ${word.partOfSpeech}`
+        });
+        this.meta.updateTag({
+            name: 'description',
+            content: `${word.theWord} - ${word.partOfSpeech} - ${word.definition}`
+        });
+        this.meta.updateTag({
+            name: 'og:description',
+            content: `${word.theWord} - ${word.partOfSpeech}- ${word.definition}`
+        });
+        this.meta.updateTag({
+            name: 'twitter:description',
+            content: `${word.theWord} - ${word.partOfSpeech} - ${word.definition}`
+        });
     }
 }

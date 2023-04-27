@@ -48,6 +48,14 @@ dialog {
     padding-top: 1rem;
 }
 
+@media screen and (max-width: 600px) {
+    dialog {
+        margin-left: .5rem;
+        height: 70px;
+        width: 45%;
+    }
+}
+
 @media screen and (min-width: 600px) {
 
     dialog {

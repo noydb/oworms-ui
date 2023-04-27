@@ -1,4 +1,4 @@
-article > ul {
+ul {
     display: flex;
     flex-wrap: wrap;
     margin-top: 0;
@@ -12,6 +12,7 @@ article > ul {
 
         span {
             color: #ffffff;
+            font-size: .8rem;
         }
 
         &:not(:last-of-type) {

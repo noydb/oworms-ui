@@ -2,7 +2,7 @@
     <ow-random-top [word]="word$ | async"></ow-random-top>
 </ow-hero>
 
-<article *ngIf="word$ | async as word; else error" class="word">
+<article *ngIf="word$ | async as word; else error" id="word">
     <section id="main-detail">
 
         <div id="top">

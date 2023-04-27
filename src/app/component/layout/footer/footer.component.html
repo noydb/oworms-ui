@@ -1,11 +1,10 @@
 <footer>
-    <ul class="items" *ngIf="showMenu">
+    <ul *ngIf="showMenu">
         <div class="item logo">
             <img alt="oworms logo" src="/assets/image/logo.svg">
         </div>
         <li (click)="navigate(item.path)"
             *ngFor="let item of items"
-            class="item"
             role="menuitem">
             <label>{{ item.name }}</label>
         </li>
@@ -15,5 +14,7 @@
     </ul>
 
     <img *ngIf="!showMenu" alt="oworms logo" src="/assets/image/logo.svg">
-    <p>{{ signature }}</p>
+    <div>
+        <span id="copyright">{{ signature }}</span>
+    </div>
 </footer>

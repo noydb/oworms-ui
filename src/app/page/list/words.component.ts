@@ -28,6 +28,7 @@ export class WordsComponent extends LoadComponent {
     wordFilter: WordFilter;
     user: User;
     readonly wordsToShow$: Observable<number>;
+    readonly isBusy$: Observable<boolean>;
 
     constructor(private readonly wordService: WordService,
                 private readonly route: ActivatedRoute,
@@ -35,6 +36,7 @@ export class WordsComponent extends LoadComponent {
                 readonly userService: UserService) {
         super();
 
+        this.isBusy$ = wordService.isBusy();
         this.getUser();
         this.getWords();
         this.wordsToShow$ = this.getNoOfWordsToShow();
