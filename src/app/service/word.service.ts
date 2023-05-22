@@ -12,7 +12,7 @@ import { WordFilter } from '../model/word-filter.interface';
 export class WordService {
 
     private readonly busy$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
-    private readonly wordCount$: BehaviorSubject<number> = new BehaviorSubject<number>(undefined);
+    private readonly wordCount$: BehaviorSubject<number> = new BehaviorSubject<number>(0);
 
     constructor(private readonly wordHttpService: WordHttpService) {
     }

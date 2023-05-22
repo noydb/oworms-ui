@@ -1,10 +1,10 @@
-import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
+import { NgModule } from '@angular/core';
 import { FormGroupDirective } from '@angular/forms';
+import { RouterModule } from '@angular/router';
 
 import { AppRoutingModule } from './app-routing.module';
 import { ComponentModule } from './util/component.module';
-import { WordModule } from './util/word.module';
 
 import { LoggedInGuard } from './guard/logged-in.guard';
 
@@ -23,28 +23,42 @@ import { LoaderComponent } from './component/common/loader/loader.component';
 import { ProfileComponent } from './page/profile/profile.component';
 import { StatisticsComponent } from './page/stats/statistics.component';
 import { TopComponent } from './component/layout/top/top.component';
+import { RandomTopComponent } from './component/word/random/top/random-top.component';
+import { WordAddComponent } from './page/add/word-add.component';
+import { WordCardComponent } from './component/word/card/word-card.component';
+import { WordDetailComponent } from './page/detail/word-detail.component';
+import { WordEditComponent } from './page/edit/word-edit.component';
+import { WordFormComponent } from './component/word/form/word-form.component';
+import { WordsComponent } from './page/list/words.component';
 
 @NgModule({
     imports: [
         HttpClientModule,
+        RouterModule,
 
         AppRoutingModule,
-        ComponentModule,
-        WordModule
+        ComponentModule
     ],
     declarations: [
         // page
         AboutComponent,
         AppComponent,
+        CredentialsComponent,
         ProfileComponent,
         StatisticsComponent,
+        WordAddComponent,
+        WordDetailComponent,
+        WordEditComponent,
+        WordsComponent,
 
         // component
         AlertComponent,
-        CredentialsComponent,
         FooterComponent,
         LoaderComponent,
-        TopComponent
+        RandomTopComponent,
+        TopComponent,
+        WordCardComponent,
+        WordFormComponent
     ],
     providers: [
         FormGroupDirective,

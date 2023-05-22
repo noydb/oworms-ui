@@ -18,14 +18,27 @@ article {
     #main-detail {
         padding: 1rem;
 
+        // heading + actions
         #top {
             display: flex;
             justify-content: center;
             align-items: center;
             flex-wrap: wrap;
 
-            h2 {
-                font-size: 1.75rem;
+            // heading + heart icon
+            > div {
+                display: flex;
+                align-items: flex-start;
+
+                h2 {
+                    font-size: 1.75rem;
+                }
+
+                @include mxn.svg-hover;
+
+                > img {
+                    width: 17%;
+                }
             }
 
             #actions {
@@ -36,27 +49,23 @@ article {
 
                 img {
                     width: 35%;
-
-                    &.heart {
-                        width: 27%;
-                        margin-left: .3rem;
-
-                        &.outlined {
-                            width: 20%;
-                        }
-                    }
                 }
             }
         }
 
+        // pronunciation
+        > span {
+            font-size: .8rem;
+            color: #907f7f;
+        }
+
         #definition {
-            padding-bottom: 10px;
-            padding-top: 16px;
+            padding-top: 10px;
         }
 
         #part-of-speech {
             color: colour.$secondary;
-            padding-bottom: 20px;
+            padding-bottom: 4px;
         }
 
         .pair {
@@ -65,7 +74,6 @@ article {
 
             span {
                 font-size: .9rem;
-                font-family: 'roboto-medium', font.$default-font;
             }
         }
 
@@ -75,14 +83,7 @@ article {
             padding-top: 10px;
 
             > span {
-                font-family: "roboto-medium", sans-serif;
                 font-size: .9rem;
-            }
-        }
-
-        #synonyms {
-            span {
-                font-family: 'roboto-medium', font.$default-font;
             }
         }
 
@@ -96,16 +97,11 @@ article {
         }
     }
 
-    hr {
-        height: 1px;
-        width: 5%;
-    }
-
     #meta-data {
         display: flex;
         justify-content: space-between;
         flex-wrap: wrap;
-        padding: 2rem 1rem 3rem 1rem;
+        padding: .5rem 1rem 3rem 1rem;
 
         .column {
             .pair {
@@ -113,7 +109,6 @@ article {
                 margin-top: 1rem;
 
                 span {
-                    font-family: 'roboto-medium', font.$default-font;
                     font-size: .9rem;
                 }
 
@@ -157,22 +152,14 @@ article {
                 align-items: center;
                 flex-wrap: nowrap;
                 justify-content: space-between;
-
-                #actions {
-                    display: flex;
-                    justify-content: space-between;
-                    align-items: center;
-
-                    @include mxn.svg-hover;
-                }
             }
 
-            #definition {
+            #definition, #part-of-speech {
                 font-size: 1rem;
             }
 
             .pair, #tags {
-                padding-top: 30px;
+                padding-top: 24px;
             }
         }
 

@@ -1,23 +1,21 @@
 <dialog>
-    <img (click)="openFilterModal()" alt="filter icon" src="/assets/image/icon-filter.svg"/>
+    <img (click)="openFilterModal()" alt="A filter icon" src="/assets/image/icon-filter.svg" />
     <input *ngIf="showField"
            [formControl]="ctrl"
            name="quick-search"
-           placeholder="search for a word"/>
-    <section class="clear" [class.hidden]="!existingFilters || existingFilters.length === 0">
+           placeholder="search for a word" />
+    <div [class.hidden]="!existingFilters || existingFilters.length === 0">
         <button (click)="clearFilters()" *ngIf="existingFilters?.length > 0" class="transparent">
             Clear Filters
         </button>
-    </section>
+    </div>
 </dialog>
 
-<div class="existing" *ngIf="existingFilters?.length > 0">
+<div id="applied-filters" *ngIf="existingFilters?.length > 0">
     <ow-tags [sTags]="existingFilters"></ow-tags>
 </div>
 
-<div class="count">
-    <label>{{ wordCount$ | async }} results</label>
-</div>
+<span>{{ wordCount$ | async }} results</span>
 
 <ng-container *ngIf="showModal">
     <ow-filter-modal (modalClosed)="filter()"></ow-filter-modal>

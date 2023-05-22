@@ -1,6 +1,5 @@
 import { Attribute, Component, Input } from '@angular/core';
 import { Observable, of } from 'rxjs';
-import { Router } from '@angular/router';
 
 import { AppRoutes } from '../../../../util/app.routes';
 
@@ -18,9 +17,8 @@ export class RandomTopComponent {
     word$: Observable<Word>;
 
     constructor(private readonly service: WordService,
-                private readonly router: Router,
                 @Attribute('title') readonly title: string) {
-        if(!title?.trim()) {
+        if (!title?.trim()) {
             this.word$ = service.retrieveRandom();
         }
     }
@@ -30,7 +28,7 @@ export class RandomTopComponent {
         this.word$ = of(word);
     }
 
-    navToDetails({ uuid }: Word): void {
-        void this.router.navigate([AppRoutes.getDetail(uuid)]);
+    getRouterLink({ uuid }: Word): string {
+        return '/' + AppRoutes.getDetail(uuid);
     }
 }

@@ -1,4 +1,4 @@
-section.overlay {
+section#overlay {
     position: absolute; // dirty. fix.
     overflow-y: scroll;
     width: 100%;
@@ -9,6 +9,11 @@ section.overlay {
     top: 0;
     z-index: 90000;
     padding: 1rem;
+
+    h2 {
+        font-size: 2rem;
+        text-align: center;
+    }
 }
 
 form {
@@ -30,9 +35,16 @@ form {
     padding: 1.5rem;
 }
 
+@media screen and (min-width: 600px) {
+    section#overlay > h2 {
+        font-size: 3rem;
+        text-align: left;
+    }
+}
+
 @media screen and (min-width: 920px) {
 
-    section.overlay {
+    section#overlay {
         padding-left: 20rem;
         padding-right: 20rem;
         left: 0;

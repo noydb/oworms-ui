@@ -7,7 +7,8 @@
     padding-bottom: 47px;
 }
 
-#words {
+#words > div {
+    padding: .5rem;
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
@@ -15,7 +16,6 @@
 }
 
 #actions {
-    display: flex;
     justify-content: center;
     padding-top: 2rem;
     padding-bottom: 2rem;
@@ -28,18 +28,17 @@
     padding: 3rem;
 }
 
-@media screen and (min-width: 1500px) {
-
+@media screen and (min-width: 1300px) {
     #words {
-        padding-left: 10%;
-        padding-right: 10%;
+        padding-left: 7%;
+        padding-right: 7%;
     }
 }
 
 @media screen and (min-width: 600px) {
     #actions {
-        margin-left: 10%;
-        margin-right: 10%;
+        margin-left: 30%;
+        margin-right: 30%;
     }
 }
 
