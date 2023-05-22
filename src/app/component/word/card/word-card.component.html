@@ -1,20 +1,25 @@
 <li (click)="viewWordDetails()" *ngIf="word">
 
+    <!-- like and unlike -->
     <img *ngIf="isLiked; else notLiked"
          [alt]="'a white, filled heart'"
          src="/assets/image/heart-filled.svg"
          class="heart"
-         (click)="likeWord($event, word)"/>
+         (click)="likeWord($event, word)" />
     <ng-template #notLiked>
         <img [alt]="'a white, outlined heart'"
              src="/assets/image/heart.svg"
              class="heart outlined"
-             (click)="likeWord($event, word)"/>
+             (click)="likeWord($event, word)" />
     </ng-template>
 
+    <!-- basics -->
     <h5 class="mono">{{ word.theWord }}</h5>
-    <label class="part-of-speech">{{ word.partOfSpeech }}</label>
-    <p class="definition">{{ word.definition }}</p>
+    <span id="pronunciation" *ngIf="word.pronunciation as pronunciation;">{{ pronunciation }}</span>
+    <span id="part-of-speech">{{ word.partOfSpeech }}</span>
+    <span id="definition">{{ word.definition }}</span>
+
+    <!-- meta data -->
     <section>
         <label>{{ getViews(word) }}</label>
         <label>by {{ word.createdBy }}</label>
@@ -22,4 +27,5 @@
     <section class="date">
         <label>{{ word.creationDate | date : 'MMMM yyyy HH:mm:ss' }}</label>
     </section>
+
 </li>

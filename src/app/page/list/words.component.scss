@@ -7,15 +7,15 @@
     padding-bottom: 47px;
 }
 
-#words {
+#words > div {
+    padding: .5rem;
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
     overflow-y: hidden;
 }
 
-.actions {
-    display: flex;
+#actions {
     justify-content: center;
     padding-top: 2rem;
     padding-bottom: 2rem;
@@ -28,34 +28,25 @@
     padding: 3rem;
 }
 
-@media screen and (min-width: 1500px) {
-
+@media screen and (min-width: 1300px) {
     #words {
-        padding-left: 10%;
-        padding-right: 10%;
+        padding-left: 7%;
+        padding-right: 7%;
     }
 }
 
 @media screen and (min-width: 600px) {
-    #words {
-        // TODO
-        //background-image: url('/assets/image/bg-bottom.png');
-
-        .filter {
-            width: auto;
-        }
-    }
-
-    .actions {
-        margin-left: 10%;
-        margin-right: 10%;
+    #actions {
+        margin-left: 30%;
+        margin-right: 30%;
     }
 }
 
 @media screen and (max-width: 600px) {
-    .actions {
+    #actions {
         width: 100%;
         flex-wrap: wrap;
+        padding: 2rem;
 
         > button {
             width: 100%;

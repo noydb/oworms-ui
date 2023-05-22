@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
-import { debounceTime, Observable, of } from 'rxjs';
+import { debounceTime, distinctUntilChanged, Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 
 import { TagService } from '../../service/tag.service';
@@ -47,7 +47,7 @@ export class FilterComponent {
     }
 
     clearFilters(): void {
-        void this.router.navigate([], { relativeTo: this.route, queryParams: { numberOfWords: 25 } });
+        void this.router.navigate([], { relativeTo: this.route, queryParams: { size: 25 } });
     }
 
     openFilterModal(): void {
@@ -64,10 +64,14 @@ export class FilterComponent {
         this.ctrl
         .valueChanges
         .pipe(
-            debounceTime(600),
+            distinctUntilChanged(),
+            debounceTime(1500),
             tap((value: string) => {
                 if (!value || !value.trim()) {
-                    void this.router.navigate([], { relativeTo: this.route, queryParamsHandling: 'merge' });
+                    void this.router.navigate(
+                        [],
+                        { relativeTo: this.route, queryParams: { size: 25 } }
+                    );
                     return;
                 }
 

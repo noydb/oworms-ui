@@ -12,12 +12,12 @@ h1, h2 {
     font-style: normal;
 }
 
-h3, h4, h5, input, textarea, label, p, span {
+h3, h4, h5, input, textarea, label, p, span, a {
     // subtitle 1, body 1, body 1, caption overline
     font-family: 'roboto-regular', font.$default-font;
 }
 
-h6, button, .select {
+h6, button, .select, span {
     // subtitle 2
     font-family: 'roboto-medium', font.$default-font;
 }
@@ -66,4 +66,8 @@ small {
 
 li {
     list-style: none;
+}
+
+a {
+    text-decoration: none;
 }

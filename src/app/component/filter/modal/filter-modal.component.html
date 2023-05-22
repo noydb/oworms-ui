@@ -1,7 +1,7 @@
-<section class="overlay">
+<section id="overlay">
     <h2>Advanced Filter</h2>
 
-    <form [formGroup]="form" class="form">
+    <form [formGroup]="form">
         <div class="column">
             <fieldset>
                 <input formControlName="word" name="word" placeholder="word"/>
@@ -48,7 +48,7 @@
         </div>
     </form>
 
-    <section class="actions">
+    <section id="actions">
         <button (click)="filter()" [disabled]="noValues">
             Filter
         </button>

@@ -40,8 +40,7 @@ run on an express server:\
 generate base project using angular cli:\
 `ng new oworms-ui --package-manager=yarn --routing --style=scss --prefix=ow`
 
-**Note: the details you capture under about -> credentials will be passed as query params (`u` & `bna`)**
-**for "protected" endpoints**
+**Note: the details you capture under credentials will be passed as query params (`u` & `bna`) for "protected" endpoints**
 
 ---
 

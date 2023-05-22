@@ -11,6 +11,7 @@ import { AppRoutes } from '../../util/app.routes';
 import { ErrorUtil } from '../../util/error.util';
 
 import { User } from '../../model/user.interface';
+import { Word } from '../../model/word.interface';
 
 @Component({
     selector: 'ow-profile',
@@ -53,6 +54,10 @@ export class ProfileComponent {
                 this.alertService.add(ErrorUtil.getMessage(e), true);
             }
         });
+    }
+
+    navToWord(word: Word): void {
+        void this.router.navigate([AppRoutes.getDetail(word.uuid)]);
     }
 
     private getUser(): void {

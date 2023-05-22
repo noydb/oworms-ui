@@ -4,57 +4,71 @@ footer {
     height: 100px;
     border-top: 1px solid #121212;
     text-align: center;
-    padding-top: .5rem;
+    padding: 2rem 2rem 8rem;
+    background-color: #0b0b0b;
 
-    > p {
+    > div:first-of-type {
+        display: none;
+    }
+
+    > div#copyright > span {
+        color: #ffffff;
+        display: block;
+        margin-top: 1rem;
         font-size: .75rem;
     }
 }
 
 @media screen and (min-width: 600px) {
     footer {
+        height: auto;
         display: flex;
         align-items: center;
         justify-content: space-between;
         margin-top: 32px;
-        padding-top: 0;
+        padding: 1rem;
+        margin-bottom: 0;
 
-        .items {
+        > img {
+            display: none;
+        }
+
+        > div:first-of-type {
             display: flex;
             align-items: center;
 
-            .item {
-                padding: 1rem;
+            > img {
+                cursor: pointer;
+
+                > &:hover {
+                    opacity: .8;
+                }
+            }
+
+            > a {
+                display: block;
+                margin: 1rem;
                 transition: background-color .1s ease-in-out;
                 cursor: pointer;
                 color: #f2f2f2;
+                font-size: .9rem;
 
-                &:hover {
-                    label {
-                        color: colour.$primary;
-                    }
+                > &:hover {
+                    color: colour.$secondary;
                 }
 
                 &:not(last-of-type) {
-                    margin-right: .5rem;
-                }
-
-                label {
-                    cursor: pointer;
+                    margin-right: 1.5rem;
                 }
 
                 &.active {
-                    color: colour.$primary;
+                    color: colour.$secondary;
                 }
 
-                &.logo {
+                > img {
                     margin-right: 2rem;
                 }
             }
-        }
-
-        > p {
-            margin-right: .5rem;
         }
     }
 }

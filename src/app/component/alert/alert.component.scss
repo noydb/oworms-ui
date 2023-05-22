@@ -1,39 +1,39 @@
 @use '../../style/colour' as colour;
 @use '../../style/mixin' as mxn;
 
-.alerts {
+div#alerts {
     position: fixed;
     top: 80px;
     width: 100%;
-    height: 50px;
     display: flex;
     justify-content: center;
+    flex-wrap: wrap;
 
-    .alert {
+    dialog {
         position: relative;
         z-index: 10000;
-        width: 50%;
+        width: 100%;
         display: flex;
         justify-content: center;
         align-items: center;
-        background-color: #25571a;
+        background-color: #337222;
         overflow: hidden;
         padding: 1rem;
         font-size: .9rem;
-        transition: all .2s ease-in;
-
-        img {
-            margin-left: .5rem;
-            margin-right: .5rem;
-        }
+        transition: all .1s ease-in;
+        margin-bottom: .2rem;
+        cursor: pointer;
 
         &.error {
             background-color: colour.$error;
+
+            &:hover {
+                background-color: #882e2e;
+            }
         }
 
-        &:hover {
-            cursor: pointer;
-            opacity: .8;
+        &:not(.error):hover {
+            background-color: #25571a;
         }
 
         &:not(:only-child) {

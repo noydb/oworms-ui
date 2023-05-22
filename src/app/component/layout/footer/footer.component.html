@@ -1,19 +1,18 @@
 <footer>
-    <ul class="items" *ngIf="showMenu">
-        <div class="item logo">
-            <img alt="oworms logo" src="/assets/image/logo.svg">
-        </div>
-        <li (click)="navigate(item.path)"
-            *ngFor="let item of items"
-            class="item"
-            role="menuitem">
-            <label>{{ item.name }}</label>
-        </li>
-        <li (click)="getCSV()" class="item" role="document">
-            <label>csv</label>
-        </li>
-    </ul>
 
-    <img *ngIf="!showMenu" alt="oworms logo" src="/assets/image/logo.svg">
-    <p>{{ signature }}</p>
+    <div>
+        <img alt="oworms logo" src="/assets/image/logo.svg" routerLink="/o/worms/all">
+        <a *ngFor="let item of items" [routerLink]="item.path" routerLinkActive="active">{{ item.name }}</a>
+        <a (click)="getCSV()">csv</a>
+        <a href="https://oworms-api.herokuapp.com/swagger-ui/" target="_blank">
+            api
+        </a>
+    </div>
+
+    <img alt="oworms logo" src="/assets/image/logo.svg">
+
+    <div id="copyright">
+        <span>{{ signature }}</span>
+    </div>
+
 </footer>

@@ -24,7 +24,7 @@ dialog {
         }
     }
 
-    .clear {
+    > div {
         width: 100%;
         margin-left: 1rem;
 
@@ -35,20 +35,35 @@ dialog {
     }
 }
 
-.existing {
-    padding-left: 10%;
-    padding-right: 10%;
-    margin-bottom: 1rem;
-    margin-left: .7rem;
+// tags that are being filtered by
+div#applied-filters {
+    margin-top: 2rem;
 }
 
-.count {
-    margin-left: 1rem;
-    margin-bottom: 1rem;
-    padding-top: 1rem;
+// word result count
+span {
+    color: #ffffff;
+    font-size: .875rem;
+    display: block;
+    margin-top: 2rem;
+    text-align: center;
 }
+
+
 
 @media screen and (min-width: 600px) {
+    dialog {
+        margin-left: .5rem;
+        height: 70px;
+        width: 45%;
+    }
+
+    span {
+        text-align: left;
+    }
+}
+
+@media screen and (min-width: 920px) {
 
     dialog {
         margin-left: .5rem;
@@ -58,12 +73,5 @@ dialog {
         img {
             margin-right: 1rem;
         }
-    }
-
-    .count {
-        padding-left: 10%;
-        padding-right: 10%;
-        margin-left: 1rem;
-        margin-bottom: 1rem;
     }
 }

@@ -7,7 +7,7 @@ import { AlertService } from '../../../service/alert.service';
 import { WordService } from '../../../service/word.service';
 
 import { AppRoutes } from '../../../util/app.routes';
-import { MENU_ITEMS } from '../../../util/data';
+import { MENU_ITEMS, RESPONSIVE_MENU_ITEMS } from '../../../util/data';
 import { ErrorUtil } from '../../../util/error.util';
 import { FileUtil } from '../../../util/file.util';
 
@@ -23,6 +23,7 @@ export class TopComponent {
 
     expandMenu: boolean = false;
     readonly items: MenuItem[] = MENU_ITEMS;
+    readonly responsiveItems: MenuItem[] = RESPONSIVE_MENU_ITEMS;
 
     constructor(private readonly router: Router,
                 private readonly wordService: WordService,
@@ -30,7 +31,35 @@ export class TopComponent {
     }
 
     get showBurger(): boolean {
-        return window.innerWidth < 700;
+        return window.innerWidth < 920;
+    }
+
+    navigateToAdd(): void {
+        void this.router.navigate([AppRoutes.ADD]);
+    }
+
+    navigate(item: MenuItem): void {
+        this.expandMenu = false;
+
+        if (item.name === 'random') {
+            this.navigateToRandom();
+            return;
+        }
+
+        void this.router.navigate(
+            [item.path],
+            { queryParams: item.filter ? { filter: item.filter } : undefined }
+        );
+    }
+
+    getCSV(): void {
+        this.wordService
+            .getCSV()
+            .pipe(take(1))
+            .subscribe({
+                next: (response: any) => FileUtil.downloadFile(response),
+                error: (e: HttpErrorResponse) => this.alertService.add(ErrorUtil.getMessage(e), true)
+            });
     }
 
     navigateToRandom(): void {
@@ -51,34 +80,5 @@ export class TopComponent {
                 }
             });
 
-    }
-
-    navigateToAdd(): void {
-        void this.router.navigate([AppRoutes.ADD]);
-    }
-
-    navigate(item: MenuItem): void {
-        this.expandMenu = false;
-
-        void this.router.navigate(
-            [item.path],
-            { queryParams: item.filter ? { filter: item.filter } : undefined }
-        );
-    }
-
-    getCSV(): void {
-        this.wordService
-            .getCSV()
-            .pipe(take(1))
-            .subscribe({
-                next: (response: any) => FileUtil.downloadFile(response),
-                error: (e: HttpErrorResponse) => this.alertService.add(ErrorUtil.getMessage(e), true)
-            });
-    }
-
-    navToProfile(): void {
-        this.expandMenu = false;
-
-        void this.router.navigate([AppRoutes.PROFILE]);
     }
 }

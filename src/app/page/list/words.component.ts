@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, ParamMap, Params, Router } from '@angular/router';
-import { distinctUntilChanged, Observable, of } from 'rxjs';
+import { distinctUntilChanged, of } from 'rxjs';
 import { catchError, filter, map, switchMap, take, tap } from 'rxjs/operators';
 
 import { UserService } from '../../service/user.service';
@@ -27,7 +27,7 @@ export class WordsComponent extends LoadComponent {
     increment: number = 6;
     wordFilter: WordFilter;
     user: User;
-    readonly wordsToShow$: Observable<number>;
+    wordsToShow: number;
 
     constructor(private readonly wordService: WordService,
                 private readonly route: ActivatedRoute,
@@ -37,7 +37,7 @@ export class WordsComponent extends LoadComponent {
 
         this.getUser();
         this.getWords();
-        this.wordsToShow$ = this.getNoOfWordsToShow();
+        this.getNoOfWordsToShow();
     }
 
     ngOnDestroy(): void {
@@ -143,20 +143,23 @@ export class WordsComponent extends LoadComponent {
         });
     }
 
-    private getNoOfWordsToShow(): Observable<number> {
-        return this.route
+    private getNoOfWordsToShow(): void {
+        this.route
             .queryParams
             .pipe(
                 distinctUntilChanged(),
                 map((params: Params) => params['size']),
                 map((size: string) => Number(size)),
-                map((size: number) => isNaN(size) ? 25 : size),
-                tap((size: number) => {
+                map((size: number) => isNaN(size) ? 25 : size)
+            )
+            .subscribe({
+                next: (size: number) => {
+                    this.wordsToShow  = size;
                     void this.router.navigate(
                         [],
                         { relativeTo: this.route, queryParams: { size }, queryParamsHandling: 'merge' }
                     );
-                })
-            )
+                }
+            });
     }
 }

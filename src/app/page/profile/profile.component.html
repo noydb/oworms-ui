@@ -2,26 +2,10 @@
     <ow-random-top></ow-random-top>
 </ow-hero>
 
-<h2 class="title">My Profile</h2>
-<article class="profile">
+<h2 id="title">My Profile</h2>
+<article>
 
-    <section class="column">
-        <h5>Word Statistics</h5>
-        <span>Liked: {{ existing?.likedWords?.length ?? 0 }}</span>
-        <span>Created: {{ existing?.createdWordCount ?? 0 }}</span>
-
-        <ul class="words">
-            <li *ngFor="let word of existing?.likedWords">
-                <h3>
-                    {{ word.theWord }}
-                </h3>
-                <p>{{ word.definition }}</p>
-            </li>
-        </ul>
-
-    </section>
-
-    <section class="column">
+    <section>
         <h5 class="user-details">User Details</h5>
         <form [formGroup]="form">
             <fieldset>
@@ -32,11 +16,27 @@
             </fieldset>
         </form>
 
-        <div class="actions">
+        <div id="actions">
             <button (click)="update()" [disabled]="form.invalid">
                 Save Changes
             </button>
         </div>
+    </section>
+
+    <section>
+        <h5>Word Statistics</h5>
+        <span>Liked: {{ existing?.likedWords?.length ?? 0 }}</span>
+        <span>Created: {{ existing?.createdWordCount ?? 0 }}</span>
+
+        <ul id="words">
+            <li *ngFor="let word of existing?.likedWords" (click)="navToWord(word)">
+                <h3>
+                    {{ word.theWord }}
+                </h3>
+                <p>{{ word.definition }}</p>
+            </li>
+        </ul>
+
     </section>
 
 </article>

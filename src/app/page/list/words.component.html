@@ -2,37 +2,33 @@
     <ow-random-top></ow-random-top>
 </ow-hero>
 
-<ow-filter></ow-filter>
+<section id="words">
 
-<ng-container>
+    <ow-filter></ow-filter>
 
-    <section id="words">
-        <ow-word-card *ngFor="let word of words | chunkPipe: (wordsToShow$ | async)" [word]="word"></ow-word-card>
-    </section>
+    <div *ngIf="state !== 'error'; else error">
+        <ow-word-card *ngFor="let word of words | chunkPipe: wordsToShow" [word]="word"></ow-word-card>
+    </div>
 
-    <section class="actions">
-        <button (click)="showMoreOrLess(false)"
-                [disabled]="increment > (wordsToShow$ | async)">
-            Show {{ increment }} Less
-        </button>
-        <button (click)="showMoreOrLess(true)">
-            Show {{ increment }} more
-        </button>
-        <button (click)="showAll()" class="transparent">
+    <div id="actions" *ngIf="state !== 'error'">
+        <button (click)="showAll()">
             Show All
         </button>
-    </section>
+        <button class="transparent below"
+                (click)="showMoreOrLess(false)"
+                [disabled]="increment > wordsToShow">
+            Show {{ increment }} Less
+        </button>
+        <button class="transparent below"
+                (click)="showMoreOrLess(true)">
+            Show {{ increment }} more
+        </button>
+    </div>
 
-</ng-container>
+</section>
 
 <ng-template #error>
-    <ow-error *ngIf="state === 'error' else loading">
-        <label>{{ errorMessage ?? 'no message available' }}</label>
+    <ow-error>
+        <label>{{ errorMessage ?? 'No error message available' }}</label>
     </ow-error>
-</ng-template>
-
-<ng-template #loading>
-    <section class="loading">
-        <h5>Loading...</h5>
-    </section>
 </ng-template>

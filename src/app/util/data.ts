@@ -11,11 +11,20 @@ export const AB_PARA_4 = 'Finding new words and improving my knowledge of existi
     ' in reference to unknown/obscure/esoteric words. I use many words without truly knowing what the definition is. I understand that' +
     ' it is not necessary to know the exact definition of a word in order to use it. We just know what we mean (and what others mean)' +
     ' when we use certain words. But I believe one\'s expression, language, and communication is bolstered by knowing a bit more' +
-    ' precisely what you (and others) mean.'
+    ' precisely what you (and others) mean.';
 
 export const MENU_ITEMS: MenuItem[] = [
     { name: 'home', path: AppRoutes.ALL },
     { name: 'about', path: AppRoutes.ABOUT },
     { name: 'statistics', path: AppRoutes.STATS }
     // { name: 'filter', path: AppRoutes.LIST, filter: true } TODO: test.
+];
+
+export const RESPONSIVE_MENU_ITEMS: MenuItem[] = [
+    { name: 'about', path: AppRoutes.ABOUT },
+    { name: 'add', path: AppRoutes.ADD },
+    { name: 'home', path: AppRoutes.ALL },
+    { name: 'my profile', path: AppRoutes.PROFILE },
+    { name: 'random', path: '' },
+    { name: 'statistics', path: AppRoutes.STATS }
 ];

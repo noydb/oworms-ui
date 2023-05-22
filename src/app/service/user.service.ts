@@ -24,6 +24,10 @@ export class UserService {
         });
     }
 
+    isBusy(): Observable<boolean> {
+        return this.busy$.asObservable();
+    }
+
     login(u: string, p: string): Observable<User> {
         this.busy$.next(true);
 

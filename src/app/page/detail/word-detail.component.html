@@ -2,49 +2,50 @@
     <ow-random-top [word]="word$ | async"></ow-random-top>
 </ow-hero>
 
-<article *ngIf="word$ | async as word; else error" class="word">
+<article *ngIf="word$ | async as word; else error" id="word">
     <section id="main-detail">
 
         <div id="top">
-            <h2 class="mono">{{word.theWord}}</h2>
-            <div id="actions">
-                <img alt="pencil in a circle with pink background"
-                     src="/assets/image/pencil-circled.svg"
-                     (click)="edit(word)"/>
-                <img alt="a white plus icon with a circular purple background"
-                     src="/assets/image/plus-circled.svg"/>
-
+            <div>
+                <h2 class="mono">{{word.theWord}}</h2>
                 <img *ngIf="isLiked; else notLiked"
                      [alt]="'a white, filled heart'"
                      src="/assets/image/heart-filled.svg"
                      class="heart"
-                     (click)="likeWord($event, word)"/>
+                     (click)="likeWord($event, word)" />
                 <ng-template #notLiked>
                     <img [alt]="'a white, outlined heart'"
                          src="/assets/image/heart.svg"
-                         class="heart outlined"
-                         (click)="likeWord($event, word)"/>
+                         class="heart"
+                         (click)="likeWord($event, word)" />
                 </ng-template>
+            </div>
+            <div id="actions">
+                <img alt="pencil in a circle with pink background"
+                     src="/assets/image/pencil-circled.svg"
+                     (click)="edit(word)" />
+                <img alt="a white plus icon with a circular purple background"
+                     src="/assets/image/plus-circled.svg" />
             </div>
         </div>
 
-        <p id="definition">{{ word.definition }}</p>
+        <span *ngIf="word.pronunciation as pronunciation;">{{ pronunciation }}</span>
+
         <p id="part-of-speech">{{ word.partOfSpeech }}</p>
-        <div class="pair">
-            <span>Pronunciation:&nbsp;</span>
-            <p>{{word.pronunciation ? word.pronunciation : 'N/A' }}</p>
-        </div>
+
+        <p id="definition">{{ word.definition }}</p>
+
         <div class="pair">
             <span>Origin:&nbsp;</span>
             <p>{{ word?.origin ? word.origin : 'N/A' }}</p>
         </div>
-        <div class="pair">
+        <div class="pair" *ngIf="word.exampleUsage as example">
             <span>Example:&nbsp;</span>
-            <p>{{word.exampleUsage ? word.exampleUsage : 'N/A' }}</p>
+            <p>{{ example }}</p>
         </div>
-        <div class="pair">
-            <span>Discovered At:&nbsp;</span>
-            <p>{{word.discoveredAt ? word.discoveredAt : 'N/A' }}</p>
+        <div class="pair" *ngIf="word.discoveredAt as discoveredAt">
+            <span>Discovered In:&nbsp;</span>
+            <p>{{ discoveredAt }}</p>
         </div>
         <div id="tags">
             <span>Associated Tags</span>
@@ -59,8 +60,6 @@
             <p>{{word.note ? word.note : 'N/A' }}</p>
         </div>
     </section>
-
-    <hr/>
 
     <section id="meta-data">
         <div class="column">
