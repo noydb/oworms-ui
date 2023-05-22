@@ -1,3 +1,4 @@
+import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { FormGroupDirective } from '@angular/forms';
@@ -33,6 +34,7 @@ import { WordsComponent } from './page/list/words.component';
 
 @NgModule({
     imports: [
+        CommonModule,
         HttpClientModule,
         RouterModule,
 
