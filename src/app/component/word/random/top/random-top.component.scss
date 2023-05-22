@@ -1,11 +1,18 @@
 @use '../../../../style/colour' as colour;
+@use '../../../../style/font' as font;
 
-.random-top {
+article {
     text-align: center;
     color: #ffffff;
 
-    h1 {
-        font-weight: bold;
+    // styling it exactly the same as an h1
+    a {
+        font-family: 'roboto-mono-medium', font.$default-font;
+        letter-spacing: 3.6px;
+        font-weight: 500;
+        font-size: 3.75rem; // 60px
+        font-style: normal;
+        color: #ffffff;
         transition: all .15s ease-in-out;
         cursor: pointer;
         word-wrap: anywhere;
@@ -31,7 +38,7 @@
 }
 
 @media screen and (max-width: 600px) {
-    h1 {
+    article > a {
         font-size: 2rem;
     }
 }

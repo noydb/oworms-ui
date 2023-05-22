@@ -21,10 +21,6 @@ export class FooterComponent {
     constructor(private readonly router: Router, private readonly wordService: WordService) {
     }
 
-    get showMenu(): boolean {
-        return window.innerWidth > 600;
-    }
-
     get signature(): string {
         const year: number = new Date().getFullYear();
 

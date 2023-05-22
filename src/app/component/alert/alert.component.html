@@ -1,7 +1,6 @@
 <div id="alerts">
     <dialog
         *ngFor="let alert of alerts"
-        class="alert"
         [class.error]="alert.error"
         [class.navigatable]="alert.path"
         (click)="navigate(alert)">

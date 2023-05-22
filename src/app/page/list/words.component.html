@@ -2,25 +2,29 @@
     <ow-random-top></ow-random-top>
 </ow-hero>
 
-<ow-filter></ow-filter>
+<section id="words">
 
-<section id="words" *ngIf="state !== 'error'; else error">
-    <ow-word-card *ngFor="let word of words | chunkPipe: wordsToShow" [word]="word"></ow-word-card>
-</section>
+    <ow-filter></ow-filter>
 
-<section id="actions">
-    <button class="transparent"
-            (click)="showMoreOrLess(false)"
-            [disabled]="increment > wordsToShow">
-        Show {{ increment }} Less
-    </button>
-    <button class="transparent below"
-            (click)="showMoreOrLess(true)">
-        Show {{ increment }} more
-    </button>
-    <button (click)="showAll()" class="below">
-        Show All
-    </button>
+    <div *ngIf="state !== 'error'; else error">
+        <ow-word-card *ngFor="let word of words | chunkPipe: wordsToShow" [word]="word"></ow-word-card>
+    </div>
+
+    <div id="actions" *ngIf="state !== 'error'">
+        <button (click)="showAll()">
+            Show All
+        </button>
+        <button class="transparent below"
+                (click)="showMoreOrLess(false)"
+                [disabled]="increment > wordsToShow">
+            Show {{ increment }} Less
+        </button>
+        <button class="transparent below"
+                (click)="showMoreOrLess(true)">
+            Show {{ increment }} more
+        </button>
+    </div>
+
 </section>
 
 <ng-template #error>

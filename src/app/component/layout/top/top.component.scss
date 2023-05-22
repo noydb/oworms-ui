@@ -79,11 +79,8 @@ header {
             padding-top: 1rem;
             padding-bottom: 1rem;
             padding-left: 1rem;
-            border-bottom: 1px solid #8e7d7d;
             width: 80%;
             text-transform: uppercase;
-            text-decoration: none;
-            font-family: "roboto-regular", sans-serif;
             font-size: 1.5rem;
             color: #fff;
             letter-spacing: 4px;
@@ -109,6 +106,10 @@ header {
 }
 
 @media screen and (min-width: 920px) {
+    #menu-toggle, #responsive-menu {
+        display: none;
+    }
+
     header {
 
         section {
@@ -119,6 +120,15 @@ header {
                 width: 10%;
                 padding-left: 1rem;
                 padding-right: 3rem;
+
+                > img {
+                    cursor: pointer;
+                    transition: all .2s ease-in;
+
+                    &:hover {
+                        opacity: .8;
+                    }
+                }
             }
 
             nav {
@@ -129,7 +139,6 @@ header {
                         padding: 1rem;
                         transition: background-color .1s ease-in-out;
                         color: #f2f2f2;
-                        text-decoration: none;
 
                         &:not(last-of-type) {
                             margin-right: .5rem;
