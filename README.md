@@ -1,4 +1,4 @@
-<img src="https://github.com/noydb/oworms-ui/blob/develop/src/assets/image/logo.svg"></img> oworms
+<img src="https://github.com/noydb/oworms-ui/blob/develop/src/assets/image/logo.svg"></img> oworms-ui
 ---
 [Hosted Application](https://oworms.herokuapp.com) || [Swagger](https://oworms-api.herokuapp.com/swagger-ui/) || [API Source Code](https://github.com/benj-power/oworms-api) || [Prototype](https://jamieneslotech.invisionapp.com/console/share/KH37M1CTRA/839061901)
 
