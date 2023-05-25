@@ -1,14 +1,8 @@
 <img src="https://github.com/noydb/oworms-ui/blob/develop/src/assets/image/logo.svg"></img> oworms
 ---
+[Hosted Application](https://oworms.herokuapp.com) || [Swagger](https://oworms-api.herokuapp.com/swagger-ui/) || [API Source Code](https://github.com/benj-power/oworms-api) || [Full Design + Prototype](https://jamieneslotech.invisionapp.com/console/share/KH37M1CTRA/839061901)
+
 [![Maintainability](https://api.codeclimate.com/v1/badges/022c3d76d9caaf459fbc/maintainability)](https://codeclimate.com/github/noydb/oworms-ui/maintainability)
-
-[Swagger Documentation](https://oworms-api.herokuapp.com/swagger-ui/)
-
-[Hosted Application](https://oworms.herokuapp.com)
-
-[API Source Code](https://github.com/benj-power/oworms-api)
-
-[Full Design + Prototype](https://jamieneslotech.invisionapp.com/console/share/KH37M1CTRA/839061901)
 
 ---
 ### About
