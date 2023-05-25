@@ -8,10 +8,10 @@
 
 ### Getting Started
 
-1. run `yarn` or `npm install`
-2. `ng serve --proxy-config=proxy.conf.json` to run with an API proxy pointed to localhost:8080 ([api setup instructions](https://github.com/noydb/oworms-api#readme)) OR
-3. `npm run start-l` OR
-4. `yarn start-l`
+1. Run `yarn` or `npm install`
+2. Run `ng serve --proxy-config=proxy.conf.json` to point an API proxy to [localhost:8080](https://github.com/noydb/oworms-api#readme) OR
+3. Run `npm run start-l` OR
+4. Run `yarn start-l`
 
 #### Development build
 `yarn build` or `npm run build`
