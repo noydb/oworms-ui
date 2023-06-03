@@ -11,14 +11,6 @@ export class TagUtil {
         return tags.map((tag: Tag) => TagUtil.mapTagToOption(tag, selected));
     }
 
-    static mapTagNamesToOptions(tags: string[]): SelectOption[] {
-        if (!tags) {
-            return [];
-        }
-
-        return tags.map((name: string) => ({ value: name, label: name, titleLabel: name, selected: true } as SelectOption));
-    }
-
     static mapTagToOption({ id, name, wordCount }: Tag, selected = false): SelectOption {
         return {
             selected,
