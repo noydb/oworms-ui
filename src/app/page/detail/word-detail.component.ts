@@ -2,20 +2,18 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { Meta, Title } from '@angular/platform-browser';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
-import { combineLatest, Observable, of } from 'rxjs';
-import { catchError, map, switchMap, take, tap } from 'rxjs/operators';
+import { Observable, of } from 'rxjs';
+import { catchError, map, switchMap, tap } from 'rxjs/operators';
 
 import { AppRoutes } from '../../util/app.routes';
 
 import { AlertService } from '../../service/alert.service';
-import { UserService } from '../../service/user.service';
 import { WordService } from '../../service/word.service';
 
 import { ErrorUtil } from '../../util/error.util';
 
 import { ComponentState } from '../../model/component-state.enum';
 import { Tag } from '../../model/tag.interface';
-import { User } from '../../model/user.interface';
 import { Word } from '../../model/word.interface';
 
 import { LoadComponent } from '../../component/common/spinner/load.component';
@@ -36,7 +34,6 @@ export class WordDetailComponent extends LoadComponent {
                 private readonly route: ActivatedRoute,
                 private readonly titleService: Title,
                 private readonly alertService: AlertService,
-                private readonly userService: UserService,
                 private readonly meta: Meta) {
         super();
 
@@ -56,48 +53,21 @@ export class WordDetailComponent extends LoadComponent {
         void this.router.navigate([AppRoutes.getEdit(uuid)]);
     }
 
-    likeWord($event: Event, word: Word): void {
-        $event.preventDefault();
-        $event.stopPropagation();
-
-        this.userService
-            .likeWord(word.uuid)
-            .pipe(take(1))
-            .subscribe({
-                next: ({ likedWords }: User) => {
-                    this.isLiked = !!likedWords.find((comparator: Word) => word.uuid === comparator.uuid);
-                },
-                error: (e: HttpErrorResponse) => {
-                    this.alertService.add(e.error.message, true);
-                }
-            });
-    }
-
     private getWord(): Observable<Word> {
         this.state = ComponentState.LOADING;
 
+        // can't take(1) because random word needs to
+        // refresh the page if you click random over and
+        // over
         return this.route
             .paramMap
             .pipe(
                 map((params: ParamMap) => params.get('uuid') ?? '0'),
-                take(1),
                 switchMap((uuid: string) => this.service.retrieve(uuid)),
                 tap((word: Word) => {
                     this.tags = word.tags.map(({ name }: Tag) => name);
                     this.state = ComponentState.COMPLETE;
                     this.updateMetaInfo(word);
-                }),
-                take(1),
-                switchMap((word: Word) => combineLatest([
-                    of(word),
-                    this.userService.getLoggedInUser()
-                ])),
-                map(([word, user]: [Word, User]) => {
-                    if (user) {
-                        this.isLiked = !!user.likedWords.find((comparator: Word) => word.uuid === comparator.uuid);
-                    }
-
-                    return word;
                 }),
                 catchError((e: HttpErrorResponse) => {
                     this.errorMessage = ErrorUtil.getMessage(e);

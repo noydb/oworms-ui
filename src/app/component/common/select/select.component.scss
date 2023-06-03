@@ -2,7 +2,7 @@
 @use '../../../style/font' as font;
 @use '../../../style/mixin' as mxn;
 
-.select {
+div.select {
     position: relative;
     width: 100%;
     border-radius: 6px;
@@ -21,7 +21,7 @@
         color: #ffffff !important;
     }
 
-    .s-title {
+    > span.s-title {
         font-size: 1rem;
         font-family: 'roboto-regular', font.$default-font;
         display: flex;
@@ -29,7 +29,7 @@
         align-items: center;
     }
 
-    .options {
+    > #options {
         position: absolute;
         left: 0;
         z-index: 1000;
@@ -38,10 +38,9 @@
         background-color: #252728;
         padding: .5rem;
         margin-top: 8px;
-        border-radius: 6px;
-        border-top-left-radius: 0;
+        border-radius: 0 6px 6px 6px;
         overflow-y: scroll;
-        transition: all .15s ease-in;
+        @include mxn.transition;
         border-left: 1px solid rgba(255, 255, 255, 0.1);
 
         &.closed {
@@ -51,11 +50,11 @@
             padding: 0;
         }
 
-        .s-option {
+        > .s-option {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            transition: all .2s ease-out;
+            @include mxn.transition;
             cursor: pointer;
             padding: 1rem;
 
@@ -63,7 +62,7 @@
                 background-color: #4b4242;
             }
 
-            label {
+            > span {
                 cursor: pointer;
             }
 

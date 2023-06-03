@@ -1,6 +1,6 @@
-//Ï@use '../../style/_colour' as aa; WHY NO WORK?
+@use '../../style/mixin' as mxn;
 
-#title {
+h2 {
     padding: 1rem;
     text-align: center;
 }
@@ -10,7 +10,31 @@ article {
     section {
         padding: .5rem;
 
-        span {
+        > h5 {
+            margin-bottom: 1rem;
+        }
+    }
+
+    section:first-of-type {
+
+        > form {
+            width: 100%;
+
+            > fieldset {
+                padding-left: 1rem;
+                padding-right: 1rem;
+            }
+        }
+
+        // button/action
+        > div {
+            width: 100%;
+            padding: 1rem;
+        }
+    }
+
+    section:last-of-type {
+        > span {
             color: #35F29A;
             font-size: 1.1rem;
 
@@ -19,18 +43,14 @@ article {
             }
         }
 
-        h5 {
-            margin-bottom: 1rem;
-        }
-
         > ul {
             overflow-y: scroll;
             width: 100%;
 
-            li {
+            > li {
                 padding: 1rem 1rem 1rem;
                 margin-bottom: 1rem;
-                transition: all .3s ease-in;
+                @include mxn.transition;
 
                 &:hover {
                     cursor: pointer;
@@ -53,23 +73,9 @@ article {
     }
 }
 
-form {
-    width: 100%;
-
-    > fieldset {
-        padding-left: 1rem;
-        padding-right: 1rem;
-    }
-}
-
-#actions {
-    width: 100%;
-    padding: 1rem;
-}
-
 @media screen and (min-width: 600px) {
 
-    #title {
+    h2 {
         text-align: left;
     }
 
@@ -84,7 +90,7 @@ form {
             max-height: 300px;
         }
 
-        #actions {
+        > div {
             width: 70%;
             margin: 2rem auto auto;
         }

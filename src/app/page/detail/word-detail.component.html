@@ -7,20 +7,8 @@
 
         <div id="top">
             <div>
-                <h2 class="mono">{{word.theWord}}</h2>
-                <img *ngIf="isLiked; else notLiked"
-                     alt="a white, filled heart"
-                     src="/assets/image/heart-filled.svg"
-                     title="unlike this word"
-                     class="heart"
-                     (click)="likeWord($event, word)" />
-                <ng-template #notLiked>
-                    <img alt="a white, outlined heart"
-                         src="/assets/image/heart.svg"
-                         title="like this word"
-                         class="heart"
-                         (click)="likeWord($event, word)" />
-                </ng-template>
+                <h2>{{word.theWord}}</h2>
+                <ow-word-like [word]="word"></ow-word-like>
             </div>
             <div id="actions">
                 <img alt="pencil in a circle with pink background"

@@ -1,4 +1,4 @@
-.loader {
+#spinner {
     font-size: 8px;
     width: 11em;
     height: 11em;
@@ -12,7 +12,7 @@
     transform: translateZ(0);
 }
 
-.loader:before {
+#spinner:before {
     width: 50%;
     height: 50%;
     background: #ffffff;
@@ -23,7 +23,7 @@
     content: '';
 }
 
-.loader:after {
+#spinner:after {
     background: #4b4242;
     width: 75%;
     height: 75%;

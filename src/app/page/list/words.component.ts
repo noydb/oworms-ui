@@ -128,8 +128,19 @@ export class WordsComponent extends LoadComponent {
                     void this.router.navigate([AppRoutes.getDetail(words[0].uuid)]);
                 }
 
+                // only if there is a result, is it complete
+                // an empty array indicates error (see retrieveAll
+                // above, we are swallowing the error to keep this
+                // observable stream alive, so the user can filter
+                // again)
+                if (words.length > 0) {
+                    this.state = ComponentState.COMPLETE;
+                }
+
                 this.words = words;
-                this.state = ComponentState.COMPLETE;
+            },
+            error: (e) => {
+                this.state = ComponentState.ERROR;
             }
         });
     }

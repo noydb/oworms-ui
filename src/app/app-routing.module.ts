@@ -23,43 +23,51 @@ const routes: Routes = [
     {
         path: AppRoutes.ABOUT,
         component: AboutComponent,
-        title: 'about - oworms'
+        title: 'about - oworms',
+        data: { animation: 'about' }
     },
     {
         path: AppRoutes.ADD,
         component: WordAddComponent,
         title: 'new - oworms',
-        canActivate: [LoggedInGuard]
+        canActivate: [LoggedInGuard],
+        data: { animation: 'add' }
     },
     {
         path: AppRoutes.CREDENTIAL,
         component: CredentialsComponent,
-        title: 'halt - oworms'
+        title: 'halt - oworms',
+        data: { animation: 'credential' }
     },
     {
         path: AppRoutes.DETAIL,
-        component: WordDetailComponent
+        component: WordDetailComponent,
+        data: { animation: 'detail' }
     },
     {
         path: AppRoutes.EDIT,
         component: WordEditComponent,
-        canActivate: [LoggedInGuard]
+        canActivate: [LoggedInGuard],
+        data: { animation: 'edit' }
     },
     {
         path: AppRoutes.ALL,
         component: WordsComponent,
-        title: 'all - oworms'
+        title: 'all - oworms',
+        data: { animation: 'all' }
     },
     {
         path: AppRoutes.STATS,
         component: StatisticsComponent,
-        title: 'statistics - oworms'
+        title: 'statistics - oworms',
+        data: { animation: 'statistics' }
     },
     {
         path: AppRoutes.PROFILE,
         component: ProfileComponent,
         title: 'my profile - oworms',
-        canActivate: [LoggedInGuard]
+        canActivate: [LoggedInGuard],
+        data: { animation: 'profile' }
     },
 
 ];

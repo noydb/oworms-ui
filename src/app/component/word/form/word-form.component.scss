@@ -1,7 +1,8 @@
 @use '../../../style/colour' as colour;
+@use '../../../style/mixin' as mxn;
 
 h5 {
-    margin-top: 1rem;
+    margin-top: 2rem;
     padding-bottom: 16px;
     text-align: center;
 }
@@ -10,7 +11,7 @@ form {
     width: 100%;
     padding: 2rem;
 
-    .column {
+    > div {
 
         > fieldset {
             padding-left: 1rem;
@@ -21,7 +22,7 @@ form {
                 opacity: 0;
                 display: block;
                 color: colour.$error;
-                transition: all .4s ease-in;
+                @include mxn.transition;
                 font-size: .7rem;
 
                 &.show {
@@ -30,16 +31,16 @@ form {
                     margin-left: .1rem;
                 }
             }
+
+            > textarea {
+                height: 100px;
+            }
         }
     }
 }
 
-#actions {
+div#actions {
     margin: 2rem;
-}
-
-textarea {
-    height: 100px;
 }
 
 @media screen and (min-width: 920px) {
@@ -59,7 +60,7 @@ textarea {
         display: flex;
         justify-content: space-between;
 
-        .column {
+        > div {
             width: 48%;
 
             > fieldset {
@@ -67,14 +68,14 @@ textarea {
                 margin-top: 1.2rem;
                 margin-bottom: 1.2rem;
 
-                textarea {
+                > textarea {
                     height: auto;
                 }
             }
         }
     }
 
-    #actions {
+    div#actions {
         width: 30%;
         margin: 2rem auto auto;
     }

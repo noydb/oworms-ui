@@ -1,5 +1,6 @@
-@use '../../../../style/colour' as colour;
-@use '../../../../style/font' as font;
+@use '../../../style/colour' as colour;
+@use '../../../style/font' as font;
+@use '../../../style/mixin' as mxn;
 
 article {
     text-align: center;
@@ -13,7 +14,7 @@ article {
         font-size: 3.75rem; // 60px
         font-style: normal;
         color: #ffffff;
-        transition: all .15s ease-in-out;
+        @include mxn.transition;
         cursor: pointer;
         word-wrap: anywhere;
 
@@ -31,7 +32,7 @@ article {
     span {
         color: #ffffff;
 
-        &.creator {
+        &:last-of-type {
             color: colour.$secondary;
         }
     }

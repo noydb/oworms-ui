@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { combineLatest, Observable, of, Subscription } from 'rxjs';
@@ -19,6 +19,9 @@ import { WordFilter } from '../../../model/word-filter.interface';
 })
 @Unsubscribes()
 export class FilterModalComponent {
+
+    @Input()
+    show: boolean = false;
 
     @Output()
     readonly modalClosed: EventEmitter<void> = new EventEmitter<void>();

@@ -1,11 +1,13 @@
 import { Component, HostListener } from '@angular/core';
+import { RouterOutlet } from '@angular/router';
 
 import { UtilService } from './service/util.service';
+import { fadeAnimation } from './animate/fade-in.animation';
 
 @Component({
     selector: 'ow-root',
     templateUrl: './app.component.html',
-    styleUrls: ['./app.component.scss']
+    animations: [fadeAnimation]
 })
 export class AppComponent {
 
@@ -18,4 +20,7 @@ export class AppComponent {
         this.uServ.documentClickedTarget.next(event.target);
     }
 
+    getState(outlet: RouterOutlet) {
+        return outlet.activatedRouteData.animation;
+    }
 }

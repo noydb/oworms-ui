@@ -1,11 +1,11 @@
 import { Attribute, Component, Input } from '@angular/core';
 import { Observable, of } from 'rxjs';
 
-import { AppRoutes } from '../../../../util/app.routes';
+import { AppRoutes } from '../../../util/app.routes';
 
-import { WordService } from '../../../../service/word.service';
+import { WordService } from '../../../service/word.service';
 
-import { Word } from '../../../../model/word.interface';
+import { Word } from '../../../model/word.interface';
 
 @Component({
     selector: 'ow-random-top',
