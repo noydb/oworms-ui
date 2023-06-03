@@ -1,8 +1,8 @@
-<section id="overlay">
+<div id="overlay" [class.show]="show">
     <h2>Advanced Filter</h2>
 
     <form [formGroup]="form">
-        <div class="column">
+        <div>
             <fieldset>
                 <input formControlName="word" name="word" placeholder="word"/>
             </fieldset>
@@ -28,7 +28,7 @@
             </fieldset>
         </div>
 
-        <div class="column">
+        <div>
             <fieldset>
                 <input formControlName="example"
                        name="example"
@@ -56,4 +56,4 @@
             Cancel
         </button>
     </section>
-</section>
+</div>

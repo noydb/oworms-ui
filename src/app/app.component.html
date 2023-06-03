@@ -1,6 +1,6 @@
 <ow-header></ow-header>
-<main>
-    <router-outlet></router-outlet>
+<main [@routerTransition]="getState(o)">
+    <router-outlet #o=outlet></router-outlet>
 </main>
 <ow-footer></ow-footer>
 

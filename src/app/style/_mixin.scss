@@ -1,20 +1,33 @@
+@use './colour' as colour;
+
 @mixin input {
     width: 100%;
     color: #ffffff;
-    background-color: #252728;
+    background-color: colour.$input-bg;
     border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: 4px;
     padding: .7rem;
-    transition: all .2s ease-out;
+    @include transition;
 }
 
-@mixin svg-hover {
-    img {
-        cursor: pointer;
-        transition: all .2s;
+@mixin opacity-hover {
+    cursor: pointer;
+    @include transition;
 
-        &:hover {
-            opacity: .8;
-        }
+    &:hover {
+        opacity: .8;
     }
+}
+
+@mixin nav-link {
+    cursor: pointer;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: #939191;
+    @include transition;
+}
+
+@mixin transition {
+    transition: all .25s ease-in;
 }

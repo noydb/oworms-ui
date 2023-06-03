@@ -2,8 +2,8 @@
     <a [routerLink]="getRouterLink(word)" target="_blank">{{ word.theWord }}</a>
     <p>{{ word.definition }}</p>
     <span *ngIf="word">by </span>
-    <span class="creator">{{ word.createdBy }}</span>
-    <br />
+    <span>{{ word.createdBy }}</span>
+    <br/>
 </article>
 
 <article *ngIf="title" id="plain-title">

@@ -26,18 +26,16 @@ article {
                 h2 {
                     font-size: 1.75rem;
                 }
-
-                @include mxn.svg-hover;
             }
 
             #actions {
                 display: flex;
                 align-items: center;
                 justify-content: flex-end;
-                @include mxn.svg-hover;
 
-                img {
+                > img {
                     width: 35%;
+                    @include mxn.opacity-hover;
                 }
             }
         }
@@ -114,7 +112,7 @@ article {
 
                 &.creation-date {
                     cursor: pointer;
-                    transition: all .2s ease;
+                    @include mxn.transition;
 
                     > span {
                         cursor: pointer;

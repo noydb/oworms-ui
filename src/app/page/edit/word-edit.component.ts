@@ -20,8 +20,7 @@ import { LoadComponent } from '../../component/common/spinner/load.component';
 
 @Component({
     selector: 'ow-word-edit',
-    templateUrl: 'word-edit.component.html',
-    styleUrls: ['./word-edit.component.scss']
+    templateUrl: 'word-edit.component.html'
 })
 export class WordEditComponent extends LoadComponent {
 

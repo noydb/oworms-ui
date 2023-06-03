@@ -3,23 +3,22 @@
      [class.focused]="!closed"
      [class.fueled]="selected?.length > 0"
      [class.transparent]="transparent"
-     class="select"
-     role="listbox">
+     class="select">
     <span class="s-title">
         {{ title }}
         <img alt="chevron/arrow icon pointing downwards"
              src="/assets/image/chevron-down.svg"
-             (click)="invertClosed($event)" />
+             (click)="invertClosed($event)"/>
     </span>
-    <div [class.closed]="closed" class="options">
+    <div [class.closed]="closed" id="options" role="listbox">
         <div (click)="selectItem(item)"
              *ngFor="let item of options"
              [class.selected]="isSelected(item)"
              class="s-option"
              role="option">
-            <label class="s-option-l">
+            <span class="s-option-l">
                 {{ item.label ? item.label : item.value }}
-            </label>
+            </span>
         </div>
     </div>
 </div>

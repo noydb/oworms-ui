@@ -2,21 +2,21 @@
     <ow-random-top></ow-random-top>
 </ow-hero>
 
-<h2 id="title">My Profile</h2>
+<h2>My Profile</h2>
 <article>
 
     <section>
-        <h5 class="user-details">User Details</h5>
+        <h5>User Details</h5>
         <form [formGroup]="form">
             <fieldset>
-                <input formControlName="username" name="username" placeholder="username" />
+                <input formControlName="username" name="username" placeholder="username"/>
             </fieldset>
             <fieldset>
-                <input formControlName="email" name="email" placeholder="email" type="email" />
+                <input formControlName="email" name="email" placeholder="email" type="email"/>
             </fieldset>
         </form>
 
-        <div id="actions">
+        <div>
             <button (click)="update()" [disabled]="form.invalid">
                 Save Changes
             </button>
@@ -28,8 +28,8 @@
         <span>Liked: {{ existing?.likedWords?.length ?? 0 }}</span>
         <span>Created: {{ existing?.createdWordCount ?? 0 }}</span>
 
-        <ul id="words">
-            <li *ngFor="let word of existing?.likedWords" (click)="navToWord(word)">
+        <ul>
+            <li *ngFor="let word of existing?.likedWords" (click)="navToWord(word)" title="view this word's details">
                 <h3>
                     {{ word.theWord }}
                 </h3>

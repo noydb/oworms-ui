@@ -1,7 +1,7 @@
 <dialog>
     <img (click)="openFilterModal()"
          alt="A filter icon" src="/assets/image/icon-filter.svg"
-         title="open advanced filtering options" />
+         title="open advanced filtering options"/>
     <input *ngIf="showField"
            [formControl]="ctrl"
            name="quick-search"
@@ -19,6 +19,4 @@
 
 <span>{{ wordCount$ | async }} results</span>
 
-<ng-container *ngIf="showModal">
-    <ow-filter-modal (modalClosed)="filter()"></ow-filter-modal>
-</ng-container>
+<ow-filter-modal [show]="showModal" (modalClosed)="filter()"></ow-filter-modal>

@@ -1,3 +1,6 @@
+@use '../../style/mixin' as mxn;
+@use '../../style/colour' as colour;
+
 dialog {
     z-index: 9999;
     position: fixed;
@@ -7,7 +10,7 @@ dialog {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: #4b4242;
+    background-color: colour.$input-bg;
     height: 70px;
 
     &:hover {
@@ -17,7 +20,7 @@ dialog {
     img {
         cursor: pointer;
         padding: .5rem;
-        transition: all .2s;
+        @include mxn.transition;
 
         &:hover {
             background-color: #3d3737;

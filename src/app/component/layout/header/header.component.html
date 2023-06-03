@@ -30,7 +30,7 @@
         <nav>
             <ul>
                 <li (click)="navigate(item)" *ngFor="let item of items">
-                    <span>{{ item.name }}</span>
+                    <a>{{ item.name }}</a>
                 </li>
                 <li (click)="getCSV()">
                     <span>csv</span>

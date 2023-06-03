@@ -1,60 +1,36 @@
-.filter {
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-    overflow-y: hidden;
-    padding-bottom: 47px;
-}
+section {
+    > div:first-of-type {
+        padding: .5rem;
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        overflow-y: hidden;
+    }
 
-#words > div {
-    padding: .5rem;
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-    overflow-y: hidden;
-}
-
-#actions {
-    justify-content: center;
-    padding-top: 2rem;
-    padding-bottom: 2rem;
-}
-
-.loading {
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    padding: 3rem;
+    > div:last-of-type {
+        padding-top: 2rem;
+        padding-bottom: 2rem;
+    }
 }
 
 @media screen and (min-width: 1300px) {
-    #words {
+    section {
         padding-left: 7%;
         padding-right: 7%;
     }
 }
 
 @media screen and (min-width: 600px) {
-    #actions {
+    section > div:last-of-type {
         margin-left: 30%;
         margin-right: 30%;
     }
 }
 
 @media screen and (max-width: 600px) {
-    #actions {
+    section > div:last-of-type {
         width: 100%;
         flex-wrap: wrap;
         padding: 2rem;
-
-        > button {
-            width: 100%;
-            margin-left: 0;
-
-            &:not(:last-of-type) {
-                margin-bottom: .5rem;
-            }
-        }
     }
 }

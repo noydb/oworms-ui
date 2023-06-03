@@ -1,7 +1,8 @@
 @use '../../../style/colour' as colour;
 @use '../../../style/font' as font;
+@use '../../../style/mixin' as mxn;
 
-li {
+section {
     width: 230px;
     min-height: 200px;
     max-height: 200px;
@@ -9,28 +10,12 @@ li {
     padding: 1rem;
     margin: .5rem;
     box-shadow: 0 2px 4px -5px #101010;
-    transition: all .1s ease-in-out;
+    @include mxn.transition;
     border: 1px solid rgba(255, 255, 255, 0.1);
     cursor: pointer;
     color: #ffffff;
     border-radius: 4px;
     background-color: transparent;
-
-    // heart icon(s)
-    img {
-        float: right;
-        width: 11%;
-
-        &.heart {
-            margin-left: 1rem;
-            margin-top: .2rem;
-            transition: all .2s ease-in;
-
-            &:hover {
-                opacity: .8;
-            }
-        }
-    }
 
     > span {
         display: block;
@@ -63,7 +48,7 @@ li {
         background-color: rgba(161, 161, 161, 0.06);
     }
 
-    section {
+    > div {
         display: flex;
         justify-content: space-between;
 
@@ -71,12 +56,13 @@ li {
             margin-top: 2.5rem;
         }
 
-        label {
+        > span {
             font-size: .6rem;
             color: #907f7f;
         }
 
-        &.date {
+        // date
+        &:last-of-type {
             margin-top: .2rem;
             justify-content: flex-end;
         }
@@ -84,7 +70,7 @@ li {
 }
 
 @media screen and (min-width: 700px) {
-    li {
+    section {
         width: 285px;
     }
 }

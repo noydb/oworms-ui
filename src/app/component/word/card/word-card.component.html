@@ -1,33 +1,20 @@
-<li (click)="viewWordDetails()" *ngIf="word">
+<section (click)="viewWordDetails()" *ngIf="word" title="view this word's details">
 
-    <!-- like and unlike -->
-    <img *ngIf="isLiked; else notLiked"
-         alt="a white, filled heart"
-         src="/assets/image/heart-filled.svg"
-         class="heart"
-         title="unlike this word"
-         (click)="likeWord($event, word)" />
-    <ng-template #notLiked>
-        <img alt="a white, outlined heart"
-             src="/assets/image/heart.svg"
-             class="heart outlined"
-             title="like this word"
-             (click)="likeWord($event, word)" />
-    </ng-template>
+    <ow-word-like [word]="word"></ow-word-like>
+    <h5 class="mono">{{ word.theWord }}</h5>
 
     <!-- basics -->
-    <h5 class="mono">{{ word.theWord }}</h5>
     <span id="pronunciation" *ngIf="word.pronunciation as pronunciation;">{{ pronunciation }}</span>
     <span id="part-of-speech">{{ word.partOfSpeech }}</span>
     <span id="definition">{{ word.definition }}</span>
 
     <!-- meta data -->
-    <section>
-        <label>{{ getViews(word) }}</label>
-        <label>by {{ word.createdBy }}</label>
-    </section>
-    <section class="date">
-        <label>{{ word.creationDate | date : 'MMMM yyyy HH:mm:ss' }}</label>
-    </section>
+    <div>
+        <span>{{ getViews(word) }}</span>
+        <span>by {{ word.createdBy }}</span>
+    </div>
+    <div>
+        <span>{{ word.creationDate | date : 'MMMM yyyy HH:mm:ss' }}</span>
+    </div>
 
-</li>
+</section>

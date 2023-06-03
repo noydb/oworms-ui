@@ -1,7 +1,7 @@
 @use '../../style/colour' as colour;
 @use '../../style/mixin' as mxn;
 
-div#alerts {
+div {
     position: fixed;
     top: 80px;
     width: 100%;
@@ -20,7 +20,7 @@ div#alerts {
         overflow: hidden;
         padding: 1rem;
         font-size: .9rem;
-        transition: all .1s ease-in;
+        @include mxn.transition;
         margin-bottom: .2rem;
         cursor: pointer;
 

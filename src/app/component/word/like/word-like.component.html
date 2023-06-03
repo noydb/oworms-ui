@@ -1,0 +1,12 @@
+<img
+    alt="a white, filled heart"
+    src="/assets/image/heart-filled.svg"
+    title="unlike this word"
+    [class.show]="isLiked"
+    (click)="likeWord($event, word)"/>
+
+<img alt="a white, outlined heart"
+     src="/assets/image/heart.svg"
+     [class.show]="!isLiked"
+     title="like this word"
+     (click)="likeWord($event, word)"/>
