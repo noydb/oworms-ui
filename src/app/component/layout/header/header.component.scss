@@ -8,12 +8,12 @@ header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: #000000;
+    background-color: #0b0b0b;
     color: #ffffff;
     padding-bottom: .5rem;
     padding-top: .5rem;
 
-    section {
+    > div {
         &#menu-toggle {
             width: 100%;
             display: flex;
@@ -57,7 +57,7 @@ header {
             justify-content: center;
 
             > img {
-              transition: all .2s ease;
+                transition: all .2s ease;
             }
 
             > img:hover {
@@ -88,7 +88,7 @@ header {
         }
     }
 
-    section#actions {
+    > div#actions {
         display: flex;
         justify-content: space-between;
         margin-right: 1rem;
@@ -112,14 +112,14 @@ header {
 
     header {
 
-        section {
+        > div {
             display: flex;
             align-items: center;
 
-            span {
-                width: 10%;
+            // img
+            > span {
+                display: block;
                 padding-left: 1rem;
-                padding-right: 3rem;
 
                 > img {
                     cursor: pointer;
@@ -132,29 +132,30 @@ header {
             }
 
             nav {
-                ul {
+                > ul {
                     display: flex;
 
-                    li, a {
-                        padding: 1rem;
+                    > li {
+                        padding-right: 1rem;
                         transition: background-color .1s ease-in-out;
                         color: #f2f2f2;
+                        margin-left: 1rem;
+                        margin-right: 1rem;
 
-                        &:not(last-of-type) {
-                            margin-right: .5rem;
-                        }
-
-                        label {
+                        > span,
+                        > a {
+                            display: block;
                             cursor: pointer;
                             transition: all .25s ease-in;
+                            font-size: .9rem;
 
                             &:hover {
                                 color: colour.$secondary;
                             }
                         }
 
-                        &.responsive {
-                            display: none;
+                        > a {
+                            color: #ffffff;
                         }
                     }
                 }

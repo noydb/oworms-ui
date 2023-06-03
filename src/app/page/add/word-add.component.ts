@@ -8,47 +8,41 @@ import { AlertService } from '../../service/alert.service';
 import { WordService } from '../../service/word.service';
 
 import { AppRoutes } from '../../util/app.routes';
-import { ErrorUtil } from '../../util/error.util';
 
+import { APIFieldError } from '../../model/api-field-error.interface';
 import { Word } from '../../model/word.interface';
 
 @Component({
-  selector: 'ow-word-add',
-  templateUrl: 'word-add.component.html',
-  styleUrls: ['./word-add.component.scss']
+    selector: 'ow-word-add',
+    templateUrl: 'word-add.component.html',
+    styleUrls: ['./word-add.component.scss']
 })
 export class WordAddComponent {
 
-  constructor(private readonly service: WordService,
-              private readonly router: Router,
-              private readonly alertService: AlertService,
-              private readonly titleService: Title) {
-      this.titleService.setTitle('new - oworms')
-  }
+    fieldErrors: APIFieldError[] = [];
 
-  createWord(word: Word): void {
-    this.service
-    .create(word)
-    .pipe(take(1))
-    .subscribe({
-      next: () => {
-        this.alertService.add('Created word');
+    constructor(private readonly service: WordService,
+                private readonly router: Router,
+                private readonly alertService: AlertService,
+                private readonly titleService: Title) {
+        this.titleService.setTitle('new - oworms');
+    }
 
-        void this.router.navigate([AppRoutes.ALL], { queryParamsHandling: 'preserve' });
-      },
-      error: (e: HttpErrorResponse) => {
-        const message: string = ErrorUtil.getMessage(e);
+    createWord(word: Word): void {
+        this.fieldErrors = [];
 
-        if (message.includes('exists')) {
-          this.alertService.add(
-              ErrorUtil.getMessage(e) + ". Click here to view it",
-              true,
-              AppRoutes.getDetail(e.error.uuid)
-          );
-        } else {
-          this.alertService.add(ErrorUtil.getMessage(e), true);
-        }
-      }
-    });
-  }
+        this.service
+            .create(word)
+            .pipe(take(1))
+            .subscribe({
+                next: () => {
+                    this.alertService.add('Created word');
+
+                    void this.router.navigate([AppRoutes.ALL], { queryParamsHandling: 'preserve' });
+                },
+                error: (e: HttpErrorResponse) => {
+                    this.fieldErrors = e.error.fieldErrors;
+                }
+            });
+    }
 }

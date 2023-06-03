@@ -15,11 +15,11 @@ import { MenuItem } from '../../../model/menu-item.interface';
 import { Word } from '../../../model/word.interface';
 
 @Component({
-    selector: 'ow-top',
-    templateUrl: 'top.component.html',
-    styleUrls: ['./top.component.scss']
+    selector: 'ow-header',
+    templateUrl: 'header.component.html',
+    styleUrls: ['./header.component.scss']
 })
-export class TopComponent {
+export class HeaderComponent {
 
     expandMenu: boolean = false;
     readonly items: MenuItem[] = MENU_ITEMS;

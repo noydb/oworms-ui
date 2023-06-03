@@ -2,12 +2,12 @@ import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 
-import { ChunkPipe } from '../component/pipe/chunk.pipe';
+import { ChunkPipe } from '../pipe/chunk.pipe';
 
-import { ErrorComponent } from '../component/common/error/error.component';
 import { FilterComponent } from '../component/filter/filter.component';
 import { FilterModalComponent } from '../component/filter/modal/filter-modal.component';
 import { HeroComponent } from '../component/layout/hero/hero.component';
+import { PlaceholderComponent } from '../component/common/error/placeholder.component';
 import { SelectComponent } from '../component/common/select/select.component';
 import { SpinnerComponent } from '../component/common/spinner/spinner.component';
 import { TagsComponent } from '../component/tags/tags.component';
@@ -19,10 +19,10 @@ import { TagsComponent } from '../component/tags/tags.component';
         ReactiveFormsModule
     ],
     declarations: [
-        ErrorComponent,
         FilterComponent,
         FilterModalComponent,
         HeroComponent,
+        PlaceholderComponent,
         SelectComponent,
         SpinnerComponent,
         TagsComponent,
@@ -34,9 +34,9 @@ import { TagsComponent } from '../component/tags/tags.component';
         FormsModule,
         ReactiveFormsModule,
 
-        ErrorComponent,
         FilterComponent,
         HeroComponent,
+        PlaceholderComponent,
         SelectComponent,
         SpinnerComponent,
         TagsComponent,

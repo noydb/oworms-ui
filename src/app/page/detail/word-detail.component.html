@@ -9,13 +9,15 @@
             <div>
                 <h2 class="mono">{{word.theWord}}</h2>
                 <img *ngIf="isLiked; else notLiked"
-                     [alt]="'a white, filled heart'"
+                     alt="a white, filled heart"
                      src="/assets/image/heart-filled.svg"
+                     title="unlike this word"
                      class="heart"
                      (click)="likeWord($event, word)" />
                 <ng-template #notLiked>
-                    <img [alt]="'a white, outlined heart'"
+                    <img alt="a white, outlined heart"
                          src="/assets/image/heart.svg"
+                         title="like this word"
                          class="heart"
                          (click)="likeWord($event, word)" />
                 </ng-template>
@@ -87,13 +89,5 @@
 </article>
 
 <ng-template #error>
-    <ow-error *ngIf="state === 'error' else loading">
-        <p>{{ errorMessage ?? 'no message available' }}</p>
-    </ow-error>
-</ng-template>
-
-<ng-template #loading>
-    <section class="loading">
-        <h5>Loading...</h5>
-    </section>
+    <ow-placeholder [state]="state" [errorMessage]="errorMessage"></ow-placeholder>
 </ng-template>

@@ -6,11 +6,11 @@ import { UserService } from '../../../service/user.service';
 import { WordService } from '../../../service/word.service';
 
 @Component({
-    selector: 'ow-loader',
-    templateUrl: 'loader.component.html',
-    styleUrls: ['./loader.component.scss']
+    selector: 'ow-loader-overlay',
+    templateUrl: 'loader-overlay.component.html',
+    styleUrls: ['./loader-overlay.component.scss']
 })
-export class LoaderComponent {
+export class LoaderOverlayComponent {
 
     readonly busy$: Observable<boolean>;
 

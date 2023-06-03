@@ -20,10 +20,10 @@ import { AlertComponent } from './component/alert/alert.component';
 import { AppComponent } from './app.component';
 import { CredentialsComponent } from './page/credentials/credentials.component';
 import { FooterComponent } from './component/layout/footer/footer.component';
-import { LoaderComponent } from './component/common/loader/loader.component';
+import { LoaderOverlayComponent } from './component/common/loader-overlay/loader-overlay.component';
 import { ProfileComponent } from './page/profile/profile.component';
 import { StatisticsComponent } from './page/stats/statistics.component';
-import { TopComponent } from './component/layout/top/top.component';
+import { HeaderComponent } from './component/layout/header/header.component';
 import { RandomTopComponent } from './component/word/random/top/random-top.component';
 import { WordAddComponent } from './page/add/word-add.component';
 import { WordCardComponent } from './component/word/card/word-card.component';
@@ -56,9 +56,9 @@ import { WordsComponent } from './page/list/words.component';
         // component
         AlertComponent,
         FooterComponent,
-        LoaderComponent,
+        LoaderOverlayComponent,
         RandomTopComponent,
-        TopComponent,
+        HeaderComponent,
         WordCardComponent,
         WordFormComponent
     ],

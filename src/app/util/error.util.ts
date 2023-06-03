@@ -7,7 +7,7 @@ export class ErrorUtil {
 
         switch (status) {
             case 400:
-                return status + ' ' + e.error.error;
+                return status + ' ' + e.error.message;
             case 401:
                 return status + ' ' + (e.error.error_description ?? e.error.message ?? e.statusText);
             case 404:
@@ -17,7 +17,7 @@ export class ErrorUtil {
             case 504:
                 return status + ' ' + e.statusText;
             default:
-                return status + ' ' + e.error.message;
+                return '(this is a default message) ' + status + ' ' + e.error.message;
         }
     }
 }

@@ -2,8 +2,8 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { Meta, Title } from '@angular/platform-browser';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
-import { Observable, of } from 'rxjs';
-import { catchError, map, switchMap, take, tap } from 'rxjs/operators';
+import { Observable } from 'rxjs';
+import { map, switchMap, take, tap } from 'rxjs/operators';
 
 import { AlertService } from '../../service/alert.service';
 import { TagService } from '../../service/tag.service';
@@ -12,6 +12,8 @@ import { WordService } from '../../service/word.service';
 import { AppRoutes } from '../../util/app.routes';
 import { ErrorUtil } from '../../util/error.util';
 
+import { APIFieldError } from '../../model/api-field-error.interface';
+import { ComponentState } from '../../model/component-state.enum';
 import { Word } from '../../model/word.interface';
 
 import { LoadComponent } from '../../component/common/spinner/load.component';
@@ -23,6 +25,7 @@ import { LoadComponent } from '../../component/common/spinner/load.component';
 })
 export class WordEditComponent extends LoadComponent {
 
+    fieldErrors: APIFieldError[] = [];
     readonly word$: Observable<Word>;
 
     constructor(private readonly route: ActivatedRoute,
@@ -37,19 +40,21 @@ export class WordEditComponent extends LoadComponent {
     }
 
     update(uuid: string, updated: Word): void {
-        this.state = 'loading';
+        this.fieldErrors = [];
 
         this.service
             .update(uuid, updated)
             .pipe(take(1))
             .subscribe({
                 next: () => {
-                    this.alertService.add('Updated word', false, AppRoutes.getDetail(uuid));
+                    this.alertService.addWithPath('Updated word', false, AppRoutes.getDetail(uuid));
 
                     this.navToDetail(uuid);
                 },
-                error: (e) => {
-                    this.alertService.add(ErrorUtil.getMessage(e), true);
+                error: (e: HttpErrorResponse) => {
+                    this.fieldErrors = e.error.fieldErrors;
+                    this.state = ComponentState.ERROR;
+                    this.errorMessage = ErrorUtil.getMessage(e);
                 }
             });
     }
@@ -66,18 +71,7 @@ export class WordEditComponent extends LoadComponent {
                 switchMap((uuid: string) => this.service.retrieve(uuid)),
                 tap((word: Word) => {
                     this.updateMetaInfo(word);
-                }),
-                catchError((e: HttpErrorResponse) => {
-                        this.state = 'error';
-                        this.errorMessage = ErrorUtil.getMessage(e);
-
-                        if (this.errorMessage.includes('exists')) {
-                            this.alertService.add(this.errorMessage, true, AppRoutes.getDetail(e.error.uuid));
-                        }
-
-                        return of(undefined);
-                    }
-                )
+                })
             );
     }
 

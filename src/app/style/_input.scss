@@ -16,5 +16,7 @@ input {
         background-color: transparent;
     }
 
-    //     border: 1px solid #ffffff; only if field has value
+    &.error {
+        border: 1px solid colour.$error;
+    }
 }

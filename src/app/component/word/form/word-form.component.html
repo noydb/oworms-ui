@@ -7,7 +7,9 @@
             <input [required]="!viewOnly"
                    formControlName="word"
                    name="word"
-                   placeholder="word"/>
+                   placeholder="word"
+                   [class.error]="!!getError('theWord')"/>
+            <span [class.show]="getError('theWord')">{{ getError('theWord') }}</span>
         </fieldset>
         <fieldset>
             <ow-select titleLabel="part of speech"
@@ -21,24 +23,41 @@
             <textarea [required]="true"
                       formControlName="definition"
                       name="definition"
-                      placeholder="definition"></textarea>
+                      placeholder="definition"
+                      [class.error]="!!getError('definition')"></textarea>
+            <span [class.show]="getError('definition')">{{ getError('definition') }}</span>
         </fieldset>
         <fieldset>
-            <textarea formControlName="origin" name="origin" placeholder="origin" rows="7"></textarea>
+            <textarea formControlName="origin"
+                      name="origin"
+                      placeholder="origin"
+                      rows="7"
+                      [class.error]="!!getError('origin')"></textarea>
+            <span [class.show]="getError('origin')">{{ getError('origin') }}</span>
         </fieldset>
     </div>
 
     <div class="column">
         <fieldset>
-            <textarea formControlName="exampleUsage" name="exampleUsage" placeholder="example"></textarea>
+            <textarea formControlName="exampleUsage"
+                      name="exampleUsage"
+                      placeholder="example"
+                      [class.error]="!!getError('exampleUsage')"></textarea>
+            <span [class.show]="getError('exampleUsage')">{{ getError('exampleUsage') }}</span>
         </fieldset>
         <fieldset>
             <textarea formControlName="discoveredAt"
                       name="discoveredAt"
-                      placeholder="Where did you first see/hear this word?"></textarea>
+                      placeholder="Where did you first see/hear this word?"
+                      [class.error]="!!getError('discoveredAt')"></textarea>
+            <span [class.show]="getError('discoveredAt')">{{ getError('discoveredAt') }}</span>
         </fieldset>
         <fieldset>
-            <input formControlName="pronunciation" name="pronunciation" placeholder="pronunciation"/>
+            <input formControlName="pronunciation"
+                   name="pronunciation"
+                   placeholder="pronunciation"
+                   [class.error]="!!getError('pronunciation')"/>
+            <span [class.show]="getError('pronunciation')">{{ getError('pronunciation') }}</span>
         </fieldset>
         <fieldset>
             <ow-select titleLabel="tags"
@@ -49,7 +68,11 @@
                        [transparent]="true"></ow-select>
         </fieldset>
         <fieldset>
-            <textarea formControlName="note" name="note" placeholder="note"></textarea>
+            <textarea formControlName="note"
+                      name="note"
+                      placeholder="note"
+                      [class.error]="!!getError('note')"></textarea>
+            <span [class.show]="getError('note')">{{ getError('note') }}</span>
         </fieldset>
     </div>
 
