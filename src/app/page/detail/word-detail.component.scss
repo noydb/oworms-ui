@@ -2,13 +2,6 @@
 @use '../../style/font' as font;
 @use '../../style/mixin' as mxn;
 
-.loading {
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    padding: 3rem;
-}
-
 article {
 
     span {
@@ -35,10 +28,6 @@ article {
                 }
 
                 @include mxn.svg-hover;
-
-                > img {
-                    width: 17%;
-                }
             }
 
             #actions {
@@ -71,9 +60,16 @@ article {
         .pair {
             display: flex;
             padding-top: 10px;
+            width: 100%;
 
-            span {
+            > span {
                 font-size: .9rem;
+            }
+
+            > p {
+                overflow: hidden;
+                word-wrap: break-word;
+                max-width: 80%;
             }
         }
 

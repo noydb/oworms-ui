@@ -17,14 +17,9 @@ import { MENU_ITEMS } from '../../../util/data';
 export class FooterComponent {
 
     readonly items: MenuItem[] = MENU_ITEMS;
+    readonly signature: string = `${new Date().getFullYear()} bp, cw, fv, jg, kmw, sk, tg`;
 
     constructor(private readonly router: Router, private readonly wordService: WordService) {
-    }
-
-    get signature(): string {
-        const year: number = new Date().getFullYear();
-
-        return year + ' bp, cw, fv, jg, kmw, sk, tg';
     }
 
     navigate(path: string): void {

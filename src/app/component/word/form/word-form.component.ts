@@ -5,9 +5,11 @@ import { Observable } from 'rxjs';
 import { TagService } from '../../../service/tag.service';
 
 import { FilterUtil } from '../../../util/filter.util';
+import { TagUtil } from '../../../util/tag.util';
+
+import { APIFieldError } from '../../../model/api-field-error.interface';
 import { PartOfSpeech } from '../../../model/part-of-speech.enum';
 import { SelectOption } from '../../../model/select-option.interface';
-import { TagUtil } from '../../../util/tag.util';
 import { Word } from '../../../model/word.interface';
 
 @Component({
@@ -40,6 +42,9 @@ export class WordFormComponent implements OnInit {
 
     @Input()
     viewOnly: boolean = false;
+
+    @Input()
+    fieldErrors: APIFieldError[] = [];
 
     @Output()
     readonly submitForm: EventEmitter<Word> = new EventEmitter<Word>();
@@ -142,5 +147,17 @@ export class WordFormComponent implements OnInit {
         }
 
         this.selectedTags = TagUtil.mapTagsToOptions(this.word.tags, true);
+    }
+
+    getError(field: keyof Word): string {
+        const fieldError: APIFieldError | undefined = this.fieldErrors?.find(({ field: comparator }: APIFieldError) =>
+            comparator === field
+        );
+
+        if (fieldError) {
+            return fieldError.message;
+        }
+
+        return '';
     }
 }

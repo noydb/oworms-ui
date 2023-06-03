@@ -1,3 +1,4 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { ActivatedRoute, ParamMap, Params, Router } from '@angular/router';
 import { distinctUntilChanged, of } from 'rxjs';
@@ -10,6 +11,7 @@ import { AppRoutes } from '../../util/app.routes';
 import { ErrorUtil } from '../../util/error.util';
 import { FilterUtil } from '../../util/filter.util';
 
+import { ComponentState } from '../../model/component-state.enum';
 import { User } from '../../model/user.interface';
 import { Word } from '../../model/word.interface';
 import { WordFilter } from '../../model/word-filter.interface';
@@ -28,6 +30,7 @@ export class WordsComponent extends LoadComponent {
     wordFilter: WordFilter;
     user: User;
     wordsToShow: number;
+    readonly ERROR = ComponentState.ERROR;
 
     constructor(private readonly wordService: WordService,
                 private readonly route: ActivatedRoute,
@@ -80,7 +83,6 @@ export class WordsComponent extends LoadComponent {
     }
 
     private getWords(): void {
-        this.state = 'loading';
         let filtering: boolean = false;
 
         this.route
@@ -88,6 +90,7 @@ export class WordsComponent extends LoadComponent {
         .pipe(
             distinctUntilChanged(),
             map((qParamsMap: ParamMap) => {
+                this.state = ComponentState.LOADING;
                 filtering = FilterUtil.getFilterLabels(qParamsMap).length > 0;
                 const size: number = Number(qParamsMap.get('size'));
 
@@ -103,31 +106,32 @@ export class WordsComponent extends LoadComponent {
                 } as WordFilter;
             }),
             tap((wordFilter: WordFilter) => {
-                this.state = 'complete';
                 this.wordFilter = wordFilter;
             }),
             switchMap((wordFilter: WordFilter) =>
                 this.wordService
                 .retrieveAll(wordFilter)
                 .pipe(
-                    catchError((e: any) => {
+                    catchError((e: HttpErrorResponse) => {
                         this.errorMessage = ErrorUtil.getMessage(e);
-                        this.state = 'error';
+                        this.state = ComponentState.ERROR;
                         this.words = [];
 
                         return of([]);
                     })
                 )
-            ),
-            tap((words: Word[]) => {
+            )
+        )
+        .subscribe({
+            next: (words: Word[]) => {
                 if (words.length === 1 && filtering) {
                     void this.router.navigate([AppRoutes.getDetail(words[0].uuid)]);
                 }
 
                 this.words = words;
-            })
-        )
-        .subscribe();
+                this.state = ComponentState.COMPLETE;
+            }
+        });
     }
 
     private getUser(): void {

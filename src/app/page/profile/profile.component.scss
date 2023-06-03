@@ -23,19 +23,18 @@ article {
             margin-bottom: 1rem;
         }
 
-        ul {
+        > ul {
             overflow-y: scroll;
             width: 100%;
 
             li {
-                & {
-                    margin-bottom: 1rem;
-                    transition: all .3s ease-in;
-                }
+                padding: 1rem 1rem 1rem;
+                margin-bottom: 1rem;
+                transition: all .3s ease-in;
 
                 &:hover {
                     cursor: pointer;
-                    opacity: .8;
+                    background-color: #181818;
                 }
 
                 h3 {
