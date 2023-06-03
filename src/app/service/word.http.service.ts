@@ -39,8 +39,8 @@ export class WordHttpService {
         );
     }
 
-    update(uuid: string, updatedWord: Word): Observable<Word> {
-        return this.http.put<Word>(
+    update(uuid: string, updatedWord: Word): Observable<void> {
+        return this.http.put<void>(
             `${this.baseURL}/${uuid}`,
             { word: updatedWord, tagIds: updatedWord.tagIds },
             { params: this.getBNA() }

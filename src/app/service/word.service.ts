@@ -1,6 +1,6 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, throwError } from 'rxjs';
+import { BehaviorSubject, Observable, OperatorFunction, throwError } from 'rxjs';
 import { catchError, finalize, map, tap } from 'rxjs/operators';
 
 import { AlertService } from './alert.service';
@@ -80,48 +80,20 @@ export class WordService {
         return this.wordHttpService
         .create(word)
         .pipe(
-            catchError((e: HttpErrorResponse) => {
-                const message: string = ErrorUtil.getMessage(e);
-
-                if (message.includes('exists')) {
-                    this.alertService.addWithPath(
-                        ErrorUtil.getMessage(e) + ". Click here to view it",
-                        true,
-                        AppRoutes.getDetail(e.error.uuid)
-                    );
-                } else {
-                    this.alertService.add(ErrorUtil.getMessage(e), true, 10000);
-                }
-
-                return throwError(() => e);
-            }),
+            this.handleActionError(),
             finalize(() => {
                 this.busy$.next(false);
             })
         );
     }
 
-    update(uuid: string, word: Word): Observable<Word> {
+    update(uuid: string, word: Word): Observable<void> {
         this.busy$.next(true);
 
         return this.wordHttpService
         .update(uuid, word)
         .pipe(
-            catchError((e: HttpErrorResponse) => {
-                const message: string = ErrorUtil.getMessage(e);
-
-                if (message.includes('exists')) {
-                    this.alertService.addWithPath(
-                        ErrorUtil.getMessage(e) + ". Click here to view it",
-                        true,
-                        AppRoutes.getDetail(e.error.uuid)
-                    );
-                } else {
-                    this.alertService.add(ErrorUtil.getMessage(e), true, 10000);
-                }
-
-                return throwError(() => e);
-            }),
+            this.handleActionError(),
             finalize(() => {
                 this.busy$.next(false);
             })
@@ -159,4 +131,20 @@ export class WordService {
             map((value: number) => !value || isNaN(value) ? 0 : value)
         );
     }
+
+    private handleActionError = (): OperatorFunction<void, void> => catchError((e: HttpErrorResponse) => {
+        const message: string = ErrorUtil.getMessage(e);
+
+        if (message.includes('exists')) {
+            this.alertService.addWithPath(
+                ErrorUtil.getMessage(e) + ". Click here to view it",
+                true,
+                AppRoutes.getDetail(e.error.uuid)
+            );
+        } else {
+            this.alertService.add(ErrorUtil.getMessage(e), true, 10000);
+        }
+
+        return throwError(() => e);
+    });
 }
