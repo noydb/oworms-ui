@@ -1,9 +1,11 @@
 <dialog>
-    <img (click)="openFilterModal()" alt="A filter icon" src="/assets/image/icon-filter.svg" />
+    <img (click)="openFilterModal()"
+         alt="A filter icon" src="/assets/image/icon-filter.svg"
+         title="open advanced filtering options" />
     <input *ngIf="showField"
            [formControl]="ctrl"
            name="quick-search"
-           placeholder="search for a word" />
+           placeholder="search for a word"/>
     <div [class.hidden]="!existingFilters || existingFilters.length === 0">
         <button (click)="clearFilters()" *ngIf="existingFilters?.length > 0" class="transparent">
             Clear Filters

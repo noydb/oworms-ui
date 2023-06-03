@@ -2,18 +2,18 @@
 
     <!-- responsive menu -->
 
-    <section *ngIf="showBurger" id="menu-toggle">
+    <div *ngIf="showBurger" id="menu-toggle">
         <img alt="oworms logo" src="/assets/image/logo.svg" routerLink="/o/worms/all">
         <img src="/assets/image/burger-menu.svg" (click)="expandMenu = true" alt="A burger menu svg icon"/>
-    </section>
+    </div>
     <nav id="responsive-menu" [class.show]="expandMenu">
         <div>
             <img alt="oworms logo" src="/assets/image/logo.svg" routerLink="/o/worms/all" (click)="expandMenu = false">
         </div>
-        <li (click)="navigate(item)" *ngFor="let item of responsiveItems" class="item">
+        <li (click)="navigate(item)" *ngFor="let item of responsiveItems">
             <span>{{ item.name }}</span>
         </li>
-        <a href="https://oworms-api.herokuapp.com/swagger-ui/" target="_blank" class="item">
+        <a href="https://oworms-api.herokuapp.com/swagger-ui/" target="_blank">
             api
         </a>
         <div>
@@ -23,26 +23,28 @@
 
     <!-- normal menu -->
 
-    <section *ngIf="!showBurger">
+    <div *ngIf="!showBurger">
         <span>
             <img alt="oworms logo" src="/assets/image/logo.svg" routerLink="/o/worms/all">
         </span>
         <nav>
             <ul>
-                <li (click)="navigate(item)" *ngFor="let item of items" class="item">
-                    <label>{{ item.name }}</label>
+                <li (click)="navigate(item)" *ngFor="let item of items">
+                    <span>{{ item.name }}</span>
                 </li>
-                <li (click)="getCSV()" class="item">
-                    <label>csv</label>
+                <li (click)="getCSV()">
+                    <span>csv</span>
                 </li>
-                <a href="https://oworms-api.herokuapp.com/swagger-ui/" target="_blank" class="item">
-                    <label>api</label>
-                </a>
+                <li>
+                    <a href="https://oworms-api.herokuapp.com/swagger-ui/" target="_blank">
+                        api
+                    </a>
+                </li>
             </ul>
         </nav>
-    </section>
+    </div>
 
-    <section id="actions" *ngIf="!showBurger">
+    <div id="actions" *ngIf="!showBurger">
         <button (click)="navigateToRandom()" class="icon">
             <img alt="shuffle icon" src="/assets/image/icon-shuffle.svg">
             random
@@ -52,7 +54,10 @@
             add
         </button>
 
-        <img src="/assets/image/user.png" alt="user icon" routerLink="/o/profile">
-    </section>
+        <img src="/assets/image/user.png"
+             alt="user icon"
+             routerLink="/o/profile"
+             title="view your profile">
+    </div>
 
 </header>

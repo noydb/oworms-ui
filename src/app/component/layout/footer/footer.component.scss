@@ -11,49 +11,48 @@ footer {
         display: none;
     }
 
-    > div#copyright > span {
+    // copywright
+    > div:last-of-type > span {
         color: #ffffff;
         display: block;
         margin-top: 1rem;
-        font-size: .75rem;
+        font-size: .65rem;
     }
 }
 
 @media screen and (min-width: 600px) {
     footer {
         height: auto;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
         margin-top: 32px;
-        padding: 1rem;
         margin-bottom: 0;
+        padding: 1rem;
 
-        > img {
-            display: none;
+        > img:first-of-type {
+            margin-top: 2rem;
         }
 
         > div:first-of-type {
-            display: flex;
-            align-items: center;
+            display: block;
+            text-align: center;
+            margin-top: 1rem;
+            margin-bottom: 3rem;
 
             > img {
                 cursor: pointer;
 
-                > &:hover {
+                &:hover {
                     opacity: .8;
                 }
             }
 
             > a {
-                display: block;
                 margin: 1rem;
                 transition: background-color .1s ease-in-out;
                 cursor: pointer;
                 color: #f2f2f2;
                 font-size: .9rem;
 
-                > &:hover {
+                &:hover {
                     color: colour.$secondary;
                 }
 
@@ -69,6 +68,10 @@ footer {
                     margin-right: 2rem;
                 }
             }
+        }
+
+        > div:last-of-type {
+            margin-bottom: 2rem;
         }
     }
 }

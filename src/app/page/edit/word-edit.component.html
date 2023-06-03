@@ -8,16 +8,9 @@
               [word]="word"
               btnText="Save Changes"
               secondBtnText="Cancel"
-              [title]="'Edit ' + word.theWord"></ow-word-form>
+              [title]="'Edit ' + word.theWord"
+              [fieldErrors]="fieldErrors"></ow-word-form>
 
 <ng-template #error>
-    <ow-error *ngIf="state === 'error' else loading">
-        <label>{{ errorMessage ?? 'no message available' }}</label>
-    </ow-error>
-</ng-template>
-
-<ng-template #loading>
-    <section id="loading">
-        <h5>Loading...</h5>
-    </section>
+    <ow-placeholder [state]="state" [errorMessage]="errorMessage"></ow-placeholder>
 </ng-template>

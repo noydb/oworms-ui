@@ -13,6 +13,7 @@ import { WordService } from '../../service/word.service';
 
 import { ErrorUtil } from '../../util/error.util';
 
+import { ComponentState } from '../../model/component-state.enum';
 import { Tag } from '../../model/tag.interface';
 import { User } from '../../model/user.interface';
 import { Word } from '../../model/word.interface';
@@ -73,18 +74,20 @@ export class WordDetailComponent extends LoadComponent {
     }
 
     private getWord(): Observable<Word> {
-        this.state = 'loading';
+        this.state = ComponentState.LOADING;
 
         return this.route
             .paramMap
             .pipe(
                 map((params: ParamMap) => params.get('uuid') ?? '0'),
+                take(1),
                 switchMap((uuid: string) => this.service.retrieve(uuid)),
                 tap((word: Word) => {
                     this.tags = word.tags.map(({ name }: Tag) => name);
-                    this.state = 'complete';
+                    this.state = ComponentState.COMPLETE;
                     this.updateMetaInfo(word);
                 }),
+                take(1),
                 switchMap((word: Word) => combineLatest([
                     of(word),
                     this.userService.getLoggedInUser()
@@ -98,7 +101,8 @@ export class WordDetailComponent extends LoadComponent {
                 }),
                 catchError((e: HttpErrorResponse) => {
                     this.errorMessage = ErrorUtil.getMessage(e);
-                    this.state = 'error';
+                    this.alertService.add('Failed to find word: ' + this.errorMessage, true);
+                    this.state = ComponentState.ERROR;
 
                     return of(undefined);
                 })

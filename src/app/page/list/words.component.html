@@ -6,11 +6,11 @@
 
     <ow-filter></ow-filter>
 
-    <div *ngIf="state !== 'error'; else error">
+    <div *ngIf="state === ComponentState.COMPLETE; else placeholder">
         <ow-word-card *ngFor="let word of words | chunkPipe: wordsToShow" [word]="word"></ow-word-card>
     </div>
 
-    <div id="actions" *ngIf="state !== 'error'">
+    <div id="actions" *ngIf="state !== ERROR">
         <button (click)="showAll()">
             Show All
         </button>
@@ -27,8 +27,6 @@
 
 </section>
 
-<ng-template #error>
-    <ow-error>
-        <label>{{ errorMessage ?? 'No error message available' }}</label>
-    </ow-error>
+<ng-template #placeholder>
+    <ow-placeholder [state]="state" [errorMessage]="errorMessage"></ow-placeholder>
 </ng-template>

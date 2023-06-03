@@ -2,4 +2,6 @@
     <ow-random-top></ow-random-top>
 </ow-hero>
 
-<ow-word-form (submitForm)="createWord($event)" secondBtnText="Clear Fields"></ow-word-form>
+<ow-word-form (submitForm)="createWord($event)"
+              secondBtnText="Clear Fields"
+              [fieldErrors]="fieldErrors"></ow-word-form>
