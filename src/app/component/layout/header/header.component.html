@@ -14,7 +14,7 @@
             <span>{{ item.name }}</span>
         </li>
         <a href="https://oworms-api.herokuapp.com/swagger-ui/" target="_blank">
-            api
+            {{ apiVersion$ | async }}
         </a>
         <div>
             <img alt="A close (X) icon" src="/assets/image/close-icon.svg" (click)="expandMenu = false">
@@ -37,7 +37,7 @@
                 </li>
                 <li>
                     <a href="https://oworms-api.herokuapp.com/swagger-ui/" target="_blank">
-                        api
+                        {{ apiVersion$ | async }}
                     </a>
                 </li>
             </ul>

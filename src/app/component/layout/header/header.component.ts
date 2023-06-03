@@ -1,9 +1,11 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { finalize, take } from 'rxjs/operators';
+import { Observable } from 'rxjs';
+import { finalize, map, take } from 'rxjs/operators';
 
 import { AlertService } from '../../../service/alert.service';
+import { UtilService } from '../../../service/util.service';
 import { WordService } from '../../../service/word.service';
 
 import { AppRoutes } from '../../../util/app.routes';
@@ -24,10 +26,18 @@ export class HeaderComponent {
     expandMenu: boolean = false;
     readonly items: MenuItem[] = MENU_ITEMS;
     readonly responsiveItems: MenuItem[] = RESPONSIVE_MENU_ITEMS;
+    readonly apiVersion$: Observable<string>;
 
     constructor(private readonly router: Router,
                 private readonly wordService: WordService,
-                private readonly alertService: AlertService) {
+                private readonly alertService: AlertService,
+                private readonly utilService: UtilService) {
+        this.apiVersion$ = this.utilService
+            .getApiVersion()
+            .pipe(
+                map((version: string) => 'api ' + version),
+                take(1)
+            );
     }
 
     get showBurger(): boolean {
