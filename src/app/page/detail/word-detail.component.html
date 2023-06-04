@@ -1,5 +1,5 @@
 <ow-hero>
-    <ow-random-top [word]="word$ | async"></ow-random-top>
+    <ow-random-top [word]="word$ | async"/>
 </ow-hero>
 
 <article *ngIf="word$ | async as word; else error" id="word">
@@ -8,7 +8,7 @@
         <div id="top">
             <div>
                 <h2>{{word.theWord}}</h2>
-                <ow-word-like [word]="word"></ow-word-like>
+                <ow-word-like [word]="word"/>
             </div>
             <div id="actions">
                 <img alt="pencil in a circle with pink background"
@@ -39,11 +39,11 @@
         </div>
         <div id="tags">
             <span>Associated Tags</span>
-            <ow-tags [sTags]="tags"></ow-tags>
+            <ow-tags [sTags]="tags"/>
         </div>
         <div id="synonyms">
             <span>Synonyms</span>
-            <ow-tags [sTags]="[]"></ow-tags>
+            <ow-tags [sTags]="[]"/>
         </div>
         <div id="note">
             <span>Note</span>
@@ -77,5 +77,5 @@
 </article>
 
 <ng-template #error>
-    <ow-placeholder [state]="state" [errorMessage]="errorMessage"></ow-placeholder>
+    <ow-placeholder [state]="state" [errorMessage]="errorMessage"/>
 </ng-template>

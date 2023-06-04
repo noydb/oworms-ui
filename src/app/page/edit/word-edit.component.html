@@ -1,5 +1,5 @@
 <ow-hero>
-    <ow-random-top [word]="word$ | async"></ow-random-top>
+    <ow-random-top [word]="word$ | async"/>
 </ow-hero>
 
 <ow-word-form *ngIf="word$ | async as word; else error"
@@ -9,8 +9,8 @@
               btnText="Save Changes"
               secondBtnText="Cancel"
               [title]="'Edit ' + word.theWord"
-              [fieldErrors]="fieldErrors"></ow-word-form>
+              [fieldErrors]="fieldErrors"/>
 
 <ng-template #error>
-    <ow-placeholder [state]="state" [errorMessage]="errorMessage"></ow-placeholder>
+    <ow-placeholder [state]="state" [errorMessage]="errorMessage"/>
 </ng-template>

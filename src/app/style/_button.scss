@@ -39,18 +39,6 @@ button {
         }
     }
 
-    & + & {
-        margin-left: 1rem;
-    }
-
-    * + * {
-        #{&} {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-    }
-
     &.below {
         margin-left: 0;
         margin-top: 1rem;
@@ -65,4 +53,8 @@ button {
             margin-right: .5rem;
         }
     }
+}
+
+button + button {
+    margin-left: .5rem;
 }

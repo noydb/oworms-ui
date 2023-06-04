@@ -27,7 +27,6 @@ export class WordDetailComponent extends LoadComponent {
 
     readonly word$: Observable<Word>;
     tags: string[] = [];
-    isLiked: boolean;
 
     constructor(private readonly service: WordService,
                 private readonly router: Router,

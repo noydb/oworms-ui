@@ -1,5 +1,7 @@
 <nav>
-    <ul [class.centered]="centered" [class.large]="large">
+    <ul (click)="navClicked.emit()"
+        [class.centered]="centered"
+        [class.large]="large">
         <li *ngFor="let item of items">
             <a *ngIf="item.name !== 'home'; else homeLink"
                [routerLink]="item.path"

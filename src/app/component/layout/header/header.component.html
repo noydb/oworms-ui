@@ -3,28 +3,32 @@
     <!-- responsive menu -->
 
     <div id="menu-toggle">
-        <ow-logo></ow-logo>
+        <ow-logo/>
         <img src="/assets/image/burger-menu.svg"
              (click)="expandMenu = true"
              alt="A burger menu svg icon"/>
     </div>
     <dialog id="responsive-menu" [class.show]="expandMenu">
+        <img alt="A cycle/shuffle icon"
+             src="/assets/image/icon-shuffle.svg"
+             (click)="navigateToRandom()"/>
+        <ow-nav [large]="true"
+                [items]="responsiveItems"
+                (navClicked)="expandMenu = false"/>
+        <img alt="A close (X) icon"
+             src="/assets/image/close-icon.svg"
+             (click)="expandMenu = false">
         <div>
-            <ow-logo></ow-logo>
-        </div>
-        <ow-nav [large]="true" [items]="responsiveItems"></ow-nav>
-        <div>
-            <img alt="A close (X) icon" src="/assets/image/close-icon.svg" (click)="expandMenu = false">
+            <ow-logo/>
         </div>
     </dialog>
 
     <!-- normal menu -->
 
     <div>
-        <ow-logo></ow-logo>
-        <ow-nav></ow-nav>
+        <ow-logo/>
+        <ow-nav/>
     </div>
-
     <div id="actions">
         <button (click)="navigateToRandom()" class="icon">
             <img alt="shuffle icon" src="/assets/image/icon-shuffle.svg">
