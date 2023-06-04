@@ -14,28 +14,23 @@ header {
     padding-bottom: .5rem;
     padding-top: .5rem;
 
-    > div {
-        &#menu-toggle {
-            width: 100%;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin-right: 1rem;
+    > div#menu-toggle {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-right: 1rem;
 
-            img {
-                margin-left: 1rem;
-                width: 40px;
-                height: 40px;
-                cursor: pointer;
-
-                &:hover {
-                    opacity: .8;
-                }
-            }
+        ::ng-deep img {
+            margin-left: 1rem;
+            width: 40px;
+            height: 40px;
+            @include mxn.opacity-hover;
         }
     }
 
-    > nav#responsive-menu {
+    > dialog#responsive-menu {
+        display: block;
         position: absolute;
         overflow-y: scroll;
         width: 100%;
@@ -43,7 +38,7 @@ header {
         background-color: #121212;
         left: 0;
         right: 0;
-        top: 0;
+        top: -35px;
         z-index: 90000;
         text-align: center;
         transition: all .45s ease-in;
@@ -51,20 +46,14 @@ header {
         &.show {
             height: 100vh;
             padding-top: 1rem;
+            top: 0;
         }
 
-        div {
+        > div {
             display: flex;
             justify-content: center;
 
-            > img {
-                @include mxn.transition;
-            }
-
-            > img:hover {
-                opacity: .7;
-            }
-
+            // close icon
             &:nth-of-type(2) {
                 padding-top: 2rem;
 
@@ -74,23 +63,25 @@ header {
             }
         }
 
-        li, a {
+        > li, a {
             display: flex;
             align-items: center;
             padding-top: 1rem;
             padding-bottom: 1rem;
             padding-left: 1rem;
             width: 80%;
-            text-transform: uppercase;
+            @include mxn.nav-link;
             font-size: 1.5rem;
-            color: #fff;
-            letter-spacing: 4px;
-            cursor: pointer;
+            color: #ffffff;
         }
     }
 
+    > div:nth-of-type(2) {
+        display: none;
+    }
+
     > div#actions {
-        display: flex;
+        display: none;
         justify-content: space-between;
         margin-right: 1rem;
 
@@ -107,70 +98,34 @@ header {
 }
 
 @media screen and (min-width: 920px) {
-    #menu-toggle, #responsive-menu {
-        display: none;
-    }
 
     header {
 
-        > div {
+        > div#menu-toggle, > dialog#responsive-menu {
+            display: none !important;
+        }
+
+        > div:nth-of-type(2) {
             display: flex;
             align-items: center;
 
             // img
-            > span {
-                display: block;
-                padding-left: 1rem;
-
-                > img {
-                    cursor: pointer;
-                    @include mxn.transition;
-
-                    &:hover {
-                        opacity: .8;
-                    }
-                }
-            }
-
-            nav {
-                > ul {
-                    display: flex;
-
-                    > li {
-                        padding-right: 1rem;
-                        @include mxn.transition;
-                        color: #f2f2f2;
-                        margin-left: 1rem;
-                        margin-right: 1rem;
-
-                        > span,
-                        > a {
-                            @include mxn.nav-link;
-                            display: block;
-
-                            &:hover {
-                                color: colour.$secondary;
-                            }
-                        }
-                    }
-                }
+            ::ng-deep img {
+                margin-left: 1rem;
             }
         }
 
-        #actions {
+        div#actions {
+            width: 25%;
             display: flex;
             justify-content: space-between;
-            width: 25%;
+            align-items: center;
             margin-right: 1rem;
 
             > img {
                 width: 40px;
                 margin-left: 1rem;
                 @include mxn.opacity-hover;
-
-                &:hover {
-                    opacity: .7;
-                }
             }
         }
     }

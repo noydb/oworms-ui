@@ -1,8 +1,8 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component, inject } from '@angular/core';
+import { Params, Router } from '@angular/router';
 import { Observable } from 'rxjs';
-import { finalize, map, take } from 'rxjs/operators';
+import { finalize, take } from 'rxjs/operators';
 
 import { AlertService } from '../../../service/alert.service';
 import { UtilService } from '../../../service/util.service';
@@ -26,40 +26,17 @@ export class HeaderComponent {
     expandMenu: boolean = false;
     readonly items: MenuItem[] = MENU_ITEMS;
     readonly responsiveItems: MenuItem[] = RESPONSIVE_MENU_ITEMS;
-    readonly apiVersion$: Observable<string>;
+    readonly apiVersion$: Observable<string> = inject(UtilService).apiVersion$.pipe(take(1));
+    readonly AppRoutes = AppRoutes;
+    readonly queryParams$: Observable<Params> = inject(UtilService).getQueryParams().pipe(take(1));
 
     constructor(private readonly router: Router,
                 private readonly wordService: WordService,
-                private readonly alertService: AlertService,
-                private readonly utilService: UtilService) {
-        this.apiVersion$ = this.utilService
-            .getApiVersion()
-            .pipe(
-                map((version: string) => 'api ' + version),
-                take(1)
-            );
-    }
-
-    get showBurger(): boolean {
-        return window.innerWidth < 920;
+                private readonly alertService: AlertService) {
     }
 
     navigateToAdd(): void {
         void this.router.navigate([AppRoutes.ADD]);
-    }
-
-    navigate(item: MenuItem): void {
-        this.expandMenu = false;
-
-        if (item.name === 'random') {
-            this.navigateToRandom();
-            return;
-        }
-
-        void this.router.navigate(
-            [item.path],
-            { queryParams: item.filter ? { filter: item.filter } : undefined }
-        );
     }
 
     getCSV(): void {

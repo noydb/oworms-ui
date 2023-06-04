@@ -43,10 +43,6 @@ export class WordsComponent extends LoadComponent {
         this.getNoOfWordsToShow();
     }
 
-    ngOnDestroy(): void {
-        void this.router.navigate([], { relativeTo: this.route, queryParams: {} });
-    }
-
     showAll(): void {
         this.route
             .queryParams
@@ -77,7 +73,7 @@ export class WordsComponent extends LoadComponent {
         )
         .subscribe({
             next: (queryParams: WordFilter) => {
-                void this.router.navigate([], { relativeTo: this.route, queryParams });
+                void this.router.navigate([], { queryParams });
             }
         });
     }
@@ -172,7 +168,7 @@ export class WordsComponent extends LoadComponent {
                     this.wordsToShow  = size;
                     void this.router.navigate(
                         [],
-                        { relativeTo: this.route, queryParams: { size }, queryParamsHandling: 'merge' }
+                        { queryParams: { size }, queryParamsHandling: 'merge' }
                     );
                 }
             });

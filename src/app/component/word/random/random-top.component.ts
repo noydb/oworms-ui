@@ -15,6 +15,7 @@ import { Word } from '../../../model/word.interface';
 export class RandomTopComponent {
 
     word$: Observable<Word>;
+    readonly AppRoutes = AppRoutes;
 
     constructor(private readonly service: WordService,
                 @Attribute('title') readonly title: string) {
@@ -26,9 +27,5 @@ export class RandomTopComponent {
     @Input()
     set word(word: Word) {
         this.word$ = of(word);
-    }
-
-    getRouterLink({ uuid }: Word): string {
-        return '/' + AppRoutes.getDetail(uuid);
     }
 }

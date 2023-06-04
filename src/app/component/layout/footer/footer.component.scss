@@ -8,55 +8,32 @@ footer {
     padding: 4rem 4rem 10rem;
     background-color: #0b0b0b;
 
-    > div:first-of-type {
-        display: none;
-    }
-
-    // copywright
-    > div:last-of-type > span {
-        color: #ffffff;
+    // copyright
+    > span {
         display: block;
+        color: #ffffff;
         margin-top: 1rem;
         font-size: .65rem;
+    }
+
+    ::ng-deep nav {
+        display: none;
     }
 }
 
 @media screen and (min-width: 600px) {
+
     footer {
         height: auto;
         margin-top: 32px;
         margin-bottom: 0;
         padding: 1rem;
 
-        > div:first-of-type {
-            display: block;
-            text-align: center;
-            margin-top: 3rem;
-            margin-bottom: 3rem;
-
-            > a {
-                @include mxn.nav-link;
-                margin: 1rem;
-
-                &:hover {
-                    color: colour.$secondary;
-                }
-
-                &:not(last-of-type) {
-                    margin-right: 1.5rem;
-                }
-
-                &.active {
-                    color: colour.$secondary;
-                }
-
-                > img {
-                    margin-right: 2rem;
-                }
-            }
+        ::ng-deep nav {
+            display: flex;
         }
 
-        > div:last-of-type {
+        > span {
             margin-bottom: 2rem;
         }
     }
