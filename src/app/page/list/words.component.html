@@ -1,11 +1,11 @@
 <ow-hero>
-    <ow-random-top></ow-random-top>
+    <ow-random-top/>
 </ow-hero>
 
 <section>
-    <ow-filter></ow-filter>
+    <ow-filter/>
     <div *ngIf="state === ComponentState.COMPLETE; else placeholder">
-        <ow-word-card *ngFor="let word of words | chunkPipe: wordsToShow" [word]="word"></ow-word-card>
+        <ow-word-card *ngFor="let word of words | chunkPipe: wordsToShow" [word]="word"/>
     </div>
     <div *ngIf="state !== ERROR">
         <button class="transparent"
@@ -24,5 +24,5 @@
 </section>
 
 <ng-template #placeholder>
-    <ow-placeholder [state]="state" [errorMessage]="errorMessage"></ow-placeholder>
+    <ow-placeholder [state]="state" [errorMessage]="errorMessage"/>
 </ng-template>

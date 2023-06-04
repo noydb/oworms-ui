@@ -1,4 +1,4 @@
-import { Attribute, Component, Input } from '@angular/core';
+import { Attribute, Component, EventEmitter, Input, Output } from '@angular/core';
 import { Params } from '@angular/router';
 import { Observable } from 'rxjs';
 import { take } from 'rxjs/operators';
@@ -27,6 +27,9 @@ export class NavComponent {
 
     @Input()
     large: boolean = false;
+
+    @Output()
+    readonly navClicked: EventEmitter<void> = new EventEmitter<void>();
 
     readonly apiVersion$: Observable<string>;
     readonly queryParams$: Observable<Params>;

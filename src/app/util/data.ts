@@ -1,5 +1,6 @@
-import { MenuItem } from '../model/menu-item.interface';
 import { AppRoutes } from './app.routes';
+
+import { MenuItem } from '../model/menu-item.interface';
 
 export const AB_PARA_1 = 'A convenient way to store and find words. I was previously using a simple spreadsheet but as it grew, adding words proved to be inefficient and frankly annoying.';
 export const AB_PARA_2 = 'Being able to store and find words my way. Sure, one can find any word in existence on the internet, but I wanted a much more cleaner and singular way to view words. If I google a word and it happens to also be the name of a company, the company will appear first (thanks SEO) and not the word. I know in oworms that a company is not going to appear if I search for a word…';
@@ -17,7 +18,6 @@ export const MENU_ITEMS: MenuItem[] = [
     { name: 'home', path: AppRoutes.ALL },
     { name: 'about', path: AppRoutes.ABOUT },
     { name: 'statistics', path: AppRoutes.STATS }
-    // { name: 'filter', path: AppRoutes.LIST, filter: true } TODO: test.
 ];
 
 export const RESPONSIVE_MENU_ITEMS: MenuItem[] = [
@@ -25,6 +25,5 @@ export const RESPONSIVE_MENU_ITEMS: MenuItem[] = [
     { name: 'add', path: AppRoutes.ADD },
     { name: 'home', path: AppRoutes.ALL },
     { name: 'my profile', path: AppRoutes.PROFILE },
-    { name: 'random', path: '' },
     { name: 'statistics', path: AppRoutes.STATS }
 ];

@@ -14,9 +14,9 @@
 </dialog>
 
 <div id="applied-filters" *ngIf="existingFilters?.length > 0">
-    <ow-tags [sTags]="existingFilters"></ow-tags>
+    <ow-tags [sTags]="existingFilters"/>
 </div>
 
 <span>{{ wordCount$ | async }} results</span>
 
-<ow-filter-modal [show]="showModal" (modalClosed)="filter()"></ow-filter-modal>
+<ow-filter-modal [show]="showModal" (modalClosed)="filter()"/>
