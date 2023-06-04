@@ -68,12 +68,12 @@ const routes: Routes = [
         title: 'my profile - oworms',
         canActivate: [LoggedInGuard],
         data: { animation: 'profile' }
-    },
+    }
 
 ];
 
 @NgModule({
-    imports: [RouterModule.forRoot(routes)],
+    imports: [RouterModule.forRoot(routes, { scrollPositionRestoration: 'enabled' })],
     exports: [RouterModule]
 })
 export class AppRoutingModule {

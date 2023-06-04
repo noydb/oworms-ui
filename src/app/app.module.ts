@@ -22,9 +22,11 @@ import { AppComponent } from './app.component';
 import { CredentialsComponent } from './page/credentials/credentials.component';
 import { FooterComponent } from './component/layout/footer/footer.component';
 import { LoaderOverlayComponent } from './component/common/loader-overlay/loader-overlay.component';
+import { LogoComponent } from './component/common/logo/logo.component';
 import { ProfileComponent } from './page/profile/profile.component';
 import { StatisticsComponent } from './page/stats/statistics.component';
 import { HeaderComponent } from './component/layout/header/header.component';
+import { NavComponent } from './component/layout/nav/nav.component';
 import { RandomTopComponent } from './component/word/random/random-top.component';
 import { WordAddComponent } from './page/add/word-add.component';
 import { WordCardComponent } from './component/word/card/word-card.component';
@@ -61,8 +63,10 @@ import { WordsComponent } from './page/list/words.component';
         AlertComponent,
         FooterComponent,
         LoaderOverlayComponent,
+        LogoComponent,
         RandomTopComponent,
         HeaderComponent,
+        NavComponent,
         WordCardComponent,
         WordFormComponent
     ],

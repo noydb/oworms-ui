@@ -1,0 +1,23 @@
+<nav>
+    <ul [class.centered]="centered" [class.large]="large">
+        <li *ngFor="let item of items">
+            <a *ngIf="item.name !== 'home'; else homeLink"
+               [routerLink]="item.path"
+               routerLinkActive="active">
+                {{ item.name }}
+            </a>
+            <ng-template #homeLink>
+                <a [routerLink]="item.path"
+                   [queryParams]="queryParams$ | async"
+                   routerLinkActive="active">{{ item.name }}
+                </a>
+            </ng-template>
+        </li>
+        <li>
+            <a (click)="getCSV()">csv</a>
+        </li>
+        <li>
+            <a href="https://oworms-api.herokuapp.com/swagger-ui/" target="_blank">{{ apiVersion$ | async }}</a>
+        </li>
+    </ul>
+</nav>

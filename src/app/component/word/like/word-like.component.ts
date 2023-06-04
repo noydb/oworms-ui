@@ -1,18 +1,15 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, Input } from '@angular/core';
-import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { filter, map, switchMap, take } from 'rxjs/operators';
 
 import { AlertService } from '../../../service/alert.service';
 import { UserService } from '../../../service/user.service';
-import { WordService } from '../../../service/word.service';
 
-import { AppRoutes } from '../../../util/app.routes';
 import { Unsubscribes } from '../../../util/auto-unsubscribe.directive';
 
-import { Word } from '../../../model/word.interface';
 import { User } from '../../../model/user.interface';
+import { Word } from '../../../model/word.interface';
 
 @Component({
     selector: 'ow-word-like',
@@ -27,9 +24,7 @@ export class WordLikeComponent {
 
     private likedWordUUIDs: string[] = [];
 
-    constructor(private readonly router: Router,
-                private readonly wordService: WordService,
-                private readonly alertService: AlertService,
+    constructor(private readonly alertService: AlertService,
                 private readonly userService: UserService) {
         this
             .getLikedWords()
@@ -69,23 +64,6 @@ export class WordLikeComponent {
                     this.alertService.add(e.error.message, true);
                 }
             });
-    }
-
-    getViews(daWord: Word): string {
-        switch (daWord?.timesViewed) {
-            case 0:
-                return 'No views';
-            case 1:
-                return '1 view';
-            case null:
-                return 'n/a';
-            default:
-                return daWord.timesViewed + ' views';
-        }
-    }
-
-    viewWordDetails(): void {
-        void this.router.navigate([AppRoutes.getDetail(this.word.uuid)]);
     }
 
     private getLikedWords(): Observable<string[]> {

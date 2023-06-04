@@ -1,0 +1,48 @@
+@use '../../../style/colour' as colour;
+@use '../../../style/mixin' as mxn;
+
+nav > ul {
+    display: flex;
+    margin-top: 3rem;
+    margin-bottom: 3rem;
+    width: 100%;
+
+    &.centered {
+        justify-content: center;
+    }
+
+    > li {
+        @include mxn.transition;
+        color: #f2f2f2;
+        margin-right: 1rem;
+
+        > a {
+            @include mxn.nav-link;
+            margin-left: 2rem;
+
+            &:hover {
+                color: colour.$secondary;
+            }
+
+            > img {
+                margin-right: 2rem;
+            }
+        }
+    }
+
+    &.large {
+        display: block;
+        text-align: center;
+
+        > li > a {
+            font-size: 2rem;
+            margin: 0;
+        }
+
+        > li {
+            margin-bottom: 1rem;
+            margin-right: 0;
+            padding: 0;
+        }
+    }
+}

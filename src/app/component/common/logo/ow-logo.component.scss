@@ -1,0 +1,5 @@
+@use '../../../style/mixin' as mxn;
+
+img {
+    @include mxn.opacity-hover;
+}

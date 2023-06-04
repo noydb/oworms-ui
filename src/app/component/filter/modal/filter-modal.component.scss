@@ -1,21 +1,21 @@
 div#overlay {
     position: absolute; // dirty. fix.
     display: block;
-    overflow-y: scroll;
-    width: 0;
-    height: 9999px;
+    width: 100%;
+    height: 0;
     background-color: #121212;
     left: 0;
     right: 0;
     top: 0;
+    opacity: 0;
     z-index: 90000;
     transition: all .5s ease-in;
-    transform: translateX(100%);
+    transition-timing-function: cubic-bezier(.61, .75, .91, .7);
 
     &.show {
-        width: 100%;
-        transform: translateX(0);
+        height: 9999px;
         padding: 1rem;
+        opacity: 1;
     }
 
     h2 {
@@ -52,12 +52,9 @@ form {
 
 @media screen and (min-width: 920px) {
 
-    section#overlay {
-        padding-left: 20rem;
-        padding-right: 20rem;
-        left: 0;
-        right: 0;
-        top: 0;
+    div#overlay {
+        padding-left: 20rem !important;
+        padding-right: 20rem !important;
         margin-left: auto;
         margin-right: auto;
         padding-top: 1rem;

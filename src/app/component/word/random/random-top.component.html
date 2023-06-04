@@ -1,5 +1,5 @@
 <article *ngIf="word$ | async as word">
-    <a [routerLink]="getRouterLink(word)" target="_blank">{{ word.theWord }}</a>
+    <a [routerLink]="'/' + AppRoutes.getDetail(word.uuid)" target="_blank">{{ word.theWord }}</a>
     <p>{{ word.definition }}</p>
     <span *ngIf="word">by </span>
     <span>{{ word.createdBy }}</span>

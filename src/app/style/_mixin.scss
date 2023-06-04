@@ -26,6 +26,10 @@
     letter-spacing: 2px;
     color: #939191;
     @include transition;
+
+    &.active {
+        color: colour.$secondary;
+    }
 }
 
 @mixin transition {

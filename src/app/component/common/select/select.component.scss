@@ -67,7 +67,7 @@ div.select {
             }
 
             &.selected {
-                label {
+                > span {
                     color: colour.$secondary;
                 }
             }

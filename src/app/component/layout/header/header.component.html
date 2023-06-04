@@ -2,49 +2,30 @@
 
     <!-- responsive menu -->
 
-    <div *ngIf="showBurger" id="menu-toggle">
-        <img alt="oworms logo" src="/assets/image/logo.svg" routerLink="/o/worms/all">
-        <img src="/assets/image/burger-menu.svg" (click)="expandMenu = true" alt="A burger menu svg icon"/>
+    <div id="menu-toggle">
+        <ow-logo></ow-logo>
+        <img src="/assets/image/burger-menu.svg"
+             (click)="expandMenu = true"
+             alt="A burger menu svg icon"/>
     </div>
-    <nav id="responsive-menu" [class.show]="expandMenu">
+    <dialog id="responsive-menu" [class.show]="expandMenu">
         <div>
-            <img alt="oworms logo" src="/assets/image/logo.svg" routerLink="/o/worms/all" (click)="expandMenu = false">
+            <ow-logo></ow-logo>
         </div>
-        <li (click)="navigate(item)" *ngFor="let item of responsiveItems">
-            <span>{{ item.name }}</span>
-        </li>
-        <a href="https://oworms-api.herokuapp.com/swagger-ui/" target="_blank">
-            api
-        </a>
+        <ow-nav [large]="true" [items]="responsiveItems"></ow-nav>
         <div>
             <img alt="A close (X) icon" src="/assets/image/close-icon.svg" (click)="expandMenu = false">
         </div>
-    </nav>
+    </dialog>
 
     <!-- normal menu -->
 
-    <div *ngIf="!showBurger">
-        <span>
-            <img alt="oworms logo" src="/assets/image/logo.svg" routerLink="/o/worms/all">
-        </span>
-        <nav>
-            <ul>
-                <li (click)="navigate(item)" *ngFor="let item of items">
-                    <a>{{ item.name }}</a>
-                </li>
-                <li (click)="getCSV()">
-                    <span>csv</span>
-                </li>
-                <li>
-                    <a href="https://oworms-api.herokuapp.com/swagger-ui/" target="_blank">
-                        api
-                    </a>
-                </li>
-            </ul>
-        </nav>
+    <div>
+        <ow-logo></ow-logo>
+        <ow-nav></ow-nav>
     </div>
 
-    <div id="actions" *ngIf="!showBurger">
+    <div id="actions">
         <button (click)="navigateToRandom()" class="icon">
             <img alt="shuffle icon" src="/assets/image/icon-shuffle.svg">
             random
@@ -56,7 +37,7 @@
 
         <img src="/assets/image/user.png"
              alt="user icon"
-             routerLink="/o/profile"
+             [routerLink]="AppRoutes.PROFILE"
              title="view your profile">
     </div>
 
