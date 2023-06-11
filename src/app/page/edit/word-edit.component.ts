@@ -10,7 +10,6 @@ import { TagService } from '../../service/tag.service';
 import { WordService } from '../../service/word.service';
 
 import { AppRoutes } from '../../util/app.routes';
-import { ErrorUtil } from '../../util/error.util';
 
 import { APIFieldError } from '../../model/api-field-error.interface';
 import { ComponentState } from '../../model/component-state.enum';
@@ -40,20 +39,21 @@ export class WordEditComponent extends LoadComponent {
 
     update(uuid: string, updated: Word): void {
         this.fieldErrors = [];
+        this.state = ComponentState.LOADING;
 
         this.service
             .update(uuid, updated)
             .pipe(take(1))
             .subscribe({
                 next: () => {
+                    this.state = ComponentState.COMPLETE;
                     this.alertService.addWithPath('Updated word', false, AppRoutes.getDetail(uuid));
 
                     this.navToDetail(uuid);
                 },
                 error: (e: HttpErrorResponse) => {
+                    this.state = ComponentState.COMPLETE;
                     this.fieldErrors = e.error.fieldErrors;
-                    this.state = ComponentState.ERROR;
-                    this.errorMessage = ErrorUtil.getMessage(e);
                 }
             });
     }

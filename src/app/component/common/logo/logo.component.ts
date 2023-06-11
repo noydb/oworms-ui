@@ -9,8 +9,8 @@ import { AppRoutes } from '../../../util/app.routes';
 
 @Component({
     selector: 'ow-logo',
-    templateUrl: 'ow-logo.component.html',
-    styleUrls: ['./ow-logo.component.scss']
+    templateUrl: 'logo.component.html',
+    styleUrls: ['./logo.component.scss']
 })
 export class LogoComponent {
 

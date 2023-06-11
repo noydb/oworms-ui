@@ -2,6 +2,11 @@
     <ow-random-top/>
 </ow-hero>
 
-<ow-word-form (submitForm)="createWord($event)"
+<ow-word-form *ngIf="state === ComponentState.COMPLETE; else holder"
+              (submitForm)="createWord($event)"
               secondBtnText="Clear Fields"
               [fieldErrors]="fieldErrors"/>
+
+<ng-template #holder>
+    <ow-placeholder [state]="state"></ow-placeholder>
+</ng-template>

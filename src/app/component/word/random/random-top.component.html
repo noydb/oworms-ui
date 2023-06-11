@@ -1,11 +1,19 @@
-<article *ngIf="word$ | async as word">
-    <a [routerLink]="'/' + AppRoutes.getDetail(word.uuid)" target="_blank">{{ word.theWord }}</a>
-    <p>{{ word.definition }}</p>
-    <span *ngIf="word">by </span>
-    <span>{{ word.createdBy }}</span>
-    <br/>
-</article>
+<ng-container *ngIf="!title; else plainTitle">
+    <article *ngIf="word$ | async as word; else placeholder">
+        <a [routerLink]="'/' + AppRoutes.getDetail(word.uuid)" target="_blank">{{ word.theWord }}</a>
+        <p>{{ word.definition }}</p>
+        <span *ngIf="word">by </span>
+        <span>{{ word.createdBy }}</span>
+        <br/>
+    </article>
+</ng-container>
 
-<article *ngIf="title" id="plain-title">
-    <a>{{ title }}</a>
-</article>
+<ng-template #plainTitle>
+    <article *ngIf="title" id="plain-title">
+        <a>{{ title }}</a>
+    </article>
+</ng-template>
+
+<ng-template #placeholder>
+    <ow-placeholder [state]="state" [errorMessage]="errorMessage"></ow-placeholder>
+</ng-template>

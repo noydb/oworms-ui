@@ -2,7 +2,7 @@
     <ow-random-top [word]="word$ | async"/>
 </ow-hero>
 
-<article *ngIf="word$ | async as word; else error" id="word">
+<article *ngIf="word$ | async as word; else placeholder" id="word">
     <section id="main-detail">
 
         <div id="top">
@@ -76,6 +76,6 @@
 
 </article>
 
-<ng-template #error>
+<ng-template #placeholder>
     <ow-placeholder [state]="state" [errorMessage]="errorMessage"/>
 </ng-template>

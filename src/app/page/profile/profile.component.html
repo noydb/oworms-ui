@@ -3,7 +3,7 @@
 </ow-hero>
 
 <h2>My Profile</h2>
-<article>
+<article *ngIf="user; else placeholder">
 
     <section>
         <h5>User Details</h5>
@@ -25,11 +25,11 @@
 
     <section>
         <h5>Word Statistics</h5>
-        <span>Liked: {{ existing?.likedWords?.length ?? 0 }}</span>
-        <span>Created: {{ existing?.createdWordCount ?? 0 }}</span>
+        <span>Liked: {{ user?.likedWords?.length ?? 0 }}</span>
+        <span>Created: {{ user?.createdWordCount ?? 0 }}</span>
 
         <ul>
-            <li *ngFor="let word of existing?.likedWords" (click)="navToWord(word)" title="view this word's details">
+            <li *ngFor="let word of user?.likedWords" (click)="navToWord(word)" title="view this word's details">
                 <h3>
                     {{ word.theWord }}
                 </h3>
@@ -40,3 +40,7 @@
     </section>
 
 </article>
+
+<ng-template #placeholder>
+    <ow-placeholder [state]="state"></ow-placeholder>
+</ng-template>
