@@ -5,11 +5,19 @@ h5 {
     margin-top: 2rem;
     padding-bottom: 16px;
     text-align: center;
+
+    &.hidden {
+        display: none;
+    }
 }
 
 form {
     width: 100%;
     padding: 2rem;
+
+    &.hidden {
+        display: none;
+    }
 
     > div {
 
@@ -41,6 +49,10 @@ form {
 
 div#actions {
     margin: 2rem;
+
+    &.hidden {
+        display: none;
+    }
 }
 
 @media screen and (min-width: 920px) {

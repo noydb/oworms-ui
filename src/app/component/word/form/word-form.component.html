@@ -1,6 +1,6 @@
-<h5>{{ title }}</h5>
+<h5 [class.hidden]="loading">{{ title }}</h5>
 
-<form [formGroup]="form">
+<form [class.hidden]="loading" [formGroup]="form">
 
     <div>
         <fieldset>
@@ -8,7 +8,7 @@
                    formControlName="word"
                    name="word"
                    placeholder="word"
-                   [class.error]="!!getError('theWord')"/>
+                   [class.error]="!!getError('theWord')" />
             <span [class.show]="getError('theWord')">{{ getError('theWord') }}</span>
         </fieldset>
         <fieldset>
@@ -17,7 +17,7 @@
                        [disabled]="viewOnly"
                        [values]="selectedPos"
                        [options]="posOptions"
-                       [transparent]="true"/>
+                       [transparent]="true" />
         </fieldset>
         <fieldset>
             <textarea [required]="true"
@@ -56,7 +56,7 @@
             <input formControlName="pronunciation"
                    name="pronunciation"
                    placeholder="pronunciation"
-                   [class.error]="!!getError('pronunciation')"/>
+                   [class.error]="!!getError('pronunciation')" />
             <span [class.show]="getError('pronunciation')">{{ getError('pronunciation') }}</span>
         </fieldset>
         <fieldset>
@@ -65,7 +65,7 @@
                        [multiSelect]="true"
                        [values]="selectedTags"
                        [options]="tagOptions$ | async"
-                       [transparent]="true"/>
+                       [transparent]="true" />
         </fieldset>
         <fieldset>
             <textarea formControlName="note"
@@ -78,7 +78,7 @@
 
 </form>
 
-<div *ngIf="!viewOnly" id="actions">
+<div [class.hidden]="loading" *ngIf="!viewOnly" id="actions">
     <button (click)="onBtnClick()" [disabled]="disabled">
         {{ btnText }}
     </button>

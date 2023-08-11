@@ -17,7 +17,7 @@ export const AB_PARA_4 = 'Finding new words and improving my knowledge of existi
 export const MENU_ITEMS: MenuItem[] = [
     { name: 'home', path: AppRoutes.ALL },
     { name: 'about', path: AppRoutes.ABOUT },
-    { name: 'statistics', path: AppRoutes.STATS }
+    { name: 'stats', path: AppRoutes.STATS }
 ];
 
 export const RESPONSIVE_MENU_ITEMS: MenuItem[] = [
@@ -25,5 +25,5 @@ export const RESPONSIVE_MENU_ITEMS: MenuItem[] = [
     { name: 'add', path: AppRoutes.ADD },
     { name: 'home', path: AppRoutes.ALL },
     { name: 'my profile', path: AppRoutes.PROFILE },
-    { name: 'statistics', path: AppRoutes.STATS }
+    { name: 'stats', path: AppRoutes.STATS }
 ];

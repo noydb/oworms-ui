@@ -1,5 +1,4 @@
 <section [class.loader]="state === ComponentState.LOADING">
-    <h2 *ngIf="state !== ComponentState.LOADING">{{ state }}</h2>
     <p *ngIf="errorMessage && state !== ComponentState.LOADING">{{ errorMessage }}</p>
     <ow-spinner *ngIf="state === ComponentState.LOADING"></ow-spinner>
 </section>

@@ -1,16 +1,16 @@
 <ow-hero>
-    <ow-random-top [word]="word$ | async"/>
+    <ow-random-top [word]="word" />
 </ow-hero>
 
-<ow-word-form *ngIf="word$ | async as word; else error"
-              (secondBtnClick)="navToDetail(word.uuid)"
+<ow-word-form (secondBtnClick)="navToDetail(word.uuid)"
               (submitForm)="update(word.uuid, $event)"
-              [word]="word"
+              [setWord]="word"
               btnText="Save Changes"
               secondBtnText="Cancel"
               [title]="'Edit ' + word.theWord"
-              [fieldErrors]="fieldErrors"/>
+              [fieldErrors]="fieldErrors"
+              [loading]="state !== ComponentState.COMPLETE" />
 
-<ng-template #error>
-    <ow-placeholder [state]="state"/>
-</ng-template>
+<section *ngIf="state === ComponentState.LOADING">
+    <ow-spinner></ow-spinner>
+</section>

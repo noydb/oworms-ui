@@ -1,12 +1,10 @@
 <ow-hero>
-    <ow-random-top/>
+    <ow-random-top />
 </ow-hero>
 
-<ow-word-form *ngIf="state === ComponentState.COMPLETE; else holder"
-              (submitForm)="createWord($event)"
+<ow-word-form (submitForm)="createWord($event)"
               secondBtnText="Clear Fields"
-              [fieldErrors]="fieldErrors"/>
+              [fieldErrors]="fieldErrors"
+              [loading]="state !== ComponentState.COMPLETE" />
 
-<ng-template #holder>
-    <ow-placeholder [state]="state"></ow-placeholder>
-</ng-template>
+<ow-spinner *ngIf="state === ComponentState.LOADING"></ow-spinner>

@@ -1,7 +1,7 @@
 <section (click)="viewWordDetails()" *ngIf="word" title="view this word's details">
 
     <ow-word-like [word]="word"/>
-    <h5 class="mono">{{ word.theWord }}</h5>
+    <h5 class="mono" [title]="word.theWord">{{ word.theWord }}</h5>
 
     <!-- basics -->
     <span id="pronunciation" *ngIf="word.pronunciation as pronunciation;">{{ pronunciation }}</span>

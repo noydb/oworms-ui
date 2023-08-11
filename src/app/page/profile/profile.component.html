@@ -1,5 +1,5 @@
 <ow-hero>
-    <ow-random-top/>
+    <ow-random-top />
 </ow-hero>
 
 <h2>My Profile</h2>
@@ -9,10 +9,10 @@
         <h5>User Details</h5>
         <form [formGroup]="form">
             <fieldset>
-                <input formControlName="username" name="username" placeholder="username"/>
+                <input formControlName="username" name="username" placeholder="username" />
             </fieldset>
             <fieldset>
-                <input formControlName="email" name="email" placeholder="email" type="email"/>
+                <input formControlName="email" name="email" placeholder="email" type="email" />
             </fieldset>
         </form>
 
@@ -29,9 +29,11 @@
         <span>Created: {{ user?.createdWordCount ?? 0 }}</span>
 
         <ul>
-            <li *ngFor="let word of user?.likedWords" (click)="navToWord(word)" title="view this word's details">
+            <li *ngFor="let word of user?.likedWords; let i = index"
+                (click)="navToWord(word)"
+                title="view this word's details">
                 <h3>
-                    {{ word.theWord }}
+                    #{{ i + 1 }} {{ word.theWord }}
                 </h3>
                 <p>{{ word.definition }}</p>
             </li>

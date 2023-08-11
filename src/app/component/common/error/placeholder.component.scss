@@ -4,7 +4,6 @@ section {
     text-align: center;
     padding: 2rem;
     min-height: 100px;
-    margin: 2rem 20%;
 
     &.loader {
         display: flex;
@@ -21,7 +20,7 @@ section {
         width: auto;
         padding-bottom: 5rem;
         min-height: 300px;
-        margin: 0;
+        margin: 2rem 20%;
 
         h2 {
             margin-bottom: 16px;
