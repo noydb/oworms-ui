@@ -3,16 +3,23 @@
 </ow-hero>
 
 <section>
-    <h1>Daily Word Creation Activity</h1>
+    <h1>General</h1>
 
-    <ow-bar-graph [graph]="graph$ | async" (barClick)="barClicked($event)"></ow-bar-graph>
-
-    <ng-container *ngIf="selectedBar && selectedWords?.length > 0">
-        <h2>{{selectedBar.label}}</h2>
-        <p>Sorted By Time</p>
-        <ul>
-            <ow-word-card *ngFor="let word of selectedWords" [word]="word"></ow-word-card>
-        </ul>
-    </ng-container>
+    <div>
+        <div>
+            <span>Total Words: {{stats?.totalWords ?? 'N/A'}}</span>
+        </div>
+        <div>
+            <span>Total Views: {{stats?.totalViewsOnWords ?? 'N/A'}}</span>
+        </div>
+    </div>
 
 </section>
+
+<section>
+    <ow-word-bar-graph [stats]="stats"></ow-word-bar-graph>
+</section>
+
+<!--<section>-->
+<!--    <ow-pos-bar-graphs [stats]="stats"></ow-pos-bar-graphs>-->
+<!--</section>-->
