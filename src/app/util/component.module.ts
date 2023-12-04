@@ -4,6 +4,7 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { ChunkPipe } from '../pipe/chunk.pipe';
 
+import { BarGraphComponent } from '../component/bar-graph/bar-graph.component';
 import { FilterComponent } from '../component/filter/filter.component';
 import { FilterModalComponent } from '../component/filter/modal/filter-modal.component';
 import { HeroComponent } from '../component/layout/hero/hero.component';
@@ -12,6 +13,16 @@ import { SelectComponent } from '../component/common/select/select.component';
 import { SpinnerComponent } from '../component/common/spinner/spinner.component';
 import { TagsComponent } from '../component/tags/tags.component';
 
+const COMPONENTS = [
+    BarGraphComponent,
+    FilterComponent,
+    HeroComponent,
+    PlaceholderComponent,
+    SelectComponent,
+    SpinnerComponent,
+    TagsComponent
+];
+
 @NgModule({
     imports: [
         BrowserModule,
@@ -19,13 +30,8 @@ import { TagsComponent } from '../component/tags/tags.component';
         ReactiveFormsModule
     ],
     declarations: [
-        FilterComponent,
+        ...COMPONENTS,
         FilterModalComponent,
-        HeroComponent,
-        PlaceholderComponent,
-        SelectComponent,
-        SpinnerComponent,
-        TagsComponent,
 
         ChunkPipe
     ],
@@ -34,12 +40,7 @@ import { TagsComponent } from '../component/tags/tags.component';
         FormsModule,
         ReactiveFormsModule,
 
-        FilterComponent,
-        HeroComponent,
-        PlaceholderComponent,
-        SelectComponent,
-        SpinnerComponent,
-        TagsComponent,
+        ...COMPONENTS,
 
         ChunkPipe
     ]

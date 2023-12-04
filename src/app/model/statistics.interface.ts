@@ -1,4 +1,7 @@
+import { Word } from './word.interface';
+
 export interface Statistics {
+    dateWordMap: Map<String, Word[]>;
     totalWords?: number;
     totalViewsOnWords?: number;
     numberOfWordsLearnt?: number;

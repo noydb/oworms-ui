@@ -9,7 +9,6 @@ import { WordHttpService } from './word.http.service';
 import { AppRoutes } from '../util/app.routes';
 import { ErrorUtil } from '../util/error.util';
 
-import { Statistics } from '../model/statistics.interface';
 import { Word } from '../model/word.interface';
 import { WordFilter } from '../model/word-filter.interface';
 
@@ -94,18 +93,6 @@ export class WordService {
         .update(uuid, word)
         .pipe(
             this.handleActionError(),
-            finalize(() => {
-                this.busy$.next(false);
-            })
-        );
-    }
-
-    getStatistics(): Observable<Statistics> {
-        this.busy$.next(true);
-
-        return this.wordHttpService
-        .getStatistics()
-        .pipe(
             finalize(() => {
                 this.busy$.next(false);
             })

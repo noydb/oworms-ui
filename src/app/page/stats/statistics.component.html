@@ -2,6 +2,17 @@
     <ow-random-top/>
 </ow-hero>
 
-<article>
-    <pre>{{ statistics$ | async | json }}</pre>
-</article>
+<section>
+    <h1>Daily Word Creation Activity</h1>
+
+    <ow-bar-graph [graph]="graph$ | async" (barClick)="barClicked($event)"></ow-bar-graph>
+
+    <ng-container *ngIf="selectedBar && selectedWords?.length > 0">
+        <h2>{{selectedBar.label}}</h2>
+        <p>Sorted By Time</p>
+        <ul>
+            <ow-word-card *ngFor="let word of selectedWords" [word]="word"></ow-word-card>
+        </ul>
+    </ng-container>
+
+</section>

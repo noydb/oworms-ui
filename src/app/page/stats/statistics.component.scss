@@ -1,4 +1,26 @@
-article {
-    padding-left: 10%;
-    padding-right: 10%;
+section {
+    width: 100%;
+    margin-top: 2rem;
+    padding-left: 2rem;
+
+    h1 {
+        font-size: 2rem;
+        margin-bottom: 2rem;
+    }
+
+    h2 {
+        font-size: 1.5rem;
+    }
+
+    p {
+        color: #655a5a;
+        margin-top: .5rem;
+    }
+
+    > ul {
+        width: 90%;
+        margin-top: 1rem;
+        display: flex;
+        flex-wrap: wrap;
+    }
 }
