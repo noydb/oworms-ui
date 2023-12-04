@@ -44,12 +44,10 @@
 - fully responsive
 
 ### Planned Features
-- Full implementation of ui design
 - allowing multiple parts of speech and definitions to be linked to one word
 - linking of synonyms and antonyms
 - ability to delete words
 - automated creation of words, adding word with assistance/wizard
-- more detailed statistics, daily, weekly stats, graphs, etc
 
 ---
 
