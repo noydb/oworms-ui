@@ -22,7 +22,6 @@ export class WordFormComponent implements OnInit {
     @Input()
     title: string = 'Add A Word';
 
-    @Input()
     word: Word = {
         theWord: '',
         definition: '',
@@ -45,6 +44,9 @@ export class WordFormComponent implements OnInit {
 
     @Input()
     fieldErrors: APIFieldError[] = [];
+
+    @Input()
+    loading: boolean = false;
 
     @Output()
     readonly submitForm: EventEmitter<Word> = new EventEmitter<Word>();
@@ -69,6 +71,14 @@ export class WordFormComponent implements OnInit {
 
     constructor(private readonly tagService: TagService) {
         this.tagOptions$ = this.tagService.getTagSelectOptions();
+    }
+
+    @Input()
+    set setWord(arg: Word) {
+        if (this.word !== arg) {
+            this.word = arg;
+            this.injectValuesIntoForm();
+        }
     }
 
     get disabled(): boolean {

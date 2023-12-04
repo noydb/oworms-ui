@@ -1,0 +1,79 @@
+@use '../../style/colour' as colour;
+
+#bg {
+    display: flex;
+    align-items: flex-end;
+    margin: 1rem 3rem 3rem 1rem;
+
+    > #y-axis {
+        display: flex;
+        flex-direction: column-reverse;
+        font-size: 9px;
+        align-items: flex-end;
+        padding-right: 10px;
+        height: 500px;
+        top: -45px;
+        color: #ffffff;
+    }
+
+    > #bar-graph {
+        display: flex;
+        align-items: flex-end;
+        padding: 10px 10px 35px;
+        height: 500px;
+        overflow-y: scroll;
+        overflow-x: scroll;
+        background-color: #2f2929;
+        min-height: 300px;
+
+        > div {
+            position: relative;
+            display: inline-block;
+            width: 30px;
+            margin-right: .5rem;
+            padding-left: .2rem;
+            padding-right: .2rem;
+            background-color: #4b4242;
+            text-align: center;
+            opacity: .7;
+            transition: opacity, background-color .2s ease-out;
+            cursor: pointer;
+            direction: inherit;
+
+            &:hover {
+                opacity: 1;
+                background-color: colour.$secondary;
+            }
+
+            &:hover:hover::after {
+                content: '';
+                position: absolute;
+                left: 0;
+                right: 0;
+                top: 0;
+                height: 2px; /* Line thickness */
+                background: colour.$secondary;
+                width: 400px;
+                z-index: 1;
+                animation: moveLine 60s linear infinite;
+            }
+
+            > p {
+                position: absolute;
+                bottom: 35px;
+                height: 80px;
+                right: -5px;
+                writing-mode: sideways-rl;
+                text-orientation: sideways;
+            }
+        }
+    }
+}
+
+@keyframes moveLine {
+    0% {
+    }
+    100% {
+        transform: translateX(-1000px);
+    }
+}

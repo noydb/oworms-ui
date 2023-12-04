@@ -1,18 +1,18 @@
 <ow-hero>
-    <ow-random-top/>
+    <ow-random-top />
 </ow-hero>
 
 <h2>My Profile</h2>
-<article>
+<article *ngIf="user; else placeholder">
 
     <section>
         <h5>User Details</h5>
         <form [formGroup]="form">
             <fieldset>
-                <input formControlName="username" name="username" placeholder="username"/>
+                <input formControlName="username" name="username" placeholder="username" />
             </fieldset>
             <fieldset>
-                <input formControlName="email" name="email" placeholder="email" type="email"/>
+                <input formControlName="email" name="email" placeholder="email" type="email" />
             </fieldset>
         </form>
 
@@ -25,13 +25,15 @@
 
     <section>
         <h5>Word Statistics</h5>
-        <span>Liked: {{ existing?.likedWords?.length ?? 0 }}</span>
-        <span>Created: {{ existing?.createdWordCount ?? 0 }}</span>
+        <span>Liked: {{ user?.likedWords?.length ?? 0 }}</span>
+        <span>Created: {{ user?.createdWordCount ?? 0 }}</span>
 
         <ul>
-            <li *ngFor="let word of existing?.likedWords" (click)="navToWord(word)" title="view this word's details">
+            <li *ngFor="let word of user?.likedWords; let i = index"
+                (click)="navToWord(word)"
+                title="view this word's details">
                 <h3>
-                    {{ word.theWord }}
+                    #{{ i + 1 }} {{ word.theWord }}
                 </h3>
                 <p>{{ word.definition }}</p>
             </li>
@@ -40,3 +42,7 @@
     </section>
 
 </article>
+
+<ng-template #placeholder>
+    <ow-placeholder [state]="state"></ow-placeholder>
+</ng-template>

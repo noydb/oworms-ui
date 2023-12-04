@@ -1,8 +1,12 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, switchMap } from 'rxjs';
-import { finalize, take, tap } from 'rxjs/operators';
+import { BehaviorSubject, Observable, switchMap, throwError } from 'rxjs';
+import { catchError, finalize, take, tap } from 'rxjs/operators';
 
+import { AlertService } from './alert.service';
 import { UserHttpService } from './user.http.service';
+
+import { ErrorUtil } from '../util/error.util';
 
 import { User } from '../model/user.interface';
 
@@ -14,7 +18,8 @@ export class UserService {
     private readonly busy$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
     private readonly user$: BehaviorSubject<User> = new BehaviorSubject(undefined);
 
-    constructor(private readonly userHttp: UserHttpService) {
+    constructor(private readonly userHttp: UserHttpService,
+                private readonly alertService: AlertService) {
         this.loadLoggedInUser()
         .pipe(take(1))
         .subscribe({
@@ -72,7 +77,14 @@ export class UserService {
         .update(user)
         .pipe(
             switchMap(() => this.loadLoggedInUser(true)),
+            tap(() => {
+                this.alertService.add('Saved profile changes');
+            }),
             take(1),
+            catchError((e: HttpErrorResponse) => {
+                this.alertService.add(ErrorUtil.getMessage(e), true);
+                return throwError(() => e);
+            }),
             finalize(() => {
                 this.busy$.next(false);
             })

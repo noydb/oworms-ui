@@ -3,12 +3,23 @@ section {
     margin: auto;
     text-align: center;
     padding: 2rem;
+    min-height: 100px;
+
+    &.loader {
+        display: flex;
+        justify-content: center;
+
+        ::ng-deep div#spinner {
+            margin-top: 4rem;
+        }
+    }
 }
 
 @media screen and (min-width: 600px) {
     section {
         width: auto;
         padding-bottom: 5rem;
+        min-height: 300px;
         margin: 2rem 20%;
 
         h2 {

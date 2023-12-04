@@ -4,7 +4,6 @@ import { Observable } from 'rxjs';
 
 import { LocalStorageService } from './local-storage.service';
 
-import { Statistics } from '../model/statistics.interface';
 import { Word } from '../model/word.interface';
 import { WordFilter } from '../model/word-filter.interface';
 
@@ -45,10 +44,6 @@ export class WordHttpService {
             { word: updatedWord, tagIds: updatedWord.tagIds },
             { params: this.getBNA() }
         );
-    }
-
-    getStatistics(): Observable<Statistics> {
-        return this.http.get<Statistics>('api/o/stats');
     }
 
     // https://roytuts.com/download-file-from-server-using-angular/

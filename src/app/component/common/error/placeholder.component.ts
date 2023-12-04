@@ -15,4 +15,5 @@ export class PlaceholderComponent {
     @Input()
     errorMessage: string;
 
+    readonly ComponentState = ComponentState;
 }

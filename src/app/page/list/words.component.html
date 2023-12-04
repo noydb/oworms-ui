@@ -7,15 +7,15 @@
     <div *ngIf="state === ComponentState.COMPLETE; else placeholder">
         <ow-word-card *ngFor="let word of words | chunkPipe: wordsToShow" [word]="word"/>
     </div>
-    <div *ngIf="state !== ERROR">
-        <button class="transparent"
-                (click)="showMoreOrLess(true)">
-            Show {{ increment }} more
-        </button>
+    <div *ngIf="state === ComponentState.COMPLETE">
         <button class="transparent below"
                 (click)="showMoreOrLess(false)"
                 [disabled]="increment > wordsToShow">
             Show {{ increment }} Less
+        </button>
+        <button class="transparent below"
+                (click)="showMoreOrLess(true)">
+            Show {{ increment }} more
         </button>
         <button (click)="showAll()" class="below">
             Show All

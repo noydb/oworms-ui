@@ -1,0 +1,18 @@
+<div id="bg">
+
+    <div id="y-axis">
+        <span *ngFor="let interval of intervals" [style.height]="interval.height + 'px'">
+            {{interval.value}}
+        </span>
+    </div>
+
+    <div id="bar-graph" *ngIf="graph">
+        <div *ngFor="let bar of graph.bars"
+             [style.height]="bar.value + 'px'"
+             [title]="bar.value + ' - ' + bar.label"
+             (click)="barClicked(bar)">
+            <p *ngIf="bar.showYLabel">{{bar.yLabel}}</p>
+        </div>
+    </div>
+
+</div>

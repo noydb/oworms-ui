@@ -18,7 +18,7 @@ nav > ul {
 
         > a {
             @include mxn.nav-link;
-            margin-left: 2rem;
+            margin-left: 1rem;
 
             &:hover {
                 color: colour.$secondary;

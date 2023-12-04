@@ -2,7 +2,7 @@
 @use '../../../style/font' as font;
 @use '../../../style/mixin' as mxn;
 
-section {
+div:first-child {
     width: 230px;
     min-height: 200px;
     max-height: 200px;
@@ -70,7 +70,7 @@ section {
 }
 
 @media screen and (min-width: 700px) {
-    section {
+    div:first-child {
         width: 285px;
     }
 }

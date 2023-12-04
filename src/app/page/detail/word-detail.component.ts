@@ -65,8 +65,8 @@ export class WordDetailComponent extends LoadComponent {
                 switchMap((uuid: string) => this.service.retrieve(uuid)),
                 tap((word: Word) => {
                     this.tags = word.tags.map(({ name }: Tag) => name);
-                    this.state = ComponentState.COMPLETE;
                     this.updateMetaInfo(word);
+                    this.state = ComponentState.COMPLETE;
                 }),
                 catchError((e: HttpErrorResponse) => {
                     this.errorMessage = ErrorUtil.getMessage(e);

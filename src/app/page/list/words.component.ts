@@ -30,7 +30,6 @@ export class WordsComponent extends LoadComponent {
     wordFilter: WordFilter;
     user: User;
     wordsToShow: number;
-    readonly ERROR = ComponentState.ERROR;
 
     constructor(private readonly wordService: WordService,
                 private readonly route: ActivatedRoute,

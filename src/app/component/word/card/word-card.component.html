@@ -1,7 +1,7 @@
-<section (click)="viewWordDetails()" *ngIf="word" title="view this word's details">
+<div (click)="viewWordDetails()" *ngIf="word" title="view this word's details">
 
     <ow-word-like [word]="word"/>
-    <h5 class="mono">{{ word.theWord }}</h5>
+    <h5 class="mono" [title]="word.theWord">{{ word.theWord }}</h5>
 
     <!-- basics -->
     <span id="pronunciation" *ngIf="word.pronunciation as pronunciation;">{{ pronunciation }}</span>
@@ -14,7 +14,7 @@
         <span>by {{ word.createdBy }}</span>
     </div>
     <div>
-        <span>{{ word.creationDate | date : 'MMMM yyyy HH:mm:ss' }}</span>
+        <span>{{ word.creationDate | date : 'dd MMMM yyyy HH:mm:ss' }}</span>
     </div>
 
-</section>
+</div>
